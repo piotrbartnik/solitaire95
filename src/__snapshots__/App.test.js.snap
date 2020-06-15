@@ -6,6 +6,7 @@ exports[`renders App page and checks basic snapshot 1`] = `
     class="App"
   >
     <img
+      alt="dummy card"
       src="card.png"
     />
   </div>
