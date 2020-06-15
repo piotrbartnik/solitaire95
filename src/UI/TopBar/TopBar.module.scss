@@ -7,11 +7,18 @@
   left: 0;
   display: flex;
   padding: 5px;
-  color: white;
-  font-size: 1rem;
+
   align-items: center;
 
   &--icon {
     height: 30px;
+  }
+
+  &--title {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 10px;
+    letter-spacing: 1px;
   }
 }
