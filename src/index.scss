@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "MyFont";
+  src: url("./static/fonts/M8pt.woff") format("woff"),
+    url("./static/fonts/M8pt.woff2") format("woff2");
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "MyFont";
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
