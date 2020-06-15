@@ -5,7 +5,7 @@ import card from "./card.png";
 const App = (): ReactElement => {
   return (
     <div className={styles.App}>
-      <img src={card} />
+      <img src={card} alt="dummy card" />
     </div>
   );
 };
