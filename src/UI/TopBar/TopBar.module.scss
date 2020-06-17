@@ -6,19 +6,19 @@
   top: 0;
   left: 0;
   display: flex;
-  padding: 5px;
+  padding: 9px;
 
   align-items: center;
 
   &--icon {
-    height: 30px;
+    height: 36px;
   }
 
   &--title {
     color: white;
     font-size: 0.8rem;
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 11px;
     letter-spacing: 1px;
   }
 }
