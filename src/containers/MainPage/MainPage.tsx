@@ -1,5 +1,5 @@
 import React from "react";
-import { TopBar, ToolBar } from "../../UI";
+import { TopBar, ToolBar, BottomBar } from "../../UI";
 import { GameContainer } from "../";
 import styles from "./MainPage.module.scss";
 
@@ -9,6 +9,7 @@ const MainPage: React.FC = () => {
       <TopBar />
       <ToolBar />
       <GameContainer />
+      <BottomBar />
     </div>
   );
 };
