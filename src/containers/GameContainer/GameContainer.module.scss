@@ -1,0 +1,17 @@
+.gameContainer {
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-color: #64ac55;
+  border: 2px solid #858a8e;
+
+  &:before {
+    content: " ";
+    position: absolute;
+    z-index: 5;
+    top: 82px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 2px solid #000000;
+  }
+}

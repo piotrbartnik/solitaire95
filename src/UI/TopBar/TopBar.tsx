@@ -1,5 +1,4 @@
 import React from "react";
-import ToolBar from "../ToolBar/ToolBar";
 import appIco from "../../static/appIco.png";
 import styles from "./TopBar.module.scss";
 
@@ -14,7 +13,6 @@ const TopBar: React.FC = (props) => {
         />
         <span className={styles["topBar__bar--title"]}>Solitaire</span>
       </div>
-      <ToolBar />
     </>
   );
 };

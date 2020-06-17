@@ -1,13 +1,15 @@
 import React from "react";
 import TopBar from "../../UI/TopBar/TopBar";
-import card from "./card.png";
+import ToolBar from "../../UI/ToolBar/ToolBar";
+import GameContainer from "../GameContainer/GameContainer";
 import styles from "./MainPage.module.scss";
 
 const MainPage: React.FC = () => {
   return (
     <div className={styles.mainPage}>
       <TopBar />
-      <img src={card} alt="dummy card" />
+      <ToolBar />
+      <GameContainer />
     </div>
   );
 };
