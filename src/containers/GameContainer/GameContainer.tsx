@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./GameContainer.module.scss";
 
-const GameContainer = () => {
+const GameContainer: React.FC = () => {
   return <div className={styles.gameContainer}></div>;
 };
 

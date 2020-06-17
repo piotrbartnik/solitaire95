@@ -3,19 +3,4 @@
   height: 40px;
   background-color: #c3c7cb;
   display: flex;
-  padding: 5px;
-
-  align-items: center;
-
-  &--icon {
-    height: 30px;
-  }
-
-  &--title {
-    color: white;
-    font-size: 0.8rem;
-    font-weight: bold;
-    margin-left: 10px;
-    letter-spacing: 1px;
-  }
 }

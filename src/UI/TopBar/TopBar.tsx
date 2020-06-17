@@ -2,7 +2,7 @@ import React from "react";
 import appIco from "../../static/appIco.png";
 import styles from "./TopBar.module.scss";
 
-const TopBar: React.FC = (props) => {
+const TopBar: React.FC = () => {
   return (
     <>
       <div className={styles.topBar__bar}>
