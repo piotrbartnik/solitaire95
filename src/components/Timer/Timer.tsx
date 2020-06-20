@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "./Timer.module.scss";
 
 const Timer: React.FC = () => {
   const [time, setTime] = useState(0);
@@ -8,7 +9,7 @@ const Timer: React.FC = () => {
     return () => clearInterval(timeInterval);
   });
 
-  return <div>Time: {time}</div>;
+  return <div className={styles.timer}>Time: {time}</div>;
 };
 
 export default Timer;
