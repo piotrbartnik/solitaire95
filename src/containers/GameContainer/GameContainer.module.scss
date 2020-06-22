@@ -4,6 +4,9 @@
   background-color: #64ac55;
   border: 2px solid #858a8e;
   border-right: 2px solid #ffffff;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 150px;
 
   &:before {
     content: " ";
@@ -17,5 +20,9 @@
     border-top: 2px solid #000000;
     border-bottom: 2px solid #000000;
     border-right: 2px solid #c2c7cb;
+  }
+
+  &__cardDestination {
+    display: flex;
   }
 }

@@ -1,0 +1,17 @@
+.cardDestination {
+  width: 160px;
+  height: 215px;
+  border: 2px solid black;
+  border-radius: 7px;
+  margin: 12px 19px;
+  // background-image: radial-gradient(#000000 2 0%, transparent 20%);
+  // background-color: transparent;
+  // background-size: 6px 6px;
+  background-image: radial-gradient(black 20%, transparent 20%),
+    radial-gradient(black 20%, transparent 20%),
+    radial-gradient(black 20%, transparent 20%),
+    radial-gradient(black 20%, transparent 20%);
+  background-color: transparent;
+  background-position: 0 0, 35px 35px, 35px 35px, 35px 35px;
+  background-size: 14px 14px;
+}
