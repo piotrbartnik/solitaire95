@@ -1,5 +1,5 @@
 import React from "react";
-import { CardDestination } from "../../UI";
+import { CardDestination } from "../../components";
 import { Card } from "../../components";
 import styles from "./GameContainer.module.scss";
 
