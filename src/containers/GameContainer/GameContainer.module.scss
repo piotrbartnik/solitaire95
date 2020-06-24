@@ -1,28 +1,26 @@
+.gameUIBorder {
+  width: 100%;
+  height: 100%;
+  border-top: 2px solid #858a8e;
+  border-left: 2px solid #858a8e;
+  border-right: 2px solid #ffffff;
+}
+
 .gameContainer {
   width: 100%;
-  height: calc(100vh - 120px);
+  height: 100%;
   background-color: #64ac55;
-  border: 2px solid #858a8e;
-  border-right: 2px solid #ffffff;
+  border-left: 3px solid #000000;
+  border-top: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  border-right: 2px solid #c2c7cb;
   display: flex;
-  justify-content: flex-end;
-  padding: 0 150px;
-
-  &:before {
-    content: " ";
-    position: absolute;
-    z-index: 5;
-    top: 82px;
-    left: 2px;
-    right: 2px;
-    bottom: 40px;
-    border-left: 3px solid #000000;
-    border-top: 2px solid #000000;
-    border-bottom: 2px solid #000000;
-    border-right: 2px solid #c2c7cb;
-  }
+  flex-direction: column;
+  position: relative;
 
   &__cardDestination {
     display: flex;
+    justify-content: flex-end;
+    width: 100%;
   }
 }
