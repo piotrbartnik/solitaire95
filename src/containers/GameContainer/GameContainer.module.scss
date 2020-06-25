@@ -18,6 +18,16 @@
   flex-direction: column;
   position: relative;
 
+  &__top {
+    width: 100%;
+    display: flex;
+  }
+
+  &__cardPile {
+    display: flex;
+    justify-content: flex-start;
+  }
+
   &__cardDestination {
     display: flex;
     justify-content: flex-end;
