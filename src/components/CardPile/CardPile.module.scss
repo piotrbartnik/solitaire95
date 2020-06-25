@@ -1,0 +1,23 @@
+.cardPile {
+  width: 160px;
+  height: 215px;
+  border: 2px solid black;
+  border-radius: 7px;
+  margin: 12px 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &__circle {
+    border: 16px solid #00ff00;
+    border-radius: 135px;
+    width: 135px;
+    height: 135px;
+    position: absolute;
+  }
+
+  &__cardHolder {
+    position: absolute;
+  }
+}
