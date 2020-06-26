@@ -4,24 +4,25 @@ import { cardTypes } from "../../configs/cardTypes";
 import styles from "./CardPile.module.scss";
 
 const CardPile: React.FC = () => {
-  const [cardsOnPile, takeOneFromPile] = useState<any[]>(cardTypes);
+  const [cardsOnPile, takeOneFromPile] = useState<string[]>(cardTypes);
   const [cardsTaken, cardsOnTable] = useState<string[]>([]);
 
   const moveFirstFromTheTop = () => {
-    const cardToPush: string = cardsOnPile.pop();
-    takeOneFromPile([...cardsOnPile]);
-    cardsOnTable([...cardsTaken, cardToPush]);
+    if (cardsOnPile.length) {
+      const cardToPush: any = cardsOnPile.pop();
+      takeOneFromPile([...cardsOnPile]);
+      cardsOnTable([...cardsTaken, cardToPush]);
+    } else {
+      takeOneFromPile(cardsTaken.reverse());
+      cardsOnTable([]);
+    }
   };
 
   return (
     <>
-      <div className={styles.cardPile}>
-        <div className={styles.cardPile__circle}></div>
-        <div
-          className={styles.cardPile__cardHolder}
-          onClick={moveFirstFromTheTop}
-        >
-          {cardsOnPile
+      <div className={styles.cardPile} onClick={moveFirstFromTheTop}>
+        <div className={styles.cardPile__cardHolder}>
+          {cardsOnPile.length
             ? cardsOnPile.map((el) => (
                 <Card front={el} back={"acorns"} isTurnedBack={true} />
               ))

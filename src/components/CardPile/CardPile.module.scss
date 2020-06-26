@@ -9,15 +9,33 @@
   align-items: center;
   position: relative;
 
-  &__circle {
+  &__cardHolder {
+    position: relative;
     border: 16px solid #00ff00;
     border-radius: 135px;
     width: 135px;
     height: 135px;
     position: absolute;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  &__cardHolder {
+    div[class*="card"] {
+      position: absolute;
+    }
+  }
+}
+
+.cardsOnTable {
+  position: relative;
+  width: 160px;
+  height: 215px;
+  margin: 12px 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div[class*="card"] {
     position: absolute;
   }
 }

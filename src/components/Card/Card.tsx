@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Card.module.scss";
-import { acorns } from "../../static/cardBacks/";
-import { kingOfHearts } from "../../static/cardsFronts";
+import { cardFrontsImages } from "../../static/cardsFronts/";
+import { cardBackImages } from "../../static/cardBacks/";
 
 type propTypes = {
   front: string;
@@ -13,31 +13,24 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const { front, back, isTurnedBack = true } = props;
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
 
-  let frontDeck;
-  if (front === "kingOfHearts") {
-    frontDeck = kingOfHearts;
-  }
-
-  let backDeck;
-  if (back === "acorns") {
-    backDeck = acorns;
-  }
-
   const flipCard = () => {
     changeCardPosition((cardPosition) => !cardPosition);
   };
+
+  const frontImage: string = cardFrontsImages[`${front}`];
+  const backImage: string = cardBackImages[`${back}`];
 
   return (
     <div className={styles.card} onClick={flipCard}>
       {!cardPosition ? (
         <div
           className={styles.cardFront}
-          style={{ backgroundImage: `url(${frontDeck})` }}
+          style={{ backgroundImage: `url(${frontImage})` }}
         ></div>
       ) : (
         <div
           className={styles.cardBack}
-          style={{ backgroundImage: `url(${backDeck})` }}
+          style={{ backgroundImage: `url(${backImage})` }}
         ></div>
       )}
     </div>
