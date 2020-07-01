@@ -1,0 +1,2 @@
+export const CHANGE_BOOLEAN: string = "CHANGE_BOOLEAN";
+export const CHANGE_BOOLEAN_TO_STRING: string = "CHANGE_BOOLEAN_TO_STRING";
