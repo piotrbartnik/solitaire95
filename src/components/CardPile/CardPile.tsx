@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/cardActions";
 import { Card } from "../";
-import { cardTypes } from "../../configs/cardTypes";
 import styles from "./CardPile.module.scss";
 
-const CardPile: React.FC = () => {
-  const [cardsOnPile, takeOneFromPile] = useState<string[]>(cardTypes);
-  const [cardsTaken, cardsOnTable] = useState<string[]>([]);
+type propTypes = {
+  cardsOnPile: string[];
+  cardsFromPile: string[];
+  takeOneFromPile: any;
+  reversePile: any;
+};
 
+const CardPile: React.FC<propTypes> = (props: propTypes) => {
+  const { cardsOnPile, cardsFromPile, takeOneFromPile, reversePile } = props;
   const moveFirstFromTheTop = () => {
     if (cardsOnPile.length) {
       const cardToPush: any = cardsOnPile.pop();
-      takeOneFromPile([...cardsOnPile]);
-      cardsOnTable([...cardsTaken, cardToPush]);
+      takeOneFromPile(cardToPush);
     } else {
-      takeOneFromPile(cardsTaken.reverse());
-      cardsOnTable([]);
+      reversePile(cardsFromPile.reverse());
     }
   };
 
@@ -30,7 +34,7 @@ const CardPile: React.FC = () => {
         </div>
       </div>
       <div className={styles.cardsOnTable}>
-        {cardsTaken.map((el) => (
+        {cardsFromPile.map((el) => (
           <Card front={el} back={"acorns"} isTurnedBack={false} />
         ))}
       </div>
@@ -38,4 +42,19 @@ const CardPile: React.FC = () => {
   );
 };
 
-export default CardPile;
+const mapStateToProps = (state: any) => {
+  return {
+    cardsOnPile: state.cardDistribution.cardsOnPile,
+    cardsFromPile: state.cardDistribution.cardsFromPile,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    takeOneFromPile: (payload: string) =>
+      dispatch(actions.takeOneFromPile(payload)),
+    reversePile: (payload: string[]) => dispatch(actions.reversePile(payload)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardPile);

@@ -1,2 +1,2 @@
-export const CHANGE_BOOLEAN: string = "CHANGE_BOOLEAN";
-export const CHANGE_BOOLEAN_TO_STRING: string = "CHANGE_BOOLEAN_TO_STRING";
+export const TAKE_ONE_FROM_PILE: string = "TAKE_ONE_FROM_PILE";
+export const REVERSE_PILE: string = "REVERSE_PILE";

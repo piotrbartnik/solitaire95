@@ -1,16 +1,6 @@
-const initialState = {
-  testBoolean: false,
-};
+import { combineReducers } from "redux";
+import { cardDistribution } from "./cardsDistribution";
 
-const rootReducer = (state = initialState, action: any) => {
-  switch (action.type) {
-    case "CHANGE_BOOLEAN":
-      return { ...state, testBoolean: action.testBoolean };
-    case "CHANGE_BOOLEAN_TO_STRING":
-      return { ...state, testBoolean: action.testBoolean };
-    default:
-      return state;
-  }
-};
+const reducers = combineReducers({ cardDistribution });
 
-export { rootReducer };
+export { reducers };
