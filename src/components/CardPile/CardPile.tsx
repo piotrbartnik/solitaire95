@@ -22,6 +22,10 @@ const CardPile: React.FC<propTypes> = (props: propTypes) => {
     }
   };
 
+  const moveToCardDestination = () => {
+    console.log("test action");
+  };
+
   return (
     <>
       <div className={styles.cardPile} onClick={moveFirstFromTheTop}>
@@ -35,7 +39,12 @@ const CardPile: React.FC<propTypes> = (props: propTypes) => {
       </div>
       <div className={styles.cardsOnTable}>
         {cardsFromPile.map((el) => (
-          <Card front={el} back={"acorns"} isTurnedBack={false} />
+          <Card
+            front={el}
+            back={"acorns"}
+            isTurnedBack={false}
+            onDoubleClick={moveToCardDestination}
+          />
         ))}
       </div>
     </>

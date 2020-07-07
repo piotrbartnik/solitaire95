@@ -1,0 +1,16 @@
+export const cardDestinationConfig: string[] = [
+  "aceOfHearts",
+  "twoOfHearts",
+  "threeOfHearts",
+  "eightOfHearts",
+  "fourOfHearts",
+  "fiveOfHearts",
+  "sixOfHearts",
+  "sevenOfHearts",
+  "eigthOfHearts",
+  "nineOfHearts",
+  "tenOfHearts",
+  "jackOfHearts",
+  "queenOfHearts",
+  "kingOfHearts",
+];

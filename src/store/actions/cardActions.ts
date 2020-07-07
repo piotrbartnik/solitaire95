@@ -13,3 +13,10 @@ export const reversePile = (payload: string[]) => {
     reversePile: payload,
   };
 };
+
+export const addCardToFirstDestinationPile = (payload: string[]) => {
+  return {
+    type: actionTypes.ADD_CARD_TO_DESTINATION_PILE,
+    addCardToPile: payload,
+  };
+};

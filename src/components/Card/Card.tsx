@@ -7,10 +7,11 @@ type propTypes = {
   front: string;
   back: string;
   isTurnedBack: boolean;
+  onDoubleClick?: any;
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
-  const { front, back, isTurnedBack = true } = props;
+  const { front, back, isTurnedBack = true, onDoubleClick } = props;
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
 
   const flipCard = () => {
@@ -21,7 +22,11 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const backImage: string = cardBackImages[`${back}`];
 
   return (
-    <div className={styles.card} onClick={flipCard}>
+    <div
+      className={styles.card}
+      onClick={flipCard}
+      onDoubleClick={onDoubleClick}
+    >
       {!cardPosition ? (
         <div
           className={styles.cardFront}
