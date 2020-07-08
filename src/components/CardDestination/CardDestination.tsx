@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
+import { Card } from "../";
 import styles from "./CardDestination.module.scss";
 
-const CardDestination: React.FC = () => {
-  const [cardsOnField] = useState([]);
+type propTypes = {
+  cardsOnPile?: string[];
+};
 
-  console.log(cardsOnField);
+const CardDestination: React.FC<propTypes> = (props) => {
+  const { cardsOnPile } = props;
 
-  return <div className={styles.cardDestination}></div>;
+  return (
+    <div className={styles.cardDestination}>
+      {cardsOnPile?.length
+        ? cardsOnPile.map((el) => (
+            <Card front={el} back={"acorns"} isTurnedBack={false} />
+          ))
+        : null}
+    </div>
+  );
 };
 
 export default CardDestination;

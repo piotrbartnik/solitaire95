@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { Card } from "../";
+import { cardDestinationConfig } from "../../configs/cardDestinationConfig";
 import styles from "./CardPile.module.scss";
 
 type propTypes = {
@@ -9,10 +10,18 @@ type propTypes = {
   cardsFromPile: string[];
   takeOneFromPile: any;
   reversePile: any;
+  addCardToFirstPile: any;
 };
 
 const CardPile: React.FC<propTypes> = (props: propTypes) => {
-  const { cardsOnPile, cardsFromPile, takeOneFromPile, reversePile } = props;
+  const {
+    cardsOnPile,
+    cardsFromPile,
+    takeOneFromPile,
+    reversePile,
+    addCardToFirstPile,
+  } = props;
+
   const moveFirstFromTheTop = () => {
     if (cardsOnPile.length) {
       const cardToPush: any = cardsOnPile.pop();
@@ -22,8 +31,10 @@ const CardPile: React.FC<propTypes> = (props: propTypes) => {
     }
   };
 
-  const moveToCardDestination = () => {
-    console.log("test action");
+  const moveToCardDestination = (e: any) => {
+    if (e.target.dataset.cardname === cardDestinationConfig[0]) {
+      addCardToFirstPile(e.target.dataset.cardname);
+    }
   };
 
   return (
@@ -63,6 +74,8 @@ const mapDispatchToProps = (dispatch: any) => {
     takeOneFromPile: (payload: string) =>
       dispatch(actions.takeOneFromPile(payload)),
     reversePile: (payload: string[]) => dispatch(actions.reversePile(payload)),
+    addCardToFirstPile: (payload: string[]) =>
+      dispatch(actions.addCardToFirstDestinationPile(payload)),
   };
 };
 

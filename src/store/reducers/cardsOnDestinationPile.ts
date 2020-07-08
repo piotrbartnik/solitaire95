@@ -12,7 +12,7 @@ const initialState: initialState = {
   cardsOnFourthDesinationField: [],
 };
 
-export const cardOnFirstDestinationField = (
+export const cardsOnFirstDestinationField = (
   state = initialState,
   action: any
 ) => {
