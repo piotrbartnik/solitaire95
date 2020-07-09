@@ -20,3 +20,10 @@ export const addCardToFirstDestinationPile = (payload: string[]) => {
     addCardToPile: payload,
   };
 };
+
+export const removeCardMovedToDestinationPile = (payload: string[]) => {
+  return {
+    type: actionTypes.MOVE_TO_DESTINATION,
+    removeCardMovedToDestinationPile: payload,
+  };
+};

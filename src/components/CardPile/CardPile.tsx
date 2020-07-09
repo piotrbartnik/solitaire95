@@ -11,6 +11,7 @@ type propTypes = {
   takeOneFromPile: any;
   reversePile: any;
   addCardToFirstPile: any;
+  removeCardMovedToDestinationPile: any;
 };
 
 const CardPile: React.FC<propTypes> = (props: propTypes) => {
@@ -20,6 +21,7 @@ const CardPile: React.FC<propTypes> = (props: propTypes) => {
     takeOneFromPile,
     reversePile,
     addCardToFirstPile,
+    removeCardMovedToDestinationPile,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -34,6 +36,10 @@ const CardPile: React.FC<propTypes> = (props: propTypes) => {
   const moveToCardDestination = (e: any) => {
     if (e.target.dataset.cardname === cardDestinationConfig[0]) {
       addCardToFirstPile(e.target.dataset.cardname);
+      removeCardMovedToDestinationPile(
+        cardsFromPile.filter((el) => el !== e.target.dataset.cardname)
+      );
+      cardDestinationConfig.shift();
     }
   };
 
@@ -76,6 +82,9 @@ const mapDispatchToProps = (dispatch: any) => {
     reversePile: (payload: string[]) => dispatch(actions.reversePile(payload)),
     addCardToFirstPile: (payload: string[]) =>
       dispatch(actions.addCardToFirstDestinationPile(payload)),
+    removeCardMovedToDestinationPile: (payload: string[]) => {
+      dispatch(actions.removeCardMovedToDestinationPile(payload));
+    },
   };
 };
 
