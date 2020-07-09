@@ -9,4 +9,9 @@
   background-color: transparent;
   background-position: 0 0, 35px 35px;
   background-size: 14px 14px;
+  position: relative;
+
+  div[class*="card"] {
+    position: absolute;
+  }
 }

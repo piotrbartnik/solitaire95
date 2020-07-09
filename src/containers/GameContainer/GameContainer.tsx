@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { CardDestination, Card, CardPile } from "../../components";
+import { CardDestinationField, Card, CardPile } from "../../components";
 import styles from "./GameContainer.module.scss";
 
 type propTypes = {
@@ -18,10 +18,10 @@ const GameContainer: React.FC<propTypes> = (props) => {
             <CardPile />
           </div>
           <div className={styles.gameContainer__cardDestination}>
-            <CardDestination cardsOnPile={cardsOnFirstDestinationPile} />
-            <CardDestination />
-            <CardDestination />
-            <CardDestination />
+            <CardDestinationField cardsOnPile={cardsOnFirstDestinationPile} />
+            <CardDestinationField />
+            <CardDestinationField />
+            <CardDestinationField />
           </div>
         </div>
         <div className={styles.gameContainer__cardDestination}>

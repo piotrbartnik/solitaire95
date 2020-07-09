@@ -1,6 +1,6 @@
 import React from "react";
-import { Card } from "../";
-import styles from "./CardDestination.module.scss";
+import { Card } from "..";
+import styles from "./CardDestinationField.module.scss";
 
 type propTypes = {
   cardsOnPile?: string[];
