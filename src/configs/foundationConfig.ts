@@ -1,4 +1,4 @@
-export const cardDestinationConfig: string[] = [
+export const foundationConfig: string[] = [
   "aceOfHearts",
   "twoOfHearts",
   "threeOfHearts",

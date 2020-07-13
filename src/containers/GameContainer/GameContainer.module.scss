@@ -23,12 +23,12 @@
     display: flex;
   }
 
-  &__cardPile {
+  &__cardStock {
     display: flex;
     justify-content: flex-start;
   }
 
-  &__cardDestination {
+  &__foundation {
     display: flex;
     justify-content: flex-end;
     width: 100%;

@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import { cardDistribution } from "./cardsDistribution";
-import { cardsOnFirstDestinationField } from "./cardsOnDestinationPile";
+import { cardsOnFirstFoundation } from "./cardsOnFoundation";
 
 const reducers = combineReducers({
   cardDistribution,
-  cardsOnFirstDestinationField,
+  cardsOnFirstFoundation,
 });
 
 export { reducers };

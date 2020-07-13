@@ -1,30 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
-import { CardDestinationField, Card, CardPile } from "../../components";
+import { FoundationField, Card, CardStock } from "../../components";
 import styles from "./GameContainer.module.scss";
 
 type propTypes = {
-  cardsOnFirstDestinationPile: string[];
+  cardsOnFirstFoundation: string[];
 };
 
 const GameContainer: React.FC<propTypes> = (props) => {
-  const { cardsOnFirstDestinationPile } = props;
+  const { cardsOnFirstFoundation } = props;
 
   return (
     <div className={styles.gameUIBorder}>
       <div className={styles.gameContainer}>
         <div className={styles.gameContainer__top}>
-          <div className={styles.gameContainer__cardPile}>
-            <CardPile />
+          <div className={styles.gameContainer__cardStock}>
+            <CardStock />
           </div>
-          <div className={styles.gameContainer__cardDestination}>
-            <CardDestinationField cardsOnPile={cardsOnFirstDestinationPile} />
-            <CardDestinationField />
-            <CardDestinationField />
-            <CardDestinationField />
+          <div className={styles.gameContainer__foundation}>
+            <FoundationField cardsOnStock={cardsOnFirstFoundation} />
+            <FoundationField />
+            <FoundationField />
+            <FoundationField />
           </div>
         </div>
-        <div className={styles.gameContainer__cardDestination}>
+        <div className={styles.gameContainer__foundation}>
           <Card front={"kingOfHearts"} back={"acorns"} isTurnedBack={false} />
         </div>
       </div>
@@ -34,8 +34,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    cardsOnFirstDestinationPile:
-      state.cardsOnFirstDestinationField.cardsOnFirstDesinationField,
+    cardsOnFirstFoundation: state.cardsOnFirstFoundation.cardsOnFirstFoundation,
   };
 };
 

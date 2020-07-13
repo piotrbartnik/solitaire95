@@ -1,25 +1,32 @@
 import { cardTypes } from "../../configs/cardTypes";
 
 type initialState = {
-  cardsOnPile: string[];
-  cardsFromPile: string[];
+  cardsOnStock: string[];
+  cardsFromStock: string[];
 };
 
 const initialState: initialState = {
-  cardsOnPile: cardTypes,
-  cardsFromPile: [],
+  cardsOnStock: cardTypes,
+  cardsFromStock: [],
 };
 
 export const cardDistribution = (state = initialState, action: any) => {
   switch (action.type) {
-    case "TAKE_ONE_FROM_PILE":
-      return { ...state, cardsFromPile: [...state.cardsFromPile, action.card] };
-    case "REVERSE_PILE":
-      return { ...state, cardsOnPile: action.reversePile, cardsFromPile: [] };
-    case "MOVE_TO_DESTINATION":
+    case "TAKE_ONE_FROM_STOCK":
       return {
         ...state,
-        cardsFromPile: action.removeCardMovedToDestinationPile,
+        cardsFromStock: [...state.cardsFromStock, action.card],
+      };
+    case "REVERSE_STOCK":
+      return {
+        ...state,
+        cardsOnStock: action.reverseStock,
+        cardsFromStock: [],
+      };
+    case "REMOVE_CARD_MOVED_TO_FOUNDATION":
+      return {
+        ...state,
+        cardsFromStock: action.removeCardMovedToFoundation,
       };
     default:
       return state;

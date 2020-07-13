@@ -1,29 +1,29 @@
 import * as actionTypes from "./actionTypes";
 
-export const takeOneFromPile = (payload: string) => {
+export const takeOneFromStock = (payload: string) => {
   return {
-    type: actionTypes.TAKE_ONE_FROM_PILE,
+    type: actionTypes.TAKE_ONE_FROM_STOCK,
     card: payload,
   };
 };
 
-export const reversePile = (payload: string[]) => {
+export const reverseStock = (payload: string[]) => {
   return {
-    type: actionTypes.REVERSE_PILE,
-    reversePile: payload,
+    type: actionTypes.REVERSE_STOCK,
+    reverseStock: payload,
   };
 };
 
-export const addCardToFirstDestinationPile = (payload: string[]) => {
+export const addCardToFirstFoundation = (payload: string[]) => {
   return {
-    type: actionTypes.ADD_CARD_TO_DESTINATION_PILE,
-    addCardToPile: payload,
+    type: actionTypes.ADD_CARD_TO_FOUNDATION,
+    addCardToFoundation: payload,
   };
 };
 
-export const removeCardMovedToDestinationPile = (payload: string[]) => {
+export const removeCardMovedToFoundation = (payload: string[]) => {
   return {
-    type: actionTypes.MOVE_TO_DESTINATION,
-    removeCardMovedToDestinationPile: payload,
+    type: actionTypes.REMOVE_CARD_MOVED_TO_FOUNDATION,
+    removeCardMovedToFoundation: payload,
   };
 };
