@@ -16,7 +16,25 @@ export const reverseStock = (payload: string[]) => {
 
 export const addCardToFirstFoundation = (payload: string[]) => {
   return {
-    type: actionTypes.ADD_CARD_TO_FOUNDATION,
+    type: actionTypes.ADD_CARD_TO_FIRST_FOUNDATION,
+    addCardToFoundation: payload,
+  };
+};
+export const addCardToSecondFoundation = (payload: string[]) => {
+  return {
+    type: actionTypes.ADD_CARD_TO_SECOND_FOUNDATION,
+    addCardToFoundation: payload,
+  };
+};
+export const addCardToThirdFoundation = (payload: string[]) => {
+  return {
+    type: actionTypes.ADD_CARD_TO_THIRD_FOUNDATION,
+    addCardToFoundation: payload,
+  };
+};
+export const addCardToFourthFoundation = (payload: string[]) => {
+  return {
+    type: actionTypes.ADD_CARD_TO_FOURTH_FOUNDATION,
     addCardToFoundation: payload,
   };
 };

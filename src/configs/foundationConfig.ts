@@ -1,4 +1,4 @@
-export const foundationConfig: string[] = [
+export const foundationHeartsConfig: string[] = [
   "aceOfHearts",
   "twoOfHearts",
   "threeOfHearts",
@@ -12,4 +12,52 @@ export const foundationConfig: string[] = [
   "jackOfHearts",
   "queenOfHearts",
   "kingOfHearts",
+];
+
+export const foundationClubsConfig: string[] = [
+  "aceOfClubs",
+  "twoOfClubs",
+  "threeOfClubs",
+  "fourOfClubs",
+  "fiveOfClubs",
+  "sixOfClubs",
+  "sevenOfClubs",
+  "eigthOfClubs",
+  "nineOfClubs",
+  "tenOfClubs",
+  "jackOfClubs",
+  "queenOfClubs",
+  "kingOfClubs",
+];
+
+export const foundationDiamondsConfig: string[] = [
+  "aceOfDiamonds",
+  "twoOfDiamonds",
+  "threeOfDiamonds",
+  "fourOfDiamonds",
+  "fiveOfDiamonds",
+  "sixOfDiamonds",
+  "sevenOfDiamonds",
+  "eigthOfDiamonds",
+  "nineOfDiamonds",
+  "tenOfDiamonds",
+  "jackOfDiamonds",
+  "queenOfDiamonds",
+  "kingOfDiamonds",
+];
+
+export const foundationSpadesConfig: string[] = [
+  "aceOfSpades",
+  "twoOfSpades",
+  "threeOfSpades",
+  "fourOfSpades",
+  "fiveOfSpades",
+  "sixOfSpades",
+  "sevenOfSpades",
+  "eigthOfSpades",
+  "nineOfSpades",
+  "tenOfSpades",
+  "jackOfSpades",
+  "queenOfSpades",
+  "kingOfSpades",
 ];

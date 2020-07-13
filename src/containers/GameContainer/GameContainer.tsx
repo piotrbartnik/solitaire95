@@ -5,10 +5,18 @@ import styles from "./GameContainer.module.scss";
 
 type propTypes = {
   cardsOnFirstFoundation: string[];
+  cardsOnSecondFoundation: string[];
+  cardsOnThirdFoundation: string[];
+  cardsOnFourthFoundation: string[];
 };
 
 const GameContainer: React.FC<propTypes> = (props) => {
-  const { cardsOnFirstFoundation } = props;
+  const {
+    cardsOnFirstFoundation,
+    cardsOnSecondFoundation,
+    cardsOnThirdFoundation,
+    cardsOnFourthFoundation,
+  } = props;
 
   return (
     <div className={styles.gameUIBorder}>
@@ -19,9 +27,9 @@ const GameContainer: React.FC<propTypes> = (props) => {
           </div>
           <div className={styles.gameContainer__foundation}>
             <FoundationField cardsOnStock={cardsOnFirstFoundation} />
-            <FoundationField />
-            <FoundationField />
-            <FoundationField />
+            <FoundationField cardsOnStock={cardsOnSecondFoundation} />
+            <FoundationField cardsOnStock={cardsOnThirdFoundation} />
+            <FoundationField cardsOnStock={cardsOnFourthFoundation} />
           </div>
         </div>
         <div className={styles.gameContainer__foundation}>
@@ -35,6 +43,11 @@ const GameContainer: React.FC<propTypes> = (props) => {
 const mapStateToProps = (state: any) => {
   return {
     cardsOnFirstFoundation: state.cardsOnFirstFoundation.cardsOnFirstFoundation,
+    cardsOnSecondFoundation:
+      state.cardsOnFirstFoundation.cardsOnSecondFoundation,
+    cardsOnThirdFoundation: state.cardsOnFirstFoundation.cardsOnThirdFoundation,
+    cardsOnFourthFoundation:
+      state.cardsOnFirstFoundation.cardsOnFourthFoundation,
   };
 };
 
