@@ -1,19 +1,20 @@
-import aceOfHearts from "./aceOfHearts.png";
-import eightOfHearts from "./eightOfHearts.png";
-import fiveOfHearts from "./fiveOfHearts.png";
-import fourOfHearts from "./fourOfHearts.png";
-import jackOfHearts from "./jackOfHearts.png";
-import kingOfHearts from "./kingOfHearts.png";
-import nineOfHearts from "./nineOfHearts.png";
-import queenOfHearts from "./queenOfHearts.png";
-import sevenOfHearts from "./sevenOfHearts.png";
-import sixOfHearts from "./sixOfHearts.png";
-import tenOfHearts from "./tenOfHearts.png";
-import twoOfHearts from "./twoOfHearts.png";
+import aceOfHearts from "./hearts/aceOfHearts.png";
+import eigthOfHearts from "./hearts/eigthOfHearts.png";
+import fiveOfHearts from "./hearts/fiveOfHearts.png";
+import fourOfHearts from "./hearts/fourOfHearts.png";
+import jackOfHearts from "./hearts/jackOfHearts.png";
+import kingOfHearts from "./hearts/kingOfHearts.png";
+import nineOfHearts from "./hearts/nineOfHearts.png";
+import queenOfHearts from "./hearts/queenOfHearts.png";
+import sevenOfHearts from "./hearts/sevenOfHearts.png";
+import sixOfHearts from "./hearts/sixOfHearts.png";
+import tenOfHearts from "./hearts/tenOfHearts.png";
+import twoOfHearts from "./hearts/twoOfHearts.png";
+import threeOfHearts from "./hearts/threeOfHearts.png";
 
 export const cardFrontsImages: { [char: string]: string } = {
   aceOfHearts,
-  eightOfHearts,
+  eigthOfHearts,
   fiveOfHearts,
   fourOfHearts,
   jackOfHearts,
@@ -24,4 +25,5 @@ export const cardFrontsImages: { [char: string]: string } = {
   sixOfHearts,
   tenOfHearts,
   twoOfHearts,
+  threeOfHearts,
 };

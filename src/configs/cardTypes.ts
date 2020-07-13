@@ -1,6 +1,6 @@
 export const cardTypes: string[] = [
   "aceOfHearts",
-  "eightOfHearts",
+  "eigthOfHearts",
   "fiveOfHearts",
   "fourOfHearts",
   "jackOfHearts",
@@ -11,4 +11,5 @@ export const cardTypes: string[] = [
   "sixOfHearts",
   "tenOfHearts",
   "twoOfHearts",
+  "threeOfHearts",
 ];
