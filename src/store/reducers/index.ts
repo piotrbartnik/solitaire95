@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import { cardDistribution } from "./cardsDistribution";
-import { cardsOnFirstFoundation } from "./cardsOnFoundation";
+import { cardsOnFoundation } from "./cardsOnFoundation";
 
 const reducers = combineReducers({
   cardDistribution,
-  cardsOnFirstFoundation,
+  cardsOnFoundation,
 });
 
 export { reducers };

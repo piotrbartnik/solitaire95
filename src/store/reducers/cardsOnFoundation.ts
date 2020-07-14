@@ -12,7 +12,7 @@ const initialState: initialState = {
   cardsOnFourthFoundation: [],
 };
 
-export const cardsOnFirstFoundation = (state = initialState, action: any) => {
+export const cardsOnFoundation = (state = initialState, action: any) => {
   switch (action.type) {
     case "ADD_CARD_TO_FIRST_FOUNDATION":
       return {
