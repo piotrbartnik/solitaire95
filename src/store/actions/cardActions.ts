@@ -14,28 +14,44 @@ export const reverseStock = (payload: string[]) => {
   };
 };
 
-export const addCardToFirstFoundation = (payload: string[]) => {
+export const addCardToFirstFoundation = (
+  foundationColor: string,
+  card: string
+) => {
   return {
     type: actionTypes.ADD_CARD_TO_FIRST_FOUNDATION,
-    addCardToFoundation: payload,
+    addFoundationColor: foundationColor,
+    addCardToFoundation: card,
   };
 };
-export const addCardToSecondFoundation = (payload: string[]) => {
+export const addCardToSecondFoundation = (
+  foundationColor: string,
+  card: string
+) => {
   return {
     type: actionTypes.ADD_CARD_TO_SECOND_FOUNDATION,
-    addCardToFoundation: payload,
+    addFoundationColor: foundationColor,
+    addCardToFoundation: card,
   };
 };
-export const addCardToThirdFoundation = (payload: string[]) => {
+export const addCardToThirdFoundation = (
+  foundationColor: string,
+  card: string
+) => {
   return {
     type: actionTypes.ADD_CARD_TO_THIRD_FOUNDATION,
-    addCardToFoundation: payload,
+    addFoundationColor: foundationColor,
+    addCardToFoundation: card,
   };
 };
-export const addCardToFourthFoundation = (payload: string[]) => {
+export const addCardToFourthFoundation = (
+  foundationColor: string,
+  card: string
+) => {
   return {
     type: actionTypes.ADD_CARD_TO_FOURTH_FOUNDATION,
-    addCardToFoundation: payload,
+    addFoundationColor: foundationColor,
+    addCardToFoundation: card,
   };
 };
 

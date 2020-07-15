@@ -42,10 +42,14 @@ const GameContainer: React.FC<propTypes> = (props) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    cardsOnFirstFoundation: state.cardsOnFoundation.cardsOnFirstFoundation,
-    cardsOnSecondFoundation: state.cardsOnFoundation.cardsOnSecondFoundation,
-    cardsOnThirdFoundation: state.cardsOnFoundation.cardsOnThirdFoundation,
-    cardsOnFourthFoundation: state.cardsOnFoundation.cardsOnFourthFoundation,
+    cardsOnFirstFoundation:
+      state.cardsOnFoundation.cardsOnFirstFoundation.cards,
+    cardsOnSecondFoundation:
+      state.cardsOnFoundation.cardsOnSecondFoundation.cards,
+    cardsOnThirdFoundation:
+      state.cardsOnFoundation.cardsOnThirdFoundation.cards,
+    cardsOnFourthFoundation:
+      state.cardsOnFoundation.cardsOnFourthFoundation.cards,
   };
 };
 

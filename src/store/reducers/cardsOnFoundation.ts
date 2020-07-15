@@ -1,50 +1,63 @@
+interface foundationState {
+  [key: string]: undefined | string[];
+}
+
 type initialState = {
-  cardsOnFirstFoundation: string[];
-  cardsOnSecondFoundation: string[];
-  cardsOnThirdFoundation: string[];
-  cardsOnFourthFoundation: string[];
+  [key: string]: foundationState;
 };
 
 const initialState: initialState = {
-  cardsOnFirstFoundation: [],
-  cardsOnSecondFoundation: [],
-  cardsOnThirdFoundation: [],
-  cardsOnFourthFoundation: [],
+  cardsOnFirstFoundation: { foundationColor: undefined, cards: [] },
+  cardsOnSecondFoundation: { foundationColor: undefined, cards: [] },
+  cardsOnThirdFoundation: { foundationColor: undefined, cards: [] },
+  cardsOnFourthFoundation: { foundationColor: undefined, cards: [] },
 };
 
 export const cardsOnFoundation = (state = initialState, action: any) => {
   switch (action.type) {
     case "ADD_CARD_TO_FIRST_FOUNDATION":
+      const cardsArray = state.cardsOnFirstFoundation.cards?.slice();
+      cardsArray?.splice(cardsArray.length, 0, action.addCardToFoundation);
       return {
         ...state,
-        cardsOnFirstFoundation: [
+        cardsOnFirstFoundation: {
           ...state.cardsOnFirstFoundation,
-          action.addCardToFoundation,
-        ],
+          foundationColor: action.addFoundationColor,
+          cards: cardsArray,
+        },
       };
     case "ADD_CARD_TO_SECOND_FOUNDATION":
+      const cardsArray2 = state.cardsOnSecondFoundation.cards?.slice();
+      cardsArray2?.splice(cardsArray2.length, 0, action.addCardToFoundation);
       return {
         ...state,
-        cardsOnSecondFoundation: [
+        cardsOnSecondFoundation: {
           ...state.cardsOnSecondFoundation,
-          action.addCardToFoundation,
-        ],
+          foundationColor: action.addFoundationColor,
+          cards: cardsArray2,
+        },
       };
     case "ADD_CARD_TO_THIRD_FOUNDATION":
+      const cardsArray3 = state.cardsOnThirdFoundation.cards?.slice();
+      cardsArray3?.splice(cardsArray3.length, 0, action.addCardToFoundation);
       return {
         ...state,
-        cardsOnThirdFoundation: [
+        cardsOnThirdFoundation: {
           ...state.cardsOnThirdFoundation,
-          action.addCardToFoundation,
-        ],
+          foundationColor: action.addFoundationColor,
+          cards: cardsArray3,
+        },
       };
     case "ADD_CARD_TO_FOURTH_FOUNDATION":
+      const cardsArray4 = state.cardsOnFourthFoundation.cards?.slice();
+      cardsArray4?.splice(cardsArray4.length, 0, action.addCardToFoundation);
       return {
         ...state,
-        cardsOnFourthFoundation: [
+        cardsOnFourthFoundation: {
           ...state.cardsOnFourthFoundation,
-          action.addCardToFoundation,
-        ],
+          foundationColor: action.addFoundationColor,
+          cards: cardsArray4,
+        },
       };
     default:
       return state;

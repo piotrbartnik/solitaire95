@@ -2,12 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { Card } from "..";
-import {
-  foundationHeartsConfig,
-  foundationClubsConfig,
-  foundationDiamondsConfig,
-  foundationSpadesConfig,
-} from "../../configs/foundationConfig";
+import { foundationConfig } from "../../configs/foundationConfig";
 import styles from "./CardStock.module.scss";
 
 type propTypes = {
@@ -20,6 +15,7 @@ type propTypes = {
   addCardToSecondFoundation: any;
   addCardToThirdFoundation: any;
   addCardToFourthFoundation: any;
+  cardsOnFoundations: any;
 };
 
 const CardStock: React.FC<propTypes> = (props: propTypes) => {
@@ -33,6 +29,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
     addCardToSecondFoundation,
     addCardToThirdFoundation,
     addCardToFourthFoundation,
+    cardsOnFoundations,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -45,33 +42,37 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
   };
 
   const moveToFoundation = (e: any) => {
-    if (e.target.dataset.cardname === foundationHeartsConfig[0]) {
-      addCardToFirstFoundation(e.target.dataset.cardname);
-      removeCardMovedToFoundation(
-        cardsFromStock.filter((el) => el !== e.target.dataset.cardname)
-      );
-      foundationHeartsConfig.shift();
-    }
-    if (e.target.dataset.cardname === foundationDiamondsConfig[0]) {
-      addCardToSecondFoundation(e.target.dataset.cardname);
-      removeCardMovedToFoundation(
-        cardsFromStock.filter((el) => el !== e.target.dataset.cardname)
-      );
-      foundationDiamondsConfig.shift();
-    }
-    if (e.target.dataset.cardname === foundationClubsConfig[0]) {
-      addCardToThirdFoundation(e.target.dataset.cardname);
-      removeCardMovedToFoundation(
-        cardsFromStock.filter((el) => el !== e.target.dataset.cardname)
-      );
-      foundationClubsConfig.shift();
-    }
-    if (e.target.dataset.cardname === foundationSpadesConfig[0]) {
-      addCardToFourthFoundation(e.target.dataset.cardname);
-      removeCardMovedToFoundation(
-        cardsFromStock.filter((el) => el !== e.target.dataset.cardname)
-      );
-      foundationSpadesConfig.shift();
+    const card = e.target.dataset.cardname;
+    if (card.match("ace")) {
+      Object.keys(foundationConfig).forEach((cardColor) => {
+        let foundationToPopulate: string[] = [];
+        Object.keys(cardsOnFoundations).forEach((foundation) => {
+          if (!cardsOnFoundations[foundation].cards.length) {
+            foundationToPopulate.push(foundation);
+          }
+        });
+
+        if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
+          switch (foundationToPopulate[0]) {
+            case "cardsOnFirstFoundation":
+              addCardToFirstFoundation(cardColor, card);
+              break;
+            case "cardsOnSecondFoundation":
+              addCardToSecondFoundation(cardColor, card);
+              break;
+            case "cardsOnThirdFoundation":
+              addCardToThirdFoundation(cardColor, card);
+              break;
+            case "cardsOnFourthFoundation":
+              addCardToFourthFoundation(cardColor, card);
+              break;
+          }
+          removeCardMovedToFoundation(
+            cardsFromStock.filter((el) => el !== card)
+          );
+          foundationConfig[cardColor].shift();
+        }
+      });
     }
   };
 
@@ -104,6 +105,7 @@ const mapStateToProps = (state: any) => {
   return {
     cardsOnStock: state.cardDistribution.cardsOnStock,
     cardsFromStock: state.cardDistribution.cardsFromStock,
+    cardsOnFoundations: state.cardsOnFoundation,
   };
 };
 
@@ -116,14 +118,14 @@ const mapDispatchToProps = (dispatch: any) => {
     removeCardMovedToFoundation: (payload: string[]) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
-    addCardToFirstFoundation: (payload: string[]) =>
-      dispatch(actions.addCardToFirstFoundation(payload)),
-    addCardToSecondFoundation: (payload: string[]) =>
-      dispatch(actions.addCardToSecondFoundation(payload)),
-    addCardToThirdFoundation: (payload: string[]) =>
-      dispatch(actions.addCardToThirdFoundation(payload)),
-    addCardToFourthFoundation: (payload: string[]) =>
-      dispatch(actions.addCardToFourthFoundation(payload)),
+    addCardToFirstFoundation: (foundationColor: string, card: string) =>
+      dispatch(actions.addCardToFirstFoundation(foundationColor, card)),
+    addCardToSecondFoundation: (foundationColor: string, card: string) =>
+      dispatch(actions.addCardToSecondFoundation(foundationColor, card)),
+    addCardToThirdFoundation: (foundationColor: string, card: string) =>
+      dispatch(actions.addCardToThirdFoundation(foundationColor, card)),
+    addCardToFourthFoundation: (foundationColor: string, card: string) =>
+      dispatch(actions.addCardToFourthFoundation(foundationColor, card)),
   };
 };
 
