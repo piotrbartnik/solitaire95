@@ -10,7 +10,7 @@ export const cardTypes: string[] = [
   // "sevenOfHearts",
   // "sixOfHearts",
   // "tenOfHearts",
-  // "twoOfHearts",
+  "twoOfHearts",
   // "threeOfHearts",
   "aceOfSpades",
   "aceOfDiamonds",

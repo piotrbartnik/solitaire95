@@ -44,33 +44,60 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
   const moveToFoundation = (e: any) => {
     const card = e.target.dataset.cardname;
     if (card.match("ace")) {
-      Object.keys(foundationConfig).forEach((cardColor) => {
-        let foundationToPopulate: string[] = [];
-        Object.keys(cardsOnFoundations).forEach((foundation) => {
-          if (!cardsOnFoundations[foundation].cards.length) {
-            foundationToPopulate.push(foundation);
-          }
-        });
+      let foundationToPopulate: string[] = [];
+      Object.keys(cardsOnFoundations).forEach((foundation) => {
+        if (!cardsOnFoundations[foundation].cards.length) {
+          foundationToPopulate.push(foundation);
+        }
+      });
+      if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
+        switch (foundationToPopulate[0]) {
+          case "cardsOnFirstFoundation":
+            addCardToFirstFoundation(e.target.dataset.color, card);
+            break;
+          case "cardsOnSecondFoundation":
+            addCardToSecondFoundation(e.target.dataset.color, card);
+            break;
+          case "cardsOnThirdFoundation":
+            addCardToThirdFoundation(e.target.dataset.color, card);
+            break;
+          case "cardsOnFourthFoundation":
+            addCardToFourthFoundation(e.target.dataset.color, card);
+            break;
+        }
+        removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== card));
+        foundationConfig[e.target.dataset.color].shift();
+      }
+    }
 
-        if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
-          switch (foundationToPopulate[0]) {
-            case "cardsOnFirstFoundation":
-              addCardToFirstFoundation(cardColor, card);
-              break;
-            case "cardsOnSecondFoundation":
-              addCardToSecondFoundation(cardColor, card);
-              break;
-            case "cardsOnThirdFoundation":
-              addCardToThirdFoundation(cardColor, card);
-              break;
-            case "cardsOnFourthFoundation":
-              addCardToFourthFoundation(cardColor, card);
-              break;
-          }
+    if (!card.match("ace")) {
+      Object.keys(cardsOnFoundations).forEach((foundation) => {
+        if (
+          cardsOnFoundations[foundation].foundationColor ===
+            e.target.dataset.color &&
+          foundationConfig[
+            cardsOnFoundations[foundation].foundationColor
+          ][0] === card
+        ) {
+          console.log(foundation);
+          foundationConfig[e.target.dataset.color].shift();
           removeCardMovedToFoundation(
             cardsFromStock.filter((el) => el !== card)
           );
-          foundationConfig[cardColor].shift();
+          switch (foundation) {
+            case "cardsOnFirstFoundation":
+              addCardToFirstFoundation(null, card);
+              break;
+            case "cardsOnSecondFoundation":
+              addCardToSecondFoundation(null, card);
+              break;
+            case "cardsOnThirdFoundation":
+              addCardToThirdFoundation(null, card);
+              break;
+            case "cardsOnFourthFoundation":
+              addCardToFourthFoundation(null, card);
+              break;
+          }
         }
       });
     }
