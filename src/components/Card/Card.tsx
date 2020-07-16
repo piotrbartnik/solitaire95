@@ -18,6 +18,13 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const frontImage: string = cardFrontsImages[`${front}`];
   const backImage: string = cardBackImages[`${back}`];
 
+  let cardColor: string = "";
+
+  if (front.includes("Hearts")) cardColor = "hearts";
+  if (front.includes("Clubs")) cardColor = "clubs";
+  if (front.includes("Diamonds")) cardColor = "diamonds";
+  if (front.includes("Spades")) cardColor = "spades";
+
   return (
     <div
       className={styles.card}
@@ -29,6 +36,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
           className={styles.cardFront}
           style={{ backgroundImage: `url(${frontImage})` }}
           data-cardName={front}
+          data-color={cardColor}
         ></div>
       ) : (
         <div
