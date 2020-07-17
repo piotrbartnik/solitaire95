@@ -53,16 +53,16 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
       if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
         switch (foundationToPopulate[0]) {
           case "cardsOnFirstFoundation":
-            addCardToFirstFoundation(e.target.dataset.color, card);
+            addCardToFirstFoundation(card, e.target.dataset.color);
             break;
           case "cardsOnSecondFoundation":
-            addCardToSecondFoundation(e.target.dataset.color, card);
+            addCardToSecondFoundation(card, e.target.dataset.color);
             break;
           case "cardsOnThirdFoundation":
-            addCardToThirdFoundation(e.target.dataset.color, card);
+            addCardToThirdFoundation(card, e.target.dataset.color);
             break;
           case "cardsOnFourthFoundation":
-            addCardToFourthFoundation(e.target.dataset.color, card);
+            addCardToFourthFoundation(card, e.target.dataset.color);
             break;
         }
         removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== card));
@@ -86,16 +86,16 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
           );
           switch (foundation) {
             case "cardsOnFirstFoundation":
-              addCardToFirstFoundation(null, card);
+              addCardToFirstFoundation(card);
               break;
             case "cardsOnSecondFoundation":
-              addCardToSecondFoundation(null, card);
+              addCardToSecondFoundation(card);
               break;
             case "cardsOnThirdFoundation":
-              addCardToThirdFoundation(null, card);
+              addCardToThirdFoundation(card);
               break;
             case "cardsOnFourthFoundation":
-              addCardToFourthFoundation(null, card);
+              addCardToFourthFoundation(card);
               break;
           }
         }
@@ -145,14 +145,14 @@ const mapDispatchToProps = (dispatch: any) => {
     removeCardMovedToFoundation: (payload: string[]) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
-    addCardToFirstFoundation: (foundationColor: string, card: string) =>
-      dispatch(actions.addCardToFirstFoundation(foundationColor, card)),
-    addCardToSecondFoundation: (foundationColor: string, card: string) =>
-      dispatch(actions.addCardToSecondFoundation(foundationColor, card)),
-    addCardToThirdFoundation: (foundationColor: string, card: string) =>
-      dispatch(actions.addCardToThirdFoundation(foundationColor, card)),
-    addCardToFourthFoundation: (foundationColor: string, card: string) =>
-      dispatch(actions.addCardToFourthFoundation(foundationColor, card)),
+    addCardToFirstFoundation: (card: string, foundationColor: string) =>
+      dispatch(actions.addCardToFirstFoundation(card, foundationColor)),
+    addCardToSecondFoundation: (card: string, foundationColor: string) =>
+      dispatch(actions.addCardToSecondFoundation(card, foundationColor)),
+    addCardToThirdFoundation: (card: string, foundationColor: string) =>
+      dispatch(actions.addCardToThirdFoundation(card, foundationColor)),
+    addCardToFourthFoundation: (card: string, foundationColor: string) =>
+      dispatch(actions.addCardToFourthFoundation(card, foundationColor)),
   };
 };
 

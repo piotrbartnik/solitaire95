@@ -15,8 +15,8 @@ export const reverseStock = (payload: string[]) => {
 };
 
 export const addCardToFirstFoundation = (
-  foundationColor: string,
-  card: string
+  card: string,
+  foundationColor?: string
 ) => {
   return {
     type: actionTypes.ADD_CARD_TO_FIRST_FOUNDATION,
@@ -25,8 +25,8 @@ export const addCardToFirstFoundation = (
   };
 };
 export const addCardToSecondFoundation = (
-  foundationColor: string,
-  card: string
+  card: string,
+  foundationColor?: string
 ) => {
   return {
     type: actionTypes.ADD_CARD_TO_SECOND_FOUNDATION,
@@ -35,8 +35,8 @@ export const addCardToSecondFoundation = (
   };
 };
 export const addCardToThirdFoundation = (
-  foundationColor: string,
-  card: string
+  card: string,
+  foundationColor?: string
 ) => {
   return {
     type: actionTypes.ADD_CARD_TO_THIRD_FOUNDATION,
@@ -45,8 +45,8 @@ export const addCardToThirdFoundation = (
   };
 };
 export const addCardToFourthFoundation = (
-  foundationColor: string,
-  card: string
+  card: string,
+  foundationColor?: string
 ) => {
   return {
     type: actionTypes.ADD_CARD_TO_FOURTH_FOUNDATION,

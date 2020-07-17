@@ -22,7 +22,9 @@ export const cardsOnFoundation = (state = initialState, action: any) => {
         ...state,
         cardsOnFirstFoundation: {
           ...state.cardsOnFirstFoundation,
-          foundationColor: action.addFoundationColor,
+          foundationColor: action.addFoundationColor
+            ? action.addFoundationColor
+            : state.cardsOnFirstFoundation.foundationColor,
           cards: cardsArray,
         },
       };
@@ -33,7 +35,9 @@ export const cardsOnFoundation = (state = initialState, action: any) => {
         ...state,
         cardsOnSecondFoundation: {
           ...state.cardsOnSecondFoundation,
-          foundationColor: action.addFoundationColor,
+          foundationColor: action.addFoundationColor
+            ? action.addFoundationColor
+            : state.cardsOnSecondFoundation.foundationColor,
           cards: cardsArray2,
         },
       };
@@ -44,7 +48,9 @@ export const cardsOnFoundation = (state = initialState, action: any) => {
         ...state,
         cardsOnThirdFoundation: {
           ...state.cardsOnThirdFoundation,
-          foundationColor: action.addFoundationColor,
+          foundationColor: action.addFoundationColor
+            ? action.addFoundationColor
+            : state.cardsOnThirdFoundation.foundationColor,
           cards: cardsArray3,
         },
       };
@@ -55,7 +61,9 @@ export const cardsOnFoundation = (state = initialState, action: any) => {
         ...state,
         cardsOnFourthFoundation: {
           ...state.cardsOnFourthFoundation,
-          foundationColor: action.addFoundationColor,
+          foundationColor: action.addFoundationColor
+            ? action.addFoundationColor
+            : state.cardsOnFourthFoundation.foundationColor,
           cards: cardsArray4,
         },
       };
