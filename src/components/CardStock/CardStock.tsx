@@ -11,11 +11,8 @@ type propTypes = {
   takeOneFromStock: any;
   reverseStock: any;
   removeCardMovedToFoundation: any;
-  addCardToFirstFoundation: any;
-  addCardToSecondFoundation: any;
-  addCardToThirdFoundation: any;
-  addCardToFourthFoundation: any;
   cardsOnFoundations: any;
+  addCardToFoundation: any;
 };
 
 const CardStock: React.FC<propTypes> = (props: propTypes) => {
@@ -25,11 +22,8 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
     takeOneFromStock,
     reverseStock,
     removeCardMovedToFoundation,
-    addCardToFirstFoundation,
-    addCardToSecondFoundation,
-    addCardToThirdFoundation,
-    addCardToFourthFoundation,
     cardsOnFoundations,
+    addCardToFoundation,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -51,20 +45,11 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
         }
       });
       if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
-        switch (foundationToPopulate[0]) {
-          case "cardsOnFirstFoundation":
-            addCardToFirstFoundation(card, e.target.dataset.color);
-            break;
-          case "cardsOnSecondFoundation":
-            addCardToSecondFoundation(card, e.target.dataset.color);
-            break;
-          case "cardsOnThirdFoundation":
-            addCardToThirdFoundation(card, e.target.dataset.color);
-            break;
-          case "cardsOnFourthFoundation":
-            addCardToFourthFoundation(card, e.target.dataset.color);
-            break;
-        }
+        addCardToFoundation(
+          card,
+          foundationToPopulate[0],
+          e.target.dataset.color
+        );
         removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== card));
         foundationConfig[e.target.dataset.color].shift();
       }
@@ -79,25 +64,11 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
             cardsOnFoundations[foundation].foundationColor
           ][0] === card
         ) {
-          console.log(foundation);
           foundationConfig[e.target.dataset.color].shift();
           removeCardMovedToFoundation(
             cardsFromStock.filter((el) => el !== card)
           );
-          switch (foundation) {
-            case "cardsOnFirstFoundation":
-              addCardToFirstFoundation(card);
-              break;
-            case "cardsOnSecondFoundation":
-              addCardToSecondFoundation(card);
-              break;
-            case "cardsOnThirdFoundation":
-              addCardToThirdFoundation(card);
-              break;
-            case "cardsOnFourthFoundation":
-              addCardToFourthFoundation(card);
-              break;
-          }
+          addCardToFoundation(card, foundation);
         }
       });
     }
@@ -145,14 +116,14 @@ const mapDispatchToProps = (dispatch: any) => {
     removeCardMovedToFoundation: (payload: string[]) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
-    addCardToFirstFoundation: (card: string, foundationColor: string) =>
-      dispatch(actions.addCardToFirstFoundation(card, foundationColor)),
-    addCardToSecondFoundation: (card: string, foundationColor: string) =>
-      dispatch(actions.addCardToSecondFoundation(card, foundationColor)),
-    addCardToThirdFoundation: (card: string, foundationColor: string) =>
-      dispatch(actions.addCardToThirdFoundation(card, foundationColor)),
-    addCardToFourthFoundation: (card: string, foundationColor: string) =>
-      dispatch(actions.addCardToFourthFoundation(card, foundationColor)),
+    addCardToFoundation: (
+      card: string,
+      foundationNumber: string,
+      foundationColor: string
+    ) =>
+      dispatch(
+        actions.addCardToFoundation(card, foundationNumber, foundationColor)
+      ),
   };
 };
 
