@@ -1,10 +1,4 @@
 import * as actionTypes from "./actionTypes";
-import {
-  ADD_CARD_TO_FIRST_FOUNDATION,
-  ADD_CARD_TO_SECOND_FOUNDATION,
-  ADD_CARD_TO_THIRD_FOUNDATION,
-  ADD_CARD_TO_FOURTH_FOUNDATION,
-} from "./actionTypes";
 
 export const takeOneFromStock = (payload: string) => {
   return {
@@ -26,10 +20,10 @@ export const addCardToFoundation = (
   foundationColor?: string
 ) => {
   const castFoundationNumber: { [char: string]: string } = {
-    cardsOnFirstFoundation: ADD_CARD_TO_FIRST_FOUNDATION,
-    cardsOnSecondFoundation: ADD_CARD_TO_SECOND_FOUNDATION,
-    cardsOnThirdFoundation: ADD_CARD_TO_THIRD_FOUNDATION,
-    cardsOnFourthFoundation: ADD_CARD_TO_FOURTH_FOUNDATION,
+    cardsOnFirstFoundation: actionTypes.ADD_CARD_TO_FIRST_FOUNDATION,
+    cardsOnSecondFoundation: actionTypes.ADD_CARD_TO_SECOND_FOUNDATION,
+    cardsOnThirdFoundation: actionTypes.ADD_CARD_TO_THIRD_FOUNDATION,
+    cardsOnFourthFoundation: actionTypes.ADD_CARD_TO_FOURTH_FOUNDATION,
   };
   return {
     type: castFoundationNumber[foundationNumber],
