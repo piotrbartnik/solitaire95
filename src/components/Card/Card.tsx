@@ -35,7 +35,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
         <div
           className={styles.cardFront}
           style={{ backgroundImage: `url(${frontImage})` }}
-          data-cardName={front}
+          data-cardname={front}
           data-color={cardColor}
         ></div>
       ) : (
