@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FoundationField, Card, CardStock } from "../../components";
+import { FoundationField, Pile, CardStock } from "../../components";
 import styles from "./GameContainer.module.scss";
 
 type propTypes = {
@@ -33,7 +33,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
           </div>
         </div>
         <div className={styles.gameContainer__foundation}>
-          <Card front={"kingOfHearts"} back={"acorns"} isTurnedBack={false} />
+          <Pile />
         </div>
       </div>
     </div>
