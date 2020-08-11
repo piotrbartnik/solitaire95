@@ -1,0 +1,15 @@
+.pile {
+  &__container {
+    position: relative;
+  }
+
+  &__secondCard {
+    position: absolute;
+    top: 30px;
+  }
+
+  &__thirdCard {
+    position: absolute;
+    top: 60px;
+  }
+}
