@@ -33,4 +33,11 @@
     justify-content: flex-end;
     width: 100%;
   }
+
+  &__piles {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 30px 19px;
+  }
 }

@@ -32,8 +32,28 @@ const GameContainer: React.FC<propTypes> = (props) => {
             <FoundationField cardsOnStock={cardsOnFourthFoundation} />
           </div>
         </div>
-        <div className={styles.gameContainer__foundation}>
-          <Pile />
+        <div className={styles.gameContainer__piles}>
+          <div className={styles.gameContainer__singlePile}>
+            <Pile />
+          </div>
+          <div className={styles.gameContainer__singlePile}>
+            <Pile />
+          </div>
+          <div className={styles.gameContainer__singlePile}>
+            <Pile />
+          </div>
+          <div className={styles.gameContainer__singlePile}>
+            <Pile />
+          </div>
+          <div className={styles.gameContainer__singlePile}>
+            <Pile />
+          </div>
+          <div className={styles.gameContainer__singlePile}>
+            <Pile />
+          </div>
+          <div className={styles.gameContainer__singlePile}>
+            <Pile />
+          </div>
         </div>
       </div>
     </div>
