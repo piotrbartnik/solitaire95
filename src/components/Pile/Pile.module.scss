@@ -3,13 +3,29 @@
     position: relative;
   }
 
-  &__secondCard {
+  &__1 {
     position: absolute;
     top: 30px;
   }
 
-  &__thirdCard {
+  &__2 {
     position: absolute;
     top: 60px;
+  }
+  &__3 {
+    position: absolute;
+    top: 90px;
+  }
+  &__4 {
+    position: absolute;
+    top: 120px;
+  }
+  &__5 {
+    position: absolute;
+    top: 150px;
+  }
+  &__6 {
+    position: absolute;
+    top: 180px;
   }
 }

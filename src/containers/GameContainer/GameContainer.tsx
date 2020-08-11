@@ -18,6 +18,37 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnFourthFoundation,
   } = props;
 
+  const pilesConfig = {
+    0: ["kingOfHearts"],
+    1: ["kingOfHearts", "kingOfHearts"],
+    2: ["kingOfHearts", "kingOfHearts", "kingOfHearts"],
+    3: ["kingOfHearts", "kingOfHearts", "kingOfHearts", "kingOfHearts"],
+    4: [
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+    ],
+    5: [
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+    ],
+    6: ["kingOfHearts"],
+    7: ["kingOfHearts"],
+  };
+
+  const piles = (config: any) =>
+    Object.keys(config).map((el) => (
+      <div className={styles.gameContainer__singlePile}>
+        <Pile cardsOnPile={config[el]} />
+      </div>
+    ));
+
   return (
     <div className={styles.gameUIBorder}>
       <div className={styles.gameContainer}>
@@ -32,29 +63,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
             <FoundationField cardsOnStock={cardsOnFourthFoundation} />
           </div>
         </div>
-        <div className={styles.gameContainer__piles}>
-          <div className={styles.gameContainer__singlePile}>
-            <Pile />
-          </div>
-          <div className={styles.gameContainer__singlePile}>
-            <Pile />
-          </div>
-          <div className={styles.gameContainer__singlePile}>
-            <Pile />
-          </div>
-          <div className={styles.gameContainer__singlePile}>
-            <Pile />
-          </div>
-          <div className={styles.gameContainer__singlePile}>
-            <Pile />
-          </div>
-          <div className={styles.gameContainer__singlePile}>
-            <Pile />
-          </div>
-          <div className={styles.gameContainer__singlePile}>
-            <Pile />
-          </div>
-        </div>
+        <div className={styles.gameContainer__piles}>{piles(pilesConfig)}</div>
       </div>
     </div>
   );
