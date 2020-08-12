@@ -3,29 +3,10 @@
     position: relative;
   }
 
-  &__1 {
-    position: absolute;
-    top: 30px;
-  }
-
-  &__2 {
-    position: absolute;
-    top: 60px;
-  }
-  &__3 {
-    position: absolute;
-    top: 90px;
-  }
-  &__4 {
-    position: absolute;
-    top: 120px;
-  }
-  &__5 {
-    position: absolute;
-    top: 150px;
-  }
-  &__6 {
-    position: absolute;
-    top: 180px;
+  @for $i from 1 through 12 {
+    &__#{$i} {
+      position: absolute;
+      top: #{30 * $i}px;
+    }
   }
 }
