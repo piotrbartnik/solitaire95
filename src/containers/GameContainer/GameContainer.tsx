@@ -38,8 +38,15 @@ const GameContainer: React.FC<propTypes> = (props) => {
       "kingOfHearts",
       "kingOfHearts",
     ],
-    6: ["kingOfHearts"],
-    7: ["kingOfHearts"],
+    6: [
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+      "kingOfHearts",
+    ],
   };
 
   const piles = (config: any) =>

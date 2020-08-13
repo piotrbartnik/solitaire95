@@ -6,7 +6,7 @@
   @for $i from 1 through 12 {
     &__#{$i} {
       position: absolute;
-      top: #{30 * $i}px;
+      top: #{5 * $i}px;
     }
   }
 }

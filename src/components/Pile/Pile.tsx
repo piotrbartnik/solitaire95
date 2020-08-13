@@ -12,11 +12,14 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   const distributeCards = (cardsOnPile: string[]) =>
     cardsOnPile.map((el, index) => (
       <div className={styles[`pile__${index}`]}>
-        <Card front={el} back={"acorns"} isTurnedBack={false} />
+        <Card
+          front={el}
+          back={"acorns"}
+          isTurnedBack={index !== cardsOnPile.length - 1}
+        />
       </div>
     ));
 
-  console.log(distributeCards(cardsOnPile));
   return (
     <div className={styles.pile__container}>{distributeCards(cardsOnPile)}</div>
   );
