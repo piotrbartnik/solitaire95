@@ -20,33 +20,33 @@ const GameContainer: React.FC<propTypes> = (props) => {
 
   const pilesConfig = {
     0: ["kingOfHearts"],
-    1: ["kingOfHearts", "kingOfHearts"],
-    2: ["kingOfHearts", "kingOfHearts", "kingOfHearts"],
-    3: ["kingOfHearts", "kingOfHearts", "kingOfHearts", "kingOfHearts"],
-    4: [
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-    ],
-    5: [
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-    ],
-    6: [
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-      "kingOfHearts",
-    ],
+    // 1: ["kingOfHearts", "kingOfHearts"],
+    // 2: ["kingOfHearts", "kingOfHearts", "kingOfHearts"],
+    // 3: ["kingOfHearts", "kingOfHearts", "kingOfHearts", "kingOfHearts"],
+    // 4: [
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    // ],
+    // 5: [
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    // ],
+    // 6: [
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    //   "kingOfHearts",
+    // ],
   };
 
   const piles = (config: any) =>
