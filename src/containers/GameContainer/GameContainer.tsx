@@ -25,8 +25,6 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnPiles,
   } = props;
 
-  console.log(cardsOnPiles);
-
   const dropTheKing = () =>
     addCardToFoundation("kingOfHearts", "cardsOnFirstFoundation", "hearts");
 
