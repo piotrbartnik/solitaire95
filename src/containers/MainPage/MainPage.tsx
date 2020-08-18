@@ -7,14 +7,14 @@ import styles from "./MainPage.module.scss";
 
 const MainPage: React.FC = () => {
   return (
-    <div className={styles.mainPage}>
-      <TopBar />
-      <ToolBar />
-      <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={HTML5Backend}>
+      <div className={styles.mainPage}>
+        <TopBar />
+        <ToolBar />
         <GameContainer />
-      </DndProvider>
-      <BottomBar />
-    </div>
+        <BottomBar />
+      </div>
+    </DndProvider>
   );
 };
 
