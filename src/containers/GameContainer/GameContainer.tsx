@@ -1,5 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import * as actions from "../../store/actions/cardActions";
+import { useDrop } from "react-dnd";
+import { itemTypes } from "../../configs/dragndropConfig";
 import { FoundationField, Pile, CardStock } from "../../components";
 import styles from "./GameContainer.module.scss";
 
@@ -8,6 +11,7 @@ type propTypes = {
   cardsOnSecondFoundation: string[];
   cardsOnThirdFoundation: string[];
   cardsOnFourthFoundation: string[];
+  addCardToFoundation: any;
 };
 
 const GameContainer: React.FC<propTypes> = (props) => {
@@ -16,7 +20,19 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnSecondFoundation,
     cardsOnThirdFoundation,
     cardsOnFourthFoundation,
+    addCardToFoundation,
   } = props;
+
+  const dropTheKing = () =>
+    addCardToFoundation("kingOfHearts", "cardsOnFirstFoundation", "hearts");
+
+  const [, drop] = useDrop({
+    accept: itemTypes.CARD,
+    drop: () => dropTheKing(),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
 
   const pilesConfig = {
     0: ["kingOfHearts"],
@@ -63,7 +79,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
           <div className={styles.gameContainer__cardStock}>
             <CardStock />
           </div>
-          <div className={styles.gameContainer__foundation}>
+          <div className={styles.gameContainer__foundation} ref={drop}>
             <FoundationField cardsOnStock={cardsOnFirstFoundation} />
             <FoundationField cardsOnStock={cardsOnSecondFoundation} />
             <FoundationField cardsOnStock={cardsOnThirdFoundation} />
@@ -89,4 +105,17 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export default connect(mapStateToProps)(GameContainer);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addCardToFoundation: (
+      card: string,
+      foundationNumber: string,
+      foundationColor: string
+    ) =>
+      dispatch(
+        actions.addCardToFoundation(card, foundationNumber, foundationColor)
+      ),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);
