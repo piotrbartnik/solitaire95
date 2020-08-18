@@ -3,11 +3,32 @@ import { cardTypes } from "../../configs/cardTypes";
 type initialState = {
   cardsOnStock: string[];
   cardsFromStock: string[];
+  cardsOnPiles: object;
+};
+
+const mixCardsForGame = (cards: string[]): string[][] => {
+  const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
+  const cardsForStock = randomizeCardInput.slice(0, 24);
+  const cardsForPiles = randomizeCardInput.slice(24);
+  return [cardsForStock, cardsForPiles];
+};
+
+const [cardsForStock, cardsForPiles] = mixCardsForGame(cardTypes);
+
+const orderPiles = (cardsForPiles: string[]): object => {
+  const cardsOnPiles = {};
+  for (let i = 0; i < 7; i++) {
+    Object.assign(cardsOnPiles, {
+      [i]: cardsForPiles.slice((i * (i + 1)) / 2, (i * (i + 1)) / 2 + i + 1),
+    });
+  }
+  return cardsOnPiles;
 };
 
 const initialState: initialState = {
-  cardsOnStock: cardTypes,
+  cardsOnStock: cardsForStock,
   cardsFromStock: [],
+  cardsOnPiles: orderPiles(cardsForPiles),
 };
 
 export const cardDistribution = (state = initialState, action: any) => {

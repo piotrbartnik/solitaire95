@@ -12,6 +12,7 @@ type propTypes = {
   cardsOnThirdFoundation: string[];
   cardsOnFourthFoundation: string[];
   addCardToFoundation: any;
+  cardsOnPiles: object;
 };
 
 const GameContainer: React.FC<propTypes> = (props) => {
@@ -21,7 +22,10 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnThirdFoundation,
     cardsOnFourthFoundation,
     addCardToFoundation,
+    cardsOnPiles,
   } = props;
+
+  console.log(cardsOnPiles);
 
   const dropTheKing = () =>
     addCardToFoundation("kingOfHearts", "cardsOnFirstFoundation", "hearts");
@@ -33,37 +37,6 @@ const GameContainer: React.FC<propTypes> = (props) => {
       isOver: !!monitor.isOver(),
     }),
   });
-
-  const pilesConfig = {
-    0: ["kingOfHearts"],
-    // 1: ["kingOfHearts", "kingOfHearts"],
-    // 2: ["kingOfHearts", "kingOfHearts", "kingOfHearts"],
-    // 3: ["kingOfHearts", "kingOfHearts", "kingOfHearts", "kingOfHearts"],
-    // 4: [
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    // ],
-    // 5: [
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    // ],
-    // 6: [
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    //   "kingOfHearts",
-    // ],
-  };
 
   const piles = (config: any) =>
     Object.keys(config).map((el) => (
@@ -86,7 +59,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
             <FoundationField cardsOnStock={cardsOnFourthFoundation} />
           </div>
         </div>
-        <div className={styles.gameContainer__piles}>{piles(pilesConfig)}</div>
+        <div className={styles.gameContainer__piles}>{piles(cardsOnPiles)}</div>
       </div>
     </div>
   );
@@ -102,6 +75,7 @@ const mapStateToProps = (state: any) => {
       state.cardsOnFoundation.cardsOnThirdFoundation.cards,
     cardsOnFourthFoundation:
       state.cardsOnFoundation.cardsOnFourthFoundation.cards,
+    cardsOnPiles: state.cardDistribution.cardsOnPiles,
   };
 };
 
