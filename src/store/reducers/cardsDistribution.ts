@@ -17,11 +17,17 @@ const [cardsForStock, cardsForPiles] = mixCardsForGame(cardTypes);
 
 const orderPiles = (cardsForPiles: string[]): object => {
   const cardsOnPiles = {};
-  for (let i = 0; i < 7; i++) {
-    Object.assign(cardsOnPiles, {
-      [i]: cardsForPiles.slice((i * (i + 1)) / 2, (i * (i + 1)) / 2 + i + 1),
-    });
-  }
+  cardsForPiles.forEach((el, index) => {
+    if (index < 7) {
+      const triangularSequenceDividend = index * (index + 1);
+      Object.assign(cardsOnPiles, {
+        [index]: cardsForPiles.slice(
+          triangularSequenceDividend / 2,
+          triangularSequenceDividend / 2 + index + 1
+        ),
+      });
+    }
+  });
   return cardsOnPiles;
 };
 
