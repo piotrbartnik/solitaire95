@@ -13,6 +13,7 @@ type propTypes = {
   cardsOnFourthFoundation: string[];
   addCardToFoundation: any;
   cardsOnPiles: object;
+  removeCardFromPile: any;
 };
 
 const GameContainer: React.FC<propTypes> = (props) => {
@@ -23,14 +24,20 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnFourthFoundation,
     addCardToFoundation,
     cardsOnPiles,
+    // removeCardFromPile,
   } = props;
 
-  const dropTheKing = () =>
-    addCardToFoundation("kingOfHearts", "cardsOnFirstFoundation", "hearts");
+  const dropCardOnFoundation = (dragObject: any) => {
+    console.log(dragObject.front);
+    addCardToFoundation(dragObject.front, "cardsOnFirstFoundation", "hearts");
+    // removeCardFromPile();
+  };
 
   const [, drop] = useDrop({
     accept: itemTypes.CARD,
-    drop: () => dropTheKing(),
+    drop: (monitor) => {
+      dropCardOnFoundation(monitor);
+    },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
@@ -87,6 +94,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(
         actions.addCardToFoundation(card, foundationNumber, foundationColor)
       ),
+    removeCardFromPile: () => dispatch(actions.removeCardFromPile()),
   };
 };
 

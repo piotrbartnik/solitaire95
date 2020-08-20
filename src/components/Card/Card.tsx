@@ -17,9 +17,10 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const { front, back, isTurnedBack = true, onDoubleClick, onClick } = props;
   const [cardPosition] = useState(isTurnedBack);
   const [{ isDragging }, drag] = useDrag({
-    item: { type: itemTypes.CARD },
+    item: { type: itemTypes.CARD, front: front },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
+      item: monitor.getItem(),
     }),
   });
 

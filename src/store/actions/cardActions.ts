@@ -38,3 +38,10 @@ export const removeCardMovedToFoundation = (payload: string[]) => {
     removeCardMovedToFoundation: payload,
   };
 };
+
+export const removeCardFromPile = () => {
+  return {
+    type: actionTypes.REMOVE_CARD_FROM_PILE,
+    // removeCardFromPile: payload,
+  };
+};

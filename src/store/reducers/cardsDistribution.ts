@@ -55,6 +55,11 @@ export const cardDistribution = (state = initialState, action: any) => {
         ...state,
         cardsFromStock: action.removeCardMovedToFoundation,
       };
+    case "REMOVE_CARD_FROM_PILE":
+      return {
+        ...state,
+        cardsOnPiles: {},
+      };
     default:
       return state;
   }
