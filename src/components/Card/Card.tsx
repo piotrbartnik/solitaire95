@@ -17,15 +17,15 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const { front, back, isTurnedBack = true, onDoubleClick, onClick } = props;
   const [cardPosition] = useState(isTurnedBack);
 
-  let cardColor: string = "";
+  let cardSuite: string = "";
 
-  if (front.includes("Hearts")) cardColor = "hearts";
-  if (front.includes("Clubs")) cardColor = "clubs";
-  if (front.includes("Diamonds")) cardColor = "diamonds";
-  if (front.includes("Spades")) cardColor = "spades";
+  if (front.includes("Hearts")) cardSuite = "hearts";
+  if (front.includes("Clubs")) cardSuite = "clubs";
+  if (front.includes("Diamonds")) cardSuite = "diamonds";
+  if (front.includes("Spades")) cardSuite = "spades";
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: itemTypes.CARD, front, cardColor },
+    item: { type: itemTypes.CARD, front, cardSuite },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       item: monitor.getItem(),
@@ -48,7 +48,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
           className={styles.cardFront}
           style={{ backgroundImage: `url(${frontImage})` }}
           data-cardname={front}
-          data-color={cardColor}
+          data-suite={cardSuite}
         ></div>
       ) : (
         <div

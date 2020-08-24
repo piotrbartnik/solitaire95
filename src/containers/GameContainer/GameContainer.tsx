@@ -89,10 +89,10 @@ const mapDispatchToProps = (dispatch: any) => {
     addCardToFoundation: (
       card: string,
       foundationNumber: string,
-      foundationColor: string
+      foundationSuite: string
     ) =>
       dispatch(
-        actions.addCardToFoundation(card, foundationNumber, foundationColor)
+        actions.addCardToFoundation(card, foundationNumber, foundationSuite)
       ),
     removeCardFromPile: () => dispatch(actions.removeCardFromPile()),
   };
