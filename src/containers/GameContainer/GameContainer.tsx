@@ -28,8 +28,8 @@ const GameContainer: React.FC<propTypes> = (props) => {
   } = props;
 
   const dropCardOnFoundation = (dragObject: any) => {
-    console.log(dragObject);
-    addCardToFoundation(dragObject.front, "cardsOnFirstFoundation", "hearts");
+    const { front, cardSuite } = dragObject;
+    addCardToFoundation(front, "cardsOnFirstFoundation", cardSuite);
     // removeCardFromPile();
   };
 
