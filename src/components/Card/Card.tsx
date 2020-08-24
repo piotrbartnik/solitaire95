@@ -20,8 +20,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const extractSuite = (
     frontName: string,
     targetSuite: string
-  ): string | null =>
-    frontName.includes(targetSuite) ? targetSuite.toLowerCase() : null;
+  ): string | null => (frontName.includes(targetSuite) ? targetSuite : null);
 
   const possibleSuitesAndAdjacentColors: {
     [key: string]: string[];
@@ -38,8 +37,16 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     .map((el) => extractSuite(front, el))
     .filter(Boolean);
 
+  const [cardColor] = Object.keys(possibleSuitesAndAdjacentColors)
+    .map((el) =>
+      possibleSuitesAndAdjacentColors[el].includes(String(cardSuite))
+        ? el
+        : null
+    )
+    .filter(Boolean);
+
   const [{ isDragging }, drag] = useDrag({
-    item: { type: itemTypes.CARD, front, cardSuite },
+    item: { type: itemTypes.CARD, front, cardSuite, cardColor },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       item: monitor.getItem(),
@@ -63,6 +70,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
           style={{ backgroundImage: `url(${frontImage})` }}
           data-cardname={front}
           data-suite={cardSuite}
+          data-color={cardColor}
         ></div>
       ) : (
         <div
