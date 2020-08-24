@@ -23,7 +23,16 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   ): string | null =>
     frontName.includes(targetSuite) ? targetSuite.toLowerCase() : null;
 
-  const possibleSuites = ["Hearts", "Clubs", "Diamonds", "Spades"];
+  const possibleSuitesAndAdjacentColors: {
+    [key: string]: string[];
+  } = {
+    red: ["Hearts", "Diamonds"],
+    black: ["Clubs", "Spades"],
+  };
+
+  const possibleSuites: string[] = Object.keys(possibleSuitesAndAdjacentColors)
+    .map((color) => possibleSuitesAndAdjacentColors[color])
+    .reduce((acc, curr) => acc.concat(curr), []);
 
   const [cardSuite] = possibleSuites
     .map((el) => extractSuite(front, el))
