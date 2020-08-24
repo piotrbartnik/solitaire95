@@ -17,12 +17,17 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const { front, back, isTurnedBack = true, onDoubleClick, onClick } = props;
   const [cardPosition] = useState(isTurnedBack);
 
-  let cardSuite: string = "";
+  const extractSuite = (
+    frontName: string,
+    targetSuite: string
+  ): string | null =>
+    frontName.includes(targetSuite) ? targetSuite.toLowerCase() : null;
 
-  if (front.includes("Hearts")) cardSuite = "hearts";
-  if (front.includes("Clubs")) cardSuite = "clubs";
-  if (front.includes("Diamonds")) cardSuite = "diamonds";
-  if (front.includes("Spades")) cardSuite = "spades";
+  const possibleSuites = ["Hearts", "Clubs", "Diamonds", "Spades"];
+
+  const [cardSuite] = possibleSuites
+    .map((el) => extractSuite(front, el))
+    .filter(Boolean);
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: itemTypes.CARD, front, cardSuite },
