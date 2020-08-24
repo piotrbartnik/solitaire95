@@ -31,10 +31,20 @@ const orderPiles = (cardsForPiles: string[]): object => {
   return cardsOnPiles;
 };
 
+const testPilesConfig = {
+  0: ["twoOfHearts"],
+  1: ["threeOfSpades"],
+  2: ["fourOfHearts"],
+  3: ["fiveOfSpades"],
+  4: ["sixOfHearts"],
+  5: ["sevenOfSpades"],
+  6: ["eigthOfHearts"],
+  7: ["nineOfSpades"],
+};
 const initialState: initialState = {
-  cardsOnStock: cardsForStock,
+  cardsOnStock: ["aceOfHearts"],
   cardsFromStock: [],
-  cardsOnPiles: orderPiles(cardsForPiles),
+  cardsOnPiles: testPilesConfig,
 };
 
 export const cardDistribution = (state = initialState, action: any) => {
