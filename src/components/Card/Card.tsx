@@ -16,8 +16,16 @@ type propTypes = {
 const Card: React.FC<propTypes> = (props: propTypes) => {
   const { front, back, isTurnedBack = true, onDoubleClick, onClick } = props;
   const [cardPosition] = useState(isTurnedBack);
+
+  let cardColor: string = "";
+
+  if (front.includes("Hearts")) cardColor = "hearts";
+  if (front.includes("Clubs")) cardColor = "clubs";
+  if (front.includes("Diamonds")) cardColor = "diamonds";
+  if (front.includes("Spades")) cardColor = "spades";
+
   const [{ isDragging }, drag] = useDrag({
-    item: { type: itemTypes.CARD, front: front },
+    item: { type: itemTypes.CARD, front, cardColor },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       item: monitor.getItem(),
@@ -26,13 +34,6 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
 
   const frontImage: string = cardFrontsImages[`${front}`];
   const backImage: string = cardBackImages[`${back}`];
-
-  let cardColor: string = "";
-
-  if (front.includes("Hearts")) cardColor = "hearts";
-  if (front.includes("Clubs")) cardColor = "clubs";
-  if (front.includes("Diamonds")) cardColor = "diamonds";
-  if (front.includes("Spades")) cardColor = "spades";
 
   return (
     <div
