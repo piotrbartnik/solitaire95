@@ -45,3 +45,11 @@ export const removeCardFromPile = (pileNumber: string) => {
     removeCardFromPile: pileNumber,
   };
 };
+
+export const addCardToPile = (pileNumber: string, card: string) => {
+  return {
+    type: actionTypes.ADD_CARD_TO_PILE,
+    addCardToPile: pileNumber,
+    cardToAdd: card,
+  };
+};

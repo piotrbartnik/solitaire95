@@ -75,6 +75,16 @@ export const cardDistribution = (state = initialState, action: any) => {
           ].slice(0, -1),
         },
       };
+    case "ADD_CARD_TO_PILE":
+      return {
+        ...state,
+        cardsOnPiles: {
+          ...state.cardsOnPiles,
+          [action.addCardToPile]: state.cardsOnPiles[
+            action.addCardToPile
+          ].concat([action.cardToAdd]),
+        },
+      };
     default:
       return state;
   }
