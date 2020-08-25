@@ -11,10 +11,18 @@ type propTypes = {
   isTurnedBack: boolean;
   onDoubleClick?: any;
   onClick?: any;
+  pileNumber?: number;
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
-  const { front, back, isTurnedBack = true, onDoubleClick, onClick } = props;
+  const {
+    front,
+    back,
+    isTurnedBack = true,
+    onDoubleClick,
+    onClick,
+    pileNumber,
+  } = props;
   const [cardPosition] = useState(isTurnedBack);
 
   const extractSuite = (
@@ -46,7 +54,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     .filter(Boolean);
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: itemTypes.CARD, front, cardSuite, cardColor },
+    item: { type: itemTypes.CARD, front, cardSuite, cardColor, pileNumber },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       item: monitor.getItem(),

@@ -39,9 +39,9 @@ export const removeCardMovedToFoundation = (payload: string[]) => {
   };
 };
 
-export const removeCardFromPile = () => {
+export const removeCardFromPile = (pileNumber: string) => {
   return {
     type: actionTypes.REMOVE_CARD_FROM_PILE,
-    // removeCardFromPile: payload,
+    removeCardFromPile: pileNumber,
   };
 };

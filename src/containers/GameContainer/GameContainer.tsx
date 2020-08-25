@@ -11,7 +11,6 @@ type propTypes = {
   cardsOnFourthFoundation: string[];
   addCardToFoundation: any;
   cardsOnPiles: object;
-  removeCardFromPile: any;
 };
 
 const GameContainer: React.FC<propTypes> = (props) => {
@@ -21,13 +20,12 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnThirdFoundation,
     cardsOnFourthFoundation,
     cardsOnPiles,
-    // removeCardFromPile,
   } = props;
 
   const piles = (config: any) =>
-    Object.keys(config).map((el) => (
+    Object.keys(config).map((el, index) => (
       <div className={styles.gameContainer__singlePile}>
-        <Pile cardsOnPile={config[el]} />
+        <Pile cardsOnPile={config[el]} pileIndex={index} />
       </div>
     ));
 
@@ -75,7 +73,6 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(
         actions.addCardToFoundation(card, foundationNumber, foundationSuite)
       ),
-    removeCardFromPile: () => dispatch(actions.removeCardFromPile()),
   };
 };
 

@@ -1,6 +1,7 @@
 .pile {
   &__container {
     position: relative;
+    width: 160px;
   }
 
   @for $i from 1 through 12 {

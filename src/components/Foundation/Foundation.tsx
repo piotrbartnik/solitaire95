@@ -9,13 +9,14 @@ import styles from "./Foundation.module.scss";
 type propTypes = {
   cardsOnStock?: string[];
   addCardToFoundation?: any;
+  removeCardFromPile?: any;
 };
 
 const Foundation: React.FC<propTypes> = (props) => {
-  const { cardsOnStock, addCardToFoundation } = props;
+  const { cardsOnStock, addCardToFoundation, removeCardFromPile } = props;
 
   const dropCardOnFoundation = (dragObject: any, item: any) => {
-    const { front, cardSuite } = dragObject;
+    const { front, cardSuite, pileNumber } = dragObject;
     const { targetId } = item;
     const foundations = [
       "cardsOnFirstFoundation",
@@ -28,14 +29,13 @@ const Foundation: React.FC<propTypes> = (props) => {
       foundations[targetId.replace(/\D/, "") - 1],
       cardSuite
     );
-    // removeCardFromPile();
+    removeCardFromPile(pileNumber);
   };
 
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
     drop: (monitor, item) => {
       dropCardOnFoundation(monitor, item);
-      console.log(monitor, item);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -67,7 +67,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(
         actions.addCardToFoundation(card, foundationNumber, foundationSuite)
       ),
-    removeCardFromPile: () => dispatch(actions.removeCardFromPile()),
+    removeCardFromPile: (pileNumber: string) =>
+      dispatch(actions.removeCardFromPile(pileNumber)),
   };
 };
 

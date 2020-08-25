@@ -3,7 +3,7 @@ import { cardTypes } from "../../configs/cardTypes";
 type initialState = {
   cardsOnStock: string[];
   cardsFromStock: string[];
-  cardsOnPiles: object;
+  cardsOnPiles: { [key: string]: string[] };
 };
 
 const mixCardsForGame = (cards: string[]): string[][] => {
@@ -31,7 +31,7 @@ const orderPiles = (cardsForPiles: string[]): object => {
   return cardsOnPiles;
 };
 
-const testPilesConfig = {
+const testPilesConfig: { [key: string]: string[] } = {
   0: ["twoOfHearts"],
   1: ["threeOfSpades"],
   2: ["fourOfHearts"],
@@ -39,7 +39,7 @@ const testPilesConfig = {
   4: ["sixOfHearts"],
   5: ["sevenOfSpades"],
   6: ["eigthOfHearts"],
-  7: ["nineOfSpades"],
+  7: ["nineOfSpades", "nineOfClubs"],
 };
 const initialState: initialState = {
   cardsOnStock: ["aceOfHearts"],
@@ -68,7 +68,12 @@ export const cardDistribution = (state = initialState, action: any) => {
     case "REMOVE_CARD_FROM_PILE":
       return {
         ...state,
-        cardsOnPiles: {},
+        cardsOnPiles: {
+          ...state.cardsOnPiles,
+          [action.removeCardFromPile]: state.cardsOnPiles[
+            action.removeCardFromPile
+          ].slice(0, -1),
+        },
       };
     default:
       return state;
