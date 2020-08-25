@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import styles from "./Card.module.scss";
 import { itemTypes } from "../../configs/dragndropConfig";
@@ -23,7 +23,11 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     onClick,
     pileNumber,
   } = props;
-  const [cardPosition] = useState(isTurnedBack);
+  const [cardPosition, changeCardPosition] = useState(isTurnedBack);
+
+  useEffect(() => {
+    changeCardPosition(isTurnedBack);
+  }, [isTurnedBack]);
 
   const extractSuite = (
     frontName: string,

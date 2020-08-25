@@ -9,10 +9,9 @@ type propTypes = {
 
 const Pile: React.FC<propTypes> = (props: propTypes) => {
   const { cardsOnPile, pileIndex } = props;
-
   const distributeCards = (cardsOnPile: string[]) =>
-    cardsOnPile.map((el, index) =>
-      cardsOnPile.length > 0 ? (
+    cardsOnPile.map((el, index) => {
+      return cardsOnPile.length > 0 ? (
         <div id={`${pileIndex}`} className={styles[`pile__${index}`]}>
           <Card
             front={el}
@@ -23,8 +22,8 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
         </div>
       ) : (
         <div id={`${pileIndex}`} className={styles[`pile__${index}`]}></div>
-      )
-    );
+      );
+    });
 
   return (
     <div className={styles.pile__container}>{distributeCards(cardsOnPile)}</div>
