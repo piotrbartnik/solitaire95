@@ -11,19 +11,33 @@ type propTypes = {
   pileIndex: number;
   removeCardFromPile?: any;
   addCardToPile?: any;
+  removeCardMovedToFoundation?: any;
+  cardsFromStock?: string[];
 };
 
 const Pile: React.FC<propTypes> = (props: propTypes) => {
-  const { cardsOnPile, pileIndex, removeCardFromPile, addCardToPile } = props;
+  const {
+    cardsOnPile,
+    pileIndex,
+    removeCardFromPile,
+    addCardToPile,
+    removeCardMovedToFoundation,
+    cardsFromStock,
+  } = props;
 
   const ref: any = useRef(null);
 
   const dropCardOnPile = (dragObject: any, item: any) => {
     const { front, pileNumber } = dragObject;
+    console.log(dragObject);
 
     addCardToPile(ref.current.id, front);
 
-    removeCardFromPile(pileNumber);
+    if (pileNumber !== undefined) {
+      removeCardFromPile(pileNumber);
+    } else {
+      removeCardMovedToFoundation(cardsFromStock?.filter((el) => el !== front));
+    }
   };
 
   const [{ isOver }, drop] = useDrop({
@@ -66,13 +80,22 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   );
 };
 
+const mapStateToProps = (state: any) => {
+  return {
+    cardsFromStock: state.cardDistribution.cardsFromStock,
+  };
+};
+
 const mapDispatchToProps = (dispatch: any) => {
   return {
     removeCardFromPile: (pileNumber: string) =>
       dispatch(actions.removeCardFromPile(pileNumber)),
     addCardToPile: (pileNumber: string, card: string) =>
       dispatch(actions.addCardToPile(pileNumber, card)),
+    removeCardMovedToFoundation: (payload: string[]) => {
+      dispatch(actions.removeCardMovedToFoundation(payload));
+    },
   };
 };
 
-export default connect(undefined, mapDispatchToProps)(Pile);
+export default connect(mapStateToProps, mapDispatchToProps)(Pile);
