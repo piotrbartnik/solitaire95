@@ -12,6 +12,7 @@ type propTypes = {
   onDoubleClick?: any;
   onClick?: any;
   pileNumber?: number;
+  wasTurnedFront?: boolean;
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
@@ -24,10 +25,11 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     pileNumber,
   } = props;
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
+  const [wasTurnedFront] = useState(!cardPosition ? true : false);
 
   useEffect(() => {
-    changeCardPosition(isTurnedBack);
-  }, [isTurnedBack]);
+    if (!wasTurnedFront) changeCardPosition(isTurnedBack);
+  }, [isTurnedBack, wasTurnedFront]);
 
   const extractSuite = (
     frontName: string,
