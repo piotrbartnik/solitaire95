@@ -17,7 +17,7 @@ export const reverseStock = (payload: string[]) => {
 export const addCardToFoundation = (
   card: string,
   foundationNumber: string,
-  foundationColor?: string
+  foundationSuite?: string
 ) => {
   const castFoundationNumber: { [char: string]: string } = {
     cardsOnFirstFoundation: actionTypes.ADD_CARD_TO_FIRST_FOUNDATION,
@@ -27,7 +27,7 @@ export const addCardToFoundation = (
   };
   return {
     type: castFoundationNumber[foundationNumber],
-    addFoundationColor: foundationColor,
+    addFoundationColor: foundationSuite,
     addCardToFoundation: card,
   };
 };

@@ -7,10 +7,10 @@ type initialState = {
 };
 
 const initialState: initialState = {
-  cardsOnFirstFoundation: { foundationColor: undefined, cards: [] },
-  cardsOnSecondFoundation: { foundationColor: undefined, cards: [] },
-  cardsOnThirdFoundation: { foundationColor: undefined, cards: [] },
-  cardsOnFourthFoundation: { foundationColor: undefined, cards: [] },
+  cardsOnFirstFoundation: { foundationSuite: undefined, cards: [] },
+  cardsOnSecondFoundation: { foundationSuite: undefined, cards: [] },
+  cardsOnThirdFoundation: { foundationSuite: undefined, cards: [] },
+  cardsOnFourthFoundation: { foundationSuite: undefined, cards: [] },
 };
 
 const immutableCardsArray = (
@@ -31,9 +31,9 @@ const cardsOnFoundationActionReturn = (
   ...state,
   [foundation]: {
     ...state[foundation],
-    foundationColor: action.addFoundationColor
+    foundationSuite: action.addFoundationColor
       ? action.addFoundationColor
-      : state[foundation].foundationColor,
+      : state[foundation].foundationSuite,
     cards: immutableCardsArray(state, action, foundation),
   },
 });
