@@ -31,16 +31,16 @@ const orderPiles = (cardsForPiles: string[]): { [key: string]: string[] } => {
   return cardsOnPiles;
 };
 
-const testPilesConfig: { [key: string]: string[] } = {
-  0: ["twoOfHearts"],
-  1: ["threeOfSpades"],
-  2: ["fourOfHearts"],
-  3: ["fiveOfSpades"],
-  4: ["sixOfHearts"],
-  5: ["sevenOfSpades"],
-  6: ["eigthOfHearts"],
-  7: ["nineOfSpades", "nineOfClubs"],
-};
+// const testPilesConfig: { [key: string]: string[] } = {
+//   0: ["twoOfHearts"],
+//   1: ["threeOfSpades"],
+//   2: ["fourOfHearts"],
+//   3: ["fiveOfSpades"],
+//   4: ["sixOfHearts"],
+//   5: ["sevenOfSpades"],
+//   6: ["eigthOfHearts"],
+//   7: ["nineOfSpades", "nineOfClubs"],
+// };
 const initialState: initialState = {
   cardsOnStock: cardsForStock,
   cardsFromStock: [],
