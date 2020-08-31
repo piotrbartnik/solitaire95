@@ -16,14 +16,7 @@ type propTypes = {
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
-  const {
-    front,
-    back,
-    isTurnedBack = true,
-    onDoubleClick,
-    onClick,
-    pileNumber,
-  } = props;
+  const { front, back, isTurnedBack = true, onDoubleClick, pileNumber } = props;
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
   const [wasTurnedFront] = useState(!cardPosition ? true : false);
 
@@ -41,6 +34,10 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   } = {
     red: ["Hearts", "Diamonds"],
     black: ["Clubs", "Spades"],
+  };
+
+  const onClick = () => {
+    if (!wasTurnedFront) changeCardPosition(false);
   };
 
   const possibleSuites: string[] = Object.keys(possibleSuitesAndAdjacentColors)
