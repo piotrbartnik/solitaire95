@@ -15,7 +15,7 @@ const mixCardsForGame = (cards: string[]): string[][] => {
 
 const [cardsForStock, cardsForPiles] = mixCardsForGame(cardTypes);
 
-const orderPiles = (cardsForPiles: string[]): object => {
+const orderPiles = (cardsForPiles: string[]): { [key: string]: string[] } => {
   const cardsOnPiles = {};
   cardsForPiles.forEach((el, index) => {
     if (index < 7) {
@@ -42,9 +42,9 @@ const testPilesConfig: { [key: string]: string[] } = {
   7: ["nineOfSpades", "nineOfClubs"],
 };
 const initialState: initialState = {
-  cardsOnStock: ["aceOfHearts"],
+  cardsOnStock: cardsForStock,
   cardsFromStock: [],
-  cardsOnPiles: testPilesConfig,
+  cardsOnPiles: orderPiles(cardsForPiles),
 };
 
 export const cardDistribution = (state = initialState, action: any) => {

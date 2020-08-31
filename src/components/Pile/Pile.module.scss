@@ -9,6 +9,10 @@
     &__#{$i} {
       position: absolute;
       top: #{5 * $i}px;
+      // &[data-turned="false"] {
+      //   position: absolute;
+      //   top: #{30 * $i}px;
+      // }
     }
   }
 }

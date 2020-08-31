@@ -55,11 +55,14 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   const distributeCards = (cardsOnPile: string[]) =>
     cardsOnPile.map((el, index) => {
       return cardsOnPile.length > 0 ? (
-        <div className={styles[`pile__${index}`]}>
+        <div
+          className={styles[`pile__${index}`]}
+          data-turned={pileIndex > index}
+        >
           <Card
             front={el}
             back={"acorns"}
-            isTurnedBack={index !== cardsOnPile.length - 1}
+            isTurnedBack={pileIndex > index}
             pileNumber={pileIndex}
           />
         </div>
