@@ -17,7 +17,7 @@ export const reverseStock = (payload: string[]) => {
 export const addCardToFoundation = (
   card: string,
   foundationNumber: string,
-  foundationColor?: string
+  foundationSuite?: string
 ) => {
   const castFoundationNumber: { [char: string]: string } = {
     cardsOnFirstFoundation: actionTypes.ADD_CARD_TO_FIRST_FOUNDATION,
@@ -27,7 +27,7 @@ export const addCardToFoundation = (
   };
   return {
     type: castFoundationNumber[foundationNumber],
-    addFoundationColor: foundationColor,
+    addFoundationColor: foundationSuite,
     addCardToFoundation: card,
   };
 };
@@ -36,5 +36,20 @@ export const removeCardMovedToFoundation = (payload: string[]) => {
   return {
     type: actionTypes.REMOVE_CARD_MOVED_TO_FOUNDATION,
     removeCardMovedToFoundation: payload,
+  };
+};
+
+export const removeCardFromPile = (pileNumber: string) => {
+  return {
+    type: actionTypes.REMOVE_CARD_FROM_PILE,
+    removeCardFromPile: pileNumber,
+  };
+};
+
+export const addCardToPile = (pileNumber: string, card: string) => {
+  return {
+    type: actionTypes.ADD_CARD_TO_PILE,
+    addCardToPile: pileNumber,
+    cardToAdd: card,
   };
 };

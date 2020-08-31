@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import styles from "./Card.module.scss";
 import { itemTypes } from "../../configs/dragndropConfig";
@@ -11,27 +11,61 @@ type propTypes = {
   isTurnedBack: boolean;
   onDoubleClick?: any;
   onClick?: any;
+  pileNumber?: number;
+  wasTurnedFront?: boolean;
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
-  const { front, back, isTurnedBack = true, onDoubleClick, onClick } = props;
-  const [cardPosition] = useState(isTurnedBack);
+  const { front, back, isTurnedBack = true, onDoubleClick, pileNumber } = props;
+  const [cardPosition, changeCardPosition] = useState(isTurnedBack);
+  const [wasTurnedFront] = useState(!cardPosition ? true : false);
+
+  useEffect(() => {
+    if (!wasTurnedFront) changeCardPosition(isTurnedBack);
+  }, [isTurnedBack, wasTurnedFront]);
+
+  const extractSuite = (
+    frontName: string,
+    targetSuite: string
+  ): string | null => (frontName.includes(targetSuite) ? targetSuite : null);
+
+  const possibleSuitesAndAdjacentColors: {
+    [key: string]: string[];
+  } = {
+    red: ["Hearts", "Diamonds"],
+    black: ["Clubs", "Spades"],
+  };
+
+  const onClick = () => {
+    if (!wasTurnedFront) changeCardPosition(false);
+  };
+
+  const possibleSuites: string[] = Object.keys(possibleSuitesAndAdjacentColors)
+    .map((color) => possibleSuitesAndAdjacentColors[color])
+    .reduce((acc, curr) => acc.concat(curr), []);
+
+  const [cardSuite] = possibleSuites
+    .map((el) => extractSuite(front, el))
+    .filter(Boolean);
+
+  const [cardColor] = Object.keys(possibleSuitesAndAdjacentColors)
+    .map((el) =>
+      possibleSuitesAndAdjacentColors[el].includes(String(cardSuite))
+        ? el
+        : null
+    )
+    .filter(Boolean);
+
   const [{ isDragging }, drag] = useDrag({
-    item: { type: itemTypes.CARD },
+    item: { type: itemTypes.CARD, front, cardSuite, cardColor, pileNumber },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
+      item: monitor.getItem(),
     }),
   });
 
   const frontImage: string = cardFrontsImages[`${front}`];
   const backImage: string = cardBackImages[`${back}`];
-
-  let cardColor: string = "";
-
-  if (front.includes("Hearts")) cardColor = "hearts";
-  if (front.includes("Clubs")) cardColor = "clubs";
-  if (front.includes("Diamonds")) cardColor = "diamonds";
-  if (front.includes("Spades")) cardColor = "spades";
 
   return (
     <div
@@ -46,6 +80,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
           className={styles.cardFront}
           style={{ backgroundImage: `url(${frontImage})` }}
           data-cardname={front}
+          data-suite={cardSuite}
           data-color={cardColor}
         ></div>
       ) : (

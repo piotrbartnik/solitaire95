@@ -3,7 +3,7 @@ interface foundationConfig {
 }
 
 export const foundationConfig: foundationConfig = {
-  hearts: [
+  Hearts: [
     "aceOfHearts",
     "twoOfHearts",
     "threeOfHearts",
@@ -18,7 +18,7 @@ export const foundationConfig: foundationConfig = {
     "queenOfHearts",
     "kingOfHearts",
   ],
-  spades: [
+  Spades: [
     "aceOfSpades",
     "twoOfSpades",
     "threeOfSpades",
@@ -33,7 +33,7 @@ export const foundationConfig: foundationConfig = {
     "queenOfSpades",
     "kingOfSpades",
   ],
-  diamonds: [
+  Diamonds: [
     "aceOfDiamonds",
     "twoOfDiamonds",
     "threeOfDiamonds",
@@ -48,7 +48,7 @@ export const foundationConfig: foundationConfig = {
     "queenOfDiamonds",
     "kingOfDiamonds",
   ],
-  clubs: [
+  Clubs: [
     "aceOfClubs",
     "twoOfClubs",
     "threeOfClubs",

@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
-import { useDrop } from "react-dnd";
-import { itemTypes } from "../../configs/dragndropConfig";
 import { FoundationField, Pile, CardStock } from "../../components";
 import styles from "./GameContainer.module.scss";
 
@@ -21,27 +19,13 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnSecondFoundation,
     cardsOnThirdFoundation,
     cardsOnFourthFoundation,
-    addCardToFoundation,
     cardsOnPiles,
   } = props;
 
-  console.log(cardsOnPiles);
-
-  const dropTheKing = () =>
-    addCardToFoundation("kingOfHearts", "cardsOnFirstFoundation", "hearts");
-
-  const [, drop] = useDrop({
-    accept: itemTypes.CARD,
-    drop: () => dropTheKing(),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  });
-
   const piles = (config: any) =>
-    Object.keys(config).map((el) => (
+    Object.keys(config).map((el, index) => (
       <div className={styles.gameContainer__singlePile}>
-        <Pile cardsOnPile={config[el]} />
+        <Pile cardsOnPile={config[el]} pileIndex={index} />
       </div>
     ));
 
@@ -52,7 +36,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
           <div className={styles.gameContainer__cardStock}>
             <CardStock />
           </div>
-          <div className={styles.gameContainer__foundation} ref={drop}>
+          <div className={styles.gameContainer__foundation}>
             <FoundationField cardsOnStock={cardsOnFirstFoundation} />
             <FoundationField cardsOnStock={cardsOnSecondFoundation} />
             <FoundationField cardsOnStock={cardsOnThirdFoundation} />
@@ -84,10 +68,10 @@ const mapDispatchToProps = (dispatch: any) => {
     addCardToFoundation: (
       card: string,
       foundationNumber: string,
-      foundationColor: string
+      foundationSuite: string
     ) =>
       dispatch(
-        actions.addCardToFoundation(card, foundationNumber, foundationColor)
+        actions.addCardToFoundation(card, foundationNumber, foundationSuite)
       ),
   };
 };

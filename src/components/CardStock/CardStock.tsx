@@ -48,23 +48,23 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
         addCardToFoundation(
           card,
           foundationToPopulate[0],
-          e.target.dataset.color
+          e.target.dataset.suite
         );
         removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== card));
-        foundationConfig[e.target.dataset.color].shift();
+        foundationConfig[e.target.dataset.suite].shift();
       }
     }
 
     if (!card.match("ace")) {
       Object.keys(cardsOnFoundations).forEach((foundation) => {
         if (
-          cardsOnFoundations[foundation].foundationColor ===
-            e.target.dataset.color &&
+          cardsOnFoundations[foundation].foundationSuite ===
+            e.target.dataset.suite &&
           foundationConfig[
-            cardsOnFoundations[foundation].foundationColor
+            cardsOnFoundations[foundation].foundationSuite
           ][0] === card
         ) {
-          foundationConfig[e.target.dataset.color].shift();
+          foundationConfig[e.target.dataset.suite].shift();
           removeCardMovedToFoundation(
             cardsFromStock.filter((el) => el !== card)
           );
@@ -125,10 +125,10 @@ const mapDispatchToProps = (dispatch: any) => {
     addCardToFoundation: (
       card: string,
       foundationNumber: string,
-      foundationColor: string
+      foundationSuite: string
     ) =>
       dispatch(
-        actions.addCardToFoundation(card, foundationNumber, foundationColor)
+        actions.addCardToFoundation(card, foundationNumber, foundationSuite)
       ),
   };
 };
