@@ -71,7 +71,6 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
 
   const dropCardOnPile = (dragObject: any, item: any) => {
     const { front, pileNumber } = dragObject;
-    console.log(dragObject);
 
     addCardToPile(ref.current.id, front);
 
@@ -100,6 +99,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
         <div
           className={styles[`pile__${index}`]}
           data-turned={pileIndex > index}
+          key={index}
         >
           <Card
             front={el}

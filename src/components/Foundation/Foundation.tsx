@@ -50,8 +50,8 @@ const Foundation: React.FC<propTypes> = (props) => {
       style={isOver ? { border: "2px solid red" } : undefined}
     >
       {cardsOnStock?.length
-        ? cardsOnStock.map((el) => (
-            <Card front={el} back={"acorns"} isTurnedBack={false} />
+        ? cardsOnStock.map((el, index) => (
+            <Card front={el} back={"acorns"} isTurnedBack={false} key={index} />
           ))
         : null}
     </div>
