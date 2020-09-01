@@ -82,6 +82,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
           data-cardname={front}
           data-suite={cardSuite}
           data-color={cardColor}
+          data-pilenumber={pileNumber}
         ></div>
       ) : (
         <div

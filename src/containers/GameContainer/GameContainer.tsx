@@ -24,7 +24,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
 
   const piles = (config: any) =>
     Object.keys(config).map((el, index) => (
-      <div className={styles.gameContainer__singlePile}>
+      <div className={styles.gameContainer__singlePile} key={index}>
         <Pile cardsOnPile={config[el]} pileIndex={index} />
       </div>
     ));

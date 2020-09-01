@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
 import { itemTypes } from "../../configs/dragndropConfig";
+import { foundationConfig } from "../../configs/foundationConfig";
 import { Card } from "..";
 import styles from "./Pile.module.scss";
 
@@ -13,6 +14,8 @@ type propTypes = {
   addCardToPile?: any;
   removeCardMovedToFoundation?: any;
   cardsFromStock?: string[];
+  cardsOnFoundations: any;
+  addCardToFoundation: any;
 };
 
 const Pile: React.FC<propTypes> = (props: propTypes) => {
@@ -23,13 +26,51 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     addCardToPile,
     removeCardMovedToFoundation,
     cardsFromStock,
+    cardsOnFoundations,
+    addCardToFoundation,
   } = props;
 
   const ref: any = useRef(null);
 
+  const moveToFoundation = (e: any) => {
+    const { cardname, pilenumber } = e.target.dataset;
+    if (cardname.match("ace")) {
+      let foundationToPopulate: string[] = [];
+      Object.keys(cardsOnFoundations).forEach((foundation) => {
+        if (!cardsOnFoundations[foundation].cards.length) {
+          foundationToPopulate.push(foundation);
+        }
+      });
+      if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
+        addCardToFoundation(
+          cardname,
+          foundationToPopulate[0],
+          e.target.dataset.suite
+        );
+        removeCardFromPile(pilenumber);
+        foundationConfig[e.target.dataset.suite].shift();
+      }
+    }
+
+    if (!cardname.match("ace")) {
+      Object.keys(cardsOnFoundations).forEach((foundation) => {
+        if (
+          cardsOnFoundations[foundation].foundationSuite ===
+            e.target.dataset.suite &&
+          foundationConfig[
+            cardsOnFoundations[foundation].foundationSuite
+          ][0] === cardname
+        ) {
+          foundationConfig[e.target.dataset.suite].shift();
+          removeCardFromPile(pilenumber);
+          addCardToFoundation(cardname, foundation);
+        }
+      });
+    }
+  };
+
   const dropCardOnPile = (dragObject: any, item: any) => {
     const { front, pileNumber } = dragObject;
-    console.log(dragObject);
 
     addCardToPile(ref.current.id, front);
 
@@ -58,12 +99,14 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
         <div
           className={styles[`pile__${index}`]}
           data-turned={pileIndex > index}
+          key={index}
         >
           <Card
             front={el}
             back={"acorns"}
             isTurnedBack={pileIndex > index}
             pileNumber={pileIndex}
+            onDoubleClick={moveToFoundation}
           />
         </div>
       ) : (
@@ -86,6 +129,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
 const mapStateToProps = (state: any) => {
   return {
     cardsFromStock: state.cardDistribution.cardsFromStock,
+    cardsOnFoundations: state.cardsOnFoundation,
   };
 };
 
@@ -98,6 +142,14 @@ const mapDispatchToProps = (dispatch: any) => {
     removeCardMovedToFoundation: (payload: string[]) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
+    addCardToFoundation: (
+      card: string,
+      foundationNumber: string,
+      foundationSuite: string
+    ) =>
+      dispatch(
+        actions.addCardToFoundation(card, foundationNumber, foundationSuite)
+      ),
   };
 };
 
