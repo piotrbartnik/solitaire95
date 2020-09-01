@@ -52,23 +52,21 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       }
     }
 
-    // if (!card.match("ace")) {
-    //   Object.keys(cardsOnFoundations).forEach((foundation) => {
-    //     if (
-    //       cardsOnFoundations[foundation].foundationSuite ===
-    //         e.target.dataset.suite &&
-    //       foundationConfig[
-    //         cardsOnFoundations[foundation].foundationSuite
-    //       ][0] === card
-    //     ) {
-    //       foundationConfig[e.target.dataset.suite].shift();
-    //       removeCardMovedToFoundation(
-    //         cardsFromStock.filter((el) => el !== card)
-    //       );
-    //       addCardToFoundation(card, foundation);
-    //     }
-    //   });
-    // }
+    if (!cardname.match("ace")) {
+      Object.keys(cardsOnFoundations).forEach((foundation) => {
+        if (
+          cardsOnFoundations[foundation].foundationSuite ===
+            e.target.dataset.suite &&
+          foundationConfig[
+            cardsOnFoundations[foundation].foundationSuite
+          ][0] === cardname
+        ) {
+          foundationConfig[e.target.dataset.suite].shift();
+          removeCardFromPile(pilenumber);
+          addCardToFoundation(cardname, foundation);
+        }
+      });
+    }
   };
 
   const dropCardOnPile = (dragObject: any, item: any) => {
