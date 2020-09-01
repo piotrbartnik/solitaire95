@@ -17,6 +17,7 @@ const Foundation: React.FC<propTypes> = (props) => {
 
   const dropCardOnFoundation = (dragObject: any, item: any) => {
     const { front, cardSuite, pileNumber } = dragObject;
+
     const { targetId } = item;
     const foundations = [
       "cardsOnFirstFoundation",
@@ -26,7 +27,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     ];
     addCardToFoundation(
       front,
-      foundations[targetId.replace(/\D/, "") - 1],
+      foundations[targetId.replace(/\D/, "") - 24],
       cardSuite
     );
     removeCardFromPile(pileNumber);
