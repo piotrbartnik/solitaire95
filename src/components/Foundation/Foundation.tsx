@@ -23,6 +23,9 @@ const Foundation: React.FC<propTypes> = (props) => {
     cardsFromStock,
   } = props;
 
+  const isFirstFoundation = (foundation: any, targetId: any) => {
+    return targetId.targetId === "T24";
+  };
   const dropCardOnFoundation = (dragObject: any, item: any) => {
     const { front, cardSuite, pileNumber } = dragObject;
 
@@ -45,13 +48,15 @@ const Foundation: React.FC<propTypes> = (props) => {
     }
   };
 
-  const [{ isOver }, drop] = useDrop({
+  const [{ isOver, canDrop }, drop] = useDrop({
     accept: itemTypes.CARD,
     drop: (monitor, item) => {
       dropCardOnFoundation(monitor, item);
     },
+    canDrop: isFirstFoundation,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
     }),
   });
 
@@ -59,7 +64,13 @@ const Foundation: React.FC<propTypes> = (props) => {
     <div
       className={styles.foundation}
       ref={drop}
-      style={isOver ? { border: "2px solid red" } : undefined}
+      style={
+        isOver && canDrop
+          ? { border: "2px solid blue" }
+          : isOver
+          ? { border: "2px solid red" }
+          : undefined
+      }
     >
       {cardsOnStock?.length
         ? cardsOnStock.map((el, index) => (
