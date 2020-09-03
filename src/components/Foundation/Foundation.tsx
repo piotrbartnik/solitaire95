@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
 import { itemTypes } from "../../configs/dragndropConfig";
+import { foundationConfig } from "../../configs/foundationConfig";
 import { Card } from "..";
 import styles from "./Foundation.module.scss";
 
@@ -12,6 +13,7 @@ type propTypes = {
   removeCardFromPile?: any;
   removeCardMovedToFoundation?: any;
   cardsFromStock: string[];
+  cardsOnFoundations: any;
 };
 
 const Foundation: React.FC<propTypes> = (props) => {
@@ -21,11 +23,25 @@ const Foundation: React.FC<propTypes> = (props) => {
     removeCardFromPile,
     removeCardMovedToFoundation,
     cardsFromStock,
+    cardsOnFoundations,
   } = props;
 
-  const isFirstFoundation = (foundation: any, targetId: any) => {
-    return targetId.targetId === "T24";
+  const isFirstFoundation = (card: any, hoveredFoundation: any) => {
+    console.log(foundationConfig[card.cardSuite].includes(card.cardFront));
+    const foundationObject =
+      cardsOnFoundations[
+        Object.keys(cardsOnFoundations)[
+          hoveredFoundation.targetId.replace(/\D/, "") - 24
+        ]
+      ];
+    if (card.front.match(/ace/)) {
+      console.log(foundationObject.foundationSuite);
+      return foundationObject.foundationSuite === undefined;
+    } else {
+      return card.cardSuite === foundationObject.foundationSuite;
+    }
   };
+
   const dropCardOnFoundation = (dragObject: any, item: any) => {
     const { front, cardSuite, pileNumber } = dragObject;
 
@@ -82,7 +98,10 @@ const Foundation: React.FC<propTypes> = (props) => {
 };
 
 const mapStateToProps = (state: any) => {
-  return { cardsFromStock: state.cardDistribution.cardsFromStock };
+  return {
+    cardsFromStock: state.cardDistribution.cardsFromStock,
+    cardsOnFoundations: state.cardsOnFoundation,
+  };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
