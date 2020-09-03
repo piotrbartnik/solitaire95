@@ -27,18 +27,20 @@ const Foundation: React.FC<propTypes> = (props) => {
   } = props;
 
   const isFirstFoundation = (card: any, hoveredFoundation: any) => {
-    console.log(foundationConfig[card.cardSuite].includes(card.cardFront));
     const foundationObject =
       cardsOnFoundations[
         Object.keys(cardsOnFoundations)[
           hoveredFoundation.targetId.replace(/\D/, "") - 24
         ]
       ];
+    console.log(foundationConfig);
     if (card.front.match(/ace/)) {
-      console.log(foundationObject.foundationSuite);
       return foundationObject.foundationSuite === undefined;
     } else {
-      return card.cardSuite === foundationObject.foundationSuite;
+      return (
+        card.cardSuite === foundationObject.foundationSuite &&
+        foundationConfig[card.cardSuite][0] === card.front
+      );
     }
   };
 
@@ -57,8 +59,9 @@ const Foundation: React.FC<propTypes> = (props) => {
       foundations[targetId.replace(/\D/, "") - 24],
       cardSuite
     );
-    if (pileNumber) {
+    if (typeof pileNumber === "number") {
       removeCardFromPile(pileNumber);
+      foundationConfig[cardSuite].shift();
     } else {
       removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== front));
     }
