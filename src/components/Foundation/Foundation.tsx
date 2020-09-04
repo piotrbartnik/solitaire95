@@ -85,9 +85,9 @@ const Foundation: React.FC<propTypes> = (props) => {
       ref={drop}
       style={
         isOver && canDrop
-          ? { border: "2px solid blue" }
+          ? { border: "5px solid blue" }
           : isOver
-          ? { border: "2px solid red" }
+          ? { border: "5px solid red" }
           : undefined
       }
     >
