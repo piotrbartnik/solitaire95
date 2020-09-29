@@ -64,6 +64,7 @@ const Foundation: React.FC<propTypes> = (props) => {
       foundationConfig[cardSuite].shift();
     } else {
       removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== front));
+      foundationConfig[cardSuite].shift();
     }
   };
 
