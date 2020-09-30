@@ -8,7 +8,7 @@ import { cardBackImages } from "../../static/cardBacks/";
 type propTypes = {
   front: string;
   back: string;
-  isTurnedBack: boolean;
+  isTurnedBack?: boolean;
   onDoubleClick?: any;
   onClick?: any;
   pileNumber?: number;
@@ -19,6 +19,8 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const { front, back, isTurnedBack = true, onDoubleClick, pileNumber } = props;
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
   const [wasTurnedFront] = useState(!cardPosition ? true : false);
+
+  const canDragCard = !cardPosition;
 
   useEffect(() => {
     if (!wasTurnedFront) changeCardPosition(isTurnedBack);
@@ -57,7 +59,14 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     .filter(Boolean);
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: itemTypes.CARD, front, cardSuite, cardColor, pileNumber },
+    item: {
+      type: itemTypes.CARD,
+      front,
+      cardSuite,
+      cardColor,
+      pileNumber,
+    },
+    canDrag: canDragCard,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       item: monitor.getItem(),
