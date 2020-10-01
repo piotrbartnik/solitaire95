@@ -65,6 +65,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
       cardSuite,
       cardColor,
       pileNumber,
+      cardPosition,
     },
     canDrag: canDragCard,
     collect: (monitor) => ({

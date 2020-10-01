@@ -33,7 +33,6 @@ const Foundation: React.FC<propTypes> = (props) => {
           hoveredFoundation.targetId.replace(/\D/, "") - 24
         ]
       ];
-    console.log(foundationConfig);
     if (card.front.match(/ace/)) {
       return foundationObject.foundationSuite === undefined;
     } else {

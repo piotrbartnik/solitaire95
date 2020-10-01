@@ -82,7 +82,7 @@ export const cardDistribution = (state = initialState, action: any) => {
           ...state.cardsOnPiles,
           [action.addCardToPile]: state.cardsOnPiles[
             action.addCardToPile
-          ].concat([action.cardToAdd]),
+          ].concat([`${action.cardToAdd}-${action.isTurnedBack}`]),
         },
       };
     default:

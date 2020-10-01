@@ -46,10 +46,15 @@ export const removeCardFromPile = (pileNumber: string) => {
   };
 };
 
-export const addCardToPile = (pileNumber: string, card: string) => {
+export const addCardToPile = (
+  pileNumber: string,
+  card: string,
+  isTurnedBack?: boolean
+) => {
   return {
     type: actionTypes.ADD_CARD_TO_PILE,
     addCardToPile: pileNumber,
     cardToAdd: card,
+    isTurnedBack,
   };
 };
