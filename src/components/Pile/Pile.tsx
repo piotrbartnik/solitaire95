@@ -70,9 +70,11 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   };
 
   const dropCardOnPile = (dragObject: any, item: any) => {
-    const { front, pileNumber } = dragObject;
+    const { front, pileNumber, cardPosition } = dragObject;
 
-    addCardToPile(ref.current.id, front);
+    console.log(dragObject);
+
+    addCardToPile(ref.current.id, front, cardPosition);
 
     if (pileNumber !== undefined) {
       removeCardFromPile(pileNumber);
@@ -95,16 +97,20 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
 
   const distributeCards = (cardsOnPile: string[]) =>
     cardsOnPile.map((el, index) => {
+      const isTurnedBackString = el.split("-")[1];
+      const shouldBeTurnedAfterDrag = isTurnedBackString
+        ? !Boolean(isTurnedBackString)
+        : pileIndex > index;
       return cardsOnPile.length > 0 ? (
         <div
           className={styles[`pile__${index}`]}
-          data-turned={pileIndex > index}
+          data-turned={shouldBeTurnedAfterDrag}
           key={index}
         >
           <Card
-            front={el}
+            front={el.split("-")[0]}
             back={"acorns"}
-            isTurnedBack={pileIndex > index}
+            isTurnedBack={shouldBeTurnedAfterDrag}
             pileNumber={pileIndex}
             onDoubleClick={moveToFoundation}
           />
@@ -137,8 +143,8 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     removeCardFromPile: (pileNumber: string) =>
       dispatch(actions.removeCardFromPile(pileNumber)),
-    addCardToPile: (pileNumber: string, card: string) =>
-      dispatch(actions.addCardToPile(pileNumber, card)),
+    addCardToPile: (pileNumber: string, card: string, isTurnedBack: boolean) =>
+      dispatch(actions.addCardToPile(pileNumber, card, isTurnedBack)),
     removeCardMovedToFoundation: (payload: string[]) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
