@@ -52,3 +52,30 @@ export const cardTypes: string[] = [
   "queenOfClubs",
   "kingOfClubs",
 ];
+
+const cardRank: string[] = [
+  "ace",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "jack",
+  "queen",
+  "king",
+];
+
+const cardConfigs: (string | undefined)[][] = [
+  ["diamonds", undefined, "black"],
+  ["spades", undefined, "black"],
+  ["hearts", undefined, "red"],
+  ["clubs", undefined, "red"],
+];
+
+export const createCards: (string | undefined)[][] = cardRank
+  .map((rank) => cardConfigs.map((config) => [rank, ...config]))
+  .reduce((a, b) => a.concat(b), []);

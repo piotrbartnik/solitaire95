@@ -1,10 +1,23 @@
-import { cardTypes } from "../../configs/cardTypes";
+import { cardTypes, createCards } from "../../configs/cardTypes";
+
+console.log(createCards);
 
 type initialState = {
   cardsOnStock: string[];
   cardsFromStock: string[];
   cardsOnPiles: { [key: string]: string[] };
 };
+
+const mixCardsForGame2 = (
+  cards: (string | undefined)[][]
+): (string | undefined)[][][] => {
+  const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
+  const cardsForStock = randomizeCardInput.slice(0, 24);
+  const cardsForPiles = randomizeCardInput.slice(24);
+  return [cardsForStock, cardsForPiles];
+};
+
+console.log(mixCardsForGame2(createCards));
 
 const mixCardsForGame = (cards: string[]): string[][] => {
   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
@@ -31,16 +44,6 @@ const orderPiles = (cardsForPiles: string[]): { [key: string]: string[] } => {
   return cardsOnPiles;
 };
 
-// const testPilesConfig: { [key: string]: string[] } = {
-//   0: ["twoOfHearts"],
-//   1: ["threeOfSpades"],
-//   2: ["fourOfHearts"],
-//   3: ["fiveOfSpades"],
-//   4: ["sixOfHearts"],
-//   5: ["sevenOfSpades"],
-//   6: ["eigthOfHearts"],
-//   7: ["nineOfSpades", "nineOfClubs"],
-// };
 const initialState: initialState = {
   cardsOnStock: cardsForStock,
   cardsFromStock: [],
