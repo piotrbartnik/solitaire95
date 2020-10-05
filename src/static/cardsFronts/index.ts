@@ -1,107 +1,107 @@
-import aceOfHearts from "./hearts/aceOfHearts.png";
-import eigthOfHearts from "./hearts/eigthOfHearts.png";
-import fiveOfHearts from "./hearts/fiveOfHearts.png";
-import fourOfHearts from "./hearts/fourOfHearts.png";
-import jackOfHearts from "./hearts/jackOfHearts.png";
-import kingOfHearts from "./hearts/kingOfHearts.png";
-import nineOfHearts from "./hearts/nineOfHearts.png";
-import queenOfHearts from "./hearts/queenOfHearts.png";
-import sevenOfHearts from "./hearts/sevenOfHearts.png";
-import sixOfHearts from "./hearts/sixOfHearts.png";
-import tenOfHearts from "./hearts/tenOfHearts.png";
-import twoOfHearts from "./hearts/twoOfHearts.png";
-import threeOfHearts from "./hearts/threeOfHearts.png";
-import aceOfClubs from "./clubs/aceOfClubs.png";
-import eigthOfClubs from "./clubs/eigthOfClubs.png";
-import fiveOfClubs from "./clubs/fiveOfClubs.png";
-import fourOfClubs from "./clubs/fourOfClubs.png";
-import jackOfClubs from "./clubs/jackOfClubs.png";
-import kingOfClubs from "./clubs/kingOfClubs.png";
-import nineOfClubs from "./clubs/nineOfClubs.png";
-import queenOfClubs from "./clubs/queenOfClubs.png";
-import sevenOfClubs from "./clubs/sevenOfClubs.png";
-import sixOfClubs from "./clubs/sixOfClubs.png";
-import tenOfClubs from "./clubs/tenOfClubs.png";
-import twoOfClubs from "./clubs/twoOfClubs.png";
-import threeOfClubs from "./clubs/threeOfClubs.png";
-import aceOfSpades from "./spades/aceOfSpades.png";
-import eigthOfSpades from "./spades/eigthOfSpades.png";
-import fiveOfSpades from "./spades/fiveOfSpades.png";
-import fourOfSpades from "./spades/fourOfSpades.png";
-import jackOfSpades from "./spades/jackOfSpades.png";
-import kingOfSpades from "./spades/kingOfSpades.png";
-import nineOfSpades from "./spades/nineOfSpades.png";
-import queenOfSpades from "./spades/queenOfSpades.png";
-import sevenOfSpades from "./spades/sevenOfSpades.png";
-import sixOfSpades from "./spades/sixOfSpades.png";
-import tenOfSpades from "./spades/tenOfSpades.png";
-import twoOfSpades from "./spades/twoOfSpades.png";
-import threeOfSpades from "./spades/threeOfSpades.png";
-import aceOfDiamonds from "./diamonds/aceOfDiamonds.png";
-import eigthOfDiamonds from "./diamonds/eigthOfDiamonds.png";
-import fiveOfDiamonds from "./diamonds/fiveOfDiamonds.png";
-import fourOfDiamonds from "./diamonds/fourOfDiamonds.png";
-import jackOfDiamonds from "./diamonds/jackOfDiamonds.png";
-import kingOfDiamonds from "./diamonds/kingOfDiamonds.png";
-import nineOfDiamonds from "./diamonds/nineOfDiamonds.png";
-import queenOfDiamonds from "./diamonds/queenOfDiamonds.png";
-import sevenOfDiamonds from "./diamonds/sevenOfDiamonds.png";
-import sixOfDiamonds from "./diamonds/sixOfDiamonds.png";
-import tenOfDiamonds from "./diamonds/tenOfDiamonds.png";
-import twoOfDiamonds from "./diamonds/twoOfDiamonds.png";
-import threeOfDiamonds from "./diamonds/threeOfDiamonds.png";
+import ace_hearts from "./hearts/aceOfHearts.png";
+import eighth_hearts from "./hearts/eighthOfHearts.png";
+import five_hearts from "./hearts/fiveOfHearts.png";
+import four_hearts from "./hearts/fourOfHearts.png";
+import jack_hearts from "./hearts/jackOfHearts.png";
+import king_hearts from "./hearts/kingOfHearts.png";
+import nine_hearts from "./hearts/nineOfHearts.png";
+import queen_hearts from "./hearts/queenOfHearts.png";
+import seven_hearts from "./hearts/sevenOfHearts.png";
+import six_hearts from "./hearts/sixOfHearts.png";
+import ten_hearts from "./hearts/tenOfHearts.png";
+import two_hearts from "./hearts/twoOfHearts.png";
+import three_hearts from "./hearts/threeOfHearts.png";
+import ace_clubs from "./clubs/aceOfClubs.png";
+import eighth_clubs from "./clubs/eighthOfClubs.png";
+import five_clubs from "./clubs/fiveOfClubs.png";
+import four_clubs from "./clubs/fourOfClubs.png";
+import jack_clubs from "./clubs/jackOfClubs.png";
+import king_clubs from "./clubs/kingOfClubs.png";
+import nine_clubs from "./clubs/nineOfClubs.png";
+import queen_clubs from "./clubs/queenOfClubs.png";
+import seven_clubs from "./clubs/sevenOfClubs.png";
+import six_clubs from "./clubs/sixOfClubs.png";
+import ten_clubs from "./clubs/tenOfClubs.png";
+import two_clubs from "./clubs/twoOfClubs.png";
+import three_clubs from "./clubs/threeOfClubs.png";
+import ace_spades from "./spades/aceOfSpades.png";
+import eighth_spades from "./spades/eighthOfSpades.png";
+import five_spades from "./spades/fiveOfSpades.png";
+import four_spades from "./spades/fourOfSpades.png";
+import jack_spades from "./spades/jackOfSpades.png";
+import king_spades from "./spades/kingOfSpades.png";
+import nine_spades from "./spades/nineOfSpades.png";
+import queen_spades from "./spades/queenOfSpades.png";
+import seven_spades from "./spades/sevenOfSpades.png";
+import six_spades from "./spades/sixOfSpades.png";
+import ten_spades from "./spades/tenOfSpades.png";
+import two_spades from "./spades/twoOfSpades.png";
+import three_spades from "./spades/threeOfSpades.png";
+import ace_diamonds from "./diamonds/aceOfDiamonds.png";
+import eighth_diamonds from "./diamonds/eighthOfDiamonds.png";
+import five_diamonds from "./diamonds/fiveOfDiamonds.png";
+import four_diamonds from "./diamonds/fourOfDiamonds.png";
+import jack_diamonds from "./diamonds/jackOfDiamonds.png";
+import king_diamonds from "./diamonds/kingOfDiamonds.png";
+import nine_diamonds from "./diamonds/nineOfDiamonds.png";
+import queen_diamonds from "./diamonds/queenOfDiamonds.png";
+import seven_diamonds from "./diamonds/sevenOfDiamonds.png";
+import six_diamonds from "./diamonds/sixOfDiamonds.png";
+import ten_diamonds from "./diamonds/tenOfDiamonds.png";
+import two_diamonds from "./diamonds/twoOfDiamonds.png";
+import three_diamonds from "./diamonds/threeOfDiamonds.png";
 
 export const cardFrontsImages: { [char: string]: string } = {
-  aceOfHearts,
-  eigthOfHearts,
-  fiveOfHearts,
-  fourOfHearts,
-  jackOfHearts,
-  kingOfHearts,
-  nineOfHearts,
-  queenOfHearts,
-  sevenOfHearts,
-  sixOfHearts,
-  tenOfHearts,
-  twoOfHearts,
-  threeOfHearts,
-  aceOfClubs,
-  eigthOfClubs,
-  fiveOfClubs,
-  fourOfClubs,
-  jackOfClubs,
-  kingOfClubs,
-  nineOfClubs,
-  queenOfClubs,
-  sevenOfClubs,
-  sixOfClubs,
-  tenOfClubs,
-  twoOfClubs,
-  threeOfClubs,
-  aceOfSpades,
-  eigthOfSpades,
-  fiveOfSpades,
-  fourOfSpades,
-  jackOfSpades,
-  kingOfSpades,
-  nineOfSpades,
-  queenOfSpades,
-  sevenOfSpades,
-  sixOfSpades,
-  tenOfSpades,
-  twoOfSpades,
-  threeOfSpades,
-  aceOfDiamonds,
-  eigthOfDiamonds,
-  fiveOfDiamonds,
-  fourOfDiamonds,
-  jackOfDiamonds,
-  kingOfDiamonds,
-  nineOfDiamonds,
-  queenOfDiamonds,
-  sevenOfDiamonds,
-  sixOfDiamonds,
-  tenOfDiamonds,
-  twoOfDiamonds,
-  threeOfDiamonds,
+  ace_hearts,
+  eighth_hearts,
+  five_hearts,
+  four_hearts,
+  jack_hearts,
+  king_hearts,
+  nine_hearts,
+  queen_hearts,
+  seven_hearts,
+  six_hearts,
+  ten_hearts,
+  two_hearts,
+  three_hearts,
+  ace_clubs,
+  eighth_clubs,
+  five_clubs,
+  four_clubs,
+  jack_clubs,
+  king_clubs,
+  nine_clubs,
+  queen_clubs,
+  seven_clubs,
+  six_clubs,
+  ten_clubs,
+  two_clubs,
+  three_clubs,
+  ace_spades,
+  eighth_spades,
+  five_spades,
+  four_spades,
+  jack_spades,
+  king_spades,
+  nine_spades,
+  queen_spades,
+  seven_spades,
+  six_spades,
+  ten_spades,
+  two_spades,
+  three_spades,
+  ace_diamonds,
+  eighth_diamonds,
+  five_diamonds,
+  four_diamonds,
+  jack_diamonds,
+  king_diamonds,
+  nine_diamonds,
+  queen_diamonds,
+  seven_diamonds,
+  six_diamonds,
+  ten_diamonds,
+  two_diamonds,
+  three_diamonds,
 };

@@ -61,7 +61,7 @@ const cardRank: string[] = [
   "five",
   "six",
   "seven",
-  "eight",
+  "eighth",
   "nine",
   "ten",
   "jack",

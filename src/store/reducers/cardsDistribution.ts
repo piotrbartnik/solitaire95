@@ -1,14 +1,12 @@
 import { cardTypes, createCards } from "../../configs/cardTypes";
 
-console.log(createCards);
-
 type initialState = {
-  cardsOnStock: string[];
-  cardsFromStock: string[];
+  cardsOnStock: (string | undefined)[][];
+  cardsFromStock: (string | undefined)[][];
   cardsOnPiles: { [key: string]: string[] };
 };
 
-const mixCardsForGame2 = (
+const mixCardsForGame = (
   cards: (string | undefined)[][]
 ): (string | undefined)[][][] => {
   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
@@ -17,18 +15,21 @@ const mixCardsForGame2 = (
   return [cardsForStock, cardsForPiles];
 };
 
-console.log(mixCardsForGame2(createCards));
+// console.log(mixCardsForGame2(createCards));
 
-const mixCardsForGame = (cards: string[]): string[][] => {
-  const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
-  const cardsForStock = randomizeCardInput.slice(0, 24);
-  const cardsForPiles = randomizeCardInput.slice(24);
-  return [cardsForStock, cardsForPiles];
-};
+// const mixCardsForGame = (cards: string[]): string[][] => {
+//   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
+//   const cardsForStock = randomizeCardInput.slice(0, 24);
+//   const cardsForPiles = randomizeCardInput.slice(24);
+//   return [cardsForStock, cardsForPiles];
+// };
 
-const [cardsForStock, cardsForPiles] = mixCardsForGame(cardTypes);
+// const [cardsForStock, cardsForPiles] = mixCardsForGame(cardTypes);
+const [cardsForStock, cardsForPiles] = mixCardsForGame(createCards);
 
-const orderPiles = (cardsForPiles: string[]): { [key: string]: string[] } => {
+const orderPiles = (
+  cardsForPiles: (string | undefined)[][]
+): { [key: string]: string[] } => {
   const cardsOnPiles = {};
   cardsForPiles.forEach((el, index) => {
     if (index < 7) {

@@ -72,8 +72,6 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   const dropCardOnPile = (dragObject: any, item: any) => {
     const { front, pileNumber, cardPosition } = dragObject;
 
-    console.log(dragObject);
-
     addCardToPile(ref.current.id, front, cardPosition);
 
     if (pileNumber !== undefined) {
@@ -96,8 +94,8 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   drop(ref, null);
 
   const distributeCards = (cardsOnPile: string[]) =>
-    cardsOnPile.map((el, index) => {
-      const isTurnedBackString = el.split("-")[1];
+    cardsOnPile.map((card, index) => {
+      const isTurnedBackString = card[2];
       const shouldBeTurnedAfterDrag = isTurnedBackString
         ? !Boolean(isTurnedBackString)
         : pileIndex > index;
@@ -108,7 +106,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
           key={index}
         >
           <Card
-            front={el.split("-")[0]}
+            front={`${card[0]}_${card[1]}`}
             back={"acorns"}
             isTurnedBack={shouldBeTurnedAfterDrag}
             pileNumber={pileIndex}

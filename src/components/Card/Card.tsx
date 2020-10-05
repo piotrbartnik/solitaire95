@@ -20,6 +20,8 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
   const [wasTurnedFront] = useState(!cardPosition ? true : false);
 
+  console.log(front);
+
   const canDragCard = !cardPosition;
 
   useEffect(() => {
@@ -76,6 +78,8 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
 
   const frontImage: string = cardFrontsImages[`${front}`];
   const backImage: string = cardBackImages[`${back}`];
+
+  console.log(frontImage);
 
   return (
     <div
