@@ -111,6 +111,8 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
             isTurnedBack={shouldBeTurnedAfterDrag}
             pileNumber={pileIndex}
             onDoubleClick={moveToFoundation}
+            suite={card[1]}
+            color={card[3]}
           />
         </div>
       ) : (
