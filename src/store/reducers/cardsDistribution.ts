@@ -80,13 +80,16 @@ export const cardDistribution = (state = initialState, action: any) => {
         },
       };
     case "ADD_CARD_TO_PILE":
+      const cardAdded: any = [
+        [...action.cardToAdd.split("_"), action.isTurnedBack, action.cardColor],
+      ];
       return {
         ...state,
         cardsOnPiles: {
           ...state.cardsOnPiles,
           [action.addCardToPile]: state.cardsOnPiles[
             action.addCardToPile
-          ].concat([`${action.cardToAdd}-${action.isTurnedBack}`]),
+          ].concat(cardAdded),
         },
       };
     default:

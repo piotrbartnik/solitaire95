@@ -70,10 +70,10 @@ const cardRank: string[] = [
 ];
 
 const cardConfigs: (string | undefined)[][] = [
-  ["diamonds", undefined, "black"],
+  ["clubs", undefined, "black"],
   ["spades", undefined, "black"],
   ["hearts", undefined, "red"],
-  ["clubs", undefined, "red"],
+  ["diamonds", undefined, "red"],
 ];
 
 export const createCards: (string | undefined)[][] = cardRank
