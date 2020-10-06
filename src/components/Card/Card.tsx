@@ -13,8 +13,8 @@ type propTypes = {
   onClick?: any;
   pileNumber?: number;
   wasTurnedFront?: boolean;
-  color: string;
-  suite: string;
+  cardColor?: string;
+  cardSuite?: string;
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
@@ -24,8 +24,8 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     isTurnedBack = true,
     onDoubleClick,
     pileNumber,
-    color,
-    suite,
+    cardColor,
+    cardSuite,
   } = props;
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
   const [wasTurnedFront] = useState(!cardPosition ? true : false);
@@ -44,8 +44,8 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     item: {
       type: itemTypes.CARD,
       front,
-      suite,
-      color,
+      cardSuite,
+      cardColor,
       pileNumber,
       cardPosition,
     },
@@ -72,8 +72,8 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
           className={styles.cardFront}
           style={{ backgroundImage: `url(${frontImage})` }}
           data-cardname={front}
-          data-suite={suite}
-          data-color={color}
+          data-suite={cardSuite}
+          data-color={cardColor}
           data-pilenumber={pileNumber}
         ></div>
       ) : (
