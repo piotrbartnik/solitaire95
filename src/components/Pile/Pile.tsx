@@ -70,9 +70,9 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   };
 
   const dropCardOnPile = (dragObject: any, item: any) => {
-    const { front, pileNumber, cardPosition, cardColor } = dragObject;
+    const { front, pileNumber, cardColor } = dragObject;
 
-    addCardToPile(ref.current.id, front, cardPosition, cardColor);
+    addCardToPile(ref.current.id, front, true, cardColor);
 
     if (pileNumber !== undefined) {
       removeCardFromPile(pileNumber);
