@@ -76,6 +76,12 @@ const cardConfigs: (string | undefined)[][] = [
   ["diamonds", undefined, "red"],
 ];
 
-export const createCards: (string | undefined)[][] = cardRank
-  .map((rank) => cardConfigs.map((config) => [rank, ...config]))
+export const createCards: (
+  | string
+  | undefined
+  | number
+)[][] = cardRank
+  .map((rank) =>
+    cardConfigs.map((config) => [rank, ...config, cardRank.indexOf(rank)])
+  )
   .reduce((a, b) => a.concat(b), []);

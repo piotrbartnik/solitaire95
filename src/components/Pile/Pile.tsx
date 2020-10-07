@@ -70,9 +70,9 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   };
 
   const dropCardOnPile = (dragObject: any, item: any) => {
-    const { front, pileNumber, cardColor } = dragObject;
+    const { front, pileNumber, cardColor, cardOrder } = dragObject;
 
-    addCardToPile(ref.current.id, front, true, cardColor);
+    addCardToPile(ref.current.id, front, true, cardColor, cardOrder);
 
     if (pileNumber !== undefined) {
       removeCardFromPile(pileNumber);
@@ -113,6 +113,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
             onDoubleClick={moveToFoundation}
             cardSuite={card[1]}
             cardColor={card[3]}
+            cardOrder={card[4]}
           />
         </div>
       ) : (
@@ -147,10 +148,17 @@ const mapDispatchToProps = (dispatch: any) => {
       pileNumber: string,
       card: string,
       isTurnedBack: boolean,
-      cardColor: string
+      cardColor: string,
+      cardOrder: string
     ) =>
       dispatch(
-        actions.addCardToPile(pileNumber, card, isTurnedBack, cardColor)
+        actions.addCardToPile(
+          pileNumber,
+          card,
+          isTurnedBack,
+          cardColor,
+          cardOrder
+        )
       ),
     removeCardMovedToFoundation: (payload: string[]) => {
       dispatch(actions.removeCardMovedToFoundation(payload));

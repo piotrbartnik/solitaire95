@@ -15,6 +15,7 @@ type propTypes = {
   wasTurnedFront?: boolean;
   cardColor?: string;
   cardSuite?: string;
+  cardOrder?: string;
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
@@ -26,6 +27,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     pileNumber,
     cardColor,
     cardSuite,
+    cardOrder,
   } = props;
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
   const [wasTurnedFront] = useState(!cardPosition ? true : false);
@@ -48,6 +50,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
       cardColor,
       pileNumber,
       cardPosition,
+      cardOrder,
     },
     canDrag: canDragCard,
     collect: (monitor) => ({
@@ -74,6 +77,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
           data-cardname={front}
           data-suite={cardSuite}
           data-color={cardColor}
+          data-order={cardOrder}
           data-pilenumber={pileNumber}
         ></div>
       ) : (

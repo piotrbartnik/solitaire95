@@ -50,7 +50,8 @@ export const addCardToPile = (
   pileNumber: string,
   card: string,
   isTurnedBack: boolean | undefined,
-  cardColor: string
+  cardColor: string,
+  cardOrder: string
 ) => {
   return {
     type: actionTypes.ADD_CARD_TO_PILE,
@@ -58,5 +59,6 @@ export const addCardToPile = (
     cardToAdd: card,
     isTurnedBack,
     cardColor,
+    cardOrder,
   };
 };

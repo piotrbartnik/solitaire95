@@ -1,14 +1,12 @@
 import { cardTypes, createCards } from "../../configs/cardTypes";
 
 type initialState = {
-  cardsOnStock: (string | undefined)[][];
-  cardsFromStock: (string | undefined)[][];
+  cardsOnStock: (string | undefined | number)[][];
+  cardsFromStock: (string | undefined | number)[][];
   cardsOnPiles: { [key: string]: string[] };
 };
 
-const mixCardsForGame = (
-  cards: (string | undefined)[][]
-): (string | undefined)[][][] => {
+const mixCardsForGame = <T>(cards: T[]): T[][] => {
   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
   const cardsForStock = randomizeCardInput.slice(0, 24);
   const cardsForPiles = randomizeCardInput.slice(24);
@@ -27,9 +25,7 @@ const mixCardsForGame = (
 // const [cardsForStock, cardsForPiles] = mixCardsForGame(cardTypes);
 const [cardsForStock, cardsForPiles] = mixCardsForGame(createCards);
 
-const orderPiles = (
-  cardsForPiles: (string | undefined)[][]
-): { [key: string]: string[] } => {
+const orderPiles = <T>(cardsForPiles: T[]): { [key: string]: string[] } => {
   const cardsOnPiles = {};
   cardsForPiles.forEach((el, index) => {
     if (index < 7) {
@@ -81,7 +77,12 @@ export const cardDistribution = (state = initialState, action: any) => {
       };
     case "ADD_CARD_TO_PILE":
       const cardAdded: any = [
-        [...action.cardToAdd.split("_"), action.isTurnedBack, action.cardColor],
+        [
+          ...action.cardToAdd.split("_"),
+          action.isTurnedBack,
+          action.cardColor,
+          action.cardOrder,
+        ],
       ];
       return {
         ...state,
