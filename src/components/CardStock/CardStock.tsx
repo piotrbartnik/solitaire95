@@ -79,25 +79,31 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
       <div className={styles.cardStock} onClick={moveFirstFromTheTop}>
         <div className={styles.cardStock__cardHolder}>
           {cardsOnStock.length
-            ? cardsOnStock.map((el, index) => (
+            ? cardsOnStock.map((card, index) => (
                 <Card
-                  front={el}
+                  front={`${card[0]}_${card[1]}`}
+                  cardSuite={card[1]}
+                  cardColor={card[3]}
+                  cardOrder={card[4]}
                   back={"acorns"}
                   isTurnedBack={true}
-                  key={`${index}${el}`}
+                  key={`${index}${card}`}
                 />
               ))
             : null}
         </div>
       </div>
       <div className={styles.cardsOnTable}>
-        {cardsFromStock.map((el, index) => (
+        {cardsFromStock.map((card, index) => (
           <Card
-            front={el}
+            front={`${card[0]}_${card[1]}`}
+            cardSuite={card[1]}
+            cardColor={card[3]}
+            cardOrder={card[4]}
             back={"acorns"}
             isTurnedBack={false}
             onDoubleClick={moveToFoundation}
-            key={`${index}${el}`}
+            key={`${index}${card}`}
           />
         ))}
       </div>
