@@ -1,4 +1,4 @@
-import { cardTypes, createCards } from "../../configs/cardTypes";
+import { createCards } from "../../configs/cardTypes";
 
 type initialState = {
   cardsOnStock: (string | undefined | number)[][];
@@ -13,16 +13,6 @@ const mixCardsForGame = <T>(cards: T[]): T[][] => {
   return [cardsForStock, cardsForPiles];
 };
 
-// console.log(mixCardsForGame2(createCards));
-
-// const mixCardsForGame = (cards: string[]): string[][] => {
-//   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
-//   const cardsForStock = randomizeCardInput.slice(0, 24);
-//   const cardsForPiles = randomizeCardInput.slice(24);
-//   return [cardsForStock, cardsForPiles];
-// };
-
-// const [cardsForStock, cardsForPiles] = mixCardsForGame(cardTypes);
 const [cardsForStock, cardsForPiles] = mixCardsForGame(createCards);
 
 const orderPiles = <T>(cardsForPiles: T[]): { [key: string]: string[] } => {
