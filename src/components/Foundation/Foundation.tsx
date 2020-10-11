@@ -62,7 +62,9 @@ const Foundation: React.FC<propTypes> = (props) => {
       removeCardFromPile(pileNumber);
       foundationConfig[cardSuite].shift();
     } else {
-      removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== front));
+      removeCardMovedToFoundation(
+        cardsFromStock.filter((card) => card[0] !== front.split("_")[0])
+      );
       foundationConfig[cardSuite].shift();
     }
   };

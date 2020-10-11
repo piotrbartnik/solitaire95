@@ -41,7 +41,9 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     if (pileNumber !== undefined) {
       removeCardFromPile(pileNumber);
     } else {
-      removeCardMovedToFoundation(cardsFromStock?.filter((el) => el !== front));
+      removeCardMovedToFoundation(
+        cardsFromStock?.filter((card) => card[0] !== front.split("_")[0])
+      );
     }
   };
 
