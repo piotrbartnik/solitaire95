@@ -71,7 +71,8 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
                 foundationConfig,
                 addCardToFoundation,
                 removeCardMovedToFoundation,
-                false
+                false,
+                cardsFromStock
               )
             }
             key={`${index}${card}`}

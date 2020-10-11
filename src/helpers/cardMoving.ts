@@ -5,7 +5,7 @@ export const moveToFoundation = (
   addToFoundationCallback: any,
   removeFromCallback: any,
   pileOrStock: boolean,
-  cardsFromStock?: []
+  cardsFromStock?: string[]
 ) => {
   const { cardname, pilenumber, suite } = event.target.dataset;
   if (cardname.match("ace")) {
@@ -20,7 +20,9 @@ export const moveToFoundation = (
       pileOrStock
         ? removeFromCallback(pilenumber)
         : removeFromCallback(
-            (cardsFromStock as []).filter((el) => el !== cardname)
+            (cardsFromStock as string[]).filter(
+              (card) => card[0] !== cardname.split("_")[0]
+            )
           );
       foundationConfig[suite].shift();
     }
@@ -37,7 +39,9 @@ export const moveToFoundation = (
         pileOrStock
           ? removeFromCallback(pilenumber)
           : removeFromCallback(
-              (cardsFromStock as []).filter((el) => el !== cardname)
+              (cardsFromStock as string[]).filter(
+                (card) => card[0] !== cardname.split("_")[0]
+              )
             );
         addToFoundationCallback(cardname, foundation);
       }
