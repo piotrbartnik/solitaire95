@@ -4,6 +4,7 @@ import * as actions from "../../store/actions/cardActions";
 import { Card } from "..";
 import { foundationConfig } from "../../configs/foundationConfig";
 import styles from "./CardStock.module.scss";
+import { moveToFoundation } from "../../helpers/cardMoving";
 
 type propTypes = {
   cardsOnStock: string[];
@@ -35,45 +36,6 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
     }
   };
 
-  const moveToFoundation = (e: any) => {
-    const card = e.target.dataset.cardname;
-    if (card.match("ace")) {
-      let foundationToPopulate: string[] = [];
-      Object.keys(cardsOnFoundations).forEach((foundation) => {
-        if (!cardsOnFoundations[foundation].cards.length) {
-          foundationToPopulate.push(foundation);
-        }
-      });
-      if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
-        addCardToFoundation(
-          card,
-          foundationToPopulate[0],
-          e.target.dataset.suite
-        );
-        removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== card));
-        foundationConfig[e.target.dataset.suite].shift();
-      }
-    }
-
-    if (!card.match("ace")) {
-      Object.keys(cardsOnFoundations).forEach((foundation) => {
-        if (
-          cardsOnFoundations[foundation].foundationSuite ===
-            e.target.dataset.suite &&
-          foundationConfig[
-            cardsOnFoundations[foundation].foundationSuite
-          ][0] === card
-        ) {
-          foundationConfig[e.target.dataset.suite].shift();
-          removeCardMovedToFoundation(
-            cardsFromStock.filter((el) => el !== card)
-          );
-          addCardToFoundation(card, foundation);
-        }
-      });
-    }
-  };
-
   return (
     <>
       <div className={styles.cardStock} onClick={moveFirstFromTheTop}>
@@ -102,7 +64,16 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
             cardOrder={card[4]}
             back={"acorns"}
             isTurnedBack={false}
-            onDoubleClick={moveToFoundation}
+            onDoubleClick={(e: any) =>
+              moveToFoundation(
+                e,
+                cardsOnFoundations,
+                foundationConfig,
+                addCardToFoundation,
+                removeCardMovedToFoundation,
+                false
+              )
+            }
             key={`${index}${card}`}
           />
         ))}
