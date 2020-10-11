@@ -6,6 +6,7 @@ import { itemTypes } from "../../configs/dragndropConfig";
 import { foundationConfig } from "../../configs/foundationConfig";
 import { Card } from "..";
 import styles from "./Pile.module.scss";
+import { moveToFoundation } from "../../helpers/cardMoving";
 
 type propTypes = {
   cardsOnPile: string[];
@@ -31,43 +32,6 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   } = props;
 
   const ref: any = useRef(null);
-
-  const moveToFoundation = (e: any) => {
-    const { cardname, pilenumber } = e.target.dataset;
-    if (cardname.match("ace")) {
-      let foundationToPopulate: string[] = [];
-      Object.keys(cardsOnFoundations).forEach((foundation) => {
-        if (!cardsOnFoundations[foundation].cards.length) {
-          foundationToPopulate.push(foundation);
-        }
-      });
-      if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
-        addCardToFoundation(
-          cardname,
-          foundationToPopulate[0],
-          e.target.dataset.suite
-        );
-        removeCardFromPile(pilenumber);
-        foundationConfig[e.target.dataset.suite].shift();
-      }
-    }
-
-    if (!cardname.match("ace")) {
-      Object.keys(cardsOnFoundations).forEach((foundation) => {
-        if (
-          cardsOnFoundations[foundation].foundationSuite ===
-            e.target.dataset.suite &&
-          foundationConfig[
-            cardsOnFoundations[foundation].foundationSuite
-          ][0] === cardname
-        ) {
-          foundationConfig[e.target.dataset.suite].shift();
-          removeCardFromPile(pilenumber);
-          addCardToFoundation(cardname, foundation);
-        }
-      });
-    }
-  };
 
   const dropCardOnPile = (dragObject: any, item: any) => {
     const { front, pileNumber, cardColor, cardOrder } = dragObject;
@@ -110,7 +74,16 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
             back={"acorns"}
             isTurnedBack={shouldBeTurnedAfterDrag}
             pileNumber={pileIndex}
-            onDoubleClick={moveToFoundation}
+            onDoubleClick={(e: any) =>
+              moveToFoundation(
+                e,
+                cardsOnFoundations,
+                foundationConfig,
+                addCardToFoundation,
+                removeCardFromPile,
+                true
+              )
+            }
             cardSuite={card[1]}
             cardColor={card[3]}
             cardOrder={card[4]}
