@@ -3,20 +3,13 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { Card } from "..";
 import { foundationConfig } from "../../configs/foundationConfig";
+import { cardConfigType } from "../../configs/cardTypes";
 import styles from "./CardStock.module.scss";
 import { moveToFoundation } from "../../helpers/cardMoving";
 
-type cardObject = {
-  cardFront: string;
-  isTurnedBack: boolean | undefined;
-  cardColor: string;
-  cardSuite: string;
-  cardOrder: string;
-};
-
 type propTypes = {
-  cardsOnStock: string[];
-  cardsFromStock: string[];
+  cardsOnStock: cardConfigType[];
+  cardsFromStock: cardConfigType[];
   takeOneFromStock: any;
   reverseStock: any;
   removeCardMovedToFoundation: any;
@@ -109,7 +102,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
     addCardToFoundation: (
-      card: cardObject,
+      card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
     ) =>

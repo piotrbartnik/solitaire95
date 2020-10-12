@@ -4,23 +4,16 @@ import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { foundationConfig } from "../../configs/foundationConfig";
+import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Foundation.module.scss";
 
-type cardObject = {
-  cardFront: string;
-  isTurnedBack: boolean | undefined;
-  cardColor: string;
-  cardSuite: string;
-  cardOrder: string;
-};
-
 type propTypes = {
-  cardsOnStock?: string[];
+  cardsOnStock: cardConfigType[];
   addCardToFoundation?: any;
   removeCardFromPile?: any;
   removeCardMovedToFoundation?: any;
-  cardsFromStock: string[];
+  cardsFromStock: cardConfigType[];
   cardsOnFoundations: any;
 };
 
@@ -60,7 +53,13 @@ const Foundation: React.FC<propTypes> = (props) => {
       pileNumber,
     } = dragObject;
 
-    const cardConfig = [cardFront, cardSuite, true, cardColor, cardOrder];
+    const cardConfig: cardConfigType = [
+      cardFront,
+      cardSuite,
+      true,
+      cardColor,
+      cardOrder,
+    ];
 
     const { targetId } = item;
     const foundations = [
@@ -136,7 +135,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     addCardToFoundation: (
-      card: cardObject,
+      card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
     ) =>

@@ -1,3 +1,5 @@
+import { cardConfigType } from "../configs/cardTypes";
+
 export const moveToFoundation = (
   event: any,
   cardsOnFoundations: any,
@@ -5,10 +7,11 @@ export const moveToFoundation = (
   addToFoundationCallback: any,
   removeFromCallback: any,
   pileOrStock: boolean,
-  cardsFromStock?: string[]
+  cardsFromStock?: cardConfigType[]
 ) => {
   const { cardname, suite, color, pilenumber, order } = event.target.dataset;
-  const cardConfig = [cardname, suite, true, color, order];
+  const cardConfig: cardConfigType = [cardname, suite, true, color, order];
+
   if (cardname.match("ace")) {
     let foundationToPopulate: string[] = [];
     Object.keys(cardsOnFoundations).forEach((foundation) => {
@@ -21,7 +24,9 @@ export const moveToFoundation = (
       pileOrStock
         ? removeFromCallback(pilenumber)
         : removeFromCallback(
-            (cardsFromStock as string[]).filter((card) => card[0] !== cardname)
+            (cardsFromStock as cardConfigType[]).filter(
+              (card) => card[0] !== cardname
+            )
           );
       foundationConfig[suite].shift();
     }
@@ -38,7 +43,7 @@ export const moveToFoundation = (
         pileOrStock
           ? removeFromCallback(pilenumber)
           : removeFromCallback(
-              (cardsFromStock as string[]).filter(
+              (cardsFromStock as cardConfigType[]).filter(
                 (card) => card[0] !== cardname
               )
             );

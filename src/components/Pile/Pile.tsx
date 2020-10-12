@@ -4,25 +4,18 @@ import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { foundationConfig } from "../../configs/foundationConfig";
+import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../helpers/cardMoving";
 
-type cardObject = {
-  cardFront: string;
-  isTurnedBack: boolean | undefined;
-  cardColor: string;
-  cardSuite: string;
-  cardOrder: string;
-};
-
 type propTypes = {
-  cardsOnPile: string[];
+  cardsOnPile: cardConfigType[];
   pileIndex: number;
   removeCardFromPile?: any;
   addCardToPile?: any;
   removeCardMovedToFoundation?: any;
-  cardsFromStock?: string[];
+  cardsFromStock?: cardConfigType[];
   cardsOnFoundations: any;
   addCardToFoundation: any;
 };
@@ -50,14 +43,15 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       pileNumber,
     } = dragObject;
 
-    addCardToPile(
-      ref.current.id,
+    const cardToPile: cardConfigType = [
       cardFront,
+      cardSuite,
       true,
       cardColor,
-      cardSuite,
-      cardOrder
-    );
+      cardOrder,
+    ];
+
+    addCardToPile(ref.current.id, cardToPile);
 
     if (pileNumber !== undefined) {
       removeCardFromPile(pileNumber);
@@ -80,7 +74,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
 
   drop(ref, null);
 
-  const distributeCards = (cardsOnPile: string[]) =>
+  const distributeCards = (cardsOnPile: cardConfigType[]) =>
     cardsOnPile.map((card, index) => {
       const isTurnedBackString = card[2];
       const shouldBeTurnedAfterDrag = isTurnedBackString
@@ -140,29 +134,13 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     removeCardFromPile: (pileNumber: string) =>
       dispatch(actions.removeCardFromPile(pileNumber)),
-    addCardToPile: (
-      pileNumber: string,
-      cardFront: string,
-      isTurnedBack: boolean,
-      cardColor: string,
-      cardSuite: string,
-      cardOrder: string
-    ) =>
-      dispatch(
-        actions.addCardToPile(
-          pileNumber,
-          cardFront,
-          isTurnedBack,
-          cardColor,
-          cardSuite,
-          cardOrder
-        )
-      ),
+    addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
+      dispatch(actions.addCardToPile(pileNumber, cardToPile)),
     removeCardMovedToFoundation: (payload: string[]) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
     addCardToFoundation: (
-      card: cardObject,
+      card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
     ) =>

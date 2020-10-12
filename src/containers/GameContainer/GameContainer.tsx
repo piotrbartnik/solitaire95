@@ -2,23 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { FoundationField, Pile, CardStock } from "../../components";
+import { cardConfigType } from "../../configs/cardTypes";
 import styles from "./GameContainer.module.scss";
 
-type cardObject = {
-  cardFront: string;
-  isTurnedBack: boolean | undefined;
-  cardColor: string;
-  cardSuite: string;
-  cardOrder: string;
-};
-
 type propTypes = {
-  cardsOnFirstFoundation: string[];
-  cardsOnSecondFoundation: string[];
-  cardsOnThirdFoundation: string[];
-  cardsOnFourthFoundation: string[];
+  cardsOnFirstFoundation: cardConfigType[];
+  cardsOnSecondFoundation: cardConfigType[];
+  cardsOnThirdFoundation: cardConfigType[];
+  cardsOnFourthFoundation: cardConfigType[];
   addCardToFoundation: any;
-  cardsOnPiles: object;
+  cardsOnPiles: cardConfigType;
 };
 
 const GameContainer: React.FC<propTypes> = (props) => {
@@ -74,7 +67,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     addCardToFoundation: (
-      card: cardObject,
+      card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
     ) =>

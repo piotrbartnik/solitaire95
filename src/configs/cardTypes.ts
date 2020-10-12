@@ -1,4 +1,4 @@
-export type cardConfig = [
+export type cardConfigType = [
   string,
   string,
   undefined | boolean,
@@ -22,7 +22,7 @@ const cardRank: string[] = [
   "king",
 ];
 
-const cardConfigs: (string | undefined)[][] = [
+const cardConfigTypes: (string | undefined)[][] = [
   ["clubs", undefined, "black"],
   ["spades", undefined, "black"],
   ["hearts", undefined, "red"],
@@ -35,6 +35,6 @@ export const createCards: (
   | number
 )[][] = cardRank
   .map((rank) =>
-    cardConfigs.map((config) => [rank, ...config, cardRank.indexOf(rank)])
+    cardConfigTypes.map((config) => [rank, ...config, cardRank.indexOf(rank)])
   )
   .reduce((a, b) => a.concat(b), []);

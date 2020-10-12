@@ -1,12 +1,13 @@
+import { cardConfigType } from "../../configs/cardTypes";
 interface foundationState {
-  [key: string]: undefined | string[];
+  [key: string]: undefined | cardConfigType[];
 }
 
-type initialState = {
+type initialFoundationState = {
   [key: string]: foundationState;
 };
 
-const initialState: initialState = {
+const initialState: initialFoundationState = {
   cardsOnFirstFoundation: { foundationSuite: undefined, cards: [] },
   cardsOnSecondFoundation: { foundationSuite: undefined, cards: [] },
   cardsOnThirdFoundation: { foundationSuite: undefined, cards: [] },
@@ -14,7 +15,7 @@ const initialState: initialState = {
 };
 
 const immutableCardsArray = (
-  state: initialState,
+  state: initialFoundationState,
   action: any,
   foundation: string
 ) => {
@@ -24,7 +25,7 @@ const immutableCardsArray = (
 };
 
 const cardsOnFoundationActionReturn = (
-  state: initialState,
+  state: initialFoundationState,
   action: any,
   foundation: string
 ) => ({

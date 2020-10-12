@@ -7,15 +7,15 @@ import { cardBackImages } from "../../static/cardBacks/";
 
 type propTypes = {
   cardFront: string;
+  cardColor: string;
+  cardSuite: string;
+  cardOrder: string | number;
   back: string;
   isTurnedBack?: boolean;
   onDoubleClick?: any;
   onClick?: any;
   pileNumber?: number;
   wasTurnedFront?: boolean;
-  cardColor?: string;
-  cardSuite?: string;
-  cardOrder?: string;
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
