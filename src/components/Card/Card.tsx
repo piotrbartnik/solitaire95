@@ -6,17 +6,29 @@ import { cardFrontsImages } from "../../static/cardsFronts/";
 import { cardBackImages } from "../../static/cardBacks/";
 
 type propTypes = {
-  front: string;
+  cardFront: string;
   back: string;
   isTurnedBack?: boolean;
   onDoubleClick?: any;
   onClick?: any;
   pileNumber?: number;
   wasTurnedFront?: boolean;
+  cardColor?: string;
+  cardSuite?: string;
+  cardOrder?: string;
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
-  const { front, back, isTurnedBack = true, onDoubleClick, pileNumber } = props;
+  const {
+    cardFront,
+    back,
+    isTurnedBack = true,
+    onDoubleClick,
+    pileNumber,
+    cardColor,
+    cardSuite,
+    cardOrder,
+  } = props;
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
   const [wasTurnedFront] = useState(!cardPosition ? true : false);
 
@@ -26,46 +38,19 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     if (!wasTurnedFront) changeCardPosition(isTurnedBack);
   }, [isTurnedBack, wasTurnedFront]);
 
-  const extractSuite = (
-    frontName: string,
-    targetSuite: string
-  ): string | null => (frontName.includes(targetSuite) ? targetSuite : null);
-
-  const possibleSuitesAndAdjacentColors: {
-    [key: string]: string[];
-  } = {
-    red: ["Hearts", "Diamonds"],
-    black: ["Clubs", "Spades"],
-  };
-
   const onClick = () => {
     if (!wasTurnedFront) changeCardPosition(false);
   };
 
-  const possibleSuites: string[] = Object.keys(possibleSuitesAndAdjacentColors)
-    .map((color) => possibleSuitesAndAdjacentColors[color])
-    .reduce((acc, curr) => acc.concat(curr), []);
-
-  const [cardSuite] = possibleSuites
-    .map((el) => extractSuite(front, el))
-    .filter(Boolean);
-
-  const [cardColor] = Object.keys(possibleSuitesAndAdjacentColors)
-    .map((el) =>
-      possibleSuitesAndAdjacentColors[el].includes(String(cardSuite))
-        ? el
-        : null
-    )
-    .filter(Boolean);
-
   const [{ isDragging }, drag] = useDrag({
     item: {
       type: itemTypes.CARD,
-      front,
+      cardFront,
       cardSuite,
       cardColor,
       pileNumber,
       cardPosition,
+      cardOrder,
     },
     canDrag: canDragCard,
     collect: (monitor) => ({
@@ -74,7 +59,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     }),
   });
 
-  const frontImage: string = cardFrontsImages[`${front}`];
+  const frontImage: string = cardFrontsImages[`${cardFront}_${cardSuite}`];
   const backImage: string = cardBackImages[`${back}`];
 
   return (
@@ -89,9 +74,10 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
         <div
           className={styles.cardFront}
           style={{ backgroundImage: `url(${frontImage})` }}
-          data-cardname={front}
+          data-cardname={cardFront}
           data-suite={cardSuite}
           data-color={cardColor}
+          data-order={cardOrder}
           data-pilenumber={pileNumber}
         ></div>
       ) : (

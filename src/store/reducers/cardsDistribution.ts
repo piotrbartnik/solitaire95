@@ -1,21 +1,21 @@
-import { cardTypes } from "../../configs/cardTypes";
+import { createCards } from "../../configs/cardTypes";
 
 type initialState = {
-  cardsOnStock: string[];
-  cardsFromStock: string[];
+  cardsOnStock: (string | undefined | number)[][];
+  cardsFromStock: (string | undefined | number)[][];
   cardsOnPiles: { [key: string]: string[] };
 };
 
-const mixCardsForGame = (cards: string[]): string[][] => {
+const mixCardsForGame = <T>(cards: T[]): T[][] => {
   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
   const cardsForStock = randomizeCardInput.slice(0, 24);
   const cardsForPiles = randomizeCardInput.slice(24);
   return [cardsForStock, cardsForPiles];
 };
 
-const [cardsForStock, cardsForPiles] = mixCardsForGame(cardTypes);
+const [cardsForStock, cardsForPiles] = mixCardsForGame(createCards);
 
-const orderPiles = (cardsForPiles: string[]): { [key: string]: string[] } => {
+const orderPiles = <T>(cardsForPiles: T[]): { [key: string]: string[] } => {
   const cardsOnPiles = {};
   cardsForPiles.forEach((el, index) => {
     if (index < 7) {
@@ -31,16 +31,6 @@ const orderPiles = (cardsForPiles: string[]): { [key: string]: string[] } => {
   return cardsOnPiles;
 };
 
-// const testPilesConfig: { [key: string]: string[] } = {
-//   0: ["twoOfHearts"],
-//   1: ["threeOfSpades"],
-//   2: ["fourOfHearts"],
-//   3: ["fiveOfSpades"],
-//   4: ["sixOfHearts"],
-//   5: ["sevenOfSpades"],
-//   6: ["eigthOfHearts"],
-//   7: ["nineOfSpades", "nineOfClubs"],
-// };
 const initialState: initialState = {
   cardsOnStock: cardsForStock,
   cardsFromStock: [],
@@ -76,13 +66,22 @@ export const cardDistribution = (state = initialState, action: any) => {
         },
       };
     case "ADD_CARD_TO_PILE":
+      const cardAdded: any = [
+        [
+          action.cardFront,
+          action.cardSuite,
+          action.isTurnedBack,
+          action.cardColor,
+          action.cardOrder,
+        ],
+      ];
       return {
         ...state,
         cardsOnPiles: {
           ...state.cardsOnPiles,
           [action.addCardToPile]: state.cardsOnPiles[
             action.addCardToPile
-          ].concat([`${action.cardToAdd}-${action.isTurnedBack}`]),
+          ].concat(cardAdded),
         },
       };
     default:

@@ -4,6 +4,15 @@ import * as actions from "../../store/actions/cardActions";
 import { Card } from "..";
 import { foundationConfig } from "../../configs/foundationConfig";
 import styles from "./CardStock.module.scss";
+import { moveToFoundation } from "../../helpers/cardMoving";
+
+type cardObject = {
+  cardFront: string;
+  isTurnedBack: boolean | undefined;
+  cardColor: string;
+  cardSuite: string;
+  cardOrder: string;
+};
 
 type propTypes = {
   cardsOnStock: string[];
@@ -35,69 +44,46 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
     }
   };
 
-  const moveToFoundation = (e: any) => {
-    const card = e.target.dataset.cardname;
-    if (card.match("ace")) {
-      let foundationToPopulate: string[] = [];
-      Object.keys(cardsOnFoundations).forEach((foundation) => {
-        if (!cardsOnFoundations[foundation].cards.length) {
-          foundationToPopulate.push(foundation);
-        }
-      });
-      if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
-        addCardToFoundation(
-          card,
-          foundationToPopulate[0],
-          e.target.dataset.suite
-        );
-        removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== card));
-        foundationConfig[e.target.dataset.suite].shift();
-      }
-    }
-
-    if (!card.match("ace")) {
-      Object.keys(cardsOnFoundations).forEach((foundation) => {
-        if (
-          cardsOnFoundations[foundation].foundationSuite ===
-            e.target.dataset.suite &&
-          foundationConfig[
-            cardsOnFoundations[foundation].foundationSuite
-          ][0] === card
-        ) {
-          foundationConfig[e.target.dataset.suite].shift();
-          removeCardMovedToFoundation(
-            cardsFromStock.filter((el) => el !== card)
-          );
-          addCardToFoundation(card, foundation);
-        }
-      });
-    }
-  };
-
   return (
     <>
       <div className={styles.cardStock} onClick={moveFirstFromTheTop}>
         <div className={styles.cardStock__cardHolder}>
           {cardsOnStock.length
-            ? cardsOnStock.map((el, index) => (
+            ? cardsOnStock.map((card, index) => (
                 <Card
-                  front={el}
+                  cardFront={card[0]}
+                  cardSuite={card[1]}
+                  cardColor={card[3]}
+                  cardOrder={card[4]}
                   back={"acorns"}
                   isTurnedBack={true}
-                  key={`${index}${el}`}
+                  key={`${index}${card}`}
                 />
               ))
             : null}
         </div>
       </div>
       <div className={styles.cardsOnTable}>
-        {cardsFromStock.map((el, index) => (
+        {cardsFromStock.map((card, index) => (
           <Card
-            front={el}
+            cardFront={card[0]}
+            cardSuite={card[1]}
+            cardColor={card[3]}
+            cardOrder={card[4]}
             back={"acorns"}
             isTurnedBack={false}
-            onDoubleClick={moveToFoundation}
-            key={`${index}${el}`}
+            onDoubleClick={(e: any) =>
+              moveToFoundation(
+                e,
+                cardsOnFoundations,
+                foundationConfig,
+                addCardToFoundation,
+                removeCardMovedToFoundation,
+                false,
+                cardsFromStock
+              )
+            }
+            key={`${index}${card}`}
           />
         ))}
       </div>
@@ -123,7 +109,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
     addCardToFoundation: (
-      card: string,
+      card: cardObject,
       foundationNumber: string,
       foundationSuite: string
     ) =>

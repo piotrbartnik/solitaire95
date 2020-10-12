@@ -7,6 +7,14 @@ import { foundationConfig } from "../../configs/foundationConfig";
 import { Card } from "..";
 import styles from "./Foundation.module.scss";
 
+type cardObject = {
+  cardFront: string;
+  isTurnedBack: boolean | undefined;
+  cardColor: string;
+  cardSuite: string;
+  cardOrder: string;
+};
+
 type propTypes = {
   cardsOnStock?: string[];
   addCardToFoundation?: any;
@@ -33,18 +41,26 @@ const Foundation: React.FC<propTypes> = (props) => {
           hoveredFoundation.targetId.replace(/\D/, "") - 24
         ]
       ];
-    if (card.front.match(/ace/)) {
+    if (card.cardFront.match(/ace/)) {
       return foundationObject.foundationSuite === undefined;
     } else {
       return (
         card.cardSuite === foundationObject.foundationSuite &&
-        foundationConfig[card.cardSuite][0] === card.front
+        foundationConfig[card.cardSuite][0] === card.cardFront
       );
     }
   };
 
   const dropCardOnFoundation = (dragObject: any, item: any) => {
-    const { front, cardSuite, pileNumber } = dragObject;
+    const {
+      cardFront,
+      cardSuite,
+      cardColor,
+      cardOrder,
+      pileNumber,
+    } = dragObject;
+
+    const cardConfig = [cardFront, cardSuite, true, cardColor, cardOrder];
 
     const { targetId } = item;
     const foundations = [
@@ -54,7 +70,7 @@ const Foundation: React.FC<propTypes> = (props) => {
       "cardsOnFourthFoundation",
     ];
     addCardToFoundation(
-      front,
+      cardConfig,
       foundations[targetId.replace(/\D/, "") - 24],
       cardSuite
     );
@@ -62,7 +78,9 @@ const Foundation: React.FC<propTypes> = (props) => {
       removeCardFromPile(pileNumber);
       foundationConfig[cardSuite].shift();
     } else {
-      removeCardMovedToFoundation(cardsFromStock.filter((el) => el !== front));
+      removeCardMovedToFoundation(
+        cardsFromStock.filter((card) => card[0] !== cardFront)
+      );
       foundationConfig[cardSuite].shift();
     }
   };
@@ -92,8 +110,16 @@ const Foundation: React.FC<propTypes> = (props) => {
       }
     >
       {cardsOnStock?.length
-        ? cardsOnStock.map((el, index) => (
-            <Card front={el} back={"acorns"} isTurnedBack={false} key={index} />
+        ? cardsOnStock.map((card, index) => (
+            <Card
+              cardFront={card[0]}
+              cardSuite={card[1]}
+              cardColor={card[3]}
+              cardOrder={card[4]}
+              back={"acorns"}
+              isTurnedBack={false}
+              key={index}
+            />
           ))
         : null}
     </div>
@@ -110,7 +136,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     addCardToFoundation: (
-      card: string,
+      card: cardObject,
       foundationNumber: string,
       foundationSuite: string
     ) =>
