@@ -1,5 +1,13 @@
 import * as actionTypes from "./actionTypes";
 
+type cardObject = {
+  cardFront: string;
+  isTurnedBack: boolean | undefined;
+  cardColor: string;
+  cardSuite: string;
+  cardOrder: string;
+};
+
 export const takeOneFromStock = (payload: string) => {
   return {
     type: actionTypes.TAKE_ONE_FROM_STOCK,
@@ -15,7 +23,7 @@ export const reverseStock = (payload: string[]) => {
 };
 
 export const addCardToFoundation = (
-  card: string,
+  card: cardObject,
   foundationNumber: string,
   foundationSuite?: string
 ) => {
@@ -48,17 +56,19 @@ export const removeCardFromPile = (pileNumber: string) => {
 
 export const addCardToPile = (
   pileNumber: string,
-  card: string,
+  cardFront: string,
   isTurnedBack: boolean | undefined,
   cardColor: string,
+  cardSuite: string,
   cardOrder: string
 ) => {
   return {
     type: actionTypes.ADD_CARD_TO_PILE,
     addCardToPile: pileNumber,
-    cardToAdd: card,
+    cardFront,
     isTurnedBack,
     cardColor,
+    cardSuite,
     cardOrder,
   };
 };

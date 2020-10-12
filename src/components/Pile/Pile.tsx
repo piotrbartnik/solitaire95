@@ -8,6 +8,14 @@ import { Card } from "..";
 import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../helpers/cardMoving";
 
+type cardObject = {
+  cardFront: string;
+  isTurnedBack: boolean | undefined;
+  cardColor: string;
+  cardSuite: string;
+  cardOrder: string;
+};
+
 type propTypes = {
   cardsOnPile: string[];
   pileIndex: number;
@@ -34,15 +42,28 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   const ref: any = useRef(null);
 
   const dropCardOnPile = (dragObject: any, item: any) => {
-    const { front, pileNumber, cardColor, cardOrder } = dragObject;
+    const {
+      cardFront,
+      cardSuite,
+      cardColor,
+      cardOrder,
+      pileNumber,
+    } = dragObject;
 
-    addCardToPile(ref.current.id, front, true, cardColor, cardOrder);
+    addCardToPile(
+      ref.current.id,
+      cardFront,
+      true,
+      cardColor,
+      cardSuite,
+      cardOrder
+    );
 
     if (pileNumber !== undefined) {
       removeCardFromPile(pileNumber);
     } else {
       removeCardMovedToFoundation(
-        cardsFromStock?.filter((card) => card[0] !== front.split("_")[0])
+        cardsFromStock?.filter((card) => card[0] !== cardFront)
       );
     }
   };
@@ -72,7 +93,10 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
           key={index}
         >
           <Card
-            front={`${card[0]}_${card[1]}`}
+            cardFront={card[0]}
+            cardSuite={card[1]}
+            cardColor={card[3]}
+            cardOrder={card[4]}
             back={"acorns"}
             isTurnedBack={shouldBeTurnedAfterDrag}
             pileNumber={pileIndex}
@@ -86,9 +110,6 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
                 true
               )
             }
-            cardSuite={card[1]}
-            cardColor={card[3]}
-            cardOrder={card[4]}
           />
         </div>
       ) : (
@@ -121,17 +142,19 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.removeCardFromPile(pileNumber)),
     addCardToPile: (
       pileNumber: string,
-      card: string,
+      cardFront: string,
       isTurnedBack: boolean,
       cardColor: string,
+      cardSuite: string,
       cardOrder: string
     ) =>
       dispatch(
         actions.addCardToPile(
           pileNumber,
-          card,
+          cardFront,
           isTurnedBack,
           cardColor,
+          cardSuite,
           cardOrder
         )
       ),
@@ -139,7 +162,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
     addCardToFoundation: (
-      card: string,
+      card: cardObject,
       foundationNumber: string,
       foundationSuite: string
     ) =>

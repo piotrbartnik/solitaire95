@@ -4,6 +4,14 @@ import * as actions from "../../store/actions/cardActions";
 import { FoundationField, Pile, CardStock } from "../../components";
 import styles from "./GameContainer.module.scss";
 
+type cardObject = {
+  cardFront: string;
+  isTurnedBack: boolean | undefined;
+  cardColor: string;
+  cardSuite: string;
+  cardOrder: string;
+};
+
 type propTypes = {
   cardsOnFirstFoundation: string[];
   cardsOnSecondFoundation: string[];
@@ -66,7 +74,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     addCardToFoundation: (
-      card: string,
+      card: cardObject,
       foundationNumber: string,
       foundationSuite: string
     ) =>

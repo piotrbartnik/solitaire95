@@ -6,7 +6,7 @@ import { cardFrontsImages } from "../../static/cardsFronts/";
 import { cardBackImages } from "../../static/cardBacks/";
 
 type propTypes = {
-  front: string;
+  cardFront: string;
   back: string;
   isTurnedBack?: boolean;
   onDoubleClick?: any;
@@ -20,7 +20,7 @@ type propTypes = {
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
   const {
-    front,
+    cardFront,
     back,
     isTurnedBack = true,
     onDoubleClick,
@@ -45,7 +45,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   const [{ isDragging }, drag] = useDrag({
     item: {
       type: itemTypes.CARD,
-      front,
+      cardFront,
       cardSuite,
       cardColor,
       pileNumber,
@@ -59,7 +59,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     }),
   });
 
-  const frontImage: string = cardFrontsImages[`${front}`];
+  const frontImage: string = cardFrontsImages[`${cardFront}_${cardSuite}`];
   const backImage: string = cardBackImages[`${back}`];
 
   return (
@@ -74,7 +74,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
         <div
           className={styles.cardFront}
           style={{ backgroundImage: `url(${frontImage})` }}
-          data-cardname={front}
+          data-cardname={cardFront}
           data-suite={cardSuite}
           data-color={cardColor}
           data-order={cardOrder}

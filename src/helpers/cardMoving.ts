@@ -7,7 +7,8 @@ export const moveToFoundation = (
   pileOrStock: boolean,
   cardsFromStock?: string[]
 ) => {
-  const { cardname, pilenumber, suite } = event.target.dataset;
+  const { cardname, suite, color, pilenumber, order } = event.target.dataset;
+  const cardConfig = [cardname, suite, true, color, order];
   if (cardname.match("ace")) {
     let foundationToPopulate: string[] = [];
     Object.keys(cardsOnFoundations).forEach((foundation) => {
@@ -16,13 +17,11 @@ export const moveToFoundation = (
       }
     });
     if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
-      addToFoundationCallback(cardname, foundationToPopulate[0], suite);
+      addToFoundationCallback(cardConfig, foundationToPopulate[0], suite);
       pileOrStock
         ? removeFromCallback(pilenumber)
         : removeFromCallback(
-            (cardsFromStock as string[]).filter(
-              (card) => card[0] !== cardname.split("_")[0]
-            )
+            (cardsFromStock as string[]).filter((card) => card[0] !== cardname)
           );
       foundationConfig[suite].shift();
     }
@@ -40,10 +39,10 @@ export const moveToFoundation = (
           ? removeFromCallback(pilenumber)
           : removeFromCallback(
               (cardsFromStock as string[]).filter(
-                (card) => card[0] !== cardname.split("_")[0]
+                (card) => card[0] !== cardname
               )
             );
-        addToFoundationCallback(cardname, foundation);
+        addToFoundationCallback(cardConfig, foundation);
       }
     });
   }

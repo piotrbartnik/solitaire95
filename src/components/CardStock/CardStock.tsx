@@ -6,6 +6,14 @@ import { foundationConfig } from "../../configs/foundationConfig";
 import styles from "./CardStock.module.scss";
 import { moveToFoundation } from "../../helpers/cardMoving";
 
+type cardObject = {
+  cardFront: string;
+  isTurnedBack: boolean | undefined;
+  cardColor: string;
+  cardSuite: string;
+  cardOrder: string;
+};
+
 type propTypes = {
   cardsOnStock: string[];
   cardsFromStock: string[];
@@ -43,7 +51,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
           {cardsOnStock.length
             ? cardsOnStock.map((card, index) => (
                 <Card
-                  front={`${card[0]}_${card[1]}`}
+                  cardFront={card[0]}
                   cardSuite={card[1]}
                   cardColor={card[3]}
                   cardOrder={card[4]}
@@ -58,7 +66,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
       <div className={styles.cardsOnTable}>
         {cardsFromStock.map((card, index) => (
           <Card
-            front={`${card[0]}_${card[1]}`}
+            cardFront={card[0]}
             cardSuite={card[1]}
             cardColor={card[3]}
             cardOrder={card[4]}
@@ -101,7 +109,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
     addCardToFoundation: (
-      card: string,
+      card: cardObject,
       foundationNumber: string,
       foundationSuite: string
     ) =>

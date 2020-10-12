@@ -68,7 +68,8 @@ export const cardDistribution = (state = initialState, action: any) => {
     case "ADD_CARD_TO_PILE":
       const cardAdded: any = [
         [
-          ...action.cardToAdd.split("_"),
+          action.cardFront,
+          action.cardSuite,
           action.isTurnedBack,
           action.cardColor,
           action.cardOrder,

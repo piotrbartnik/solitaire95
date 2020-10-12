@@ -1,3 +1,11 @@
+export type cardConfig = [
+  string,
+  string,
+  undefined | boolean,
+  string,
+  number | string
+];
+
 const cardRank: string[] = [
   "ace",
   "two",
