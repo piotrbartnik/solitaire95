@@ -66,9 +66,12 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   const canBeDroppedOnPile = (draggedCard: any) => {
     const cardsOnPileLength = pileTarget.props.children.length;
     const frontCardOnPile =
-      pileTarget.props.children[cardsOnPileLength - 1].props.children.props;
-    const frontCardOrder = frontCardOnPile.cardOrder;
-    const frontCardColor = frontCardOnPile.cardColor;
+      pileTarget.props.children[cardsOnPileLength - 1]?.props.children.props;
+    const frontCardOrder = frontCardOnPile?.cardOrder;
+    const frontCardColor = frontCardOnPile?.cardColor;
+    if (draggedCard.cardFront === "king" && !cardsOnPileLength) {
+      return true;
+    }
     return (
       frontCardOrder - 1 === draggedCard.cardOrder &&
       frontCardColor !== draggedCard.cardColor
