@@ -63,15 +63,21 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     }
   };
 
-  const canBeDroppedOnPile = (a: any, b: any) => {
-    // console.log(a.cardColor, a.cardOrder, cardsOnPiles, b);
-    return true;
+  const canBeDroppedOnPile = (draggedCard: any) => {
+    const cardsOnPileLength = pileTarget.props.children.length;
+    const frontCardOnPile =
+      pileTarget.props.children[cardsOnPileLength - 1].props.children.props;
+    const frontCardOrder = frontCardOnPile.cardOrder;
+    const frontCardColor = frontCardOnPile.cardColor;
+    return (
+      frontCardOrder - 1 === draggedCard.cardOrder &&
+      frontCardColor !== draggedCard.cardColor
+    );
   };
 
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: itemTypes.CARD,
     drop: (monitor, item) => {
-      console.log(pileTarget);
       dropCardOnPile(monitor, item);
     },
     canDrop: canBeDroppedOnPile,
@@ -124,7 +130,13 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     <div
       className={styles.pile__container}
       ref={ref}
-      style={isOver ? { border: "2px solid red" } : undefined}
+      style={
+        canDrop && isOver
+          ? { border: "2px solid blue" }
+          : isOver
+          ? { border: "2px solid red" }
+          : undefined
+      }
       id={`${pileIndex}`}
     >
       {distributeCards(cardsOnPile)}
