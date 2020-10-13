@@ -18,6 +18,7 @@ type propTypes = {
   cardsFromStock?: cardConfigType[];
   cardsOnFoundations: any;
   addCardToFoundation: any;
+  cardsOnPiles: any;
 };
 
 const Pile: React.FC<propTypes> = (props: propTypes) => {
@@ -30,6 +31,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     cardsFromStock,
     cardsOnFoundations,
     addCardToFoundation,
+    cardsOnPiles,
   } = props;
 
   const ref: any = useRef(null);
@@ -50,7 +52,6 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       cardColor,
       cardOrder,
     ];
-
     addCardToPile(ref.current.id, cardToPile);
 
     if (pileNumber !== undefined) {
@@ -62,13 +63,21 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     }
   };
 
-  const [{ isOver }, drop] = useDrop({
+  const canBeDroppedOnPile = (a: any, b: any) => {
+    // console.log(a.cardColor, a.cardOrder, cardsOnPiles, b);
+    return true;
+  };
+
+  const [{ isOver, canDrop }, drop] = useDrop({
     accept: itemTypes.CARD,
     drop: (monitor, item) => {
+      console.log(pileTarget);
       dropCardOnPile(monitor, item);
     },
+    canDrop: canBeDroppedOnPile,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
     }),
   });
 
@@ -111,7 +120,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       );
     });
 
-  return (
+  const pileTarget = (
     <div
       className={styles.pile__container}
       ref={ref}
@@ -121,12 +130,15 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       {distributeCards(cardsOnPile)}
     </div>
   );
+
+  return <>{pileTarget}</>;
 };
 
 const mapStateToProps = (state: any) => {
   return {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
+    cardsOnPiles: state.cardDistribution.cardsOnPiles,
   };
 };
 
