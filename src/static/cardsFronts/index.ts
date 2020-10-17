@@ -1,5 +1,5 @@
 import ace_hearts from "./hearts/aceOfHearts.png";
-import eighth_hearts from "./hearts/eighthOfHearts.png";
+import eight_hearts from "./hearts/eightOfHearts.png";
 import five_hearts from "./hearts/fiveOfHearts.png";
 import four_hearts from "./hearts/fourOfHearts.png";
 import jack_hearts from "./hearts/jackOfHearts.png";
@@ -12,7 +12,7 @@ import ten_hearts from "./hearts/tenOfHearts.png";
 import two_hearts from "./hearts/twoOfHearts.png";
 import three_hearts from "./hearts/threeOfHearts.png";
 import ace_clubs from "./clubs/aceOfClubs.png";
-import eighth_clubs from "./clubs/eighthOfClubs.png";
+import eight_clubs from "./clubs/eightOfClubs.png";
 import five_clubs from "./clubs/fiveOfClubs.png";
 import four_clubs from "./clubs/fourOfClubs.png";
 import jack_clubs from "./clubs/jackOfClubs.png";
@@ -25,7 +25,7 @@ import ten_clubs from "./clubs/tenOfClubs.png";
 import two_clubs from "./clubs/twoOfClubs.png";
 import three_clubs from "./clubs/threeOfClubs.png";
 import ace_spades from "./spades/aceOfSpades.png";
-import eighth_spades from "./spades/eighthOfSpades.png";
+import eight_spades from "./spades/eightOfSpades.png";
 import five_spades from "./spades/fiveOfSpades.png";
 import four_spades from "./spades/fourOfSpades.png";
 import jack_spades from "./spades/jackOfSpades.png";
@@ -38,7 +38,7 @@ import ten_spades from "./spades/tenOfSpades.png";
 import two_spades from "./spades/twoOfSpades.png";
 import three_spades from "./spades/threeOfSpades.png";
 import ace_diamonds from "./diamonds/aceOfDiamonds.png";
-import eighth_diamonds from "./diamonds/eighthOfDiamonds.png";
+import eight_diamonds from "./diamonds/eightOfDiamonds.png";
 import five_diamonds from "./diamonds/fiveOfDiamonds.png";
 import four_diamonds from "./diamonds/fourOfDiamonds.png";
 import jack_diamonds from "./diamonds/jackOfDiamonds.png";
@@ -53,7 +53,7 @@ import three_diamonds from "./diamonds/threeOfDiamonds.png";
 
 export const cardFrontsImages: { [char: string]: string } = {
   ace_hearts,
-  eighth_hearts,
+  eight_hearts,
   five_hearts,
   four_hearts,
   jack_hearts,
@@ -66,7 +66,7 @@ export const cardFrontsImages: { [char: string]: string } = {
   two_hearts,
   three_hearts,
   ace_clubs,
-  eighth_clubs,
+  eight_clubs,
   five_clubs,
   four_clubs,
   jack_clubs,
@@ -79,7 +79,7 @@ export const cardFrontsImages: { [char: string]: string } = {
   two_clubs,
   three_clubs,
   ace_spades,
-  eighth_spades,
+  eight_spades,
   five_spades,
   four_spades,
   jack_spades,
@@ -92,7 +92,7 @@ export const cardFrontsImages: { [char: string]: string } = {
   two_spades,
   three_spades,
   ace_diamonds,
-  eighth_diamonds,
+  eight_diamonds,
   five_diamonds,
   four_diamonds,
   jack_diamonds,
