@@ -52,11 +52,20 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       cardColor,
       cardOrder,
     ];
-    addCardToPile(ref.current.id, cardToPile);
+
+    const indexOfDraggedCardOnPile = cardsOnPiles[pileNumber]
+      ?.map((el: string[]) => `${el[0]}_${el[1]}`)
+      .indexOf(`${cardFront}_${cardSuite}`);
+
+    const cardsToDrag = cardsOnPiles[pileNumber]?.slice(
+      indexOfDraggedCardOnPile
+    );
 
     if (pileNumber !== undefined) {
-      removeCardFromPile(pileNumber);
+      cardsToDrag.forEach((el: any) => addCardToPile(ref.current.id, el));
+      cardsToDrag.forEach(() => removeCardFromPile(pileNumber));
     } else {
+      addCardToPile(ref.current.id, cardToPile);
       removeCardMovedToFoundation(
         cardsFromStock?.filter((card) => card[0] !== cardFront)
       );
@@ -69,11 +78,12 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       pileTarget.props.children[cardsOnPileLength - 1]?.props.children.props;
     const frontCardOrder = frontCardOnPile?.cardOrder;
     const frontCardColor = frontCardOnPile?.cardColor;
+
     if (draggedCard.cardFront === "king" && !cardsOnPileLength) {
       return true;
     }
     return (
-      frontCardOrder - 1 === draggedCard.cardOrder &&
+      frontCardOrder - 1 === parseInt(draggedCard.cardOrder) &&
       frontCardColor !== draggedCard.cardColor
     );
   };
