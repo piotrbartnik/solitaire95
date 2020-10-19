@@ -4,27 +4,21 @@ import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { foundationConfig } from "../../configs/foundationConfig";
+import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../helpers/cardMoving";
 
-type cardObject = {
-  cardFront: string;
-  isTurnedBack: boolean | undefined;
-  cardColor: string;
-  cardSuite: string;
-  cardOrder: string;
-};
-
 type propTypes = {
-  cardsOnPile: string[];
+  cardsOnPile: cardConfigType[];
   pileIndex: number;
   removeCardFromPile?: any;
   addCardToPile?: any;
   removeCardMovedToFoundation?: any;
-  cardsFromStock?: string[];
+  cardsFromStock?: cardConfigType[];
   cardsOnFoundations: any;
   addCardToFoundation: any;
+  cardsOnPiles: any;
 };
 
 const Pile: React.FC<propTypes> = (props: propTypes) => {
@@ -37,6 +31,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     cardsFromStock,
     cardsOnFoundations,
     addCardToFoundation,
+    cardsOnPiles,
   } = props;
 
   const ref: any = useRef(null);
@@ -50,37 +45,64 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       pileNumber,
     } = dragObject;
 
-    addCardToPile(
-      ref.current.id,
+    const cardToPile: cardConfigType = [
       cardFront,
+      cardSuite,
       true,
       cardColor,
-      cardSuite,
-      cardOrder
+      cardOrder,
+    ];
+
+    const indexOfDraggedCardOnPile = cardsOnPiles[pileNumber]
+      ?.map((el: string[]) => `${el[0]}_${el[1]}`)
+      .indexOf(`${cardFront}_${cardSuite}`);
+
+    const cardsToDrag = cardsOnPiles[pileNumber]?.slice(
+      indexOfDraggedCardOnPile
     );
 
     if (pileNumber !== undefined) {
-      removeCardFromPile(pileNumber);
+      cardsToDrag.forEach((el: any) => addCardToPile(ref.current.id, el));
+      cardsToDrag.forEach(() => removeCardFromPile(pileNumber));
     } else {
+      addCardToPile(ref.current.id, cardToPile);
       removeCardMovedToFoundation(
         cardsFromStock?.filter((card) => card[0] !== cardFront)
       );
     }
   };
 
-  const [{ isOver }, drop] = useDrop({
+  const canBeDroppedOnPile = (draggedCard: any) => {
+    const cardsOnPileLength = pileTarget.props.children.length;
+    const frontCardOnPile =
+      pileTarget.props.children[cardsOnPileLength - 1]?.props.children.props;
+    const frontCardOrder = frontCardOnPile?.cardOrder;
+    const frontCardColor = frontCardOnPile?.cardColor;
+
+    if (draggedCard.cardFront === "king" && !cardsOnPileLength) {
+      return true;
+    }
+    return (
+      frontCardOrder - 1 === parseInt(draggedCard.cardOrder) &&
+      frontCardColor !== draggedCard.cardColor
+    );
+  };
+
+  const [{ isOver, canDrop }, drop] = useDrop({
     accept: itemTypes.CARD,
     drop: (monitor, item) => {
       dropCardOnPile(monitor, item);
     },
+    canDrop: canBeDroppedOnPile,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
     }),
   });
 
   drop(ref, null);
 
-  const distributeCards = (cardsOnPile: string[]) =>
+  const distributeCards = (cardsOnPile: cardConfigType[]) =>
     cardsOnPile.map((card, index) => {
       const isTurnedBackString = card[2];
       const shouldBeTurnedAfterDrag = isTurnedBackString
@@ -117,22 +139,31 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       );
     });
 
-  return (
+  const pileTarget = (
     <div
       className={styles.pile__container}
       ref={ref}
-      style={isOver ? { border: "2px solid red" } : undefined}
+      style={
+        canDrop && isOver
+          ? { border: "2px solid blue" }
+          : isOver
+          ? { border: "2px solid red" }
+          : undefined
+      }
       id={`${pileIndex}`}
     >
       {distributeCards(cardsOnPile)}
     </div>
   );
+
+  return <>{pileTarget}</>;
 };
 
 const mapStateToProps = (state: any) => {
   return {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
+    cardsOnPiles: state.cardDistribution.cardsOnPiles,
   };
 };
 
@@ -140,29 +171,13 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     removeCardFromPile: (pileNumber: string) =>
       dispatch(actions.removeCardFromPile(pileNumber)),
-    addCardToPile: (
-      pileNumber: string,
-      cardFront: string,
-      isTurnedBack: boolean,
-      cardColor: string,
-      cardSuite: string,
-      cardOrder: string
-    ) =>
-      dispatch(
-        actions.addCardToPile(
-          pileNumber,
-          cardFront,
-          isTurnedBack,
-          cardColor,
-          cardSuite,
-          cardOrder
-        )
-      ),
+    addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
+      dispatch(actions.addCardToPile(pileNumber, cardToPile)),
     removeCardMovedToFoundation: (payload: string[]) => {
       dispatch(actions.removeCardMovedToFoundation(payload));
     },
     addCardToFoundation: (
-      card: cardObject,
+      card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
     ) =>

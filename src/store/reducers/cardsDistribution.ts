@@ -1,21 +1,25 @@
-import { createCards } from "../../configs/cardTypes";
+import { createCards, cardConfigType } from "../../configs/cardTypes";
 
 type initialState = {
-  cardsOnStock: (string | undefined | number)[][];
-  cardsFromStock: (string | undefined | number)[][];
-  cardsOnPiles: { [key: string]: string[] };
+  cardsOnStock: cardConfigType[];
+  cardsFromStock: cardConfigType[];
+  cardsOnPiles: { [key: string]: cardConfigType[] };
 };
 
-const mixCardsForGame = <T>(cards: T[]): T[][] => {
+const mixCardsForGame = (cards: cardConfigType[]): cardConfigType[][] => {
   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
   const cardsForStock = randomizeCardInput.slice(0, 24);
   const cardsForPiles = randomizeCardInput.slice(24);
   return [cardsForStock, cardsForPiles];
 };
 
-const [cardsForStock, cardsForPiles] = mixCardsForGame(createCards);
+const [cardsForStock, cardsForPiles] = mixCardsForGame(
+  createCards as cardConfigType[]
+);
 
-const orderPiles = <T>(cardsForPiles: T[]): { [key: string]: string[] } => {
+const orderPiles = (
+  cardsForPiles: cardConfigType[]
+): { [key: string]: cardConfigType[] } => {
   const cardsOnPiles = {};
   cardsForPiles.forEach((el, index) => {
     if (index < 7) {
@@ -32,9 +36,9 @@ const orderPiles = <T>(cardsForPiles: T[]): { [key: string]: string[] } => {
 };
 
 const initialState: initialState = {
-  cardsOnStock: cardsForStock,
+  cardsOnStock: cardsForStock as cardConfigType[],
   cardsFromStock: [],
-  cardsOnPiles: orderPiles(cardsForPiles),
+  cardsOnPiles: orderPiles(cardsForPiles as cardConfigType[]),
 };
 
 export const cardDistribution = (state = initialState, action: any) => {
@@ -66,15 +70,7 @@ export const cardDistribution = (state = initialState, action: any) => {
         },
       };
     case "ADD_CARD_TO_PILE":
-      const cardAdded: any = [
-        [
-          action.cardFront,
-          action.cardSuite,
-          action.isTurnedBack,
-          action.cardColor,
-          action.cardOrder,
-        ],
-      ];
+      const cardAdded: cardConfigType[] = [action.cardToPile];
       return {
         ...state,
         cardsOnPiles: {

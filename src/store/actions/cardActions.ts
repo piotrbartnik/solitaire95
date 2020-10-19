@@ -1,12 +1,5 @@
 import * as actionTypes from "./actionTypes";
-
-type cardObject = {
-  cardFront: string;
-  isTurnedBack: boolean | undefined;
-  cardColor: string;
-  cardSuite: string;
-  cardOrder: string;
-};
+import { cardConfigType } from "../../configs/cardTypes";
 
 export const takeOneFromStock = (payload: string) => {
   return {
@@ -23,7 +16,7 @@ export const reverseStock = (payload: string[]) => {
 };
 
 export const addCardToFoundation = (
-  card: cardObject,
+  card: cardConfigType,
   foundationNumber: string,
   foundationSuite?: string
 ) => {
@@ -54,21 +47,10 @@ export const removeCardFromPile = (pileNumber: string) => {
   };
 };
 
-export const addCardToPile = (
-  pileNumber: string,
-  cardFront: string,
-  isTurnedBack: boolean | undefined,
-  cardColor: string,
-  cardSuite: string,
-  cardOrder: string
-) => {
+export const addCardToPile = (pileNumber: string, card: cardConfigType) => {
   return {
     type: actionTypes.ADD_CARD_TO_PILE,
     addCardToPile: pileNumber,
-    cardFront,
-    isTurnedBack,
-    cardColor,
-    cardSuite,
-    cardOrder,
+    cardToPile: card,
   };
 };
