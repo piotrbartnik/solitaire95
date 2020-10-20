@@ -43,6 +43,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       cardColor,
       cardOrder,
       pileNumber,
+      foundationNumber,
     } = dragObject;
 
     const cardToPile: cardConfigType = [
@@ -52,6 +53,8 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       cardColor,
       cardOrder,
     ];
+
+    console.log(foundationNumber);
 
     const indexOfDraggedCardOnPile = cardsOnPiles[pileNumber]
       ?.map((el: string[]) => `${el[0]}_${el[1]}`)

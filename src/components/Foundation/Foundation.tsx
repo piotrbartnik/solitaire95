@@ -117,6 +117,7 @@ const Foundation: React.FC<propTypes> = (props) => {
               back={"acorns"}
               isTurnedBack={false}
               key={index}
+              foundationNumber={foundationId.toString()}
             />
           ))
         : null}

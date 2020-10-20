@@ -15,6 +15,7 @@ type propTypes = {
   onDoubleClick?: any;
   onClick?: any;
   pileNumber?: number;
+  foundationNumber?: string;
   wasTurnedFront?: boolean;
 };
 
@@ -25,6 +26,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     isTurnedBack = true,
     onDoubleClick,
     pileNumber,
+    foundationNumber,
     cardColor,
     cardSuite,
     cardOrder,
@@ -51,6 +53,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
       pileNumber,
       cardPosition,
       cardOrder,
+      foundationNumber,
     },
     canDrag: canDragCard,
     collect: (monitor) => ({
@@ -79,6 +82,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
           data-color={cardColor}
           data-order={cardOrder}
           data-pilenumber={pileNumber}
+          data-foundationNumber={foundationNumber}
         ></div>
       ) : (
         <div
