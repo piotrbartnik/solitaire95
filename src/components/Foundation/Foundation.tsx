@@ -15,6 +15,7 @@ type propTypes = {
   removeCardMovedToFoundation?: any;
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: any;
+  foundationId: string | number;
 };
 
 const Foundation: React.FC<propTypes> = (props) => {
@@ -25,15 +26,15 @@ const Foundation: React.FC<propTypes> = (props) => {
     removeCardMovedToFoundation,
     cardsFromStock,
     cardsOnFoundations,
+    foundationId,
   } = props;
 
-  const isFirstFoundation = (card: any, hoveredFoundation: any) => {
+  const isFirstFoundation = (card: any) => {
+    const foundationTargetId = foundationTarget.props.id;
+
     const foundationObject =
-      cardsOnFoundations[
-        Object.keys(cardsOnFoundations)[
-          hoveredFoundation.targetId.replace(/\D/, "") - 24
-        ]
-      ];
+      cardsOnFoundations[Object.keys(cardsOnFoundations)[foundationTargetId]];
+
     if (card.cardFront.match(/ace/)) {
       return foundationObject.foundationSuite === undefined;
     } else {
@@ -61,18 +62,16 @@ const Foundation: React.FC<propTypes> = (props) => {
       cardOrder,
     ];
 
-    const { targetId } = item;
     const foundations = [
       "cardsOnFirstFoundation",
       "cardsOnSecondFoundation",
       "cardsOnThirdFoundation",
       "cardsOnFourthFoundation",
     ];
-    addCardToFoundation(
-      cardConfig,
-      foundations[targetId.replace(/\D/, "") - 24],
-      cardSuite
-    );
+
+    const foundationTargetId = foundationTarget.props.id;
+
+    addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
     if (typeof pileNumber === "number") {
       removeCardFromPile(pileNumber);
       foundationConfig[cardSuite].shift();
@@ -95,8 +94,7 @@ const Foundation: React.FC<propTypes> = (props) => {
       canDrop: !!monitor.canDrop(),
     }),
   });
-
-  return (
+  const foundationTarget = (
     <div
       className={styles.foundation}
       ref={drop}
@@ -107,6 +105,7 @@ const Foundation: React.FC<propTypes> = (props) => {
           ? { outline: "5px solid red" }
           : undefined
       }
+      id={foundationId.toString()}
     >
       {cardsOnStock?.length
         ? cardsOnStock.map((card, index) => (
@@ -123,6 +122,8 @@ const Foundation: React.FC<propTypes> = (props) => {
         : null}
     </div>
   );
+
+  return <>{foundationTarget}</>;
 };
 
 const mapStateToProps = (state: any) => {
