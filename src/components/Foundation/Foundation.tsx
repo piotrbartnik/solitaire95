@@ -29,7 +29,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     foundationId,
   } = props;
 
-  const isFirstFoundation = (card: any) => {
+  const canBeDroppedOnFoundation = (card: any) => {
     const foundationTargetId = foundationTarget.props.id;
 
     const foundationObject =
@@ -88,7 +88,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     drop: (monitor, item) => {
       dropCardOnFoundation(monitor, item);
     },
-    canDrop: isFirstFoundation,
+    canDrop: canBeDroppedOnFoundation,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop(),
