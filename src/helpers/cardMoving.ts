@@ -25,7 +25,7 @@ export const moveToFoundation = (
         ? removeFromCallback(pilenumber)
         : removeFromCallback(
             (cardsFromStock as cardConfigType[]).filter(
-              (card) => card[0] !== cardname
+              (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
             )
           );
       foundationConfig[suite].shift();
@@ -44,7 +44,7 @@ export const moveToFoundation = (
           ? removeFromCallback(pilenumber)
           : removeFromCallback(
               (cardsFromStock as cardConfigType[]).filter(
-                (card) => card[0] !== cardname
+                (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
               )
             );
         addToFoundationCallback(cardConfig, foundation);
