@@ -35,7 +35,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     const foundationObject =
       cardsOnFoundations[Object.keys(cardsOnFoundations)[foundationTargetId]];
 
-    if (card.cardFront.match(/ace/)) {
+    if (card.cardFront?.match(/ace/)) {
       return foundationObject.foundationSuite === undefined;
     } else {
       return (
