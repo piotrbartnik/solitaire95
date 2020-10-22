@@ -70,7 +70,9 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     } else {
       addCardToPile(ref.current.id, cardToPile);
       removeCardMovedToFoundation(
-        cardsFromStock?.filter((card) => card[0] !== cardFront)
+        cardsFromStock?.filter(
+          (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
+        )
       );
     }
   };
