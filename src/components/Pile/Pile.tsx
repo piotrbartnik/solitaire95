@@ -54,8 +54,6 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       cardOrder,
     ];
 
-    console.log(foundationNumber);
-
     const indexOfDraggedCardOnPile = cardsOnPiles[pileNumber]
       ?.map((el: string[]) => `${el[0]}_${el[1]}`)
       .indexOf(`${cardFront}_${cardSuite}`);
@@ -65,8 +63,19 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     );
 
     if (pileNumber !== undefined) {
-      cardsToDrag.forEach((el: any) => addCardToPile(ref.current.id, el));
+      cardsToDrag.forEach((card: any) => {
+        const cardToDrag: cardConfigType = [
+          card[0],
+          card[1],
+          true,
+          card[3],
+          card[4],
+        ];
+        return addCardToPile(ref.current.id, cardToDrag);
+      });
       cardsToDrag.forEach(() => removeCardFromPile(pileNumber));
+    } else if (foundationNumber) {
+      console.log(foundationNumber);
     } else {
       addCardToPile(ref.current.id, cardToPile);
       removeCardMovedToFoundation(
