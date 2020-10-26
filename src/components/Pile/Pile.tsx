@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
 import { itemTypes } from "../../configs/dragndropConfig";
-import { foundationConfig } from "../../configs/foundationConfig";
 import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Pile.module.scss";
@@ -76,6 +75,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       cardsToDrag.forEach(() => removeCardFromPile(pileNumber));
     } else if (foundationNumber) {
       console.log(foundationNumber);
+      addCardToPile(ref.current.id, cardToPile);
     } else {
       addCardToPile(ref.current.id, cardToPile);
       removeCardMovedToFoundation(
@@ -140,7 +140,6 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
               moveToFoundation(
                 e,
                 cardsOnFoundations,
-                foundationConfig,
                 addCardToFoundation,
                 removeCardFromPile,
                 true
