@@ -3,7 +3,6 @@ import { cardConfigType } from "../configs/cardTypes";
 export const moveToFoundation = (
   event: any,
   cardsOnFoundations: any,
-  foundationConfig: any,
   addToFoundationCallback: any,
   removeFromCallback: any,
   pileOrStock: boolean,
@@ -19,6 +18,8 @@ export const moveToFoundation = (
         foundationToPopulate.push(foundation);
       }
     });
+    console.log(event.target.dataset);
+
     if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
       addToFoundationCallback(cardConfig, foundationToPopulate[0], suite);
       pileOrStock
@@ -28,26 +29,26 @@ export const moveToFoundation = (
               (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
             )
           );
-      foundationConfig[suite].shift();
     }
   }
 
   if (!cardname?.match("ace")) {
     Object.keys(cardsOnFoundations).forEach((foundation) => {
-      if (
-        cardsOnFoundations[foundation].foundationSuite === suite &&
-        foundationConfig[cardsOnFoundations[foundation].foundationSuite][0] ===
-          cardname
-      ) {
-        foundationConfig[suite].shift();
-        pileOrStock
-          ? removeFromCallback(pilenumber)
-          : removeFromCallback(
-              (cardsFromStock as cardConfigType[]).filter(
-                (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
-              )
-            );
-        addToFoundationCallback(cardConfig, foundation);
+      if (cardsOnFoundations[foundation].foundationSuite === suite) {
+        const cardsOnFoundation = cardsOnFoundations[foundation].cards;
+        if (
+          parseInt(cardsOnFoundation[cardsOnFoundation.length - 1][4]) ===
+          order - 1
+        ) {
+          pileOrStock
+            ? removeFromCallback(pilenumber)
+            : removeFromCallback(
+                (cardsFromStock as cardConfigType[]).filter(
+                  (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
+                )
+              );
+          addToFoundationCallback(cardConfig, foundation);
+        }
       }
     });
   }

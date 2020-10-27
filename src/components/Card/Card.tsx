@@ -82,7 +82,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
           data-color={cardColor}
           data-order={cardOrder}
           data-pilenumber={pileNumber}
-          data-foundationNumber={foundationNumber}
+          data-foundationnumber={foundationNumber}
         ></div>
       ) : (
         <div

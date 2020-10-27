@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { Card } from "..";
-import { foundationConfig } from "../../configs/foundationConfig";
 import { cardConfigType } from "../../configs/cardTypes";
 import styles from "./CardStock.module.scss";
 import { moveToFoundation } from "../../helpers/cardMoving";
@@ -69,7 +68,6 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
               moveToFoundation(
                 e,
                 cardsOnFoundations,
-                foundationConfig,
                 addCardToFoundation,
                 removeCardMovedToFoundation,
                 false,

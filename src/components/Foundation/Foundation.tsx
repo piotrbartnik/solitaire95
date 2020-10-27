@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
 import { itemTypes } from "../../configs/dragndropConfig";
-import { foundationConfig } from "../../configs/foundationConfig";
 import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Foundation.module.scss";
@@ -38,9 +37,11 @@ const Foundation: React.FC<propTypes> = (props) => {
     if (card.cardFront?.match(/ace/)) {
       return foundationObject.foundationSuite === undefined;
     } else {
+      const cardsOnFoundation = foundationObject.cards;
       return (
         card.cardSuite === foundationObject.foundationSuite &&
-        foundationConfig[card.cardSuite][0] === card.cardFront
+        parseInt(cardsOnFoundation[cardsOnFoundation.length - 1][4]) ===
+          card.cardOrder - 1
       );
     }
   };
@@ -74,14 +75,12 @@ const Foundation: React.FC<propTypes> = (props) => {
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
     if (typeof pileNumber === "number") {
       removeCardFromPile(pileNumber);
-      foundationConfig[cardSuite].shift();
     } else {
       removeCardMovedToFoundation(
         cardsFromStock.filter(
           (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
         )
       );
-      foundationConfig[cardSuite].shift();
     }
   };
 
