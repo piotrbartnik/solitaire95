@@ -39,6 +39,13 @@ const cardsOnFoundationActionReturn = (
   },
 });
 
+const foundations = [
+  "cardsOnFirstFoundation",
+  "cardsOnSecondFoundation",
+  "cardsOnThirdFoundation",
+  "cardsOnFourthFoundation",
+];
+
 export const cardsOnFoundation = (state = initialState, action: any) => {
   switch (action.type) {
     case "ADD_CARD_TO_FIRST_FOUNDATION":
@@ -65,6 +72,20 @@ export const cardsOnFoundation = (state = initialState, action: any) => {
         action,
         "cardsOnFourthFoundation"
       );
+    case "REMOVE_CARD_FROM_FOUNDATION":
+      const cardsOnFoundation =
+        state[foundations[action.removeCardFromFoundation]].cards;
+      cardsOnFoundation?.pop();
+      return {
+        ...state,
+        [foundations[action.removeCardFromFoundation]]: {
+          cards: cardsOnFoundation,
+          foundationSuite: cardsOnFoundation?.length
+            ? state[foundations[action.removeCardFromFoundation]]
+                .foundationSuite
+            : undefined,
+        },
+      };
     default:
       return state;
   }

@@ -18,6 +18,7 @@ type propTypes = {
   cardsOnFoundations: any;
   addCardToFoundation: any;
   cardsOnPiles: any;
+  removeCardFromFoundation: any;
 };
 
 const Pile: React.FC<propTypes> = (props: propTypes) => {
@@ -31,6 +32,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     cardsOnFoundations,
     addCardToFoundation,
     cardsOnPiles,
+    removeCardFromFoundation,
   } = props;
 
   const ref: any = useRef(null);
@@ -74,7 +76,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       });
       cardsToDrag.forEach(() => removeCardFromPile(pileNumber));
     } else if (foundationNumber) {
-      console.log(foundationNumber);
+      removeCardFromFoundation(foundationNumber);
       addCardToPile(ref.current.id, cardToPile);
     } else {
       addCardToPile(ref.current.id, cardToPile);
@@ -197,6 +199,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(
         actions.addCardToFoundation(card, foundationNumber, foundationSuite)
       ),
+    removeCardFromFoundation: (foundationNumber: string) =>
+      dispatch(actions.removeCardFromFoundation(foundationNumber)),
   };
 };
 

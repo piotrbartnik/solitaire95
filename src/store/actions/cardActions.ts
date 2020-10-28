@@ -54,3 +54,10 @@ export const addCardToPile = (pileNumber: string, card: cardConfigType) => {
     cardToPile: card,
   };
 };
+
+export const removeCardFromFoundation = (foundationNumber: string) => {
+  return {
+    type: actionTypes.REMOVE_CARD_FROM_FOUNDATION,
+    removeCardFromFoundation: foundationNumber,
+  };
+};
