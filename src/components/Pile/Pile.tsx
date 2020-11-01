@@ -121,10 +121,13 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   const distributeCards = (cardsOnPile: cardConfigType[]) =>
     cardsOnPile.map((card, index) => {
       const isTurnedBackString = card[2];
+      const cardsOnPileLength = cardsOnPile.length;
       const shouldBeTurnedAfterDrag = isTurnedBackString
         ? !Boolean(isTurnedBackString)
         : pileIndex > index;
-      return cardsOnPile.length > 0 ? (
+      const canBeTurned =
+        !isTurnedBackString && cardsOnPileLength - 1 === index ? true : false;
+      return cardsOnPileLength > 0 ? (
         <div
           className={styles[`pile__${index}`]}
           data-turned={shouldBeTurnedAfterDrag}
@@ -137,6 +140,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
             cardOrder={card[4]}
             back={"acorns"}
             isTurnedBack={shouldBeTurnedAfterDrag}
+            canBeTurned={canBeTurned}
             pileNumber={pileIndex}
             onDoubleClick={(e: any) =>
               moveToFoundation(
