@@ -18,7 +18,6 @@ export const moveToFoundation = (
         foundationToPopulate.push(foundation);
       }
     });
-    console.log(event.target.dataset);
 
     if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
       addToFoundationCallback(cardConfig, foundationToPopulate[0], suite);

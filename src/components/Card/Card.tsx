@@ -17,6 +17,7 @@ type propTypes = {
   pileNumber?: number;
   foundationNumber?: string;
   wasTurnedFront?: boolean;
+  canBeTurned?: boolean;
 };
 
 const Card: React.FC<propTypes> = (props: propTypes) => {
@@ -30,6 +31,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     cardColor,
     cardSuite,
     cardOrder,
+    canBeTurned,
   } = props;
   const [cardPosition, changeCardPosition] = useState(isTurnedBack);
   const [wasTurnedFront] = useState(!cardPosition ? true : false);
@@ -41,7 +43,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   }, [isTurnedBack, wasTurnedFront]);
 
   const onClick = () => {
-    if (!wasTurnedFront) changeCardPosition(false);
+    if (!wasTurnedFront && canBeTurned) changeCardPosition(false);
   };
 
   const [{ isDragging }, drag] = useDrag({
