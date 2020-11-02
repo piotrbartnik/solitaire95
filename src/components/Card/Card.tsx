@@ -71,7 +71,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     <div
       className={styles.card}
       onClick={onClick}
-      onDoubleClick={onDoubleClick}
+      onDoubleClick={!cardPosition ? onDoubleClick : undefined}
       ref={drag}
       style={isDragging ? { opacity: "0" } : undefined}
     >
