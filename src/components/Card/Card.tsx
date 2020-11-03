@@ -13,7 +13,6 @@ type propTypes = {
   back: string;
   isTurnedBack?: boolean;
   onDoubleClick?: any;
-  onClick?: any;
   pileNumber?: number;
   foundationNumber?: string;
   wasTurnedFront?: boolean;
