@@ -13,7 +13,6 @@ type propTypes = {
   back: string;
   isTurnedBack?: boolean;
   onDoubleClick?: any;
-  onClick?: any;
   pileNumber?: number;
   foundationNumber?: string;
   wasTurnedFront?: boolean;
@@ -71,7 +70,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     <div
       className={styles.card}
       onClick={onClick}
-      onDoubleClick={onDoubleClick}
+      onDoubleClick={!cardPosition ? onDoubleClick : undefined}
       ref={drag}
       style={isDragging ? { opacity: "0" } : undefined}
     >
