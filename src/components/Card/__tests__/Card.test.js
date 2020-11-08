@@ -27,5 +27,4 @@ describe('renders Card', () => {
     fireEvent.doubleClick(container.querySelector(".card"))
     expect(handleDoubleClick).toHaveBeenCalledTimes(1)
   })
-
 })
