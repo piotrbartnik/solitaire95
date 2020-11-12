@@ -7,7 +7,15 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const persistedState = localStorage.getItem('solitaireState')
+  ? JSON.parse(localStorage.getItem('solitaireState'))
+  : {}
+
+const store = createStore(reducers, persistedState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+store.subscribe(() => {
+  localStorage.setItem('solitaireState', JSON.stringify(store.getState()))
+})
 
 ReactDOM.render(
   <React.StrictMode>
