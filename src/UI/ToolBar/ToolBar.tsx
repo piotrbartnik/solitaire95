@@ -1,8 +1,13 @@
 import React from "react";
 import styles from "./ToolBar.module.scss";
 
-const ToolBar: React.FC = (props) => {
-  return <div className={styles.toolBar__bar}></div>;
+type propTypes = {
+  children: React.ReactNode;
+};
+
+const ToolBar: React.FC<propTypes> = (props) => {
+  const { children } = props;
+  return <div className={styles.toolBar__bar}>{children}</div>;
 };
 
 export default ToolBar;
