@@ -12,8 +12,12 @@ const MainPage: React.FC = () => {
         <TopBar />
         <ToolBar>
           <div className={styles.topBarButtonContainer}>
-            <TopbarButton>Game</TopbarButton>
-            <TopbarButton>Help</TopbarButton>
+            <TopbarButton onClick={() => console.log("test1")}>
+              Game
+            </TopbarButton>
+            <TopbarButton onClick={() => console.log("test2")}>
+              Help
+            </TopbarButton>
           </div>
         </ToolBar>
         <GameContainer />
