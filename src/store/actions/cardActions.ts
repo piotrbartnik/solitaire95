@@ -1,5 +1,41 @@
 import * as actionTypes from "./actionTypes";
-import { cardConfigType } from "../../configs/cardTypes";
+import { createCards, cardConfigType } from "../../configs/cardTypes";
+
+const mixCardsForGame = (cards: cardConfigType[]): cardConfigType[][] => {
+  const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
+  const cardsForStock = randomizeCardInput.slice(0, 24);
+  const cardsForPiles = randomizeCardInput.slice(24);
+  return [cardsForStock, cardsForPiles];
+};
+
+const orderPiles = (
+  cardsForPiles: cardConfigType[]
+): { [key: string]: cardConfigType[] } => {
+  const cardsOnPiles = {};
+  cardsForPiles.forEach((el, index) => {
+    if (index < 7) {
+      const triangularSequenceDividend = index * (index + 1);
+      Object.assign(cardsOnPiles, {
+        [index]: cardsForPiles.slice(
+          triangularSequenceDividend / 2,
+          triangularSequenceDividend / 2 + index + 1
+        ),
+      });
+    }
+  });
+  return cardsOnPiles;
+};
+
+export const dealCards = () => {
+  const [cardsForStock, cardsForPiles] = mixCardsForGame(
+    createCards as cardConfigType[]
+  );
+  return {
+    type: actionTypes.DEAL_CARDS,
+    cardsForStock: cardsForStock as cardConfigType[],
+    cardsOnPiles: orderPiles(cardsForPiles as cardConfigType[]),
+  };
+};
 
 export const takeOneFromStock = (payload: string) => {
   return {

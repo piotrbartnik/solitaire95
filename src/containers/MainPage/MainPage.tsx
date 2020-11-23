@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/cardActions";
 import { TopBar, ToolBar, BottomBar, TopbarButton } from "../../UI";
 import { ToolDropdown } from "../../components";
 import { GameContainer } from "../";
 import styles from "./MainPage.module.scss";
 
-const MainPage: React.FC = () => {
+type propTypes = {
+  dealCards: any;
+};
+
+const MainPage: React.FC<propTypes> = (props) => {
+  const { dealCards } = props;
   const [gameVisible, setGameVisible] = useState(false);
   const [helpVisible, setHelpVisible] = useState(false);
   return (
@@ -20,6 +27,8 @@ const MainPage: React.FC = () => {
                 onClick={() => {
                   setGameVisible((gameVisible) => !gameVisible);
                   setHelpVisible(false);
+                  dealCards();
+                  console.log("test");
                 }}
               >
                 Game
@@ -46,4 +55,8 @@ const MainPage: React.FC = () => {
   );
 };
 
-export default MainPage;
+const mapDispatchToProps = {
+  dealCards: actions.dealCards,
+};
+
+export default connect(undefined, mapDispatchToProps)(MainPage);
