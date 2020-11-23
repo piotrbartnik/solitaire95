@@ -9,7 +9,13 @@ import { GameContainer } from "../";
 import styles from "./MainPage.module.scss";
 
 type propTypes = {
-  dealCards: any;
+  dealCards?: any;
+  onClick?: any;
+};
+
+const Deal: React.FC<propTypes> = (props) => {
+  const { onClick } = props;
+  return <div onClick={onClick}>Deal</div>;
 };
 
 const MainPage: React.FC<propTypes> = (props) => {
@@ -27,13 +33,19 @@ const MainPage: React.FC<propTypes> = (props) => {
                 onClick={() => {
                   setGameVisible((gameVisible) => !gameVisible);
                   setHelpVisible(false);
-                  dealCards();
-                  console.log("test");
                 }}
               >
                 Game
               </TopbarButton>
-              <ToolDropdown visible={gameVisible} />
+              <ToolDropdown visible={gameVisible}>
+                <Deal
+                  onClick={() => {
+                    dealCards();
+                    setGameVisible((gameVisible) => !gameVisible);
+                    setHelpVisible(false);
+                  }}
+                />
+              </ToolDropdown>
             </div>
             <div style={{ width: "100%" }}>
               <TopbarButton
