@@ -1,4 +1,4 @@
-import { createCards, cardConfigType } from "../../configs/cardTypes";
+import { cardConfigType } from "../../configs/cardTypes";
 
 type initialState = {
   cardsOnStock: cardConfigType[];
@@ -6,43 +6,20 @@ type initialState = {
   cardsOnPiles: { [key: string]: cardConfigType[] };
 };
 
-const mixCardsForGame = (cards: cardConfigType[]): cardConfigType[][] => {
-  const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
-  const cardsForStock = randomizeCardInput.slice(0, 24);
-  const cardsForPiles = randomizeCardInput.slice(24);
-  return [cardsForStock, cardsForPiles];
-};
-
-const [cardsForStock, cardsForPiles] = mixCardsForGame(
-  createCards as cardConfigType[]
-);
-
-const orderPiles = (
-  cardsForPiles: cardConfigType[]
-): { [key: string]: cardConfigType[] } => {
-  const cardsOnPiles = {};
-  cardsForPiles.forEach((el, index) => {
-    if (index < 7) {
-      const triangularSequenceDividend = index * (index + 1);
-      Object.assign(cardsOnPiles, {
-        [index]: cardsForPiles.slice(
-          triangularSequenceDividend / 2,
-          triangularSequenceDividend / 2 + index + 1
-        ),
-      });
-    }
-  });
-  return cardsOnPiles;
-};
-
 const initialState: initialState = {
-  cardsOnStock: cardsForStock as cardConfigType[],
+  cardsOnStock: [],
   cardsFromStock: [],
-  cardsOnPiles: orderPiles(cardsForPiles as cardConfigType[]),
+  cardsOnPiles: {},
 };
 
 export const cardDistribution = (state = initialState, action: any) => {
   switch (action.type) {
+    case "DEAL_CARDS":
+      return {
+        cardsOnStock: action.cardsForStock,
+        cardsFromStock: [],
+        cardsOnPiles: action.cardsOnPiles,
+      };
     case "TAKE_ONE_FROM_STOCK":
       return {
         ...state,

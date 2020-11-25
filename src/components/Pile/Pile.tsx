@@ -131,7 +131,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
         <div
           className={styles[`pile__${index}`]}
           data-turned={shouldBeTurnedAfterDrag}
-          key={index}
+          key={`${index}${card[0]}${card[1]}${card[3]}${card[4]}`}
         >
           <Card
             cardFront={card[0]}

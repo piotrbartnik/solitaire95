@@ -1,3 +1,4 @@
+export const DEAL_CARDS: string = "DEAL_CARDS";
 export const TAKE_ONE_FROM_STOCK: string = "TAKE_ONE_FROM_STOCK";
 export const REVERSE_STOCK: string = "REVERSE_STOCK";
 export const ADD_CARD_TO_FIRST_FOUNDATION: string =

@@ -48,6 +48,8 @@ const foundations = [
 
 export const cardsOnFoundation = (state = initialState, action: any) => {
   switch (action.type) {
+    case "DEAL_CARDS":
+      return initialState;
     case "ADD_CARD_TO_FIRST_FOUNDATION":
       return cardsOnFoundationActionReturn(
         state,
