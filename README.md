@@ -15,7 +15,7 @@ Work in progress.
 
 ## Demo
 
-[![](https://i.imgur.com/xIWNBde.png)](https://travis-ci.com/piotrbartnik/solitaire95)
+[![](https://i.imgur.com/xIWNBde.png)](https://solitaire95-4b3b8.web.app/)
 
 ## Development
 
