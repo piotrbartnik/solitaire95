@@ -8,7 +8,7 @@ import MainPage from "./containers/MainPage/MainPage";
 const persistedState = localStorage.getItem("solitaireState")
   ? // @ts-ignore
     JSON.parse(localStorage.getItem("solitaireState"))
-  : {};
+  : undefined;
 
 const store = createStore(
   reducers,
