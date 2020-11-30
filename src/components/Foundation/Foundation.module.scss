@@ -3,7 +3,6 @@
   height: 215px;
   border: 2px solid black;
   border-radius: 7px;
-  margin: 12px 19px;
   background-image: radial-gradient(#000000 15%, transparent 15%),
     radial-gradient(#000000 15%, transparent 15%);
   background-color: transparent;
@@ -17,4 +16,9 @@
   div[class*="card"] {
     position: absolute;
   }
+}
+
+.hidden {
+  visibility: hidden;
+  z-index: -999;
 }

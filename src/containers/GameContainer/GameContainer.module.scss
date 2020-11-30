@@ -26,12 +26,15 @@
   &__cardStock {
     display: flex;
     justify-content: flex-start;
+    z-index: 10;
   }
 
   &__foundation {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    padding: 12px 19px;
     width: 100%;
+    position: absolute;
   }
 
   &__piles {

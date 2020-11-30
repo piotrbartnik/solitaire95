@@ -8,13 +8,14 @@ import { Card } from "..";
 import styles from "./Foundation.module.scss";
 
 type propTypes = {
-  cardsOnStock: cardConfigType[];
+  cardsOnStock?: cardConfigType[];
   addCardToFoundation?: any;
   removeCardFromPile?: any;
   removeCardMovedToFoundation?: any;
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: any;
-  foundationId: string | number;
+  foundationId?: string | number;
+  hidden?: boolean;
 };
 
 const Foundation: React.FC<propTypes> = (props) => {
@@ -26,6 +27,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     cardsFromStock,
     cardsOnFoundations,
     foundationId,
+    hidden,
   } = props;
 
   const canBeDroppedOnFoundation = (card: any) => {
@@ -97,7 +99,9 @@ const Foundation: React.FC<propTypes> = (props) => {
   });
   const foundationTarget = (
     <div
-      className={styles.foundation}
+      className={[styles.foundation, hidden ? styles.hidden : undefined].join(
+        " "
+      )}
       ref={drop}
       style={
         isOver && canDrop
@@ -106,7 +110,7 @@ const Foundation: React.FC<propTypes> = (props) => {
           ? { outline: "5px solid red" }
           : undefined
       }
-      id={foundationId.toString()}
+      id={foundationId?.toString()}
     >
       {cardsOnStock?.length
         ? cardsOnStock.map((card, index) => (
@@ -118,7 +122,7 @@ const Foundation: React.FC<propTypes> = (props) => {
               back={"acorns"}
               isTurnedBack={false}
               key={index}
-              foundationNumber={foundationId.toString()}
+              foundationNumber={foundationId?.toString()}
             />
           ))
         : null}

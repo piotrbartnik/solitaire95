@@ -38,6 +38,9 @@ const GameContainer: React.FC<propTypes> = (props) => {
             <CardStock />
           </div>
           <div className={styles.gameContainer__foundation}>
+            <FoundationField hidden />
+            <FoundationField hidden />
+            <FoundationField hidden />
             <FoundationField
               cardsOnStock={cardsOnFirstFoundation}
               foundationId={0}
