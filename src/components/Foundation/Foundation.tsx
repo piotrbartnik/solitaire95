@@ -8,14 +8,13 @@ import { Card } from "..";
 import styles from "./Foundation.module.scss";
 
 type propTypes = {
-  cardsOnStock?: cardConfigType[];
+  cardsOnStock: cardConfigType[];
   addCardToFoundation?: any;
   removeCardFromPile?: any;
   removeCardMovedToFoundation?: any;
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: any;
-  foundationId?: string | number;
-  hidden?: boolean;
+  foundationId: string | number;
 };
 
 const Foundation: React.FC<propTypes> = (props) => {
@@ -27,7 +26,6 @@ const Foundation: React.FC<propTypes> = (props) => {
     cardsFromStock,
     cardsOnFoundations,
     foundationId,
-    hidden,
   } = props;
 
   const canBeDroppedOnFoundation = (card: any) => {
@@ -99,9 +97,7 @@ const Foundation: React.FC<propTypes> = (props) => {
   });
   const foundationTarget = (
     <div
-      className={[styles.foundation, hidden ? styles.hidden : undefined].join(
-        " "
-      )}
+      className={styles.foundation}
       ref={drop}
       style={
         isOver && canDrop
