@@ -20,8 +20,31 @@
     justify-content: center;
     align-items: center;
 
-    div[class*="card"] {
-      position: absolute;
+    div.card {
+      @for $i from 0 through 5 {
+        &.#{$i} {
+          position: absolute;
+          left: -29px;
+        }
+      }
+      @for $i from 6 through 11 {
+        &.#{$i} {
+          position: absolute;
+          left: #{-29 + 4}px;
+        }
+      }
+      @for $i from 12 through 17 {
+        &.#{$i} {
+          position: absolute;
+          left: #{-29 + 8}px;
+        }
+      }
+      @for $i from 18 through 23 {
+        &.#{$i} {
+          position: absolute;
+          left: #{-29 + 12}px;
+        }
+      }
     }
   }
 }
