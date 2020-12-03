@@ -18,6 +18,8 @@ const Deal: React.FC<propTypes> = (props) => {
   return <div onClick={onClick}>Deal</div>;
 };
 
+const Separator: React.FC = () => <div className={styles.separator}></div>;
+
 const MainPage: React.FC<propTypes> = (props) => {
   const { dealCards } = props;
   const [gameVisible, setGameVisible] = useState(false);
@@ -38,13 +40,18 @@ const MainPage: React.FC<propTypes> = (props) => {
                 Game
               </TopbarButton>
               <ToolDropdown visible={gameVisible}>
-                <Deal
-                  onClick={() => {
-                    dealCards();
-                    setGameVisible((gameVisible) => !gameVisible);
-                    setHelpVisible(false);
-                  }}
-                />
+                <>
+                  <div className={styles.toolElement}>
+                    <Deal
+                      onClick={() => {
+                        dealCards();
+                        setGameVisible((gameVisible) => !gameVisible);
+                        setHelpVisible(false);
+                      }}
+                    />
+                  </div>
+                  <Separator />
+                </>
               </ToolDropdown>
             </div>
             <div style={{ width: "100%" }}>

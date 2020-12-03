@@ -12,3 +12,15 @@
   width: 150px;
   display: flex;
 }
+
+.toolElement {
+  margin: 7px 35px;
+  cursor: pointer;
+}
+
+.separator {
+  margin: 0 3px;
+  height: 4px;
+  background-color: #858a8e;
+  border-bottom: 2px solid white;
+}
