@@ -1,29 +1,23 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
-import { TopBar, ToolBar, BottomBar, TopbarButton } from "../../UI";
+import {
+  TopBar,
+  ToolBar,
+  BottomBar,
+  TopbarButton,
+  ToolButton,
+  Separator,
+} from "../../UI";
 import { ToolDropdown } from "../../components";
 import { GameContainer } from "../";
 import styles from "./MainPage.module.scss";
 
 type propTypes = {
   dealCards?: any;
-  onClick?: any;
-  children?: ReactNode;
 };
-
-const ToolButton: React.FC<propTypes> = (props) => {
-  const { onClick, children } = props;
-  return (
-    <div onClick={onClick} className={styles.shortcutLetter}>
-      {children}
-    </div>
-  );
-};
-
-const Separator: React.FC = () => <div className={styles.separator}></div>;
 
 const MainPage: React.FC<propTypes> = (props) => {
   const { dealCards } = props;
