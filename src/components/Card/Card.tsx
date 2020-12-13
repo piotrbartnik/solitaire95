@@ -73,6 +73,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
       onDoubleClick={!cardPosition ? onDoubleClick : undefined}
       ref={drag}
       style={isDragging ? { opacity: "0" } : undefined}
+      data-front={!cardPosition}
     >
       {!cardPosition ? (
         <div

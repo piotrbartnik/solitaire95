@@ -3,19 +3,20 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
-import { TopBar, ToolBar, BottomBar, TopbarButton } from "../../UI";
+import {
+  TopBar,
+  ToolBar,
+  BottomBar,
+  TopbarButton,
+  ToolButton,
+  Separator,
+} from "../../UI";
 import { ToolDropdown } from "../../components";
 import { GameContainer } from "../";
 import styles from "./MainPage.module.scss";
 
 type propTypes = {
   dealCards?: any;
-  onClick?: any;
-};
-
-const Deal: React.FC<propTypes> = (props) => {
-  const { onClick } = props;
-  return <div onClick={onClick}>Deal</div>;
 };
 
 const MainPage: React.FC<propTypes> = (props) => {
@@ -38,13 +39,33 @@ const MainPage: React.FC<propTypes> = (props) => {
                 Game
               </TopbarButton>
               <ToolDropdown visible={gameVisible}>
-                <Deal
-                  onClick={() => {
-                    dealCards();
-                    setGameVisible((gameVisible) => !gameVisible);
-                    setHelpVisible(false);
-                  }}
-                />
+                <>
+                  <div className={styles.toolElement}>
+                    <ToolButton
+                      onClick={() => {
+                        dealCards();
+                        setGameVisible((gameVisible) => !gameVisible);
+                        setHelpVisible(false);
+                      }}
+                    >
+                      Deal
+                    </ToolButton>
+                  </div>
+                  <Separator />
+                  <div className={styles.toolElement}>
+                    <ToolButton>Undo</ToolButton>
+                  </div>
+                  <div className={styles.toolElement}>
+                    <ToolButton>Deck</ToolButton>
+                  </div>
+                  <div className={styles.toolElement}>
+                    <ToolButton>Options</ToolButton>
+                  </div>
+                  <Separator />
+                  <div className={styles.toolElement}>
+                    <ToolButton>Exit</ToolButton>
+                  </div>
+                </>
               </ToolDropdown>
             </div>
             <div style={{ width: "100%" }}>
@@ -56,7 +77,11 @@ const MainPage: React.FC<propTypes> = (props) => {
               >
                 Help
               </TopbarButton>
-              <ToolDropdown visible={helpVisible} />
+              <ToolDropdown visible={helpVisible}>
+                <div className={styles.toolElement}>
+                  <ToolButton>About</ToolButton>
+                </div>
+              </ToolDropdown>
             </div>
           </div>
         </ToolBar>

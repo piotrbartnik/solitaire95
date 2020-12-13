@@ -42,40 +42,51 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
         <div className={styles.cardStock__cardHolder}>
           {cardsOnStock.length
             ? cardsOnStock.map((card, index) => (
-                <Card
-                  cardFront={card[0]}
-                  cardSuite={card[1]}
-                  cardColor={card[3]}
-                  cardOrder={card[4]}
-                  back={"acorns"}
-                  isTurnedBack={true}
-                  key={`${index}${card}`}
-                />
+                <div
+                  className={[styles.card, styles[`${index}`]].join(" ")}
+                  id={`${index}`}
+                  key={`${index}${card}cardsOnStock`}
+                >
+                  <Card
+                    cardFront={card[0]}
+                    cardSuite={card[1]}
+                    cardColor={card[3]}
+                    cardOrder={card[4]}
+                    back={"acorns"}
+                    isTurnedBack={true}
+                  />
+                </div>
               ))
             : null}
         </div>
       </div>
       <div className={styles.cardsOnTable}>
         {cardsFromStock.map((card, index) => (
-          <Card
-            cardFront={card[0]}
-            cardSuite={card[1]}
-            cardColor={card[3]}
-            cardOrder={card[4]}
-            back={"acorns"}
-            isTurnedBack={false}
-            onDoubleClick={(e: any) =>
-              moveToFoundation(
-                e,
-                cardsOnFoundations,
-                addCardToFoundation,
-                removeCardMovedToFoundation,
-                false,
-                cardsFromStock
-              )
-            }
-            key={`${index}${card}`}
-          />
+          <div
+            className={[styles.card, styles[`${index}`]].join(" ")}
+            id={`${index}`}
+            key={`${index}${card}cardsOnTable`}
+          >
+            <Card
+              cardFront={card[0]}
+              cardSuite={card[1]}
+              cardColor={card[3]}
+              cardOrder={card[4]}
+              back={"acorns"}
+              isTurnedBack={false}
+              onDoubleClick={(e: any) =>
+                moveToFoundation(
+                  e,
+                  cardsOnFoundations,
+                  addCardToFoundation,
+                  removeCardMovedToFoundation,
+                  false,
+                  cardsFromStock
+                )
+              }
+              key={`${index}${card}`}
+            />
+          </div>
         ))}
       </div>
     </>

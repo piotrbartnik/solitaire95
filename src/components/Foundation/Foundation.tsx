@@ -106,7 +106,7 @@ const Foundation: React.FC<propTypes> = (props) => {
           ? { outline: "5px solid red" }
           : undefined
       }
-      id={foundationId.toString()}
+      id={foundationId?.toString()}
     >
       {cardsOnStock?.length
         ? cardsOnStock.map((card, index) => (
@@ -118,7 +118,7 @@ const Foundation: React.FC<propTypes> = (props) => {
               back={"acorns"}
               isTurnedBack={false}
               key={index}
-              foundationNumber={foundationId.toString()}
+              foundationNumber={foundationId?.toString()}
             />
           ))
         : null}

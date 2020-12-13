@@ -20,8 +20,27 @@
     justify-content: center;
     align-items: center;
 
-    div[class*="card"] {
-      position: absolute;
+    div.card {
+      @for $i from 0 through 7 {
+        &.#{$i} {
+          position: absolute;
+          left: -29px;
+        }
+      }
+      @for $i from 8 through 16 {
+        &.#{$i} {
+          position: absolute;
+          left: -25px;
+          top: -54px;
+        }
+      }
+      @for $i from 17 through 23 {
+        &.#{$i} {
+          position: absolute;
+          left: -21px;
+          top: -52px;
+        }
+      }
     }
   }
 }
@@ -35,7 +54,26 @@
   justify-content: center;
   align-items: center;
 
-  div[class*="card"] {
-    position: absolute;
+  div.card {
+    @for $i from 0 through 7 {
+      &.#{$i} {
+        position: absolute;
+        left: 0px;
+      }
+    }
+    @for $i from 8 through 15 {
+      &.#{$i} {
+        position: absolute;
+        left: 4px;
+        top: 2px;
+      }
+    }
+    @for $i from 16 through 23 {
+      &.#{$i} {
+        position: absolute;
+        left: 8px;
+        top: 4px;
+      }
+    }
   }
 }
