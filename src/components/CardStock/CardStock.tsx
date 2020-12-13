@@ -45,6 +45,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
                 <div
                   className={[styles.card, styles[`${index}`]].join(" ")}
                   id={`${index}`}
+                  key={`${index}${card}`}
                 >
                   <Card
                     cardFront={card[0]}
@@ -53,7 +54,6 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
                     cardOrder={card[4]}
                     back={"acorns"}
                     isTurnedBack={true}
-                    key={`${index}${card}`}
                   />
                 </div>
               ))

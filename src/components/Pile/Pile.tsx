@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
@@ -157,6 +157,24 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
         <div id={`${pileIndex}`} className={styles[`pile__${index}`]}></div>
       );
     });
+
+  useLayoutEffect(() => {
+    const cardsOnPile = ref.current.querySelectorAll("div[data-front]");
+    const cardsOnPileBack = ref.current.querySelectorAll(
+      "div[data-front='false']"
+    );
+    cardsOnPile.forEach((card: any, index: any) => {
+      if (card.dataset.front === "false") {
+        card.parentNode.style.top = `${10 * index}px`;
+      }
+      if (card.dataset.front === "true") {
+        const frontHeight = index - cardsOnPileBack.length;
+        card.parentNode.style.top = `${
+          cardsOnPileBack.length * 10 + frontHeight * 30
+        }px`;
+      }
+    });
+  });
 
   const pileTarget = (
     <div
