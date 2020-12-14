@@ -14,6 +14,7 @@ type propTypes = {
   removeCardMovedToFoundation: any;
   cardsOnFoundations: any;
   addCardToFoundation: any;
+  distanceBtwPiles: number;
 };
 
 const CardStock: React.FC<propTypes> = (props: propTypes) => {
@@ -25,6 +26,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
     removeCardMovedToFoundation,
     cardsOnFoundations,
     addCardToFoundation,
+    distanceBtwPiles,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -37,8 +39,12 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
   };
 
   return (
-    <>
-      <div className={styles.cardStock} onClick={moveFirstFromTheTop}>
+    <div className={styles.cardStock__container}>
+      <div
+        className={styles.cardStock}
+        onClick={moveFirstFromTheTop}
+        style={{ marginRight: `${distanceBtwPiles}px` }}
+      >
         <div className={styles.cardStock__cardHolder}>
           {cardsOnStock.length
             ? cardsOnStock.map((card, index) => (
@@ -89,7 +95,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

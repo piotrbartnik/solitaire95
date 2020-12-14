@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { FoundationField, Pile, CardStock } from "../../components";
@@ -23,6 +23,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnPiles,
   } = props;
 
+  const [distanceBtwPiles, setDistanceBtwPiles] = useState(0);
   const piles = (config: any) =>
     Object.keys(config).map((el, index) => (
       <div className={styles.gameContainer__singlePile} key={index}>
@@ -30,12 +31,37 @@ const GameContainer: React.FC<propTypes> = (props) => {
       </div>
     ));
 
+  const pilesContainer = useRef(null);
+
+  useEffect(() => {
+    const setDistance = () => {
+      const node = pilesContainer.current;
+      if (node) {
+        const cardPiles = (node as HTMLElement).querySelectorAll(
+          "div[class*='pile__container']"
+        );
+
+        const firstPileRightDistance = cardPiles[0].getBoundingClientRect()
+          .right;
+        const secondPileLeftDistance = cardPiles[1].getBoundingClientRect()
+          .left;
+        setDistanceBtwPiles(secondPileLeftDistance - firstPileRightDistance);
+      }
+    };
+
+    setDistance();
+
+    window.addEventListener("resize", setDistance);
+
+    return () => window.removeEventListener("resize", setDistance);
+  }, []);
+
   return (
     <div className={styles.gameUIBorder}>
       <div className={styles.gameContainer}>
         <div className={styles.gameContainer__top}>
           <div className={styles.gameContainer__cardStock}>
-            <CardStock />
+            <CardStock distanceBtwPiles={distanceBtwPiles} />
           </div>
           <div className={styles.gameContainer__foundation}>
             <div className={styles.gameContainer__foundationFiller}></div>
@@ -55,7 +81,9 @@ const GameContainer: React.FC<propTypes> = (props) => {
             ))}
           </div>
         </div>
-        <div className={styles.gameContainer__piles}>{piles(cardsOnPiles)}</div>
+        <div ref={pilesContainer} className={styles.gameContainer__piles}>
+          {piles(cardsOnPiles)}
+        </div>
       </div>
     </div>
   );

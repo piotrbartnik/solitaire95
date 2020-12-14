@@ -1,9 +1,14 @@
 .cardStock {
+  &__container {
+    padding: 0 19px;
+    display: flex;
+  }
+
   width: 160px;
   height: 215px;
   border: 2px solid black;
   border-radius: 7px;
-  margin: 12px 19px;
+  margin: 12px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +54,7 @@
   position: relative;
   width: 160px;
   height: 215px;
-  margin: 12px 19px;
+  margin: 12px 0;
   display: flex;
   justify-content: center;
   align-items: center;
