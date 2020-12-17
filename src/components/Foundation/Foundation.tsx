@@ -115,7 +115,7 @@ const Foundation: React.FC<propTypes> = (props) => {
               cardSuite={card[1]}
               cardColor={card[3]}
               cardOrder={card[4]}
-              back={"acorns"}
+              cardBack={"acorns"}
               isTurnedBack={false}
               key={index}
               foundationNumber={foundationId?.toString()}

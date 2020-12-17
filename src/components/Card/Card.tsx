@@ -1,28 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDrag } from "react-dnd";
 import styles from "./Card.module.scss";
+import { useSetCardPosition } from "./CardHooks";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { cardFrontsImages } from "../../static/cardsFronts/";
 import { cardBackImages } from "../../static/cardBacks/";
 
-type propTypes = {
+type cardPropTypes = {
   cardFront: string;
   cardColor: string;
   cardSuite: string;
   cardOrder: string | number;
-  back: string;
+  cardBack: string;
   isTurnedBack?: boolean;
-  onDoubleClick?: any;
+  onDoubleClick?:
+    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
+    | undefined;
   pileNumber?: number;
   foundationNumber?: string;
-  wasTurnedFront?: boolean;
+  wasCardTurnedFront?: boolean;
   canBeTurned?: boolean;
 };
 
-const Card: React.FC<propTypes> = (props: propTypes) => {
+const Card: React.FC<cardPropTypes> = (props: cardPropTypes) => {
   const {
     cardFront,
-    back,
+    cardBack,
     isTurnedBack = true,
     onDoubleClick,
     pileNumber,
@@ -32,17 +35,19 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
     cardOrder,
     canBeTurned,
   } = props;
-  const [cardPosition, changeCardPosition] = useState(isTurnedBack);
-  const [wasTurnedFront] = useState(!cardPosition ? true : false);
 
-  const canDragCard = !cardPosition;
+  const [
+    cardPositionFront,
+    wasCardTurnedFront,
+    changeCardPosition,
+  ] = useSetCardPosition(isTurnedBack);
 
-  useEffect(() => {
-    if (!wasTurnedFront) changeCardPosition(isTurnedBack);
-  }, [isTurnedBack, wasTurnedFront]);
+  const canDragCard = !cardPositionFront;
 
   const onClick = () => {
-    if (!wasTurnedFront && canBeTurned) changeCardPosition(false);
+    if (!wasCardTurnedFront && canBeTurned) {
+      changeCardPosition(() => false);
+    }
   };
 
   const [{ isDragging }, drag] = useDrag({
@@ -52,7 +57,7 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
       cardSuite,
       cardColor,
       pileNumber,
-      cardPosition,
+      cardPositionFront,
       cardOrder,
       foundationNumber,
     },
@@ -64,18 +69,18 @@ const Card: React.FC<propTypes> = (props: propTypes) => {
   });
 
   const frontImage: string = cardFrontsImages[`${cardFront}_${cardSuite}`];
-  const backImage: string = cardBackImages[`${back}`];
+  const backImage: string = cardBackImages[`${cardBack}`];
 
   return (
     <div
       className={styles.card}
       onClick={onClick}
-      onDoubleClick={!cardPosition ? onDoubleClick : undefined}
+      onDoubleClick={!cardPositionFront ? onDoubleClick : undefined}
       ref={drag}
       style={isDragging ? { opacity: "0" } : undefined}
-      data-front={!cardPosition}
+      data-front={!cardPositionFront}
     >
-      {!cardPosition ? (
+      {!cardPositionFront ? (
         <div
           className={styles.cardFront}
           style={{ backgroundImage: `url(${frontImage})` }}

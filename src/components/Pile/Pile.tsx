@@ -139,7 +139,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
             cardSuite={card[1]}
             cardColor={card[3]}
             cardOrder={card[4]}
-            back={"acorns"}
+            cardBack={"acorns"}
             isTurnedBack={shouldBeTurnedAfterDrag}
             canBeTurned={canBeTurned}
             pileNumber={pileIndex}
