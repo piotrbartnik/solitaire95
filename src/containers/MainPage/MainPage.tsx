@@ -25,7 +25,17 @@ const MainPage: React.FC<propTypes> = (props) => {
   const [helpVisible, setHelpVisible] = useState(false);
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className={styles.mainPage}>
+      <div
+        className={styles.mainPage}
+        onClick={() => {
+          if (gameVisible) {
+            setGameVisible(false);
+          }
+          if (helpVisible) {
+            setHelpVisible(false);
+          }
+        }}
+      >
         <TopBar />
         <ToolBar>
           <div className={styles.topBarButtonContainer}>

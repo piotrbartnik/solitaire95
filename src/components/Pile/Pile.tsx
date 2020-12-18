@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
@@ -7,6 +7,7 @@ import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../helpers/cardMoving";
+import { useSetCardsPositionFromTopOnPiles } from "./PileHooks";
 
 type propTypes = {
   cardsOnPile: cardConfigType[];
@@ -35,7 +36,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     removeCardFromFoundation,
   } = props;
 
-  const ref: any = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const dropCardOnPile = (dragObject: any, item: any) => {
     const {
@@ -72,14 +73,14 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
           card[3],
           card[4],
         ];
-        return addCardToPile(ref.current.id, cardToDrag);
+        return addCardToPile((ref.current as HTMLDivElement).id, cardToDrag);
       });
       cardsToDrag.forEach(() => removeCardFromPile(pileNumber));
     } else if (foundationNumber) {
       removeCardFromFoundation(foundationNumber);
-      addCardToPile(ref.current.id, cardToPile);
+      addCardToPile((ref.current as HTMLDivElement).id, cardToPile);
     } else {
-      addCardToPile(ref.current.id, cardToPile);
+      addCardToPile((ref.current as HTMLDivElement).id, cardToPile);
       removeCardMovedToFoundation(
         cardsFromStock?.filter(
           (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
@@ -138,7 +139,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
             cardSuite={card[1]}
             cardColor={card[3]}
             cardOrder={card[4]}
-            back={"acorns"}
+            cardBack={"acorns"}
             isTurnedBack={shouldBeTurnedAfterDrag}
             canBeTurned={canBeTurned}
             pileNumber={pileIndex}
@@ -158,23 +159,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       );
     });
 
-  useLayoutEffect(() => {
-    const cardsOnPile = ref.current.querySelectorAll("div[data-front]");
-    const cardsOnPileBack = ref.current.querySelectorAll(
-      "div[data-front='false']"
-    );
-    cardsOnPile.forEach((card: any, index: any) => {
-      if (card.dataset.front === "false") {
-        card.parentNode.style.top = `${10 * index}px`;
-      }
-      if (card.dataset.front === "true") {
-        const frontHeight = index - cardsOnPileBack.length;
-        card.parentNode.style.top = `${
-          cardsOnPileBack.length * 10 + frontHeight * 30
-        }px`;
-      }
-    });
-  });
+  useSetCardsPositionFromTopOnPiles(ref as { current: HTMLDivElement });
 
   const pileTarget = (
     <div

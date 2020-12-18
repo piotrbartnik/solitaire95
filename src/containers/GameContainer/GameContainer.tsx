@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { connect } from "react-redux";
+import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
 import * as actions from "../../store/actions/cardActions";
 import { FoundationField, Pile, CardStock } from "../../components";
 import { cardConfigType } from "../../configs/cardTypes";
@@ -23,7 +24,6 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnPiles,
   } = props;
 
-  const [distanceBtwPiles, setDistanceBtwPiles] = useState(0);
   const piles = (config: any) =>
     Object.keys(config).map((el, index) => (
       <div className={styles.gameContainer__singlePile} key={index}>
@@ -33,28 +33,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
 
   const pilesContainer = useRef(null);
 
-  useEffect(() => {
-    const setDistance = () => {
-      const node = pilesContainer.current;
-      if (node) {
-        const cardPiles = (node as HTMLElement).querySelectorAll(
-          "div[class*='pile__container']"
-        );
-
-        const firstPileRightDistance = cardPiles[0].getBoundingClientRect()
-          .right;
-        const secondPileLeftDistance = cardPiles[1].getBoundingClientRect()
-          .left;
-        setDistanceBtwPiles(secondPileLeftDistance - firstPileRightDistance);
-      }
-    };
-
-    setDistance();
-
-    window.addEventListener("resize", setDistance);
-
-    return () => window.removeEventListener("resize", setDistance);
-  }, []);
+  const distanceBtwPiles = useCountDistanceBetweenPiles(pilesContainer);
 
   return (
     <div className={styles.gameUIBorder}>
