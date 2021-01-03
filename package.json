@@ -1,7 +1,12 @@
 {
-  "name": "root",
+  "name": "windows95-solitaire-monorepo",
+  "version": "0.1.2",
   "private": true,
   "devDependencies": {
     "lerna": "^3.22.1"
+  },
+  "scripts": {
+    "start:web": "cd ./applications/webApp && yarn start",
+    "start:desktop": "cd ./applications/electronReactApp && yarn start"
   }
 }
