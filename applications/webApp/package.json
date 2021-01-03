@@ -15,7 +15,8 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-scripts": "^3.4.3",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "my-module": "0.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

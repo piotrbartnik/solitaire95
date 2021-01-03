@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HelloWorld } from 'my-module';
 import icon from '../assets/icon.svg';
 
 const Hello = () => {
@@ -35,6 +36,7 @@ const Hello = () => {
           </button>
         </a>
       </div>
+      <HelloWorld />
     </div>
   );
 };

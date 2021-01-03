@@ -4,6 +4,7 @@ import { createStore } from "redux";
 import * as actions from "../src/store/actions/cardActions";
 import { reducers } from "./store/reducers";
 import MainPage from "./containers/MainPage/MainPage";
+import { HelloWorld } from "my-module";
 
 const persistedState = localStorage.getItem("solitaireState")
   ? // @ts-ignore
@@ -29,6 +30,7 @@ const App = (): ReactElement => {
   return (
     <Provider store={store}>
       <MainPage />
+      <HelloWorld />
     </Provider>
   );
 };
