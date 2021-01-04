@@ -26,7 +26,7 @@ if (!persistedState) {
   store.dispatch(actions.dealCards());
 }
 
-const App = (): ReactElement => {
+export const Solitaire95 = (): ReactElement => {
   return (
     <Provider store={store}>
       <MainPage />
@@ -34,5 +34,3 @@ const App = (): ReactElement => {
     </Provider>
   );
 };
-
-export default App;
