@@ -9,6 +9,7 @@
     "install": "lerna bootstrap",
     "start:web": "cd ./applications/webApp && yarn start",
     "start:desktop": "cd ./applications/electronReactApp && yarn start",
-    "rmmodules": "find . -name 'node_modules' -type d -exec rm -rf '{}' +"
+    "rmmodules": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
+    "build:packages": "lerna run webpack"
   }
 }
