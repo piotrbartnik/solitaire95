@@ -3,11 +3,12 @@
   "version": "0.1.2",
   "private": true,
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "lerna": "^3.22.1"
   },
   "scripts": {
     "install": "lerna bootstrap",
-    "start:web": "cd ./applications/web-app && yarn start",
+    "start:web": "concurrently 'cd ./applications/web-app && yarn start' 'cd ./components/my-module && npx webpack'",
     "start:desktop": "cd ./applications/electron-react-app && yarn start",
     "rmmodules": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build:packages": "lerna run webpack"

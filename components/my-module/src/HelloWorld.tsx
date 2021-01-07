@@ -4,7 +4,7 @@ import styles from "./HelloWorld.module.scss";
 
 export const HelloWorld = () => (
   <div className={styles.test}>
-    HelloWorld test2
+    Oh yeah hot reload is working well
     <img src={img} />
   </div>
 );
