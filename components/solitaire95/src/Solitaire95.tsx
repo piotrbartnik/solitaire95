@@ -1,10 +1,9 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import * as actions from "../src/store/actions/cardActions";
 import { reducers } from "./store/reducers";
 import MainPage from "./containers/MainPage/MainPage";
-import { HelloWorld } from "my-module";
 
 const persistedState = localStorage.getItem("solitaireState")
   ? // @ts-ignore
@@ -26,11 +25,14 @@ if (!persistedState) {
   store.dispatch(actions.dealCards());
 }
 
-export const Solitaire95 = (): ReactElement => {
+const Solitaire95 = (): ReactElement => {
+  const [x] = useState(10);
   return (
-    <Provider store={store}>
-      <MainPage />
-      <HelloWorld />
-    </Provider>
+    // <Provider store={store}>
+    //   <MainPage />
+    // </Provider>
+    <div>{x}</div>
   );
 };
+
+export { Solitaire95 };

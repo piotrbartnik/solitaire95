@@ -1,12 +1,12 @@
-@font-face {
-  font-family: "MyFont";
-  src: url("./static/fonts/M8pt.woff") format("woff"),
-    url("./static/fonts/M8pt.woff2") format("woff2");
-}
+// @font-face {
+//   font-family: "MyFont";
+//   src: url("./static/fonts/M8pt.woff") format("woff"),
+//     url("./static/fonts/M8pt.woff2") format("woff2");
+// }
 
 * {
   box-sizing: border-box;
-  font-family: "MyFont";
+  // font-family: "MyFont";
   image-rendering: pixelated;
 }
 
