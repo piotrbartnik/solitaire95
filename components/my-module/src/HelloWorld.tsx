@@ -1,10 +1,14 @@
-import * as React from "react";
+import React, { useState } from "react";
 import img from "./test.jpg";
 import styles from "./HelloWorld.module.scss";
 
-export const HelloWorld = () => (
-  <div className={styles.test}>
-    Oh yeah hot reload is working well
-    <img src={img} />
-  </div>
-);
+export const HelloWorld = () => {
+  const [x] = useState(10);
+  return (
+    <div className={styles.test}>
+      Oh yeah hot reload is working well
+      {x}
+      <img src={img} />
+    </div>
+  );
+};
