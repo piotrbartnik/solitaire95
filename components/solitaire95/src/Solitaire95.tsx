@@ -28,10 +28,9 @@ if (!persistedState) {
 const Solitaire95 = (): ReactElement => {
   const [x] = useState(10);
   return (
-    // <Provider store={store}>
-    //   <MainPage />
-    // </Provider>
-    <div>{x}</div>
+    <Provider store={store}>
+      <MainPage />
+    </Provider>
   );
 };
 

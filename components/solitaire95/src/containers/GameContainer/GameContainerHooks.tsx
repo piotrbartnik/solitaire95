@@ -11,9 +11,9 @@ export const useCountDistanceBetweenPiles = (pilesContainer: any) => {
           "div[class*='pile__container']"
         );
 
-        const firstPileRightDistance = cardPiles[0].getBoundingClientRect()
+        const firstPileRightDistance = cardPiles[0]?.getBoundingClientRect()
           .right;
-        const secondPileLeftDistance = cardPiles[1].getBoundingClientRect()
+        const secondPileLeftDistance = cardPiles[1]?.getBoundingClientRect()
           .left;
         setDistanceBtwPiles(secondPileLeftDistance - firstPileRightDistance);
       }

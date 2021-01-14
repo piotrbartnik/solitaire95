@@ -1,24 +1,24 @@
 const path = require("path");
-const TerserPlugin = require("terser-webpack-plugin");
-
 module.exports = {
   watch: true,
   mode: "none",
-  externals: {
-    react: {
-      root: "React",
-      commonjs2: "react",
-      commonjs: "react",
-      amd: "react",
-    },
-    "react-dom": {
-      root: "ReactDOM",
-      commonjs2: "react-dom",
-      commonjs: "react-dom",
-      amd: "react-dom",
-    },
-  },
   entry: "./src/index.ts",
+  externals: [
+    {
+      react: {
+        root: "React",
+        commonjs2: "react",
+        commonjs: "react",
+        amd: "react",
+      },
+      "react-dom": {
+        root: "ReactDOM",
+        commonjs2: "react-dom",
+        commonjs: "react-dom",
+        amd: "react-dom",
+      },
+    },
+  ],
   module: {
     rules: [
       {
@@ -42,10 +42,14 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      // Needed when library is linked via `npm link` to app
+      react: path.resolve("./node_modules/react"),
+    },
   },
   output: {
     filename: "index.js",
     path: path.resolve(__dirname, "lib"),
-    libraryTarget: "commonjs",
+    libraryTarget: "umd",
   },
 };

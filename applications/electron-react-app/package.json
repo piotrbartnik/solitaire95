@@ -12,12 +12,10 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "electron-is-dev": "^1.2.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4",
-    "my-module": "0.1.0"
+    "solitaire95": "0.1.0"
   },
   "scripts": {
     "build": "react-scripts build",

@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Solitaire95 } from "solitaire95";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Solitaire95 />
   </React.StrictMode>,
   document.getElementById("root")
 );
