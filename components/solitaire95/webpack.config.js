@@ -2,6 +2,7 @@ const path = require("path");
 module.exports = {
   watch: true,
   entry: "./src/index.ts",
+  mode: "development",
   externals: [
     {
       react: {
@@ -31,8 +32,20 @@ module.exports = {
       },
       {
         test: /\.scss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[name]__[local]__[hash:base64:5]",
+              },
+            },
+          },
+          "sass-loader",
+        ],
       },
+
       {
         test: /\.woff(2)?$/,
         use: [

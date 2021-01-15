@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import * as actions from "../src/store/actions/cardActions";
@@ -27,7 +27,6 @@ if (!persistedState) {
 }
 
 const Solitaire95 = (): ReactElement => {
-  const [x] = useState(10);
   return (
     <Provider store={store}>
       <MainPage />
