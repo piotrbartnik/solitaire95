@@ -49,7 +49,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
           {cardsOnStock.length
             ? cardsOnStock.map((card, index) => (
                 <div
-                  className={[styles.card, styles[`${index}`]].join(" ")}
+                  className={[styles.card, styles[`card_${index}`]].join(" ")}
                   id={`${index}`}
                   key={`${index}${card}cardsOnStock`}
                 >
@@ -69,7 +69,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
       <div className={styles.cardsOnTable}>
         {cardsFromStock.map((card, index) => (
           <div
-            className={[styles.card, styles[`${index}`]].join(" ")}
+            className={[styles.card, styles[`card_${index}`]].join(" ")}
             id={`${index}`}
             key={`${index}${card}cardsOnTable`}
           >
