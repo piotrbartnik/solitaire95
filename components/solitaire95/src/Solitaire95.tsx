@@ -4,6 +4,7 @@ import { createStore } from "redux";
 import * as actions from "../src/store/actions/cardActions";
 import { reducers } from "./store/reducers";
 import MainPage from "./containers/MainPage/MainPage";
+import "./Solitaire95.scss";
 
 const persistedState = localStorage.getItem("solitaireState")
   ? // @ts-ignore
