@@ -4,8 +4,8 @@
     display: flex;
   }
 
-  width: 160px;
-  height: 215px;
+  width: 130px;
+  height: 175px;
   border: 2px solid black;
   border-radius: 7px;
   margin: 12px 0;
@@ -16,10 +16,10 @@
 
   &__cardHolder {
     position: relative;
-    border: 16px solid #00ff00;
-    border-radius: 135px;
-    width: 135px;
-    height: 135px;
+    border: 14px solid #00ff00;
+    border-radius: 130px;
+    width: 120px;
+    height: 120px;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -29,21 +29,21 @@
       @for $i from 0 through 7 {
         &.card_#{$i} {
           position: absolute;
-          left: -29px;
+          left: -19px;
         }
       }
       @for $i from 8 through 16 {
         &.card_#{$i} {
           position: absolute;
-          left: -25px;
-          top: -54px;
+          left: -15px;
+          top: -40px;
         }
       }
       @for $i from 17 through 23 {
         &.card_#{$i} {
           position: absolute;
-          left: -21px;
-          top: -52px;
+          left: -11px;
+          top: -38px;
         }
       }
     }
@@ -52,8 +52,8 @@
 
 .cardsOnTable {
   position: relative;
-  width: 160px;
-  height: 215px;
+  width: 130px;
+  height: 175px;
   margin: 12px 0;
   display: flex;
   justify-content: center;
