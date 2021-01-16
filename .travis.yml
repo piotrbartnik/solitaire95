@@ -3,10 +3,9 @@ node_js:
   - 10.19.0
 cache: npm
 install:
-  - cd ./applications/web-app/ && yarn install
+  - yarn install
 script:
-  - npm run test
-  - npm run build
+  - cd ./applications/web-app/ && yarn build
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 env:
