@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.com/piotrbartnik/windows95-solitaire.svg?branch=master)](https://travis-ci.com/piotrbartnik/windows95-solitaire)
+[![Build Status](https://travis-ci.com/piotrbartnik/windows95-solitaire.svg?branch=master)](https://travis-ci.com/piotrbartnik/windows95-solitaire)
 [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://solitaire95-4b3b8.web.app/)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 

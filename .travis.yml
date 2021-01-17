@@ -8,8 +8,8 @@ install:
   - yarn install
 matrix:
   include:
-    - name: electron-react-app
-      env: PACKAGE_LOCATION=applications/electron-react-app PACKAGE_NAME=electron-react-app
+    # - name: electron-react-app
+    #   env: PACKAGE_LOCATION=applications/electron-react-app PACKAGE_NAME=electron-react-app
     - name: solitaire95-webapp
       env: PACKAGE_LOCATION=applications/web-app PACKAGE_NAME=solitaire95-webapp
 script:
@@ -21,8 +21,7 @@ env:
   global:
     - secure: UTSF0NCWe+Y2Wu+qx+XKfi8hlkS+zR1JpcU1yDxCNUi1hFVhK3POLNSQTrKW4pA8M+nG8yVKgHi7jHyPZREWs1cEpO+/uLin8XY5ohcwjSrBXiZcgF+feLZ2uqTMep555paK0jq7EfzFmI+A7d2T9wdVmarmLOogoV2nvJglxVB2B6wRydD85kZlqQ+J2r7e3irLjC8bOo/Q5QK5VQ5IgKlDYyN32dkraPxOOVMPTq2SaSGcO4ZqNjyWtRKv6C4pK3/y+CZJxHSSbZB5y2N9+3sthvNdSF5R7++zL+VqKYtIwHP8zWH8X3sDYEYZoPmS/1hFH7E9lKgFtbU2mmCpwBvJgbLq8kKwl1lzcWMUH8Ctb6WfDPTlii1cfl7h65K9ZyvVImTx9886DfkLKrwt/cgdxrW3N36IGz2yZjXHlN0+VZfmZUUEoGyHIfHEDTE0axWib1Jw8mv2H2jiESAEUOBLPiqIn319bOqjI4SviAl4y1i1g5au2pMdEZ0pf/Fmnb7fBQ+6Nd7I+WpzKCRQy+BLcGdmO8ZycN8vbn5DfTiDELj5ubsKJ8hUP/TSxV77PeTgA1vvvMm+3HlxgfmStLnmFgDqXUqBhNeXDesQaHiwQ7zrNsRJlJZliBO0Zd8FO8fRnEJWLOSkP54NF1VblOf3vGpHDrWG0TarO54I5qM=
 deploy:
-  app: $PACKAGE_NAME
-  cleanup: true
+  skip_cleanup: true
   provider: firebase
   token:
     secure: UTSF0NCWe+Y2Wu+qx+XKfi8hlkS+zR1JpcU1yDxCNUi1hFVhK3POLNSQTrKW4pA8M+nG8yVKgHi7jHyPZREWs1cEpO+/uLin8XY5ohcwjSrBXiZcgF+feLZ2uqTMep555paK0jq7EfzFmI+A7d2T9wdVmarmLOogoV2nvJglxVB2B6wRydD85kZlqQ+J2r7e3irLjC8bOo/Q5QK5VQ5IgKlDYyN32dkraPxOOVMPTq2SaSGcO4ZqNjyWtRKv6C4pK3/y+CZJxHSSbZB5y2N9+3sthvNdSF5R7++zL+VqKYtIwHP8zWH8X3sDYEYZoPmS/1hFH7E9lKgFtbU2mmCpwBvJgbLq8kKwl1lzcWMUH8Ctb6WfDPTlii1cfl7h65K9ZyvVImTx9886DfkLKrwt/cgdxrW3N36IGz2yZjXHlN0+VZfmZUUEoGyHIfHEDTE0axWib1Jw8mv2H2jiESAEUOBLPiqIn319bOqjI4SviAl4y1i1g5au2pMdEZ0pf/Fmnb7fBQ+6Nd7I+WpzKCRQy+BLcGdmO8ZycN8vbn5DfTiDELj5ubsKJ8hUP/TSxV77PeTgA1vvvMm+3HlxgfmStLnmFgDqXUqBhNeXDesQaHiwQ7zrNsRJlJZliBO0Zd8FO8fRnEJWLOSkP54NF1VblOf3vGpHDrWG0TarO54I5qM=
