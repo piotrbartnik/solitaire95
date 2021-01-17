@@ -1,0 +1,21 @@
+.topBar__bar {
+  width: 100%;
+  height: 30px;
+  background-color: #213faa;
+  display: flex;
+  padding: 9px;
+
+  align-items: center;
+
+  &--icon {
+    height: 28px;
+  }
+
+  &--title {
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+    margin-left: 11px;
+    letter-spacing: 1px;
+  }
+}

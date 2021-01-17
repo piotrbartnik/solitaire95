@@ -1,0 +1,84 @@
+.cardStock {
+  &__container {
+    padding: 0 19px;
+    display: flex;
+  }
+
+  width: 130px;
+  height: 175px;
+  border: 2px solid black;
+  border-radius: 7px;
+  margin: 12px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &__cardHolder {
+    position: relative;
+    border: 14px solid #00ff00;
+    border-radius: 130px;
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div.card {
+      @for $i from 0 through 7 {
+        &.card_#{$i} {
+          position: absolute;
+          left: -19px;
+        }
+      }
+      @for $i from 8 through 16 {
+        &.card_#{$i} {
+          position: absolute;
+          left: -15px;
+          top: -40px;
+        }
+      }
+      @for $i from 17 through 23 {
+        &.card_#{$i} {
+          position: absolute;
+          left: -11px;
+          top: -38px;
+        }
+      }
+    }
+  }
+}
+
+.cardsOnTable {
+  position: relative;
+  width: 130px;
+  height: 175px;
+  margin: 12px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div.card {
+    @for $i from 0 through 7 {
+      &.card_#{$i} {
+        position: absolute;
+        left: 0px;
+      }
+    }
+    @for $i from 8 through 15 {
+      &.card_#{$i} {
+        position: absolute;
+        left: 4px;
+        top: 2px;
+      }
+    }
+    @for $i from 16 through 23 {
+      &.card_#{$i} {
+        position: absolute;
+        left: 8px;
+        top: 4px;
+      }
+    }
+  }
+}

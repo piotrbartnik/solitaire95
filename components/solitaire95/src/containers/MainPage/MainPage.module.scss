@@ -1,0 +1,19 @@
+.mainPage {
+  width: 100vw;
+  height: 100vh;
+  min-width: 1024px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.topBarButtonContainer {
+  width: 130px;
+  display: flex;
+}
+
+.toolElement {
+  margin: 7px 35px;
+  cursor: pointer;
+}

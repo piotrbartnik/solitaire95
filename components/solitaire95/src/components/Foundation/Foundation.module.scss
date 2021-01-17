@@ -1,0 +1,19 @@
+.foundation {
+  width: 130px;
+  height: 175px;
+  border: 2px solid black;
+  border-radius: 7px;
+  background-image: radial-gradient(#000000 15%, transparent 15%),
+    radial-gradient(#000000 15%, transparent 15%);
+  background-color: transparent;
+  background-position: 0 0, 35px 35px;
+  background-size: 14px 14px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div[class*="card"] {
+    position: absolute;
+  }
+}

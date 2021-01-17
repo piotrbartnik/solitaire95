@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "MS-Sans-Serif";
+  src: url("./static/fonts/MS-Sans-Serif.woff") format("woff"),
+    url("./static/fonts/MS-Sans-Serif.woff2") format("woff2");
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "MS-Sans-Serif";
+  image-rendering: pixelated;
+}
