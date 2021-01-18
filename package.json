@@ -2,6 +2,8 @@
   "name": "windows95-solitaire-monorepo",
   "version": "0.1.2",
   "private": true,
+  "license": "MIT",
+  "author": "Piotr Bartnik",
   "workspaces": [
     "components/*",
     "applications/*"
@@ -27,9 +29,5 @@
     "rmmodules": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build:packages": "lerna run webpack",
     "test": "jest"
-  },
-  "dependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
   }
 }
