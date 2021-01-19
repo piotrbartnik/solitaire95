@@ -1,5 +1,4 @@
 {
-  // "$schema": "http://json-schema.org/draft-04/schema#",
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
@@ -7,7 +6,11 @@
     "module": "esnext",
     "target": "es6",
     "jsx": "react",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,7 +21,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

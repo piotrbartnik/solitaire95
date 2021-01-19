@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/cardActions";
 import {
@@ -23,8 +24,11 @@ const MainPage: React.FC<propTypes> = (props) => {
   const { dealCards } = props;
   const [gameVisible, setGameVisible] = useState(false);
   const [helpVisible, setHelpVisible] = useState(false);
+  const dndProviderBackend = /Mobi|Android/i.test(navigator.userAgent)
+    ? TouchBackend
+    : HTML5Backend;
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={dndProviderBackend}>
       <div
         className={styles.mainPage}
         onClick={() => {
