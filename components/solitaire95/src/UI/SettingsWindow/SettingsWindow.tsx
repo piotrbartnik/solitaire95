@@ -7,7 +7,7 @@ type propTypes = {
   windowTitle: string;
   width?: string;
   height?: string;
-  buttons?: string[];
+  buttons?: { text: string; onClick: () => void }[];
 };
 
 const SettingsWindow: React.FC<propTypes> = (props) => {
@@ -21,8 +21,8 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
         <TopBar title={windowTitle} />
         {children}
         <div className={styles.buttonContainer}>
-          {buttons?.map((el) => (
-            <Button text={el} />
+          {buttons?.map((button) => (
+            <Button text={button.text} onClick={button.onClick} />
           ))}
         </div>
       </div>
