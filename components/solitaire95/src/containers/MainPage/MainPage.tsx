@@ -42,7 +42,7 @@ const MainPage: React.FC<propTypes> = (props) => {
         }}
       >
         <SettingsWindow />
-        <TopBar title={"Solitaire"} />
+        <TopBar title={"Solitaire"} showIcon />
         <ToolBar>
           <div className={styles.topBarButtonContainer}>
             <div style={{ width: "100%" }}>
