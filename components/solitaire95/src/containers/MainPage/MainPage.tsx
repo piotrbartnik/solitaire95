@@ -11,6 +11,7 @@ import {
   TopbarButton,
   ToolButton,
   Separator,
+  SettingsWindow,
 } from "../../UI";
 import { ToolDropdown } from "../../components";
 import { GameContainer } from "../";
@@ -40,6 +41,7 @@ const MainPage: React.FC<propTypes> = (props) => {
           }
         }}
       >
+        <SettingsWindow />
         <TopBar />
         <ToolBar>
           <div className={styles.topBarButtonContainer}>
