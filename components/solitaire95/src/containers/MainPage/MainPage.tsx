@@ -11,9 +11,8 @@ import {
   TopbarButton,
   ToolButton,
   Separator,
-  SettingsWindow,
 } from "../../UI";
-import { ToolDropdown } from "../../components";
+import { ToolDropdown, DeckSelect } from "../../components";
 import { GameContainer } from "../";
 import styles from "./MainPage.module.scss";
 
@@ -41,7 +40,7 @@ const MainPage: React.FC<propTypes> = (props) => {
           }
         }}
       >
-        <SettingsWindow />
+        <DeckSelect />
         <TopBar title={"Solitaire"} showIcon />
         <ToolBar>
           <div className={styles.topBarButtonContainer}>
