@@ -5,6 +5,7 @@ import TopbarButton from "./TopbarButton/TopbarButton";
 import ToolButton from "./ToolButton/ToolButton";
 import Separator from "./Separator/Separator";
 import SettingsWindow from "./SettingsWindow/SettingsWindow";
+import Button from "./Button/Button";
 
 export {
   TopBar,
@@ -14,4 +15,5 @@ export {
   ToolButton,
   Separator,
   SettingsWindow,
+  Button,
 };

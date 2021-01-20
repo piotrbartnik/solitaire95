@@ -20,3 +20,9 @@
     border-right: 2px solid #808080;
   }
 }
+
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
