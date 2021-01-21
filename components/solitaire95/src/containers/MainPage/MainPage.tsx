@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createContext } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
@@ -16,12 +16,15 @@ import { ToolDropdown, DeckSelect } from "../../components";
 import { GameContainer } from "../";
 import styles from "./MainPage.module.scss";
 
+export const CardBackContext = createContext("acorns");
+
 type propTypes = {
   dealCards?: any;
 };
 
 const MainPage: React.FC<propTypes> = (props) => {
   const { dealCards } = props;
+
   const [gameVisible, setGameVisible] = useState(false);
   const [helpVisible, setHelpVisible] = useState(false);
   const dndProviderBackend = /Mobi|Android/i.test(navigator.userAgent)
@@ -40,68 +43,70 @@ const MainPage: React.FC<propTypes> = (props) => {
           }
         }}
       >
-        <DeckSelect />
-        <TopBar title={"Solitaire"} showIcon />
-        <ToolBar>
-          <div className={styles.topBarButtonContainer}>
-            <div style={{ width: "100%" }}>
-              <TopbarButton
-                onClick={() => {
-                  setGameVisible((gameVisible) => !gameVisible);
-                  setHelpVisible(false);
-                }}
-              >
-                Game
-              </TopbarButton>
-              <ToolDropdown visible={gameVisible}>
-                <>
+        <CardBackContext.Provider value={"acorns"}>
+          <DeckSelect />
+          <TopBar title={"Solitaire"} showIcon />
+          <ToolBar>
+            <div className={styles.topBarButtonContainer}>
+              <div style={{ width: "100%" }}>
+                <TopbarButton
+                  onClick={() => {
+                    setGameVisible((gameVisible) => !gameVisible);
+                    setHelpVisible(false);
+                  }}
+                >
+                  Game
+                </TopbarButton>
+                <ToolDropdown visible={gameVisible}>
+                  <>
+                    <div className={styles.toolElement}>
+                      <ToolButton
+                        onClick={() => {
+                          dealCards();
+                          setGameVisible((gameVisible) => !gameVisible);
+                          setHelpVisible(false);
+                        }}
+                      >
+                        Deal
+                      </ToolButton>
+                    </div>
+                    <Separator />
+                    <div className={styles.toolElement}>
+                      <ToolButton>Undo</ToolButton>
+                    </div>
+                    <div className={styles.toolElement}>
+                      <ToolButton>Deck</ToolButton>
+                    </div>
+                    <div className={styles.toolElement}>
+                      <ToolButton>Options</ToolButton>
+                    </div>
+                    <Separator />
+                    <div className={styles.toolElement}>
+                      <ToolButton>Exit</ToolButton>
+                    </div>
+                  </>
+                </ToolDropdown>
+              </div>
+              <div style={{ width: "100%" }}>
+                <TopbarButton
+                  onClick={() => {
+                    setHelpVisible((helpVisible) => !helpVisible);
+                    setGameVisible(false);
+                  }}
+                >
+                  Help
+                </TopbarButton>
+                <ToolDropdown visible={helpVisible}>
                   <div className={styles.toolElement}>
-                    <ToolButton
-                      onClick={() => {
-                        dealCards();
-                        setGameVisible((gameVisible) => !gameVisible);
-                        setHelpVisible(false);
-                      }}
-                    >
-                      Deal
-                    </ToolButton>
+                    <ToolButton>About</ToolButton>
                   </div>
-                  <Separator />
-                  <div className={styles.toolElement}>
-                    <ToolButton>Undo</ToolButton>
-                  </div>
-                  <div className={styles.toolElement}>
-                    <ToolButton>Deck</ToolButton>
-                  </div>
-                  <div className={styles.toolElement}>
-                    <ToolButton>Options</ToolButton>
-                  </div>
-                  <Separator />
-                  <div className={styles.toolElement}>
-                    <ToolButton>Exit</ToolButton>
-                  </div>
-                </>
-              </ToolDropdown>
+                </ToolDropdown>
+              </div>
             </div>
-            <div style={{ width: "100%" }}>
-              <TopbarButton
-                onClick={() => {
-                  setHelpVisible((helpVisible) => !helpVisible);
-                  setGameVisible(false);
-                }}
-              >
-                Help
-              </TopbarButton>
-              <ToolDropdown visible={helpVisible}>
-                <div className={styles.toolElement}>
-                  <ToolButton>About</ToolButton>
-                </div>
-              </ToolDropdown>
-            </div>
-          </div>
-        </ToolBar>
-        <GameContainer />
-        <BottomBar />
+          </ToolBar>
+          <GameContainer />
+          <BottomBar />
+        </CardBackContext.Provider>
       </div>
     </DndProvider>
   );

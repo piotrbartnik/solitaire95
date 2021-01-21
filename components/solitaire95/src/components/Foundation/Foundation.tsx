@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
+import { CardBackContext } from "../../containers/";
+import * as actions from "../../store/actions/cardActions";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
@@ -27,6 +28,8 @@ const Foundation: React.FC<propTypes> = (props) => {
     cardsOnFoundations,
     foundationId,
   } = props;
+
+  const cardBack = useContext(CardBackContext);
 
   const canBeDroppedOnFoundation = (card: any) => {
     const foundationTargetId = foundationTarget.props.id;
@@ -115,7 +118,7 @@ const Foundation: React.FC<propTypes> = (props) => {
               cardSuite={card[1]}
               cardColor={card[3]}
               cardOrder={card[4]}
-              cardBack={"castle"}
+              cardBack={cardBack}
               isTurnedBack={false}
               key={index}
               foundationNumber={foundationId?.toString()}

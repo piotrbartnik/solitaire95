@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
+import { CardBackContext } from "../../containers/";
 import * as actions from "../../store/actions/cardActions";
 import { Card } from "..";
 import { cardConfigType } from "../../configs/cardTypes";
@@ -38,6 +39,8 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
     }
   };
 
+  const cardBack = useContext(CardBackContext);
+
   return (
     <div className={styles.cardStock__container}>
       <div
@@ -58,7 +61,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
                     cardSuite={card[1]}
                     cardColor={card[3]}
                     cardOrder={card[4]}
-                    cardBack={"castle"}
+                    cardBack={cardBack}
                     isTurnedBack={true}
                   />
                 </div>
@@ -78,7 +81,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
               cardSuite={card[1]}
               cardColor={card[3]}
               cardOrder={card[4]}
-              cardBack={"castle"}
+              cardBack={cardBack}
               isTurnedBack={false}
               onDoubleClick={(
                 e: React.MouseEvent<HTMLDivElement, MouseEvent>
