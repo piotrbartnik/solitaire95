@@ -58,7 +58,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
                     cardSuite={card[1]}
                     cardColor={card[3]}
                     cardOrder={card[4]}
-                    cardBack={"acorns"}
+                    cardBack={"castle"}
                     isTurnedBack={true}
                   />
                 </div>
@@ -78,7 +78,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
               cardSuite={card[1]}
               cardColor={card[3]}
               cardOrder={card[4]}
-              cardBack={"acorns"}
+              cardBack={"castle"}
               isTurnedBack={false}
               onDoubleClick={(
                 e: React.MouseEvent<HTMLDivElement, MouseEvent>
