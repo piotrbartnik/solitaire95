@@ -29,7 +29,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     foundationId,
   } = props;
 
-  const cardBack = useContext(CardBackContext);
+  const { cardBackImage } = useContext(CardBackContext);
 
   const canBeDroppedOnFoundation = (card: any) => {
     const foundationTargetId = foundationTarget.props.id;
@@ -118,7 +118,7 @@ const Foundation: React.FC<propTypes> = (props) => {
               cardSuite={card[1]}
               cardColor={card[3]}
               cardOrder={card[4]}
-              cardBack={cardBack}
+              cardBack={cardBackImage}
               isTurnedBack={false}
               key={index}
               foundationNumber={foundationId?.toString()}

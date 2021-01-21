@@ -38,7 +38,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
-  const cardBack = useContext(CardBackContext);
+  const { cardBackImage } = useContext(CardBackContext);
 
   const dropCardOnPile = (dragObject: any, item: any) => {
     const {
@@ -141,7 +141,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
             cardSuite={card[1]}
             cardColor={card[3]}
             cardOrder={card[4]}
-            cardBack={cardBack}
+            cardBack={cardBackImage}
             isTurnedBack={shouldBeTurnedAfterDrag}
             canBeTurned={canBeTurned}
             pileNumber={pileIndex}

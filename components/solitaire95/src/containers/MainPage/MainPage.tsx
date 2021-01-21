@@ -16,7 +16,10 @@ import { ToolDropdown, DeckSelect } from "../../components";
 import { GameContainer } from "../";
 import styles from "./MainPage.module.scss";
 
-export const CardBackContext = createContext("acorns");
+export const CardBackContext = createContext({
+  cardBackImage: "acorns",
+  setCardBackImage: (cardBackName: string) => cardBackName,
+});
 
 type propTypes = {
   dealCards?: any;
@@ -24,6 +27,12 @@ type propTypes = {
 
 const MainPage: React.FC<propTypes> = (props) => {
   const { dealCards } = props;
+
+  const [cardBackImage, setCardBackImage] = useState("acorns");
+  const value: { cardBackImage: string; setCardBackImage: any } = {
+    cardBackImage,
+    setCardBackImage,
+  };
 
   const [gameVisible, setGameVisible] = useState(false);
   const [helpVisible, setHelpVisible] = useState(false);
@@ -43,7 +52,7 @@ const MainPage: React.FC<propTypes> = (props) => {
           }
         }}
       >
-        <CardBackContext.Provider value={"acorns"}>
+        <CardBackContext.Provider value={value}>
           <DeckSelect />
           <TopBar title={"Solitaire"} showIcon />
           <ToolBar>

@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CardBackContext } from "../../containers/";
 import { SettingsWindow } from "../../UI";
 
 const DeckSelect: React.FC = () => {
+  const { setCardBackImage } = useContext(CardBackContext);
   const okOnClick = () => {
-    alert("OK Clicked");
+    const cardBacks = [
+      "acorns",
+      "beach",
+      "castle",
+      "fish1",
+      "fish2",
+      "magic",
+      "mosaic1",
+      "mosaic2",
+      "robo",
+      "shell",
+    ];
+    setCardBackImage(cardBacks[Math.floor(Math.random() * 10)]);
   };
 
   const cancelOnClick = () => {
