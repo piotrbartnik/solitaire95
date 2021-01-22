@@ -24,6 +24,7 @@ const DeckSelect: React.FC = () => {
         { text: "OK", onClick: okOnClick },
         { text: "Cancel", onClick: cancelOnClick },
       ]}
+      visible={false}
     >
       <div className={styles.deckContainer}>
         <div className={styles.deckContainer__cardBackContainer}>
