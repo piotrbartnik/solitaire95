@@ -3,7 +3,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import { connect } from "react-redux";
-import * as actions from "../../store/actions/cardActions";
+import * as cardActions from "../../store/actions/cardActions";
+import * as windowActions from "../../store/actions/windowActions";
 import {
   TopBar,
   ToolBar,
@@ -23,10 +24,11 @@ export const CardBackContext = createContext({
 
 type propTypes = {
   dealCards?: any;
+  toggleCardBackWindow?: any;
 };
 
 const MainPage: React.FC<propTypes> = (props) => {
-  const { dealCards } = props;
+  const { dealCards, toggleCardBackWindow } = props;
 
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: { cardBackImage: string; setCardBackImage: any } = {
@@ -84,7 +86,13 @@ const MainPage: React.FC<propTypes> = (props) => {
                       <ToolButton>Undo</ToolButton>
                     </div>
                     <div className={styles.toolElement}>
-                      <ToolButton>Deck</ToolButton>
+                      <ToolButton
+                        onClick={() => {
+                          toggleCardBackWindow(true);
+                        }}
+                      >
+                        Deck
+                      </ToolButton>
                     </div>
                     <div className={styles.toolElement}>
                       <ToolButton>Options</ToolButton>
@@ -121,8 +129,12 @@ const MainPage: React.FC<propTypes> = (props) => {
   );
 };
 
-const mapDispatchToProps = {
-  dealCards: actions.dealCards,
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    dealCards: cardActions.dealCards,
+    toggleCardBackWindow: (payload: boolean) =>
+      dispatch(windowActions.toggleCardBackWindow(payload)),
+  };
 };
 
 export default connect(undefined, mapDispatchToProps)(MainPage);
