@@ -27,4 +27,11 @@
       align-items: center;
     }
   }
+
+  &.closeButton {
+    background-color: #c0c0c0;
+    width: 23px;
+    height: 23px;
+    margin: 0;
+  }
 }

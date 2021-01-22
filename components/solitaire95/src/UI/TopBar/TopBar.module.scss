@@ -4,6 +4,7 @@
   background-color: #213faa;
   display: flex;
   padding: 9px;
+  justify-content: space-between;
 
   align-items: center;
 
@@ -18,4 +19,11 @@
     margin-left: 11px;
     letter-spacing: 1px;
   }
+}
+
+.leftSide,
+.rightSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

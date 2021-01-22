@@ -33,6 +33,7 @@ const DeckSelect: React.FC<propTypes> = (props) => {
         { text: "Cancel", onClick: cancelOnClick },
       ]}
       visible={isWindowVisible as boolean}
+      closeButtonAction={() => toggleCardBackWindow(false)}
     >
       <div className={styles.deckContainer}>
         <div className={styles.deckContainer__cardBackContainer}>
