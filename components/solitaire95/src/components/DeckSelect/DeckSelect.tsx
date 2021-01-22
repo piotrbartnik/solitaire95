@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { CardBackContext } from "../../containers/";
 import { SettingsWindow } from "../../UI";
+import styles from "./DeckSelect.module.scss";
 
 const DeckSelect: React.FC = () => {
   const { setCardBackImage } = useContext(CardBackContext);
@@ -31,7 +32,24 @@ const DeckSelect: React.FC = () => {
         { text: "OK", onClick: okOnClick },
         { text: "Cancel", onClick: cancelOnClick },
       ]}
-    />
+    >
+      <div className={styles.deckContainer}>
+        <div className={styles.deckContainer__cardBackContainer}>
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+        </div>
+        <div className={styles.deckContainer__cardBackContainer}>
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+        </div>
+      </div>
+    </SettingsWindow>
   );
 };
 
