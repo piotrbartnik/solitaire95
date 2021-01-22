@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../store/actions/cardActions";
 import { useDrop } from "react-dnd";
+import * as actions from "../../store/actions/cardActions";
+import { CardBackContext } from "../../containers/";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
@@ -37,6 +38,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
+  const { cardBackImage } = useContext(CardBackContext);
 
   const dropCardOnPile = (dragObject: any, item: any) => {
     const {
@@ -139,7 +141,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
             cardSuite={card[1]}
             cardColor={card[3]}
             cardOrder={card[4]}
-            cardBack={"acorns"}
+            cardBack={cardBackImage}
             isTurnedBack={shouldBeTurnedAfterDrag}
             canBeTurned={canBeTurned}
             pileNumber={pileIndex}
