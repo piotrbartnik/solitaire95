@@ -1,24 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { CardBackContext } from "../../containers/";
 import { SettingsWindow } from "../../UI";
+import { cardBackImages } from "../../static/cardBacks/";
 import styles from "./DeckSelect.module.scss";
 
+console.log(cardBackImages);
+
 const DeckSelect: React.FC = () => {
+  const [selectedCardBack, setSelectedCardBack] = useState("");
   const { setCardBackImage } = useContext(CardBackContext);
   const okOnClick = () => {
-    const cardBacks = [
-      "acorns",
-      "beach",
-      "castle",
-      "fish1",
-      "fish2",
-      "magic",
-      "mosaic1",
-      "mosaic2",
-      "robo",
-      "shell",
-    ];
-    setCardBackImage(cardBacks[Math.floor(Math.random() * 10)]);
+    selectedCardBack ? setCardBackImage(selectedCardBack) : undefined;
   };
 
   const cancelOnClick = () => {
@@ -35,18 +27,16 @@ const DeckSelect: React.FC = () => {
     >
       <div className={styles.deckContainer}>
         <div className={styles.deckContainer__cardBackContainer}>
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
-        </div>
-        <div className={styles.deckContainer__cardBackContainer}>
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
-          <div className={styles.deckContainer__cardBack} tabIndex={1} />
+          {Object.keys(cardBackImages).map((cardBack, index) => (
+            <div
+              key={index}
+              className={styles.deckContainer__cardBack}
+              tabIndex={1}
+              style={{ backgroundImage: `url(${cardBackImages[cardBack]})` }}
+              onClick={() => setSelectedCardBack(cardBack)}
+              onDoubleClick={() => setCardBackImage(cardBack)}
+            />
+          ))}
         </div>
       </div>
     </SettingsWindow>

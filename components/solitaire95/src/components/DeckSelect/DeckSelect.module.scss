@@ -10,18 +10,21 @@
     display: flex;
     height: 50%;
     margin: 2px;
+    flex-wrap: wrap;
   }
 
   &__cardBack {
-    width: 20%;
     height: 100%;
-    background-color: red;
+    background-color: #5c00ff;
     border: 3px solid #ffffff;
     border-radius: 2px;
     margin: 1px;
+    background-size: cover;
+    width: 78px;
 
     &:active {
       border: 3px solid #000000;
+      filter: invert(100%);
     }
 
     &:focus {
