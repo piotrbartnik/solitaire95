@@ -131,7 +131,7 @@ const MainPage: React.FC<propTypes> = (props) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    dealCards: cardActions.dealCards,
+    dealCards: () => dispatch(cardActions.dealCards()),
     toggleCardBackWindow: (payload: boolean) =>
       dispatch(windowActions.toggleCardBackWindow(payload)),
   };

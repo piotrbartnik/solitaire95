@@ -1,6 +1,5 @@
 import React from "react";
-import { displayPartsToString } from "typescript";
-import { TopBar, Button } from "../index";
+import { TopBar, Button, CloseButton } from "../index";
 import styles from "./SettingsWindow.module.scss";
 
 type propTypes = {
@@ -10,10 +9,19 @@ type propTypes = {
   width?: string;
   height?: string;
   buttons?: { text: string; onClick: () => void }[];
+  closeButtonAction?: () => void;
 };
 
 const SettingsWindow: React.FC<propTypes> = (props) => {
-  const { children, windowTitle, width, height, buttons, visible } = props;
+  const {
+    children,
+    windowTitle,
+    width,
+    height,
+    buttons,
+    visible,
+    closeButtonAction,
+  } = props;
   return (
     <div
       className={styles.settingsWindow}
@@ -24,7 +32,9 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
       }}
     >
       <div className={styles.settingsWindow__inner}>
-        <TopBar title={windowTitle} />
+        <TopBar title={windowTitle}>
+          <CloseButton onClick={closeButtonAction} />
+        </TopBar>
         {children}
         <div className={styles.buttonContainer}>
           {buttons?.map((button) => (
