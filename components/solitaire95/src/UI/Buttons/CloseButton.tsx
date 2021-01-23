@@ -1,4 +1,5 @@
 import React from "react";
+import xButton from "../../static/misc/xButton.png";
 import styles from "./Button.module.scss";
 
 type propTypes = {
@@ -12,8 +13,9 @@ const CloseButton: React.FC<propTypes> = (props) => {
       className={[styles.button, styles.closeButton].join(" ")}
       tabIndex={0}
       onClick={onClick}
+      style={{ backgroundImage: `url(${xButton})` }}
     >
-      <div className={styles.activeBorder}>X</div>
+      <div className={styles.activeBorder}></div>
     </div>
   );
 };
