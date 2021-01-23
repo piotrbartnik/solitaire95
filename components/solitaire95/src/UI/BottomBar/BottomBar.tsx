@@ -5,8 +5,11 @@ import styles from "./BottomBar.module.scss";
 const BottomBart: React.FC = () => {
   return (
     <div className={styles.bottomBar__bar}>
-      <Score />
-      <Timer />
+      <div className={styles.bottomBar__text}>Some text will go here</div>
+      <div className={styles.bottomBar__stats}>
+        <Score />
+        <Timer />
+      </div>
     </div>
   );
 };
