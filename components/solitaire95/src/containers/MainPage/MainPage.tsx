@@ -22,9 +22,12 @@ const MainPage: React.FC = () => {
 
   const [gameVisible, setGameVisible] = useState(false);
   const [helpVisible, setHelpVisible] = useState(false);
+  const [bottomBarText, setBottomBarText] = useState("");
+
   const dndProviderBackend = /Mobi|Android/i.test(navigator.userAgent)
     ? TouchBackend
     : HTML5Backend;
+
   return (
     <DndProvider backend={dndProviderBackend}>
       <div
@@ -46,9 +49,10 @@ const MainPage: React.FC = () => {
             setGameVisible={setGameVisible}
             helpVisible={helpVisible}
             setHelpVisible={setHelpVisible}
+            setBottomBarText={setBottomBarText}
           />
           <GameContainer />
-          <BottomBar />
+          <BottomBar text={bottomBarText} />
         </CardBackContext.Provider>
       </div>
     </DndProvider>
