@@ -83,9 +83,15 @@ const AppToolbar: React.FC<propTypes> = (props) => {
             Help
           </TopbarButton>
           <ToolDropdown visible={helpVisible}>
-            <div className={styles.toolElement}>
-              <ToolButton>About</ToolButton>
-            </div>
+            <>
+              <div className={styles.toolElement}>
+                <ToolButton>Help Topics</ToolButton>
+              </div>
+              <Separator />
+              <div className={styles.toolElement}>
+                <ToolButton>About</ToolButton>
+              </div>
+            </>
           </ToolDropdown>
         </div>
       </div>
