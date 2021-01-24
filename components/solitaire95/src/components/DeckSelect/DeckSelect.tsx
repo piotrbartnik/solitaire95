@@ -34,6 +34,7 @@ const DeckSelect: React.FC<propTypes> = (props) => {
       ]}
       visible={isWindowVisible as boolean}
       closeButtonAction={() => toggleCardBackWindow(false)}
+      width={"528px"}
     >
       <div className={styles.deckContainer}>
         <div className={styles.deckContainer__cardBackContainer}>
