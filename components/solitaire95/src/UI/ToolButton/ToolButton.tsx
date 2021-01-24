@@ -12,13 +12,15 @@ type propTypes = {
 const ToolButton: React.FC<propTypes> = (props) => {
   const { onClick, children, onMouseOver, onMouseLeave } = props;
   return (
-    <div
-      onClick={onClick}
-      className={styles.shortcutLetter}
-      onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}
-    >
-      {children}
+    <div className={styles.toolElement}>
+      <div
+        onClick={onClick}
+        className={styles.shortcutLetter}
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+      >
+        {children}
+      </div>
     </div>
   );
 };

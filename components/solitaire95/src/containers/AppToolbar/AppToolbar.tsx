@@ -41,58 +41,46 @@ const AppToolbar: React.FC<propTypes> = (props) => {
           </TopbarButton>
           <ToolDropdown visible={gameVisible}>
             <>
-              <div className={styles.toolElement}>
-                <ToolButton
-                  onClick={() => {
-                    dealCards();
-                    setGameVisible((gameVisible: boolean) => !gameVisible);
-                    setHelpVisible(false);
-                  }}
-                  onMouseOver={() => setBottomBarText("Deal a new game")}
-                  onMouseLeave={() => setBottomBarText("")}
-                >
-                  Deal
-                </ToolButton>
-              </div>
+              <ToolButton
+                onClick={() => {
+                  dealCards();
+                  setGameVisible((gameVisible: boolean) => !gameVisible);
+                  setHelpVisible(false);
+                }}
+                onMouseOver={() => setBottomBarText("Deal a new game")}
+                onMouseLeave={() => setBottomBarText("")}
+              >
+                Deal
+              </ToolButton>
               <Separator />
-              <div className={styles.toolElement}>
-                <ToolButton
-                  onMouseOver={() => setBottomBarText("Undo last action")}
-                  onMouseLeave={() => setBottomBarText("")}
-                >
-                  Undo
-                </ToolButton>
-              </div>
-              <div className={styles.toolElement}>
-                <ToolButton
-                  onClick={() => {
-                    toggleCardBackWindow(true);
-                  }}
-                  onMouseOver={() => setBottomBarText("Choose new deck back")}
-                  onMouseLeave={() => setBottomBarText("")}
-                >
-                  Deck
-                </ToolButton>
-              </div>
-              <div className={styles.toolElement}>
-                <ToolButton
-                  onMouseOver={() =>
-                    setBottomBarText("Change Solitaire options")
-                  }
-                  onMouseLeave={() => setBottomBarText("")}
-                >
-                  Options
-                </ToolButton>
-              </div>
+              <ToolButton
+                onMouseOver={() => setBottomBarText("Undo last action")}
+                onMouseLeave={() => setBottomBarText("")}
+              >
+                Undo
+              </ToolButton>
+              <ToolButton
+                onClick={() => {
+                  toggleCardBackWindow(true);
+                }}
+                onMouseOver={() => setBottomBarText("Choose new deck back")}
+                onMouseLeave={() => setBottomBarText("")}
+              >
+                Deck
+              </ToolButton>
+              <ToolButton
+                onMouseOver={() => setBottomBarText("Change Solitaire options")}
+                onMouseLeave={() => setBottomBarText("")}
+              >
+                Options
+              </ToolButton>
               <Separator />
-              <div className={styles.toolElement}>
-                <ToolButton
-                  onMouseOver={() => setBottomBarText("Exit Solitaire")}
-                  onMouseLeave={() => setBottomBarText("")}
-                >
-                  Exit
-                </ToolButton>
-              </div>
+              <ToolButton
+                onMouseOver={() => setBottomBarText("Exit Solitaire")}
+                onMouseLeave={() => setBottomBarText("")}
+              >
+                Exit
+              </ToolButton>
             </>
           </ToolDropdown>
         </div>
@@ -107,25 +95,21 @@ const AppToolbar: React.FC<propTypes> = (props) => {
           </TopbarButton>
           <ToolDropdown visible={helpVisible}>
             <>
-              <div className={styles.toolElement}>
-                <ToolButton
-                  onMouseOver={() =>
-                    setBottomBarText("Index of Solitaire help topics")
-                  }
-                  onMouseLeave={() => setBottomBarText("")}
-                >
-                  Help Topics
-                </ToolButton>
-              </div>
+              <ToolButton
+                onMouseOver={() =>
+                  setBottomBarText("Index of Solitaire help topics")
+                }
+                onMouseLeave={() => setBottomBarText("")}
+              >
+                Help Topics
+              </ToolButton>
               <Separator />
-              <div className={styles.toolElement}>
-                <ToolButton
-                  onMouseOver={() => setBottomBarText("About Solitaire")}
-                  onMouseLeave={() => setBottomBarText("")}
-                >
-                  About
-                </ToolButton>
-              </div>
+              <ToolButton
+                onMouseOver={() => setBottomBarText("About Solitaire")}
+                onMouseLeave={() => setBottomBarText("")}
+              >
+                About
+              </ToolButton>
             </>
           </ToolDropdown>
         </div>
