@@ -30,7 +30,6 @@ export const dealCards = () => {
   const [cardsForStock, cardsForPiles] = mixCardsForGame(
     createCards as cardConfigType[]
   );
-  console.log("x");
   return {
     type: actionTypes.DEAL_CARDS,
     cardsForStock: cardsForStock as cardConfigType[],

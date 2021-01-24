@@ -1,17 +1,30 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styles from "./ToolButton.module.scss";
 
 type propTypes = {
   dealCards?: any;
   onClick?: any;
-  children?: ReactNode;
+  onMouseOver?: any;
+  onMouseLeave?: any;
+  disabled?: boolean;
+  text: string;
 };
 
 const ToolButton: React.FC<propTypes> = (props) => {
-  const { onClick, children } = props;
+  const { onClick, onMouseOver, onMouseLeave, text, disabled } = props;
+  console.log(styles, "dd");
   return (
-    <div onClick={onClick} className={styles.shortcutLetter}>
-      {children}
+    <div className={styles.toolElement}>
+      <div
+        onClick={!disabled && onClick}
+        className={[styles.shortcutLetter, disabled && styles.disabled].join(
+          " "
+        )}
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+      >
+        {text}
+      </div>
     </div>
   );
 };
