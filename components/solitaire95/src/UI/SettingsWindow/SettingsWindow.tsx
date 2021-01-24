@@ -24,22 +24,26 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
   } = props;
   return (
     <div
-      className={styles.settingsWindow}
-      style={{
-        width: width || "450px",
-        height: height || "360px",
-        display: visible ? "block" : "none",
-      }}
+      className={styles.backdrop}
+      style={{ display: visible ? "block" : "none" }}
     >
-      <div className={styles.settingsWindow__inner}>
-        <TopBar title={windowTitle}>
-          <CloseButton onClick={closeButtonAction} />
-        </TopBar>
-        {children}
-        <div className={styles.buttonContainer}>
-          {buttons?.map((button, index) => (
-            <Button text={button.text} onClick={button.onClick} key={index} />
-          ))}
+      <div
+        className={styles.settingsWindow}
+        style={{
+          width: width || "450px",
+          height: height || "360px",
+        }}
+      >
+        <div className={styles.settingsWindow__inner}>
+          <TopBar title={windowTitle}>
+            <CloseButton onClick={closeButtonAction} />
+          </TopBar>
+          {children}
+          <div className={styles.buttonContainer}>
+            {buttons?.map((button, index) => (
+              <Button text={button.text} onClick={button.onClick} key={index} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
