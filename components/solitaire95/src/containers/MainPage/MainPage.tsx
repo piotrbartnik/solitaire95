@@ -32,11 +32,15 @@ const MainPage: React.FC = () => {
     <DndProvider backend={dndProviderBackend}>
       <div
         className={styles.mainPage}
-        onClick={() => {
-          if (gameVisible) {
+        onClick={(e) => {
+          const eventTarget = e.target as any;
+          const disabledButton = [
+            ...eventTarget.offsetParent.classList,
+          ].filter((el) => el.match("dropdownContainer")).length;
+          if (gameVisible && !disabledButton) {
             setGameVisible(false);
           }
-          if (helpVisible) {
+          if (helpVisible && !disabledButton) {
             setHelpVisible(false);
           }
         }}
