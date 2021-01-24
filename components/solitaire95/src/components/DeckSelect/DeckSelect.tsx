@@ -14,7 +14,7 @@ type propTypes = {
 const DeckSelect: React.FC<propTypes> = (props) => {
   const { isWindowVisible, toggleCardBackWindow } = props;
   const [selectedCardBack, setSelectedCardBack] = useState("");
-  const { setCardBackImage } = useContext(CardBackContext);
+  const { cardBackImage, setCardBackImage } = useContext(CardBackContext);
 
   const okOnClick = () => {
     selectedCardBack ? setCardBackImage(selectedCardBack) : undefined;
@@ -41,7 +41,10 @@ const DeckSelect: React.FC<propTypes> = (props) => {
           {Object.keys(cardBackImages).map((cardBack, index) => (
             <div
               key={index}
-              className={styles.deckContainer__cardBack}
+              className={[
+                styles.deckContainer__cardBack,
+                cardBack === cardBackImage && styles.selected,
+              ].join(" ")}
               tabIndex={1}
               style={{ backgroundImage: `url(${cardBackImages[cardBack]})` }}
               onClick={() => setSelectedCardBack(cardBack)}
