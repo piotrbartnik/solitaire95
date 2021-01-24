@@ -61,6 +61,7 @@ const AppToolbar: React.FC<propTypes> = (props) => {
               <ToolButton
                 onClick={() => {
                   toggleCardBackWindow(true);
+                  setGameVisible(false);
                 }}
                 onMouseOver={() => setBottomBarText("Choose new deck back")}
                 onMouseLeave={() => setBottomBarText("")}

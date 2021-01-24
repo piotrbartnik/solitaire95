@@ -37,8 +37,8 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
         </TopBar>
         {children}
         <div className={styles.buttonContainer}>
-          {buttons?.map((button) => (
-            <Button text={button.text} onClick={button.onClick} />
+          {buttons?.map((button, index) => (
+            <Button text={button.text} onClick={button.onClick} key={index} />
           ))}
         </div>
       </div>

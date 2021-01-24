@@ -12,11 +12,10 @@ type propTypes = {
 
 const ToolButton: React.FC<propTypes> = (props) => {
   const { onClick, onMouseOver, onMouseLeave, text, disabled } = props;
-  console.log(styles, "dd");
   return (
     <div className={styles.toolElement}>
       <div
-        onClick={!disabled && onClick}
+        onClick={!disabled ? onClick : undefined}
         className={[styles.shortcutLetter, disabled && styles.disabled].join(
           " "
         )}
