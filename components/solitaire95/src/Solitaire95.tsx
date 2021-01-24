@@ -11,7 +11,7 @@ const persistedState = localStorage.getItem("solitaireState")
     JSON.parse(localStorage.getItem("solitaireState"))
   : undefined;
 
-delete persistedState.toggleWindows;
+delete persistedState?.toggleWindows;
 
 const store = createStore(
   reducers,

@@ -6,6 +6,7 @@ cache: npm
 install:
   - yarn global add lerna
   - yarn install
+  - yarn test
 matrix:
   include:
     # - name: electron-react-app
