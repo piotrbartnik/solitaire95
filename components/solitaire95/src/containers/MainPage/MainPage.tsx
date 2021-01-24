@@ -2,6 +2,7 @@ import React, { useState, createContext } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
+import { connect } from "react-redux";
 import { TopBar, BottomBar } from "../../UI";
 import { DeckSelect } from "../../components";
 import { GameContainer } from "../";
@@ -13,7 +14,12 @@ export const CardBackContext = createContext({
   setCardBackImage: (cardBackName: string) => cardBackName,
 });
 
-const MainPage: React.FC = () => {
+type propTypes = {
+  isWindowVisible?: boolean;
+};
+
+const MainPage: React.FC = (props) => {
+  const { isWindowVisible } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: { cardBackImage: string; setCardBackImage: any } = {
     cardBackImage,
@@ -47,7 +53,11 @@ const MainPage: React.FC = () => {
       >
         <CardBackContext.Provider value={value}>
           <DeckSelect />
-          <TopBar title={"Solitaire"} showIcon />
+          <TopBar
+            title={"Solitaire"}
+            showIcon
+            shouldBeGreyedOut={isWindowVisible}
+          />
           <AppToolbar
             gameVisible={gameVisible}
             setGameVisible={setGameVisible}
@@ -63,4 +73,10 @@ const MainPage: React.FC = () => {
   );
 };
 
-export default MainPage;
+const mapStateToProps = (state: any) => {
+  return {
+    isWindowVisible: state.toggleWindows.cardBackWindowState,
+  };
+};
+
+export default connect(mapStateToProps, undefined)(MainPage);

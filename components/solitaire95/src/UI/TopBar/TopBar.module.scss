@@ -19,6 +19,14 @@
     margin-left: 11px;
     letter-spacing: 1px;
   }
+
+  &--grey {
+    background-color: #868a8e;
+
+    & .topBar__bar--title {
+      color: #c3c7cb;
+    }
+  }
 }
 
 .leftSide,
