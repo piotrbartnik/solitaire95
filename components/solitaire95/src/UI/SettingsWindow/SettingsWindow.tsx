@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDrop, useDrag, useDragLayer } from "react-dnd";
+import { itemTypes } from "../../configs/dragndropConfig";
 import { TopBar, Button, CloseButton } from "../index";
 import styles from "./SettingsWindow.module.scss";
 
@@ -22,17 +24,55 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
     visible,
     closeButtonAction,
   } = props;
+
+  const [windowPosition, setWindowPosition] = useState([100, 100]);
+
+  const { currentOffset } = useDragLayer((monitor) => ({
+    initialOffset: monitor.getInitialSourceClientOffset(),
+    currentOffset: monitor.getSourceClientOffset(),
+  }));
+
+  const [, drop] = useDrop({
+    accept: itemTypes.WINDOW,
+    drop: () => {
+      setWindowPosition([
+        currentOffset?.y as number,
+        currentOffset?.x as number,
+      ]);
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
+    }),
+  });
+
+  const [{ isDragging }, drag] = useDrag({
+    item: {
+      type: itemTypes.WINDOW,
+      windowTitle: windowTitle,
+    },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+      item: monitor.getItem(),
+    }),
+  });
+
   return (
     <div
       className={styles.backdrop}
       style={{ display: visible ? "block" : "none" }}
+      ref={drop}
     >
       <div
         className={styles.settingsWindow}
         style={{
           width: width || "450px",
           height: height || "360px",
+          opacity: (isDragging && 1) || undefined,
+          top: `${windowPosition[0]}px`,
+          left: `${windowPosition[1]}px`,
         }}
+        ref={drag}
       >
         <div className={styles.settingsWindow__inner}>
           <TopBar title={windowTitle}>

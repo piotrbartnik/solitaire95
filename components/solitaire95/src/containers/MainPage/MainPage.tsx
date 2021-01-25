@@ -18,7 +18,7 @@ type propTypes = {
   isWindowVisible?: boolean;
 };
 
-const MainPage: React.FC = (props) => {
+const MainPage: React.FC<propTypes> = (props) => {
   const { isWindowVisible } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: { cardBackImage: string; setCardBackImage: any } = {

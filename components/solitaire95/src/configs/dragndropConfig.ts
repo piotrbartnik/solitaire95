@@ -4,4 +4,5 @@ interface dragItemsConfig {
 
 export const itemTypes: dragItemsConfig = {
   CARD: "card",
+  WINDOW: "window",
 };
