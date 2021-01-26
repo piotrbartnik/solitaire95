@@ -6,13 +6,19 @@ type propTypes = {
   title: string;
   showIcon?: boolean;
   children?: any;
+  shouldBeGreyedOut?: boolean;
 };
 
 const TopBar: React.FC<propTypes> = (props) => {
-  const { title, showIcon, children } = props;
+  const { title, showIcon, children, shouldBeGreyedOut } = props;
   return (
     <>
-      <div className={styles.topBar__bar}>
+      <div
+        className={[
+          styles.topBar__bar,
+          shouldBeGreyedOut && styles["topBar__bar--grey"],
+        ].join(" ")}
+      >
         <div className={styles.leftSide}>
           {showIcon && (
             <img
