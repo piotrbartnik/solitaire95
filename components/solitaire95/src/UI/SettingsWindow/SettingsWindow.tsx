@@ -33,9 +33,44 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
     accept: itemTypes.WINDOW,
     drop: (item, monitor) => {
       const delta = monitor.getDifferenceFromInitialOffset();
+
+      const calculateWindowPosition = (
+        sizeAxis: string,
+        defaultAxisSize: string,
+        windowPositon: number,
+        differenceInPosition: number,
+        windowAxis: string
+      ): number => {
+        const parsedWindowSize = sizeAxis
+          ? parseInt(sizeAxis as string)
+          : parseInt(defaultAxisSize);
+
+        const maxPosibleAxisPosition =
+          windowPositon + differenceInPosition + parsedWindowSize;
+
+        const windowAxisPosition =
+          maxPosibleAxisPosition < window[windowAxis]
+            ? windowPositon + differenceInPosition
+            : (window[windowAxis] as any) - parsedWindowSize;
+
+        return windowAxisPosition > 0 ? windowAxisPosition : 0;
+      };
+
       setWindowPosition([
-        windowPosition[0] + (delta?.y as number),
-        windowPosition[1] + (delta?.x as number),
+        calculateWindowPosition(
+          height as string,
+          "360px",
+          windowPosition[0],
+          delta?.y as number,
+          "innerHeight"
+        ),
+        calculateWindowPosition(
+          width as string,
+          "450px",
+          windowPosition[1],
+          delta?.x as number,
+          "innerWidth"
+        ),
       ]);
     },
     collect: (monitor) => ({
