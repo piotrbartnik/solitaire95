@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDrop, useDrag, useDragLayer } from "react-dnd";
+import { useDrop, useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
+import { Howl } from "howler";
+import ding from "../../static/misc/ding.mp3";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { TopBar, Button, CloseButton } from "../index";
 import { SettingsWindowDragLayer } from "./SettingsWindowDragLayer";
@@ -94,11 +96,19 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
     preview(getEmptyImage(), { captureDraggingState: true });
   });
 
+  const windowError = new Howl({
+    src: [ding],
+  });
+
   return (
     <div
       className={styles.backdrop}
       style={{ display: visible ? "block" : "none" }}
       ref={drop}
+      onClick={() => {
+        console.log("test");
+        windowError.play();
+      }}
     >
       <div
         className={styles.settingsWindow}
