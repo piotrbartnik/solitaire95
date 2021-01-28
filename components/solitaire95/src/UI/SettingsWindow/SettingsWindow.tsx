@@ -105,9 +105,14 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
       className={styles.backdrop}
       style={{ display: visible ? "block" : "none" }}
       ref={drop}
-      onClick={() => {
-        console.log("test");
-        windowError.play();
+      onClick={(el) => {
+        const backDropdClass = [...(el.target as any).classList].filter((el) =>
+          el.match(/backdrop/)
+        );
+
+        if (backDropdClass.length) {
+          windowError.play();
+        }
       }}
     >
       <div
