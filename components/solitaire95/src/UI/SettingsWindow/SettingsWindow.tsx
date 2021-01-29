@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDrop, useDrag, useDragLayer } from "react-dnd";
+import React, { useState, useEffect, useContext } from "react";
+import { useDrop, useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
+import { Howl } from "howler";
+import ding from "../../static/misc/ding.mp3";
+import { CardBackContext } from "../../containers/";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { TopBar, Button, CloseButton } from "../index";
 import { SettingsWindowDragLayer } from "./SettingsWindowDragLayer";
@@ -29,13 +32,50 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
 
   const [windowPosition, setWindowPosition] = useState([100, 100]);
 
+  const { playSounds } = useContext(CardBackContext);
+
   const [, drop] = useDrop({
     accept: itemTypes.WINDOW,
     drop: (item, monitor) => {
       const delta = monitor.getDifferenceFromInitialOffset();
+
+      const calculateWindowPosition = (
+        sizeAxis: string,
+        defaultAxisSize: string,
+        windowPositon: number,
+        differenceInPosition: number,
+        windowAxis: string
+      ): number => {
+        const parsedWindowSize = sizeAxis
+          ? parseInt(sizeAxis as string)
+          : parseInt(defaultAxisSize);
+
+        const maxPosibleAxisPosition =
+          windowPositon + differenceInPosition + parsedWindowSize;
+
+        const windowAxisPosition =
+          maxPosibleAxisPosition < window[windowAxis]
+            ? windowPositon + differenceInPosition
+            : (window[windowAxis] as any) - parsedWindowSize;
+
+        return windowAxisPosition > 0 ? windowAxisPosition : 0;
+      };
+
       setWindowPosition([
-        windowPosition[0] + (delta?.y as number),
-        windowPosition[1] + (delta?.x as number),
+        calculateWindowPosition(
+          height as string,
+          "360px",
+          windowPosition[0],
+          delta?.y as number,
+          "innerHeight"
+        ),
+        calculateWindowPosition(
+          width as string,
+          "450px",
+          windowPosition[1],
+          delta?.x as number,
+          "innerWidth"
+        ),
       ]);
     },
     collect: (monitor) => ({
@@ -59,11 +99,28 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
     preview(getEmptyImage(), { captureDraggingState: true });
   });
 
+  const windowError = playSounds
+    ? new Howl({
+        src: [ding],
+      })
+    : undefined;
+
+  const playSoundOnClick = (el: any) => {
+    const backDropdClass = [...(el.target as any).classList].filter((el) =>
+      el.match(/backdrop/)
+    );
+
+    if (backDropdClass.length) {
+      windowError?.play();
+    }
+  };
+
   return (
     <div
       className={styles.backdrop}
       style={{ display: visible ? "block" : "none" }}
       ref={drop}
+      onClick={playSounds ? playSoundOnClick : undefined}
     >
       <div
         className={styles.settingsWindow}

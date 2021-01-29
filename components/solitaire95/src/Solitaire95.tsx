@@ -28,10 +28,15 @@ if (!persistedState) {
   store.dispatch(actions.dealCards());
 }
 
-const Solitaire95 = (): ReactElement => {
+type propTypes = {
+  playSounds?: boolean;
+};
+
+const Solitaire95: React.FC<propTypes> = (props) => {
+  const { playSounds } = props;
   return (
     <Provider store={store}>
-      <MainPage />
+      <MainPage playSounds={playSounds} />
     </Provider>
   );
 };

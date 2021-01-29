@@ -12,18 +12,25 @@ import styles from "./MainPage.module.scss";
 export const CardBackContext = createContext({
   cardBackImage: "acorns",
   setCardBackImage: (cardBackName: string) => cardBackName,
+  playSounds: true,
 });
 
 type propTypes = {
   isWindowVisible?: boolean;
+  playSounds?: boolean;
 };
 
 const MainPage: React.FC<propTypes> = (props) => {
-  const { isWindowVisible } = props;
+  const { isWindowVisible, playSounds } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
-  const value: { cardBackImage: string; setCardBackImage: any } = {
+  const value: {
+    cardBackImage: string;
+    setCardBackImage: any;
+    playSounds: boolean;
+  } = {
     cardBackImage,
     setCardBackImage,
+    playSounds: playSounds || false,
   };
 
   const [gameVisible, setGameVisible] = useState(false);
