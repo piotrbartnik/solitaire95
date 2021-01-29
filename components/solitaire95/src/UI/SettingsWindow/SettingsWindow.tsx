@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDrop, useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { Howl } from "howler";
 import ding from "../../static/misc/ding.mp3";
+import { CardBackContext } from "../../containers/";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { TopBar, Button, CloseButton } from "../index";
 import { SettingsWindowDragLayer } from "./SettingsWindowDragLayer";
@@ -30,6 +31,8 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
   } = props;
 
   const [windowPosition, setWindowPosition] = useState([100, 100]);
+
+  const { playSounds } = useContext(CardBackContext);
 
   const [, drop] = useDrop({
     accept: itemTypes.WINDOW,
@@ -96,24 +99,28 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
     preview(getEmptyImage(), { captureDraggingState: true });
   });
 
-  const windowError = new Howl({
-    src: [ding],
-  });
+  const windowError = playSounds
+    ? new Howl({
+        src: [ding],
+      })
+    : undefined;
+
+  const playSoundOnClick = (el: any) => {
+    const backDropdClass = [...(el.target as any).classList].filter((el) =>
+      el.match(/backdrop/)
+    );
+
+    if (backDropdClass.length) {
+      windowError?.play();
+    }
+  };
 
   return (
     <div
       className={styles.backdrop}
       style={{ display: visible ? "block" : "none" }}
       ref={drop}
-      onClick={(el) => {
-        const backDropdClass = [...(el.target as any).classList].filter((el) =>
-          el.match(/backdrop/)
-        );
-
-        if (backDropdClass.length) {
-          windowError.play();
-        }
-      }}
+      onClick={playSounds ? playSoundOnClick : undefined}
     >
       <div
         className={styles.settingsWindow}

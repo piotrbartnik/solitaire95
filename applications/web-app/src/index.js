@@ -6,7 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Solitaire95 />
+    <Solitaire95 playSounds />
   </React.StrictMode>,
   document.getElementById("root")
 );
