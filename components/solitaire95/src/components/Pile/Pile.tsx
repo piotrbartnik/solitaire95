@@ -1,7 +1,8 @@
 import React, { useRef, useContext } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
-import * as actions from "../../store/actions/cardActions";
+import * as cardActions from "../../store/actions/cardActions";
+import * as scoreActions from "../../store/actions/scoreActions";
 import { CardBackContext } from "../../containers/";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { cardConfigType } from "../../configs/cardTypes";
@@ -21,6 +22,7 @@ type propTypes = {
   addCardToFoundation: any;
   cardsOnPiles: any;
   removeCardFromFoundation: any;
+  addPoints: any;
 };
 
 const Pile: React.FC<propTypes> = (props: propTypes) => {
@@ -35,6 +37,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     addCardToFoundation,
     cardsOnPiles,
     removeCardFromFoundation,
+    addPoints,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -151,7 +154,8 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
                 cardsOnFoundations,
                 addCardToFoundation,
                 removeCardFromPile,
-                true
+                true,
+                addPoints
               )
             }
           />
@@ -194,11 +198,11 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     removeCardFromPile: (pileNumber: string) =>
-      dispatch(actions.removeCardFromPile(pileNumber)),
+      dispatch(cardActions.removeCardFromPile(pileNumber)),
     addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
-      dispatch(actions.addCardToPile(pileNumber, cardToPile)),
+      dispatch(cardActions.addCardToPile(pileNumber, cardToPile)),
     removeCardMovedToFoundation: (payload: string[]) => {
-      dispatch(actions.removeCardMovedToFoundation(payload));
+      dispatch(cardActions.removeCardMovedToFoundation(payload));
     },
     addCardToFoundation: (
       card: cardConfigType,
@@ -206,10 +210,13 @@ const mapDispatchToProps = (dispatch: any) => {
       foundationSuite: string
     ) =>
       dispatch(
-        actions.addCardToFoundation(card, foundationNumber, foundationSuite)
+        cardActions.addCardToFoundation(card, foundationNumber, foundationSuite)
       ),
     removeCardFromFoundation: (foundationNumber: string) =>
-      dispatch(actions.removeCardFromFoundation(foundationNumber)),
+      dispatch(cardActions.removeCardFromFoundation(foundationNumber)),
+    addPoints: (payload: number) => {
+      dispatch(scoreActions.countPoints(payload));
+    },
   };
 };
 

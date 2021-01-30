@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
 import { CardBackContext } from "../../containers/";
-import * as actions from "../../store/actions/cardActions";
+import * as cardActions from "../../store/actions/cardActions";
+import * as scoreActions from "../../store/actions/scoreActions";
 import { Card } from "..";
 import { cardConfigType } from "../../configs/cardTypes";
 import styles from "./CardStock.module.scss";
@@ -16,6 +17,7 @@ type propTypes = {
   cardsOnFoundations: any;
   addCardToFoundation: any;
   distanceBtwPiles: number;
+  addPoints: any;
 };
 
 const CardStock: React.FC<propTypes> = (props: propTypes) => {
@@ -28,6 +30,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
     cardsOnFoundations,
     addCardToFoundation,
     distanceBtwPiles,
+    addPoints,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -92,6 +95,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
                   addCardToFoundation,
                   removeCardMovedToFoundation,
                   false,
+                  addPoints,
                   cardsFromStock
                 )
               }
@@ -115,20 +119,24 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     takeOneFromStock: (payload: string) =>
-      dispatch(actions.takeOneFromStock(payload)),
+      dispatch(cardActions.takeOneFromStock(payload)),
     reverseStock: (payload: string[]) =>
-      dispatch(actions.reverseStock(payload)),
+      dispatch(cardActions.reverseStock(payload)),
     removeCardMovedToFoundation: (payload: string[]) => {
-      dispatch(actions.removeCardMovedToFoundation(payload));
+      dispatch(cardActions.removeCardMovedToFoundation(payload));
     },
     addCardToFoundation: (
       card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
-    ) =>
+    ) => {
       dispatch(
-        actions.addCardToFoundation(card, foundationNumber, foundationSuite)
-      ),
+        cardActions.addCardToFoundation(card, foundationNumber, foundationSuite)
+      );
+    },
+    addPoints: (payload: number) => {
+      dispatch(scoreActions.countPoints(payload));
+    },
   };
 };
 

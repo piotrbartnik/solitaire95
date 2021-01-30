@@ -6,6 +6,7 @@ export const moveToFoundation = (
   addToFoundationCallback: any,
   removeFromCallback: any,
   pileOrStock: boolean,
+  addPoints: any,
   cardsFromStock?: cardConfigType[]
 ) => {
   const { cardname, suite, color, pilenumber, order } = event.target.dataset;
@@ -21,6 +22,7 @@ export const moveToFoundation = (
 
     if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
       addToFoundationCallback(cardConfig, foundationToPopulate[0], suite);
+      addPoints(10);
       pileOrStock
         ? removeFromCallback(pilenumber)
         : removeFromCallback(
@@ -47,6 +49,7 @@ export const moveToFoundation = (
                 )
               );
           addToFoundationCallback(cardConfig, foundation);
+          addPoints(10);
         }
       }
     });
