@@ -10,6 +10,8 @@ export const countPoints = (state = initialState, action: any) => {
   switch (action.type) {
     case "COUNT_POINTS":
       return { ...state, points: state.points + action.countPoints };
+    case "RESET_POINTS":
+      return { ...state, points: 0 };
     default:
       return state;
   }

@@ -17,3 +17,4 @@ export const REMOVE_CARD_FROM_FOUNDATION: string =
   "REMOVE_CARD_FROM_FOUNDATION";
 export const TOGGLE_WINDOW: string = "TOGGLE_WINDOW";
 export const COUNT_POINTS: string = "COUNT_POINTS";
+export const RESET_POINTS: string = "RESET_POINTS";

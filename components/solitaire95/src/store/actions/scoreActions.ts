@@ -6,3 +6,9 @@ export const countPoints = (points: number) => {
     countPoints: points,
   };
 };
+
+export const resetPoints = () => {
+  return {
+    type: actionTypes.RESET_POINTS,
+  };
+};
