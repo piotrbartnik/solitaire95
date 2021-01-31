@@ -215,7 +215,7 @@ const mapDispatchToProps = (dispatch: any) => {
     removeCardFromFoundation: (foundationNumber: string) =>
       dispatch(cardActions.removeCardFromFoundation(foundationNumber)),
     addPoints: (payload: number) => {
-      dispatch(scoreActions.countPoints(payload));
+      dispatch(scoreActions.countScore(payload));
     },
   };
 };

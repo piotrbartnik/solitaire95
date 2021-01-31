@@ -135,7 +135,7 @@ const mapDispatchToProps = (dispatch: any) => {
       );
     },
     addPoints: (payload: number) => {
-      dispatch(scoreActions.countPoints(payload));
+      dispatch(scoreActions.countScore(payload));
     },
   };
 };

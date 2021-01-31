@@ -27,7 +27,7 @@ store.subscribe(() => {
 
 if (!persistedState) {
   store.dispatch(cardActions.dealCards());
-  store.dispatch(scoreActions.resetPoints());
+  store.dispatch(scoreActions.resetScore());
 }
 
 type propTypes = {

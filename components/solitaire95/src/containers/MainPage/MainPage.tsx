@@ -84,7 +84,7 @@ const MainPage: React.FC<propTypes> = (props) => {
 const mapStateToProps = (state: any) => {
   return {
     isWindowVisible: state.toggleWindows.cardBackWindowState,
-    score: state.countPoints.points,
+    score: state.countScore.points,
   };
 };
 

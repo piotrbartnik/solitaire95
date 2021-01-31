@@ -1,14 +1,14 @@
 import * as actionTypes from "./actionTypes";
 
-export const countPoints = (points: number) => {
+export const countScore = (points: number) => {
   return {
-    type: actionTypes.COUNT_POINTS,
-    countPoints: points,
+    type: actionTypes.COUNT_SCORE,
+    countScore: points,
   };
 };
 
-export const resetPoints = () => {
+export const resetScore = () => {
   return {
-    type: actionTypes.RESET_POINTS,
+    type: actionTypes.RESET_SCORE,
   };
 };
