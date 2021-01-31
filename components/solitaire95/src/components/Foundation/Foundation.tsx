@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import { CardBackContext } from "../../containers/";
-import * as actions from "../../store/actions/cardActions";
+import * as cardActions from "../../store/actions/cardActions";
+import * as scoreActions from "../../store/actions/scoreActions";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
@@ -12,6 +13,7 @@ type propTypes = {
   cardsOnStock: cardConfigType[];
   addCardToFoundation?: any;
   removeCardFromPile?: any;
+  addPoints?: any;
   removeCardMovedToFoundation?: any;
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: any;
@@ -27,6 +29,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     cardsFromStock,
     cardsOnFoundations,
     foundationId,
+    addPoints,
   } = props;
 
   const { cardBackImage } = useContext(CardBackContext);
@@ -76,6 +79,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     const foundationTargetId = foundationTarget.props.id;
 
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
+    addPoints(10);
     if (typeof pileNumber === "number") {
       removeCardFromPile(pileNumber);
     } else {
@@ -146,12 +150,15 @@ const mapDispatchToProps = (dispatch: any) => {
       foundationSuite: string
     ) =>
       dispatch(
-        actions.addCardToFoundation(card, foundationNumber, foundationSuite)
+        cardActions.addCardToFoundation(card, foundationNumber, foundationSuite)
       ),
     removeCardFromPile: (pileNumber: string) =>
-      dispatch(actions.removeCardFromPile(pileNumber)),
+      dispatch(cardActions.removeCardFromPile(pileNumber)),
     removeCardMovedToFoundation: (payload: string[]) => {
-      dispatch(actions.removeCardMovedToFoundation(payload));
+      dispatch(cardActions.removeCardMovedToFoundation(payload));
+    },
+    addPoints: (payload: number) => {
+      dispatch(scoreActions.countPoints(payload));
     },
   };
 };

@@ -4,20 +4,21 @@ import styles from "./BottomBar.module.scss";
 
 type propTypes = {
   text?: string;
+  score?: number;
 };
 
-const BottomBart: React.FC<propTypes> = (props) => {
-  const { text } = props;
+const BottomBar: React.FC<propTypes> = (props) => {
+  const { text, score } = props;
 
   return (
     <div className={styles.bottomBar__bar}>
       <div className={styles.bottomBar__text}>{text}</div>
       <div className={styles.bottomBar__stats}>
-        <Score />
+        <Score score={score} />
         <Timer />
       </div>
     </div>
   );
 };
 
-export default BottomBart;
+export default BottomBar;

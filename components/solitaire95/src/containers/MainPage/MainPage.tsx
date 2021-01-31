@@ -18,10 +18,11 @@ export const CardBackContext = createContext({
 type propTypes = {
   isWindowVisible?: boolean;
   playSounds?: boolean;
+  score?: number;
 };
 
 const MainPage: React.FC<propTypes> = (props) => {
-  const { isWindowVisible, playSounds } = props;
+  const { isWindowVisible, playSounds, score } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
     cardBackImage: string;
@@ -73,7 +74,7 @@ const MainPage: React.FC<propTypes> = (props) => {
             setBottomBarText={setBottomBarText}
           />
           <GameContainer />
-          <BottomBar text={bottomBarText} />
+          <BottomBar text={bottomBarText} score={score} />
         </CardBackContext.Provider>
       </div>
     </DndProvider>
@@ -83,6 +84,7 @@ const MainPage: React.FC<propTypes> = (props) => {
 const mapStateToProps = (state: any) => {
   return {
     isWindowVisible: state.toggleWindows.cardBackWindowState,
+    score: state.countPoints.points,
   };
 };
 

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 
-const Score: React.FC = () => {
-  const [score] = useState(0);
+type propTypes = {
+  score?: number;
+};
 
+const Score: React.FC<propTypes> = (props) => {
+  const { score } = props;
   return <div>Score: {score}</div>;
 };
 
