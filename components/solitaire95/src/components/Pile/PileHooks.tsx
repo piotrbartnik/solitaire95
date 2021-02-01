@@ -10,12 +10,12 @@ export const useSetCardsPositionFromTopOnPiles = (ref: {
     );
     cardsOnPile.forEach((card: any, index: any) => {
       if (card.dataset.front === "false") {
-        card.parentNode.style.top = `${10 * index}px`;
+        card.parentNode.style.top = `${5 * index}px`;
       }
       if (card.dataset.front === "true") {
         const frontHeight = index - cardsOnPileBack.length;
         card.parentNode.style.top = `${
-          cardsOnPileBack.length * 10 + frontHeight * 30
+          cardsOnPileBack.length * 5 + frontHeight * 27
         }px`;
       }
     });
