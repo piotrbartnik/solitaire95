@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import styles from "./Timer.module.scss";
 
-const Timer: React.FC = () => {
+type timerPropTypes = {
+  gameStarted: boolean;
+};
+
+const Timer: React.FC<timerPropTypes> = (props) => {
+  const { gameStarted } = props;
+
   const [time, setTime] = useState(0);
 
   useEffect(() => {
-    const timeInterval = setInterval(() => setTime(time + 1), 1000);
-    return () => clearInterval(timeInterval);
+    if (gameStarted) {
+      const timeInterval = setInterval(() => setTime(time + 1), 1000);
+      return () => clearInterval(timeInterval);
+    }
+    setTime(0);
+    return;
   });
 
   return <div className={styles.timer}>Time: {time}</div>;
 };
 
-export default Timer;
+const mapStateToProps = (state: any) => {
+  return {
+    gameStarted: state.gameState.gameStarted,
+  };
+};
+
+export default connect(mapStateToProps)(Timer);

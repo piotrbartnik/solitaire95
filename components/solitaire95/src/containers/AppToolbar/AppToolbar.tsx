@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import * as cardActions from "../../store/actions/cardActions";
 import * as windowActions from "../../store/actions/windowActions";
 import * as scoreActions from "../../store/actions/scoreActions";
+import * as gameActions from "../../store/actions/gameActions";
 import { ToolBar, TopbarButton, ToolButton, Separator } from "../../UI";
 import { ToolDropdown } from "../../components";
 import styles from "./AppToolbar.module.scss";
-import { resetScore } from "src/store/actions/scoreActions";
 
 type propTypes = {
   dealCards?: any;
@@ -17,6 +17,7 @@ type propTypes = {
   setHelpVisible: (helpState: any) => void;
   setBottomBarText: any;
   resetScore: any;
+  stopGame: any;
 };
 
 const AppToolbar: React.FC<propTypes> = (props) => {
@@ -29,6 +30,7 @@ const AppToolbar: React.FC<propTypes> = (props) => {
     setHelpVisible,
     setBottomBarText,
     resetScore,
+    stopGame,
   } = props;
 
   return (
@@ -49,6 +51,7 @@ const AppToolbar: React.FC<propTypes> = (props) => {
                 onClick={() => {
                   dealCards();
                   resetScore();
+                  stopGame();
                   setGameVisible((gameVisible: boolean) => !gameVisible);
                   setHelpVisible(false);
                 }}
@@ -126,6 +129,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     dealCards: () => dispatch(cardActions.dealCards()),
     resetScore: () => dispatch(scoreActions.resetScore()),
+    stopGame: () => dispatch(gameActions.stopGame()),
     toggleCardBackWindow: (payload: boolean) =>
       dispatch(windowActions.toggleCardBackWindow(payload)),
   };

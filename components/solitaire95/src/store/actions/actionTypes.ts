@@ -18,3 +18,5 @@ export const REMOVE_CARD_FROM_FOUNDATION: string =
 export const TOGGLE_WINDOW: string = "TOGGLE_WINDOW";
 export const COUNT_SCORE: string = "COUNT_SCORE";
 export const RESET_SCORE: string = "RESET_SCORE";
+export const START_GAME: string = "START_GAME";
+export const STOP_GAME: string = "STOP_GAME";
