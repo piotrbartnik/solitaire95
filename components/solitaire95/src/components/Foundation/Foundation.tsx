@@ -4,6 +4,7 @@ import { useDrop } from "react-dnd";
 import { CardBackContext } from "../../containers/";
 import * as cardActions from "../../store/actions/cardActions";
 import * as scoreActions from "../../store/actions/scoreActions";
+import * as gameActions from "../../store/actions/gameActions";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { cardConfigType } from "../../configs/cardTypes";
 import { Card } from "..";
@@ -18,6 +19,7 @@ type propTypes = {
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: any;
   foundationId: string | number;
+  startGame: () => void;
 };
 
 const Foundation: React.FC<propTypes> = (props) => {
@@ -30,6 +32,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     cardsOnFoundations,
     foundationId,
     addPoints,
+    startGame,
   } = props;
 
   const { cardBackImage } = useContext(CardBackContext);
@@ -80,6 +83,7 @@ const Foundation: React.FC<propTypes> = (props) => {
 
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
     addPoints(10);
+    startGame();
     if (typeof pileNumber === "number") {
       removeCardFromPile(pileNumber);
     } else {
@@ -160,6 +164,7 @@ const mapDispatchToProps = (dispatch: any) => {
     addPoints: (payload: number) => {
       dispatch(scoreActions.countScore(payload));
     },
+    startGame: () => dispatch(gameActions.startGame()),
   };
 };
 

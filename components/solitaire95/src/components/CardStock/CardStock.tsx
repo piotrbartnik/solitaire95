@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { CardBackContext } from "../../containers/";
 import * as cardActions from "../../store/actions/cardActions";
 import * as scoreActions from "../../store/actions/scoreActions";
+import * as gameActions from "../../store/actions/gameActions";
 import { Card } from "..";
 import { cardConfigType } from "../../configs/cardTypes";
 import styles from "./CardStock.module.scss";
@@ -18,6 +19,7 @@ type propTypes = {
   addCardToFoundation: any;
   distanceBtwPiles: number;
   addPoints: any;
+  startGame: () => void;
 };
 
 const CardStock: React.FC<propTypes> = (props: propTypes) => {
@@ -31,12 +33,14 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
     addCardToFoundation,
     distanceBtwPiles,
     addPoints,
+    startGame,
   } = props;
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock.length) {
       const cardToPush: any = cardsOnStock.pop();
       takeOneFromStock(cardToPush);
+      startGame();
     } else {
       reverseStock(cardsFromStock.reverse());
     }
@@ -137,6 +141,7 @@ const mapDispatchToProps = (dispatch: any) => {
     addPoints: (payload: number) => {
       dispatch(scoreActions.countScore(payload));
     },
+    startGame: () => dispatch(gameActions.startGame()),
   };
 };
 

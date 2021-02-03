@@ -7,7 +7,8 @@ export const moveToFoundation = (
   removeFromCallback: any,
   pileOrStock: boolean,
   addPoints: any,
-  cardsFromStock?: cardConfigType[]
+  cardsFromStock?: cardConfigType[],
+  startGame?: () => void
 ) => {
   const { cardname, suite, color, pilenumber, order } = event.target.dataset;
   const cardConfig: cardConfigType = [cardname, suite, true, color, order];
@@ -23,6 +24,7 @@ export const moveToFoundation = (
     if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
       addToFoundationCallback(cardConfig, foundationToPopulate[0], suite);
       addPoints(10);
+      startGame && startGame();
       pileOrStock
         ? removeFromCallback(pilenumber)
         : removeFromCallback(
@@ -50,6 +52,7 @@ export const moveToFoundation = (
               );
           addToFoundationCallback(cardConfig, foundation);
           addPoints(10);
+          startGame && startGame();
         }
       }
     });

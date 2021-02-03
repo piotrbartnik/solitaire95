@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import * as cardActions from "../../store/actions/cardActions";
 import * as scoreActions from "../../store/actions/scoreActions";
+import * as gameActions from "../../store/actions/gameActions";
 import { CardBackContext } from "../../containers/";
 import { itemTypes } from "../../configs/dragndropConfig";
 import { cardConfigType } from "../../configs/cardTypes";
@@ -10,6 +11,7 @@ import { Card } from "..";
 import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../helpers/cardMoving";
 import { useSetCardsPositionFromTopOnPiles } from "./PileHooks";
+import { start } from "repl";
 
 type propTypes = {
   cardsOnPile: cardConfigType[];
@@ -23,6 +25,7 @@ type propTypes = {
   cardsOnPiles: any;
   removeCardFromFoundation: any;
   addPoints: any;
+  startGame: () => void;
 };
 
 const Pile: React.FC<propTypes> = (props: propTypes) => {
@@ -38,6 +41,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     cardsOnPiles,
     removeCardFromFoundation,
     addPoints,
+    startGame,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -78,6 +82,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
           card[3],
           card[4],
         ];
+        startGame();
         return addCardToPile((ref.current as HTMLDivElement).id, cardToDrag);
       });
       cardsToDrag.forEach(() => removeCardFromPile(pileNumber));
@@ -155,7 +160,9 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
                 addCardToFoundation,
                 removeCardFromPile,
                 true,
-                addPoints
+                addPoints,
+                undefined,
+                startGame
               )
             }
           />
@@ -217,6 +224,7 @@ const mapDispatchToProps = (dispatch: any) => {
     addPoints: (payload: number) => {
       dispatch(scoreActions.countScore(payload));
     },
+    startGame: () => dispatch(gameActions.startGame()),
   };
 };
 
