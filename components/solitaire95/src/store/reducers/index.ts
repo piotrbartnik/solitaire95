@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import { cardDistribution } from "./cardsDistribution";
-import { cardsOnFoundation } from "./cardsOnFoundation";
-import { toggleWindows } from "./windows";
-import { countScore } from "./points";
+import { cardDistribution } from "./cardsDistributionReducer";
+import { cardsOnFoundation } from "./foundationReducer";
+import { toggleWindows } from "./windowsReducer";
+import { countScore } from "./scoreReducer";
 import { gameState } from "./gameReducer";
 
 const reducers: any = combineReducers({
