@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": "Piotr Bartnik",
   "workspaces": [
-    "components/*",
+    "packages/*",
     "applications/*"
   ],
   "devDependencies": {
@@ -24,8 +24,8 @@
   },
   "scripts": {
     "install": "lerna bootstrap",
-    "start:web": "concurrently 'cd ./components/solitaire95 && npx webpack' 'cd ./applications/web-app && yarn start'",
-    "start:desktop": "concurrently 'cd ./components/solitaire95 && npx webpack' 'cd ./applications/electron-react-app && yarn start'",
+    "start:web": "concurrently 'cd ./packages/solitaire95 && npx webpack' 'cd ./applications/web-app && yarn start'",
+    "start:desktop": "concurrently 'cd ./packages/solitaire95 && npx webpack' 'cd ./applications/electron-react-app && yarn start'",
     "rmmodules": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build:packages": "lerna run webpack",
     "test": "jest"
