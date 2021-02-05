@@ -1,11 +1,11 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { createStore } from "redux";
-import { reducers } from "./store/reducers/";
+import { rootReducer } from "./store/reducers/";
 import { Provider } from "react-redux";
 import { Solitaire95 } from "./Solitaire95";
 
-const store = createStore(reducers);
+const store = createStore(rootReducer);
 
 describe("renders App page", () => {
   it("and check if it has the top bar", () => {

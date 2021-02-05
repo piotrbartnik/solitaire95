@@ -1,7 +1,7 @@
 import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { dndWrapper } from "../../../../helpers/testHelpers";
 import { reduxWrapper } from "../../../../helpers/testHelpers";
 import CardStock from "../CardStock";
