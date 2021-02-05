@@ -3,8 +3,8 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import * as cardActions from "../src/store/actions/cardActions";
 import * as scoreActions from "../src/store/actions/scoreActions";
-import { reducers } from "./store/reducers";
-import MainPage from "./containers/MainPage/MainPage";
+import { rootReducer } from "./store/reducers";
+import MainPage from "./components/game-containers/MainPage/MainPage";
 import "./Solitaire95.scss";
 
 const persistedState = localStorage.getItem("solitaireState")
@@ -15,7 +15,7 @@ const persistedState = localStorage.getItem("solitaireState")
 delete persistedState?.toggleWindows;
 
 const store = createStore(
-  reducers,
+  rootReducer,
   persistedState,
   // @ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
