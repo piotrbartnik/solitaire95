@@ -1,4 +1,4 @@
-interface gameState {
+export interface gameState {
   gameStarted: boolean;
 }
 

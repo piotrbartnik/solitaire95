@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import * as scoreActions from "../../store/actions/scoreActions";
 import styles from "./Timer.module.scss";

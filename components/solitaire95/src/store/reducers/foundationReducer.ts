@@ -1,5 +1,5 @@
 import { cardConfigType } from "../../configs/cardTypes";
-interface foundationState {
+export interface foundationState {
   [key: string]: undefined | cardConfigType[];
 }
 

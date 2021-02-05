@@ -5,12 +5,10 @@ import { toggleWindows } from "./windowsReducer";
 import { countScore } from "./scoreReducer";
 import { gameState } from "./gameReducer";
 
-const reducers: any = combineReducers({
+export const rootReducer = combineReducers({
   cardDistribution,
   cardsOnFoundation,
   toggleWindows,
   countScore,
   gameState,
 });
-
-export { reducers };
