@@ -4,7 +4,9 @@ export const useSetCardPosition = (isTurnedBack: boolean) => {
   const [cardPositionFront, changeCardPosition] = useState<boolean>(
     isTurnedBack
   );
-  const [wasCardTurnedFront] = useState(!cardPositionFront ? true : false);
+  const [wasCardTurnedFront] = useState<boolean>(
+    !cardPositionFront ? true : false
+  );
 
   useEffect(() => {
     if (!wasCardTurnedFront) changeCardPosition(isTurnedBack);

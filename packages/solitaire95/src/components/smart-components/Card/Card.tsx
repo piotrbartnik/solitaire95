@@ -1,10 +1,10 @@
 import React from "react";
 import { useDrag } from "react-dnd";
-import styles from "./Card.module.scss";
 import { useSetCardPosition } from "./CardHooks";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardBackImages } from "../../../static/cardBacks";
+import styles from "./Card.module.scss";
 
 type cardPropTypes = {
   cardFront: string;
@@ -22,7 +22,7 @@ type cardPropTypes = {
   canBeTurned?: boolean;
 };
 
-const Card: React.FC<cardPropTypes> = (props: cardPropTypes) => {
+const Card: React.FC<cardPropTypes> = (props) => {
   const {
     cardFront,
     cardBack,

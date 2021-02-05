@@ -6,23 +6,27 @@ import * as scoreActions from "../../../store/actions/scoreActions";
 import * as gameActions from "../../../store/actions/gameActions";
 import { Card } from "..";
 import { cardConfigType } from "../../../configs/cardTypes";
-import styles from "./CardStock.module.scss";
 import { moveToFoundation } from "../../../helpers/cardMoving";
+import styles from "./CardStock.module.scss";
 
-type propTypes = {
+type cardStockPropTypes = {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
-  takeOneFromStock: any;
-  reverseStock: any;
-  removeCardMovedToFoundation: any;
-  cardsOnFoundations: any;
-  addCardToFoundation: any;
+  takeOneFromStock: (cardToPush: cardConfigType) => void;
+  reverseStock: (cardsFromStock: cardConfigType[]) => void;
+  removeCardMovedToFoundation: (card: cardConfigType) => void;
+  cardsOnFoundations: cardConfigType[];
+  addCardToFoundation: (
+    card: cardConfigType,
+    foundationNumber: string,
+    foundationSuite: string
+  ) => void;
   distanceBtwPiles: number;
-  addPoints: any;
+  addPoints: (points: number) => void;
   startGame: () => void;
 };
 
-const CardStock: React.FC<propTypes> = (props: propTypes) => {
+const CardStock: React.FC<cardStockPropTypes> = (props) => {
   const {
     cardsOnStock,
     cardsFromStock,
@@ -38,7 +42,7 @@ const CardStock: React.FC<propTypes> = (props: propTypes) => {
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock.length) {
-      const cardToPush: any = cardsOnStock.pop();
+      const cardToPush = cardsOnStock.pop() as cardConfigType;
       takeOneFromStock(cardToPush);
       startGame();
     } else {
@@ -122,25 +126,21 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    takeOneFromStock: (payload: string) =>
+    takeOneFromStock: (payload: cardConfigType) =>
       dispatch(cardActions.takeOneFromStock(payload)),
-    reverseStock: (payload: string[]) =>
+    reverseStock: (payload: cardConfigType[]) =>
       dispatch(cardActions.reverseStock(payload)),
-    removeCardMovedToFoundation: (payload: string[]) => {
-      dispatch(cardActions.removeCardMovedToFoundation(payload));
-    },
+    removeCardMovedToFoundation: (payload: cardConfigType) =>
+      dispatch(cardActions.removeCardMovedToFoundation(payload)),
     addCardToFoundation: (
       card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
-    ) => {
+    ) =>
       dispatch(
         cardActions.addCardToFoundation(card, foundationNumber, foundationSuite)
-      );
-    },
-    addPoints: (payload: number) => {
-      dispatch(scoreActions.countScore(payload));
-    },
+      ),
+    addPoints: (payload: number) => dispatch(scoreActions.countScore(payload)),
     startGame: () => dispatch(gameActions.startGame()),
   };
 };

@@ -158,7 +158,7 @@ const mapDispatchToProps = (dispatch: any) => {
       ),
     removeCardFromPile: (pileNumber: string) =>
       dispatch(cardActions.removeCardFromPile(pileNumber)),
-    removeCardMovedToFoundation: (payload: string[]) => {
+    removeCardMovedToFoundation: (payload: cardConfigType) => {
       dispatch(cardActions.removeCardMovedToFoundation(payload));
     },
     addPoints: (payload: number) => {

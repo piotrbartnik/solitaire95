@@ -37,14 +37,14 @@ export const dealCards = () => {
   };
 };
 
-export const takeOneFromStock = (payload: string) => {
+export const takeOneFromStock = (payload: cardConfigType) => {
   return {
     type: actionTypes.TAKE_ONE_FROM_STOCK,
     card: payload,
   };
 };
 
-export const reverseStock = (payload: string[]) => {
+export const reverseStock = (payload: cardConfigType[]) => {
   return {
     type: actionTypes.REVERSE_STOCK,
     reverseStock: payload,
@@ -69,7 +69,7 @@ export const addCardToFoundation = (
   };
 };
 
-export const removeCardMovedToFoundation = (payload: string[]) => {
+export const removeCardMovedToFoundation = (payload: cardConfigType) => {
   return {
     type: actionTypes.REMOVE_CARD_MOVED_TO_FOUNDATION,
     removeCardMovedToFoundation: payload,
