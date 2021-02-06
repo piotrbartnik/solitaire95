@@ -8,12 +8,12 @@ import styles from "./DeckSelect.module.scss";
 
 type propTypes = {
   isWindowVisible: boolean;
-  toggleCardBackWindow: any;
+  toggleCardBackWindow: (windowState: boolean) => void;
 };
 
 const DeckSelect: React.FC<propTypes> = (props) => {
   const { isWindowVisible, toggleCardBackWindow } = props;
-  const [selectedCardBack, setSelectedCardBack] = useState("");
+  const [selectedCardBack, setSelectedCardBack] = useState<string>("");
   const { cardBackImage, setCardBackImage } = useContext(CardBackContext);
 
   const okOnClick = () => {
@@ -61,6 +61,7 @@ const DeckSelect: React.FC<propTypes> = (props) => {
 };
 
 const mapStateToProps = (state: any) => {
+  console.log(state);
   return {
     isWindowVisible: state.toggleWindows.cardBackWindowState,
   };
