@@ -24,5 +24,5 @@ export const useSubstractPointsEveryTenSeconds = (
     if (score && time && time % 10 === 0) {
       substractFunction(-2);
     }
-  });
+  }, [time]);
 };
