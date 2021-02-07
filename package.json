@@ -15,6 +15,8 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "babel-jest": "^26.6.3",
     "concurrently": "^5.3.0",
     "identity-obj-proxy": "^3.0.0",
@@ -29,5 +31,10 @@
     "rmmodules": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build:packages": "lerna run webpack",
     "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
