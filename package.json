@@ -36,7 +36,8 @@
     "start:desktop": "concurrently 'cd ./packages/solitaire95 && npx webpack' 'cd ./applications/electron-react-app && yarn start'",
     "rmmodules": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build:packages": "lerna run webpack",
-    "test": "jest"
+    "test": "jest",
+    "eslint:packages": "node ./node_modules/.bin/eslint --fix-dry-run packages/"
   },
   "husky": {
     "hooks": {
