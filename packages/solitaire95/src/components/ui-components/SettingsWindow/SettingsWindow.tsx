@@ -130,10 +130,9 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
           top: `${windowPosition[0]}px`,
           left: `${windowPosition[1]}px`,
         }}
-        ref={drag}
       >
         <div className={styles.settingsWindow__inner}>
-          <TopBar title={windowTitle}>
+          <TopBar title={windowTitle} dragRef={drag}>
             <CloseButton onClick={closeButtonAction} />
           </TopBar>
           {children}
