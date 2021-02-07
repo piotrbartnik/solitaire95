@@ -61,7 +61,6 @@ const DeckSelect: React.FC<propTypes> = (props) => {
 };
 
 const mapStateToProps = (state: any) => {
-  console.log(state);
   return {
     isWindowVisible: state.toggleWindows.cardBackWindowState,
   };

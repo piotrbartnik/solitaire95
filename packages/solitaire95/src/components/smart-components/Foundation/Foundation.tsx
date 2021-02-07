@@ -10,19 +10,23 @@ import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Foundation.module.scss";
 
-type propTypes = {
+type foundationPropTypes = {
   cardsOnStock: cardConfigType[];
-  addCardToFoundation?: any;
-  removeCardFromPile?: any;
-  addPoints?: any;
-  removeCardMovedToFoundation?: any;
+  addCardToFoundation: (
+    card: cardConfigType,
+    foundationNumber: string,
+    foundationSuite: string
+  ) => void;
+  removeCardFromPile: (pileNumber: string) => void;
+  addPoints: (points: number) => void;
+  removeCardMovedToFoundation: (card: cardConfigType[]) => void;
   cardsFromStock: cardConfigType[];
-  cardsOnFoundations: any;
+  cardsOnFoundations: cardConfigType[];
   foundationId: string | number;
   startGame: () => void;
 };
 
-const Foundation: React.FC<propTypes> = (props) => {
+const Foundation: React.FC<foundationPropTypes> = (props) => {
   const {
     cardsOnStock,
     addCardToFoundation,
@@ -55,7 +59,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     }
   };
 
-  const dropCardOnFoundation = (dragObject: any, item: any) => {
+  const dropCardOnFoundation = (dragObject: any) => {
     const {
       cardFront,
       cardSuite,
@@ -85,7 +89,7 @@ const Foundation: React.FC<propTypes> = (props) => {
     addPoints(10);
     startGame();
     if (typeof pileNumber === "number") {
-      removeCardFromPile(pileNumber);
+      removeCardFromPile(pileNumber.toString());
     } else {
       removeCardMovedToFoundation(
         cardsFromStock.filter(
@@ -97,8 +101,8 @@ const Foundation: React.FC<propTypes> = (props) => {
 
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: itemTypes.CARD,
-    drop: (monitor, item) => {
-      dropCardOnFoundation(monitor, item);
+    drop: (monitor) => {
+      dropCardOnFoundation(monitor);
     },
     canDrop: canBeDroppedOnFoundation,
     collect: (monitor) => ({
@@ -158,12 +162,9 @@ const mapDispatchToProps = (dispatch: any) => {
       ),
     removeCardFromPile: (pileNumber: string) =>
       dispatch(cardActions.removeCardFromPile(pileNumber)),
-    removeCardMovedToFoundation: (payload: cardConfigType) => {
-      dispatch(cardActions.removeCardMovedToFoundation(payload));
-    },
-    addPoints: (payload: number) => {
-      dispatch(scoreActions.countScore(payload));
-    },
+    removeCardMovedToFoundation: (card: cardConfigType[]) =>
+      dispatch(cardActions.removeCardMovedToFoundation(card)),
+    addPoints: (points: number) => dispatch(scoreActions.countScore(points)),
     startGame: () => dispatch(gameActions.startGame()),
   };
 };

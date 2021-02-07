@@ -14,7 +14,7 @@ type cardStockPropTypes = {
   cardsFromStock: cardConfigType[];
   takeOneFromStock: (cardToPush: cardConfigType) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
-  removeCardMovedToFoundation: (card: cardConfigType) => void;
+  removeCardMovedToFoundation: (card: cardConfigType[]) => void;
   cardsOnFoundations: cardConfigType[];
   addCardToFoundation: (
     card: cardConfigType,
@@ -42,7 +42,7 @@ const CardStock: React.FC<cardStockPropTypes> = (props) => {
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock.length) {
-      const cardToPush = cardsOnStock.pop() as cardConfigType;
+      const cardToPush: any = cardsOnStock.pop();
       takeOneFromStock(cardToPush);
       startGame();
     } else {
@@ -130,7 +130,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(cardActions.takeOneFromStock(payload)),
     reverseStock: (payload: cardConfigType[]) =>
       dispatch(cardActions.reverseStock(payload)),
-    removeCardMovedToFoundation: (payload: cardConfigType) =>
+    removeCardMovedToFoundation: (payload: cardConfigType[]) =>
       dispatch(cardActions.removeCardMovedToFoundation(payload)),
     addCardToFoundation: (
       card: cardConfigType,

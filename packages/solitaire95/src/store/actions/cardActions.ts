@@ -69,7 +69,7 @@ export const addCardToFoundation = (
   };
 };
 
-export const removeCardMovedToFoundation = (payload: cardConfigType) => {
+export const removeCardMovedToFoundation = (payload: cardConfigType[]) => {
   return {
     type: actionTypes.REMOVE_CARD_MOVED_TO_FOUNDATION,
     removeCardMovedToFoundation: payload,
