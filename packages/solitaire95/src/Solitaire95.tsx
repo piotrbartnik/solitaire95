@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import * as cardActions from "../src/store/actions/cardActions";

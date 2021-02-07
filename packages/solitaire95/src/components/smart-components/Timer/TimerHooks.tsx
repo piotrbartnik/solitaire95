@@ -10,7 +10,7 @@ export const useStartTimer = (gameStarted: boolean): number => {
     }
     setTime(0);
     return;
-  });
+  }, [gameStarted, time]);
 
   return time;
 };
@@ -24,5 +24,5 @@ export const useSubstractPointsEveryTenSeconds = (
     if (score && time && time % 10 === 0) {
       substractFunction(-2);
     }
-  }, [time]);
+  }, [time, score, substractFunction]);
 };
