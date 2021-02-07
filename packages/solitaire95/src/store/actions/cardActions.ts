@@ -26,25 +26,36 @@ const orderPiles = (
   return cardsOnPiles;
 };
 
-export const dealCards = () => {
+export const dealCards = (): {
+  type: string;
+  cardsForStock: cardConfigType[];
+  cardsOnPiles: { [key: string]: cardConfigType[] };
+} => {
   const [cardsForStock, cardsForPiles] = mixCardsForGame(
     createCards as cardConfigType[]
   );
   return {
     type: actionTypes.DEAL_CARDS,
-    cardsForStock: cardsForStock as cardConfigType[],
+    cardsForStock: cardsForStock,
     cardsOnPiles: orderPiles(cardsForPiles as cardConfigType[]),
   };
 };
 
-export const takeOneFromStock = (payload: cardConfigType) => {
+export const takeOneFromStock = (
+  payload: cardConfigType
+): { type: string; card: cardConfigType } => {
   return {
     type: actionTypes.TAKE_ONE_FROM_STOCK,
     card: payload,
   };
 };
 
-export const reverseStock = (payload: cardConfigType[]) => {
+export const reverseStock = (
+  payload: cardConfigType[]
+): {
+  type: string;
+  reverseStock: cardConfigType[];
+} => {
   return {
     type: actionTypes.REVERSE_STOCK,
     reverseStock: payload,
@@ -55,7 +66,11 @@ export const addCardToFoundation = (
   card: cardConfigType,
   foundationNumber: string,
   foundationSuite?: string
-) => {
+): {
+  type: string;
+  addFoundationColor: string | undefined;
+  addCardToFoundation: cardConfigType;
+} => {
   const castFoundationNumber: { [char: string]: string } = {
     cardsOnFirstFoundation: actionTypes.ADD_CARD_TO_FIRST_FOUNDATION,
     cardsOnSecondFoundation: actionTypes.ADD_CARD_TO_SECOND_FOUNDATION,
@@ -69,21 +84,28 @@ export const addCardToFoundation = (
   };
 };
 
-export const removeCardMovedToFoundation = (payload: cardConfigType[]) => {
+export const removeCardMovedToFoundation = (
+  payload: cardConfigType[]
+): { type: string; removeCardMovedToFoundation: cardConfigType[] } => {
   return {
     type: actionTypes.REMOVE_CARD_MOVED_TO_FOUNDATION,
     removeCardMovedToFoundation: payload,
   };
 };
 
-export const removeCardFromPile = (pileNumber: string) => {
+export const removeCardFromPile = (
+  pileNumber: string
+): { type: string; removeCardFromPile: string } => {
   return {
     type: actionTypes.REMOVE_CARD_FROM_PILE,
     removeCardFromPile: pileNumber,
   };
 };
 
-export const addCardToPile = (pileNumber: string, card: cardConfigType) => {
+export const addCardToPile = (
+  pileNumber: string,
+  card: cardConfigType
+): { type: string; addCardToPile: string; cardToPile: cardConfigType } => {
   return {
     type: actionTypes.ADD_CARD_TO_PILE,
     addCardToPile: pileNumber,
@@ -91,7 +113,9 @@ export const addCardToPile = (pileNumber: string, card: cardConfigType) => {
   };
 };
 
-export const removeCardFromFoundation = (foundationNumber: string) => {
+export const removeCardFromFoundation = (
+  foundationNumber: string
+): { type: string; removeCardFromFoundation: string } => {
   return {
     type: actionTypes.REMOVE_CARD_FROM_FOUNDATION,
     removeCardFromFoundation: foundationNumber,

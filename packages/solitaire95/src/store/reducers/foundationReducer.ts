@@ -1,11 +1,19 @@
 import { cardConfigType } from "../../configs/cardTypes";
 export interface foundationState {
-  [key: string]: undefined | cardConfigType[];
+  foundationSuite: string | undefined;
+  cards: cardConfigType[];
 }
 
-type initialFoundationState = {
+interface cardsOnFoundationActionReturnActionTypes {
+  type: string;
+  addFoundationColor: string;
+  addCardToFoundation: cardConfigType;
+  removeCardFromFoundation: number;
+}
+
+interface initialFoundationState {
   [key: string]: foundationState;
-};
+}
 
 const initialState: initialFoundationState = {
   cardsOnFirstFoundation: { foundationSuite: undefined, cards: [] },
@@ -16,7 +24,7 @@ const initialState: initialFoundationState = {
 
 const immutableCardsArray = (
   state: initialFoundationState,
-  action: any,
+  action: cardsOnFoundationActionReturnActionTypes,
   foundation: string
 ) => {
   const cardsArray = state[foundation].cards?.slice();
@@ -26,9 +34,11 @@ const immutableCardsArray = (
 
 const cardsOnFoundationActionReturn = (
   state: initialFoundationState,
-  action: any,
+  action: cardsOnFoundationActionReturnActionTypes,
   foundation: string
-) => ({
+): {
+  [key: string]: foundationState;
+} => ({
   ...state,
   [foundation]: {
     ...state[foundation],
@@ -46,7 +56,12 @@ const foundations = [
   "cardsOnFourthFoundation",
 ];
 
-export const cardsOnFoundation = (state = initialState, action: any) => {
+export const cardsOnFoundation = (
+  state = initialState,
+  action: cardsOnFoundationActionReturnActionTypes
+): {
+  [key: string]: foundationState;
+} => {
   switch (action.type) {
     case "DEAL_CARDS":
       return initialState;
@@ -75,6 +90,7 @@ export const cardsOnFoundation = (state = initialState, action: any) => {
         "cardsOnFourthFoundation"
       );
     case "REMOVE_CARD_FROM_FOUNDATION":
+      // eslint-disable-next-line no-case-declarations
       const cardsOnFoundation =
         state[foundations[action.removeCardFromFoundation]].cards;
       cardsOnFoundation?.pop();
