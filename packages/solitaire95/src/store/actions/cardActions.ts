@@ -1,6 +1,12 @@
 import * as actionTypes from "./actionTypes";
 import { createCards, cardConfigType } from "../../configs/cardTypes";
 
+export interface cardDealTypes {
+  type: string;
+  cardsForStock: cardConfigType[];
+  cardsOnPiles: { [key: string]: cardConfigType[] };
+}
+
 const mixCardsForGame = (cards: cardConfigType[]): cardConfigType[][] => {
   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
   const cardsForStock = randomizeCardInput.slice(0, 24);
@@ -26,11 +32,7 @@ const orderPiles = (
   return cardsOnPiles;
 };
 
-export const dealCards = (): {
-  type: string;
-  cardsForStock: cardConfigType[];
-  cardsOnPiles: { [key: string]: cardConfigType[] };
-} => {
+export const dealCards = (): cardDealTypes => {
   const [cardsForStock, cardsForPiles] = mixCardsForGame(
     createCards as cardConfigType[]
   );
