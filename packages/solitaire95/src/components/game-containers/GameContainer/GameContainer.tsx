@@ -11,7 +11,11 @@ type propTypes = {
   cardsOnSecondFoundation: cardConfigType[];
   cardsOnThirdFoundation: cardConfigType[];
   cardsOnFourthFoundation: cardConfigType[];
-  addCardToFoundation: any;
+  addCardToFoundation: (
+    card: cardConfigType,
+    foundationNumber: string,
+    foundationSuite: string
+  ) => void;
   cardsOnPiles: cardConfigType;
 };
 
@@ -24,7 +28,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnPiles,
   } = props;
 
-  const piles = (config: any) =>
+  const piles = (config: cardConfigType) =>
     Object.keys(config).map((el, index) => (
       <div className={styles.gameContainer__singlePile} key={index}>
         <Pile cardsOnPile={config[el]} pileIndex={index} />
