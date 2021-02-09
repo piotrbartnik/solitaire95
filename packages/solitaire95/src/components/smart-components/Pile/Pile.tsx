@@ -11,24 +11,27 @@ import { Card } from "..";
 import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import { useSetCardsPositionFromTopOnPiles } from "./PileHooks";
-import { start } from "repl";
 
-type propTypes = {
+type pilePropTypes = {
   cardsOnPile: cardConfigType[];
   pileIndex: number;
-  removeCardFromPile?: any;
-  addCardToPile?: any;
-  removeCardMovedToFoundation?: any;
-  cardsFromStock?: cardConfigType[];
-  cardsOnFoundations: any;
-  addCardToFoundation: any;
-  cardsOnPiles: any;
-  removeCardFromFoundation: any;
-  addPoints: any;
+  removeCardFromPile: (pile: string) => void;
+  addCardToPile: (pileNumber: string, cardToPile: cardConfigType) => void;
+  removeCardMovedToFoundation: (cards: cardConfigType[]) => void;
+  cardsFromStock: cardConfigType[];
+  cardsOnFoundations: cardConfigType[];
+  addCardToFoundation: (
+    card: cardConfigType,
+    foundationNumber: string,
+    foundationSuite: string
+  ) => void;
+  cardsOnPiles: { [key: string]: cardConfigType[] };
+  removeCardFromFoundation: (foundationNumber: string) => void;
+  addPoints: (points: number) => void;
   startGame: () => void;
 };
 
-const Pile: React.FC<propTypes> = (props: propTypes) => {
+const Pile: React.FC<pilePropTypes> = (props) => {
   const {
     cardsOnPile,
     pileIndex,
@@ -66,7 +69,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     ];
 
     const indexOfDraggedCardOnPile = cardsOnPiles[pileNumber]
-      ?.map((el: string[]) => `${el[0]}_${el[1]}`)
+      ?.map((el: any) => `${el[0]}_${el[1]}`)
       .indexOf(`${cardFront}_${cardSuite}`);
 
     const cardsToDrag = cardsOnPiles[pileNumber]?.slice(
@@ -134,7 +137,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       const isTurnedBackString = card[2];
       const cardsOnPileLength = cardsOnPile.length;
       const shouldBeTurnedAfterDrag = isTurnedBackString
-        ? !Boolean(isTurnedBackString)
+        ? !isTurnedBackString
         : pileIndex > index;
       const canBeTurned =
         !isTurnedBackString && cardsOnPileLength - 1 === index ? true : false;
@@ -208,8 +211,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(cardActions.removeCardFromPile(pileNumber)),
     addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
       dispatch(cardActions.addCardToPile(pileNumber, cardToPile)),
-    removeCardMovedToFoundation: (payload: cardConfigType[]) => {
-      dispatch(cardActions.removeCardMovedToFoundation(payload));
+    removeCardMovedToFoundation: (cards: cardConfigType[]) => {
+      dispatch(cardActions.removeCardMovedToFoundation(cards));
     },
     addCardToFoundation: (
       card: cardConfigType,

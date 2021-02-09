@@ -20,12 +20,8 @@ type propTypes = {
   toggleCardBackWindow: (windowState: boolean) => void;
   gameVisible: boolean;
   helpVisible: boolean;
-  setGameVisible: (
-    gameState: boolean | ((gameState: boolean) => boolean)
-  ) => boolean;
-  setHelpVisible: (
-    helpVisible: boolean | ((helpVisible: boolean) => boolean)
-  ) => boolean;
+  setGameVisible: any;
+  setHelpVisible: any;
   setBottomBarText: (text: string) => void;
   resetScore: () => void;
   stopGame: () => void;
