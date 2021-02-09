@@ -42,8 +42,8 @@ const CardStock: React.FC<cardStockPropTypes> = (props) => {
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock.length) {
-      const cardToPush: any = cardsOnStock.pop();
-      takeOneFromStock(cardToPush);
+      const cardToPush = cardsOnStock.pop();
+      takeOneFromStock(cardToPush as cardConfigType);
       startGame();
     } else {
       reverseStock(cardsFromStock.reverse());
