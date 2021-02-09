@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, MutableRefObject } from "react";
 import { connect } from "react-redux";
 import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
 import * as actions from "../../../store/actions/cardActions";
@@ -37,7 +37,9 @@ const GameContainer: React.FC<propTypes> = (props) => {
 
   const pilesContainer = useRef(null);
 
-  const distanceBtwPiles = useCountDistanceBetweenPiles(pilesContainer);
+  const distanceBtwPiles = useCountDistanceBetweenPiles(
+    pilesContainer as MutableRefObject<null>
+  );
 
   return (
     <div className={styles.gameUIBorder}>

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { MutableRefObject } from "react";
 
-export const useCountDistanceBetweenPiles = (pilesContainer: any) => {
+export const useCountDistanceBetweenPiles = (
+  pilesContainer: MutableRefObject<null>
+): number => {
   const [distanceBtwPiles, setDistanceBtwPiles] = useState(0);
 
   useEffect(() => {
