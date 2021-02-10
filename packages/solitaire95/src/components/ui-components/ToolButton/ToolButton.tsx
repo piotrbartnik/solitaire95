@@ -1,16 +1,15 @@
 import React from "react";
 import styles from "./ToolButton.module.scss";
 
-type propTypes = {
-  dealCards?: any;
-  onClick?: any;
-  onMouseOver?: any;
-  onMouseLeave?: any;
+type toolButtonPropTypes = {
+  onClick?: undefined | (() => void);
+  onMouseOver?: () => void;
+  onMouseLeave?: () => void;
   disabled?: boolean;
   text: string;
 };
 
-const ToolButton: React.FC<propTypes> = (props) => {
+const ToolButton: React.FC<toolButtonPropTypes> = (props) => {
   const { onClick, onMouseOver, onMouseLeave, text, disabled } = props;
   return (
     <div className={styles.toolElement}>
