@@ -41,6 +41,7 @@ const Foundation: React.FC<foundationPropTypes> = (props) => {
 
   const { cardBackImage } = useContext(CardBackContext);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const canBeDroppedOnFoundation = (card: any) => {
     const foundationTargetId = foundationTarget.props.id;
 
@@ -59,6 +60,7 @@ const Foundation: React.FC<foundationPropTypes> = (props) => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dropCardOnFoundation = (dragObject: any) => {
     const {
       cardFront,
