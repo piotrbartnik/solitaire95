@@ -6,7 +6,7 @@ import styles from "./TopBar.module.scss";
 type propTypes = {
   title: string;
   showIcon?: boolean;
-  children?: any;
+  children?: JSX.Element;
   shouldBeGreyedOut?: boolean;
   dragRef?: DragElementWrapper<DragSourceOptions>;
 };
