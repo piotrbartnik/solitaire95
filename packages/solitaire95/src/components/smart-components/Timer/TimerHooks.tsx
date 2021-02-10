@@ -24,5 +24,6 @@ export const useSubstractPointsEveryTenSeconds = (
     if (score && time && time % 10 === 0) {
       substractFunction(-2);
     }
-  }, [time, score, substractFunction]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [time]);
 };
