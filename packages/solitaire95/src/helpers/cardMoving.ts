@@ -1,20 +1,26 @@
 import { cardConfigType } from "../configs/cardTypes";
 
 export const moveToFoundation = (
-  event: any,
-  cardsOnFoundations: any,
-  addToFoundationCallback: any,
-  removeFromCallback: any,
+  event: React.SyntheticEvent<HTMLDivElement>,
+  cardsOnFoundations: cardConfigType[],
+  addToFoundationCallback: (
+    card: cardConfigType,
+    foundationNumber: string,
+    foundationSuite?: string
+  ) => void,
+  removeFromCallback: (card: cardConfigType[] | string | undefined) => void,
   pileOrStock: boolean,
-  addPoints: any,
+  addPoints: (points: number) => void,
   cardsFromStock?: cardConfigType[],
   startGame?: () => void
-) => {
-  const { cardname, suite, color, pilenumber, order } = event.target.dataset;
+): void => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { dataset } = event.target as any;
+  const { cardname, suite, color, pilenumber, order } = dataset;
   const cardConfig: cardConfigType = [cardname, suite, true, color, order];
 
   if (cardname?.match("ace")) {
-    let foundationToPopulate: string[] = [];
+    const foundationToPopulate: string[] = [];
     Object.keys(cardsOnFoundations).forEach((foundation) => {
       if (!cardsOnFoundations[foundation].cards.length) {
         foundationToPopulate.push(foundation);
