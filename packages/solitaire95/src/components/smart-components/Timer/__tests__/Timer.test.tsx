@@ -1,17 +1,17 @@
 import React from "react";
-import configureStore from "redux-mock-store";
+// import configureStore from "redux-mock-store";
 import { reduxWrapper } from "../../../../helpers/testHelpers";
 import { render } from "@testing-library/react";
 import Timer from "../Timer";
-import { act } from "react-dom/test-utils";
+// import { act } from "react-dom/test-utils";
 
 jest.useFakeTimers();
-const mockStore = configureStore([]);
+// const mockStore = configureStore([]);
 
 describe("renders Timer", () => {
   it("and check if it has the single div wrapper", () => {
     const { asFragment } = render(reduxWrapper(<Timer />));
-    expect(asFragment(<Timer />).querySelectorAll("div")).toHaveLength(1);
+    expect(asFragment().querySelectorAll("div")).toHaveLength(1);
   });
 
   it("and it should have time 0 at the beggining", () => {

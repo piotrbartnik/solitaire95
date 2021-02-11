@@ -9,7 +9,7 @@ import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import styles from "./CardStock.module.scss";
 
-type cardStockPropTypes = {
+export interface cardStockPropTypes {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   takeOneFromStock: (cardToPush: cardConfigType) => void;
@@ -24,7 +24,7 @@ type cardStockPropTypes = {
   distanceBtwPiles: number;
   addPoints: (points: number) => void;
   startGame: () => void;
-};
+}
 
 const CardStock: React.FC<cardStockPropTypes> = (props) => {
   const {
@@ -145,4 +145,7 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardStock);
+export default connect<cardStockPropTypes | any>(
+  mapStateToProps,
+  mapDispatchToProps
+)(CardStock);

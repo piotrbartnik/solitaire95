@@ -1,12 +1,12 @@
 import { cardConfigType } from "../../configs/cardTypes";
 
-interface initialState {
+export interface initialState {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
 }
 
-interface cardDistributionActionTypes {
+export interface cardDistributionActionTypes {
   type: string;
   cardsOnPiles: { [key: string]: cardConfigType[] };
   cardsForStock: cardConfigType[];
