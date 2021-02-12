@@ -2,8 +2,7 @@ import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { render, fireEvent } from "@testing-library/react";
-import { dndWrapper } from "../../../../helpers/testHelpers";
-import { reduxWrapper } from "../../../../helpers/testHelpers";
+import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
 import { cardConfigType } from "../../../../configs/cardTypes";
 import CardStock from "../CardStock";
 

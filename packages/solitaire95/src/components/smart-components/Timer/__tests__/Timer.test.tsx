@@ -1,12 +1,13 @@
 import React from "react";
-// import configureStore from "redux-mock-store";
+import configureStore from "redux-mock-store";
+import { Provider } from "react-redux";
 import { reduxWrapper } from "../../../../helpers/testHelpers";
 import { render } from "@testing-library/react";
 import Timer from "../Timer";
-// import { act } from "react-dom/test-utils";
+import { act } from "react-dom/test-utils";
 
 jest.useFakeTimers();
-// const mockStore = configureStore([]);
+const mockStore = configureStore([]);
 
 describe("renders Timer", () => {
   it("and check if it has the single div wrapper", () => {
@@ -21,21 +22,37 @@ describe("renders Timer", () => {
 
   // fix after adding start time after first move
 
-  // it("and it should have time 5 after five seconds", () => {
-  //   const { getByText } = render(reduxWrapper(<Timer />));
-  //   act(() => {
-  //     jest.advanceTimersByTime(5000);
-  //   });
+  it("and it should have time 5 after five seconds", () => {
+    const store = mockStore({
+      gameState: { gameStarted: true },
+      countScore: { points: 0 },
+    });
+    const { getByText } = render(
+      <Provider store={store}>
+        <Timer />
+      </Provider>
+    );
+    act(() => {
+      jest.advanceTimersByTime(5000);
+    });
 
-  //   expect(getByText("Time: 5")).toBeInTheDocument();
-  // });
+    expect(getByText("Time: 5")).toBeInTheDocument();
+  });
 
-  // it("and it should have time 127 after 127 seconds", () => {
-  //   const { getByText } = render(reduxWrapper(<Timer />));
-  //   act(() => {
-  //     jest.advanceTimersByTime(127000);
-  //   });
+  it("and it should have time 127 after 127 seconds", () => {
+    const store = mockStore({
+      gameState: { gameStarted: true },
+      countScore: { points: 0 },
+    });
+    const { getByText } = render(
+      <Provider store={store}>
+        <Timer />
+      </Provider>
+    );
+    act(() => {
+      jest.advanceTimersByTime(127000);
+    });
 
-  //   expect(getByText("Time: 127")).toBeInTheDocument();
-  // });
+    expect(getByText("Time: 127")).toBeInTheDocument();
+  });
 });
