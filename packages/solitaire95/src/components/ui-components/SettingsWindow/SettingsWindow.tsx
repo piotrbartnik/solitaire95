@@ -102,6 +102,7 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
   const windowError = playSounds
     ? new Howl({
         src: [ding],
+        format: ["mp3"],
       })
     : undefined;
 
