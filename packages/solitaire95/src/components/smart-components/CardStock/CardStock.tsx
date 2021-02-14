@@ -145,7 +145,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect<cardStockPropTypes | any>(
-  mapStateToProps,
-  mapDispatchToProps
-)(CardStock);
+export default connect(mapStateToProps, mapDispatchToProps)(CardStock);

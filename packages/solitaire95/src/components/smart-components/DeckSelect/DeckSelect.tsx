@@ -7,8 +7,8 @@ import { cardBackImages } from "../../../static/cardBacks";
 import styles from "./DeckSelect.module.scss";
 
 type deckSelectPropTypes = {
-  isWindowVisible: boolean;
-  toggleCardBackWindow: (windowState: boolean) => boolean;
+  isWindowVisible?: boolean;
+  toggleCardBackWindow?: any;
 };
 
 const DeckSelect: React.FC<deckSelectPropTypes> = (props) => {
