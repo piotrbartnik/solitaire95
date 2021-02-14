@@ -8,4 +8,5 @@ module.exports = {
     ".+\\.(css|styl|less|sass|scss)$": `identity-obj-proxy`,
   },
   setupFilesAfterEnv: ["./setupTests.ts"],
+  coverageDirectory: "./coverage",
 };
