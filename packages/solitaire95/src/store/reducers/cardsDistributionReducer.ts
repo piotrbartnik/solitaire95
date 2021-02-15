@@ -1,10 +1,22 @@
 import { cardConfigType } from "../../configs/cardTypes";
 
-type initialState = {
+export interface initialState {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
-};
+}
+
+export interface cardDistributionActionTypes {
+  type: string;
+  cardsOnPiles: { [key: string]: cardConfigType[] };
+  cardsForStock: cardConfigType[];
+  card: cardConfigType;
+  reverseStock: cardConfigType[];
+  removeCardMovedToFoundation: cardConfigType[];
+  removeCardFromPile: number;
+  cardToPile: cardConfigType;
+  addCardToPile: number;
+}
 
 const initialState: initialState = {
   cardsOnStock: [],
@@ -12,7 +24,10 @@ const initialState: initialState = {
   cardsOnPiles: {},
 };
 
-export const cardDistribution = (state = initialState, action: any) => {
+export const cardDistribution = (
+  state = initialState,
+  action: cardDistributionActionTypes
+): initialState => {
   switch (action.type) {
     case "DEAL_CARDS":
       return {
@@ -47,6 +62,7 @@ export const cardDistribution = (state = initialState, action: any) => {
         },
       };
     case "ADD_CARD_TO_PILE":
+      // eslint-disable-next-line no-case-declarations
       const cardAdded: cardConfigType[] = [action.cardToPile];
       return {
         ...state,

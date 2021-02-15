@@ -8,11 +8,11 @@ import * as actions from "../store/actions/cardActions";
 
 const store = createStore(rootReducer);
 
-export const dndWrapper = (component) => (
+export const dndWrapper = (component: JSX.Element): JSX.Element => (
   <DndProvider backend={HTML5Backend}>{component}</DndProvider>
 );
 
-export const reduxWrapper = (component) => {
+export const reduxWrapper = (component: JSX.Element): JSX.Element => {
   store.dispatch(actions.dealCards());
   return <Provider store={store}>{component}</Provider>;
 };

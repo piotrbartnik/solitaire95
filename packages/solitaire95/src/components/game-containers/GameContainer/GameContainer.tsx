@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, MutableRefObject } from "react";
 import { connect } from "react-redux";
 import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
 import * as actions from "../../../store/actions/cardActions";
@@ -11,7 +11,11 @@ type propTypes = {
   cardsOnSecondFoundation: cardConfigType[];
   cardsOnThirdFoundation: cardConfigType[];
   cardsOnFourthFoundation: cardConfigType[];
-  addCardToFoundation: any;
+  addCardToFoundation: (
+    card: cardConfigType,
+    foundationNumber: string,
+    foundationSuite: string
+  ) => void;
   cardsOnPiles: cardConfigType;
 };
 
@@ -24,7 +28,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
     cardsOnPiles,
   } = props;
 
-  const piles = (config: any) =>
+  const piles = (config: cardConfigType) =>
     Object.keys(config).map((el, index) => (
       <div className={styles.gameContainer__singlePile} key={index}>
         <Pile cardsOnPile={config[el]} pileIndex={index} />
@@ -33,7 +37,9 @@ const GameContainer: React.FC<propTypes> = (props) => {
 
   const pilesContainer = useRef(null);
 
-  const distanceBtwPiles = useCountDistanceBetweenPiles(pilesContainer);
+  const distanceBtwPiles = useCountDistanceBetweenPiles(
+    pilesContainer as MutableRefObject<null>
+  );
 
   return (
     <div className={styles.gameUIBorder}>

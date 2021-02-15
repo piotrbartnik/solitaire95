@@ -1,4 +1,5 @@
 import React from "react";
+import CSS from "csstype";
 import { useDragLayer } from "react-dnd";
 import { itemTypes } from "../../../configs/dragndropConfig";
 
@@ -15,7 +16,7 @@ export const SettingsWindowDragLayer: React.FC<propTypes> = (props) => {
     isDragging: monitor.isDragging(),
   }));
 
-  const layerStyles: any = {
+  const layerStyles: CSS.Properties = {
     position: "fixed",
     pointerEvents: "none",
     zIndex: 1,

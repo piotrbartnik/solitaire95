@@ -34,7 +34,7 @@ const MainPage: React.FC<propTypes> = (props) => {
     playSounds: playSounds || false,
   };
 
-  const [gameVisible, setGameVisible] = useState(false);
+  const [gameVisible, setGameVisible] = useState<boolean>(false);
   const [helpVisible, setHelpVisible] = useState(false);
   const [bottomBarText, setBottomBarText] = useState("");
 

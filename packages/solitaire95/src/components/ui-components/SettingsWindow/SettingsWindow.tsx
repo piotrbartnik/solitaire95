@@ -56,7 +56,7 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
         const windowAxisPosition =
           maxPosibleAxisPosition < window[windowAxis]
             ? windowPositon + differenceInPosition
-            : (window[windowAxis] as any) - parsedWindowSize;
+            : (window[windowAxis] as number) - parsedWindowSize;
 
         return windowAxisPosition > 0 ? windowAxisPosition : 0;
       };
@@ -102,10 +102,12 @@ const SettingsWindow: React.FC<propTypes> = (props) => {
   const windowError = playSounds
     ? new Howl({
         src: [ding],
+        format: ["mp3"],
       })
     : undefined;
 
-  const playSoundOnClick = (el: any) => {
+  const playSoundOnClick = (el: React.MouseEvent) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const backDropdClass = [...(el.target as any).classList].filter((el) =>
       el.match(/backdrop/)
     );

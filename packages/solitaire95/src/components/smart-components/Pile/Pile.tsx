@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, MouseEvent } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import * as cardActions from "../../../store/actions/cardActions";
@@ -11,24 +11,27 @@ import { Card } from "..";
 import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import { useSetCardsPositionFromTopOnPiles } from "./PileHooks";
-import { start } from "repl";
 
-type propTypes = {
+type pilePropTypes = {
   cardsOnPile: cardConfigType[];
   pileIndex: number;
-  removeCardFromPile?: any;
-  addCardToPile?: any;
-  removeCardMovedToFoundation?: any;
-  cardsFromStock?: cardConfigType[];
-  cardsOnFoundations: any;
-  addCardToFoundation: any;
-  cardsOnPiles: any;
-  removeCardFromFoundation: any;
-  addPoints: any;
+  removeCardFromPile: (pile: string) => void;
+  addCardToPile: (pileNumber: string, cardToPile: cardConfigType) => void;
+  removeCardMovedToFoundation: (cards: cardConfigType[]) => void;
+  cardsFromStock: cardConfigType[];
+  cardsOnFoundations: cardConfigType[];
+  addCardToFoundation: (
+    card: cardConfigType,
+    foundationNumber: string,
+    foundationSuite: string
+  ) => void;
+  cardsOnPiles: { [key: string]: cardConfigType[] };
+  removeCardFromFoundation: (foundationNumber: string) => void;
+  addPoints: (points: number) => void;
   startGame: () => void;
 };
 
-const Pile: React.FC<propTypes> = (props: propTypes) => {
+const Pile: React.FC<pilePropTypes> = (props) => {
   const {
     cardsOnPile,
     pileIndex,
@@ -47,7 +50,14 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
   const ref = useRef<HTMLDivElement>(null);
   const { cardBackImage } = useContext(CardBackContext);
 
-  const dropCardOnPile = (dragObject: any, item: any) => {
+  const dropCardOnPile = (dragObject: {
+    cardFront: string;
+    cardSuite: string;
+    cardColor: string;
+    cardOrder: number;
+    pileNumber: string;
+    foundationNumber: string;
+  }) => {
     const {
       cardFront,
       cardSuite,
@@ -66,7 +76,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     ];
 
     const indexOfDraggedCardOnPile = cardsOnPiles[pileNumber]
-      ?.map((el: string[]) => `${el[0]}_${el[1]}`)
+      ?.map((el: cardConfigType) => `${el[0]}_${el[1]}`)
       .indexOf(`${cardFront}_${cardSuite}`);
 
     const cardsToDrag = cardsOnPiles[pileNumber]?.slice(
@@ -74,7 +84,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     );
 
     if (pileNumber !== undefined) {
-      cardsToDrag.forEach((card: any) => {
+      cardsToDrag.forEach((card: cardConfigType) => {
         const cardToDrag: cardConfigType = [
           card[0],
           card[1],
@@ -99,7 +109,11 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
     }
   };
 
-  const canBeDroppedOnPile = (draggedCard: any) => {
+  const canBeDroppedOnPile = (draggedCard: {
+    cardFront: string;
+    cardOrder: string;
+    cardColor: string;
+  }) => {
     const cardsOnPileLength = pileTarget.props.children.length;
     const frontCardOnPile =
       pileTarget.props.children[cardsOnPileLength - 1]?.props.children.props;
@@ -117,10 +131,12 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
 
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: itemTypes.CARD,
-    drop: (monitor, item) => {
-      dropCardOnPile(monitor, item);
+    drop: (monitor) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dropCardOnPile(monitor as any);
     },
-    canDrop: canBeDroppedOnPile,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    canDrop: (draggedCard) => canBeDroppedOnPile(draggedCard as any),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop(),
@@ -134,7 +150,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
       const isTurnedBackString = card[2];
       const cardsOnPileLength = cardsOnPile.length;
       const shouldBeTurnedAfterDrag = isTurnedBackString
-        ? !Boolean(isTurnedBackString)
+        ? !isTurnedBackString
         : pileIndex > index;
       const canBeTurned =
         !isTurnedBackString && cardsOnPileLength - 1 === index ? true : false;
@@ -153,7 +169,7 @@ const Pile: React.FC<propTypes> = (props: propTypes) => {
             isTurnedBack={shouldBeTurnedAfterDrag}
             canBeTurned={canBeTurned}
             pileNumber={pileIndex}
-            onDoubleClick={(e: any) =>
+            onDoubleClick={(e: MouseEvent<HTMLInputElement>) =>
               moveToFoundation(
                 e,
                 cardsOnFoundations,
@@ -208,8 +224,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(cardActions.removeCardFromPile(pileNumber)),
     addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
       dispatch(cardActions.addCardToPile(pileNumber, cardToPile)),
-    removeCardMovedToFoundation: (payload: cardConfigType) => {
-      dispatch(cardActions.removeCardMovedToFoundation(payload));
+    removeCardMovedToFoundation: (cards: cardConfigType[]) => {
+      dispatch(cardActions.removeCardMovedToFoundation(cards));
     },
     addCardToFoundation: (
       card: cardConfigType,
