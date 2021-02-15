@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
 import DeckSelect from "../DeckSelect";
 
@@ -26,11 +26,5 @@ describe("renders DeckSelect", () => {
     expect(screen.getByText("OK")).toBeTruthy();
     expect(screen.getByText("Cancel")).toBeTruthy();
     expect(container.querySelectorAll(".closeButton")).toHaveLength(1);
-  });
-  it("and when card clicked two times it update card back state", () => {
-    const { container } = render(deckSelectComponent);
-    fireEvent.dblClick(
-      container.querySelectorAll(".deckContainer__cardBack")[0]
-    );
   });
 });
