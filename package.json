@@ -38,6 +38,7 @@
     "rmmodules": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build:packages": "lerna run webpack",
     "test": "jest",
+    "test:ci": "jest --collect-coverage",
     "eslint:packages": "node ./node_modules/.bin/eslint --fix-dry-run packages/"
   },
   "husky": {
