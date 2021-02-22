@@ -9,24 +9,31 @@ import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import styles from "./CardStock.module.scss";
 
-export interface cardStockPropTypes {
-  cardsOnStock: cardConfigType[];
-  cardsFromStock: cardConfigType[];
+export type cardStockStateTypes = {
+  cardsOnStock?: cardConfigType[];
+  cardsFromStock?: cardConfigType[];
+  cardsOnFoundations?: cardConfigType[];
+};
+export type cardStockDispatchTypes = {
   takeOneFromStock: (cardToPush: cardConfigType) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
   removeCardMovedToFoundation: (card: cardConfigType[]) => void;
-  cardsOnFoundations: cardConfigType[];
   addCardToFoundation: (
     card: cardConfigType,
     foundationNumber: string,
     foundationSuite: string
   ) => void;
-  distanceBtwPiles: number;
   addPoints: (points: number) => void;
   startGame: () => void;
-}
+};
 
-const CardStock: React.FC<cardStockPropTypes> = (props) => {
+export type cardStockPropTypes = {
+  distanceBtwPiles?: number;
+};
+
+const CardStock: React.FC<
+  cardStockPropTypes & cardStockStateTypes & cardStockDispatchTypes
+> = (props) => {
   const {
     cardsOnStock,
     cardsFromStock,
@@ -41,12 +48,12 @@ const CardStock: React.FC<cardStockPropTypes> = (props) => {
   } = props;
 
   const moveFirstFromTheTop = () => {
-    if (cardsOnStock.length) {
+    if (cardsOnStock?.length) {
       const cardToPush = cardsOnStock.pop();
       takeOneFromStock(cardToPush as cardConfigType);
       startGame();
     } else {
-      reverseStock(cardsFromStock.reverse());
+      reverseStock((cardsFromStock as cardConfigType[]).reverse());
     }
   };
 
@@ -60,7 +67,7 @@ const CardStock: React.FC<cardStockPropTypes> = (props) => {
         style={{ marginRight: `${distanceBtwPiles}px` }}
       >
         <div className={styles.cardStock__cardHolder}>
-          {cardsOnStock.length
+          {cardsOnStock?.length
             ? cardsOnStock.map((card, index) => (
                 <div
                   className={[styles.card, styles[`card_${index}`]].join(" ")}
@@ -81,7 +88,7 @@ const CardStock: React.FC<cardStockPropTypes> = (props) => {
         </div>
       </div>
       <div className={styles.cardsOnTable}>
-        {cardsFromStock.map((card, index) => (
+        {cardsFromStock?.map((card, index) => (
           <div
             className={[styles.card, styles[`card_${index}`]].join(" ")}
             id={`${index}`}
@@ -99,7 +106,7 @@ const CardStock: React.FC<cardStockPropTypes> = (props) => {
               ) =>
                 moveToFoundation(
                   e,
-                  cardsOnFoundations,
+                  cardsOnFoundations as cardConfigType[],
                   addCardToFoundation,
                   removeCardMovedToFoundation,
                   false,
@@ -145,4 +152,11 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardStock);
+export default connect<
+  cardStockStateTypes,
+  cardStockDispatchTypes,
+  cardStockPropTypes
+>(
+  mapStateToProps as any,
+  mapDispatchToProps as any
+)(CardStock);
