@@ -49,9 +49,8 @@ const AppToolbar: React.FC<propTypes> = (props) => {
               setGameVisible((gameVisible: boolean) => !gameVisible);
               setHelpVisible(false);
             }}
-          >
-            Game
-          </TopbarButton>
+            buttonText={"Game"}
+          />
           <ToolDropdown visible={gameVisible}>
             <>
               <ToolButton
@@ -104,9 +103,8 @@ const AppToolbar: React.FC<propTypes> = (props) => {
               setHelpVisible((helpVisible: boolean) => !helpVisible);
               setGameVisible(false);
             }}
-          >
-            Help
-          </TopbarButton>
+            buttonText={"Help"}
+          />
           <ToolDropdown visible={helpVisible}>
             <>
               <ToolButton

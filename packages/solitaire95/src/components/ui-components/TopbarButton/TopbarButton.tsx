@@ -2,15 +2,15 @@ import React from "react";
 import styles from "./TopbarButton.module.scss";
 
 type propTypes = {
-  children: React.ReactChild;
+  buttonText: string;
   onClick: () => void;
 };
 
 const TopbarButton: React.FC<propTypes> = (props) => {
-  const { children, onClick } = props;
+  const { buttonText, onClick } = props;
   return (
     <div className={styles.container} onClick={onClick}>
-      <span>{children}</span>
+      <span>{buttonText}</span>
     </div>
   );
 };

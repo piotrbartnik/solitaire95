@@ -4,9 +4,7 @@ import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
 import DeckSelect from "../DeckSelect";
 
 const deckSelectComponent = dndWrapper(
-  reduxWrapper(
-    <DeckSelect isWindowVisible={true} toggleCardBackWindow={() => false} />
-  )
+  reduxWrapper(<DeckSelect isWindowVisible={true} />)
 );
 
 describe("renders DeckSelect", () => {
