@@ -28,7 +28,7 @@ export type foundationDispatchTypes = {
 };
 
 export type foundationPropTypes = {
-  cardsOnStock: cardConfigType[];
+  cardsOnFoundation: cardConfigType[];
   foundationId: string | number;
 };
 
@@ -36,7 +36,7 @@ const Foundation: React.FC<
   foundationPropTypes & foundationDispatchTypes & foundationStateTypes
 > = (props) => {
   const {
-    cardsOnStock,
+    cardsOnFoundation,
     addCardToFoundation,
     removeCardFromPile,
     removeCardMovedToFoundation,
@@ -133,8 +133,8 @@ const Foundation: React.FC<
       }
       id={foundationId?.toString()}
     >
-      {cardsOnStock?.length
-        ? cardsOnStock.map((card, index) => (
+      {cardsOnFoundation?.length
+        ? cardsOnFoundation.map((card, index) => (
             <Card
               cardFront={card[0]}
               cardSuite={card[1]}

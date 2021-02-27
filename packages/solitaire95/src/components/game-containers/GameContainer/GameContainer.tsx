@@ -59,7 +59,7 @@ const GameContainer: React.FC<propTypes> = (props) => {
               cardsOnFourthFoundation,
             ].map((cardsOnFondation, index) => (
               <FoundationField
-                cardsOnStock={cardsOnFondation}
+                cardsOnFoundation={cardsOnFondation}
                 foundationId={index}
                 key={index}
               />
