@@ -78,6 +78,6 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 export default connect<deckSelectStateTypes, deckSelectDispatchTypes>(
-  mapStateToProps as any,
-  mapDispatchToProps as any
+  mapStateToProps,
+  mapDispatchToProps
 )(DeckSelect);
