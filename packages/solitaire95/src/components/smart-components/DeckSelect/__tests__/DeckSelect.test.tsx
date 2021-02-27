@@ -3,9 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
 import DeckSelect from "../DeckSelect";
 
-const deckSelectComponent = dndWrapper(
-  reduxWrapper(<DeckSelect isWindowVisible={true} />)
-);
+const deckSelectComponent = dndWrapper(reduxWrapper(<DeckSelect />));
 
 describe("renders DeckSelect", () => {
   it("and check score wrapper exists with top label", () => {
