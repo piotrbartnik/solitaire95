@@ -10,8 +10,12 @@ import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Foundation.module.scss";
 
-type foundationPropTypes = {
-  cardsOnStock: cardConfigType[];
+export type foundationStateTypes = {
+  cardsFromStock: cardConfigType[];
+  cardsOnFoundations: cardConfigType[];
+};
+
+export type foundationDispatchTypes = {
   addCardToFoundation: (
     card: cardConfigType,
     foundationNumber: string,
@@ -20,13 +24,17 @@ type foundationPropTypes = {
   removeCardFromPile: (pileNumber: string) => void;
   addPoints: (points: number) => void;
   removeCardMovedToFoundation: (card: cardConfigType[]) => void;
-  cardsFromStock: cardConfigType[];
-  cardsOnFoundations: cardConfigType[];
-  foundationId: string | number;
   startGame: () => void;
 };
 
-const Foundation: React.FC<foundationPropTypes> = (props) => {
+export type foundationPropTypes = {
+  cardsOnStock: cardConfigType[];
+  foundationId: string | number;
+};
+
+const Foundation: React.FC<
+  foundationPropTypes & foundationDispatchTypes & foundationStateTypes
+> = (props) => {
   const {
     cardsOnStock,
     addCardToFoundation,
@@ -171,4 +179,11 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Foundation);
+export default connect<
+  foundationStateTypes,
+  foundationDispatchTypes,
+  foundationPropTypes
+>(
+  mapStateToProps,
+  mapDispatchToProps
+)(Foundation);
