@@ -4,7 +4,7 @@ export interface FoundationState {
   cards: cardConfigType[];
 }
 
-interface CardsOnFoundationActionReturnActionTypes {
+export interface CardsOnFoundationActionReturnActionTypes {
   type: string;
   addFoundationColor: string;
   addCardToFoundation: cardConfigType;

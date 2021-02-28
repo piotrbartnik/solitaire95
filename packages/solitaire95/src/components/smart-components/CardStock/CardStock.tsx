@@ -4,6 +4,7 @@ import { CardBackContext } from "../../game-containers";
 import * as cardActions from "../../../store/actions/cardActions";
 import * as scoreActions from "../../../store/actions/scoreActions";
 import * as gameActions from "../../../store/actions/gameActions";
+import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
 import { Card } from "..";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
@@ -123,7 +124,10 @@ const CardStock: React.FC<
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: {
+  cardDistribution: CardsDistributionInitialState;
+  cardsOnFoundation: any;
+}) => {
   return {
     cardsOnStock: state.cardDistribution.cardsOnStock,
     cardsFromStock: state.cardDistribution.cardsFromStock,
@@ -131,6 +135,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
     takeOneFromStock: (payload: cardConfigType) =>
@@ -157,6 +162,6 @@ export default connect<
   CardStockDispatchTypes,
   CardStockPropTypes
 >(
-  mapStateToProps as any,
-  mapDispatchToProps as any
+  mapStateToProps,
+  mapDispatchToProps
 )(CardStock);
