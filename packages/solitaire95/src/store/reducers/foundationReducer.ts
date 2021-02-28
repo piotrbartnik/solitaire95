@@ -1,10 +1,10 @@
 import { cardConfigType } from "../../configs/cardTypes";
-export interface foundationState {
+export interface FoundationState {
   foundationSuite: string | undefined;
   cards: cardConfigType[];
 }
 
-interface cardsOnFoundationActionReturnActionTypes {
+interface CardsOnFoundationActionReturnActionTypes {
   type: string;
   addFoundationColor: string;
   addCardToFoundation: cardConfigType;
@@ -12,7 +12,7 @@ interface cardsOnFoundationActionReturnActionTypes {
 }
 
 export interface FoundationInitialState {
-  [key: string]: foundationState;
+  [key: string]: FoundationState;
 }
 
 const initialState: FoundationInitialState = {
@@ -24,7 +24,7 @@ const initialState: FoundationInitialState = {
 
 const immutableCardsArray = (
   state: FoundationInitialState,
-  action: cardsOnFoundationActionReturnActionTypes,
+  action: CardsOnFoundationActionReturnActionTypes,
   foundation: string
 ) => {
   const cardsArray = state[foundation].cards?.slice();
@@ -34,10 +34,10 @@ const immutableCardsArray = (
 
 const cardsOnFoundationActionReturn = (
   state: FoundationInitialState,
-  action: cardsOnFoundationActionReturnActionTypes,
+  action: CardsOnFoundationActionReturnActionTypes,
   foundation: string
 ): {
-  [key: string]: foundationState;
+  [key: string]: FoundationState;
 } => ({
   ...state,
   [foundation]: {
@@ -58,9 +58,9 @@ const foundations = [
 
 export const cardsOnFoundation = (
   state = initialState,
-  action: cardsOnFoundationActionReturnActionTypes
+  action: CardsOnFoundationActionReturnActionTypes
 ): {
-  [key: string]: foundationState;
+  [key: string]: FoundationState;
 } => {
   switch (action.type) {
     case "DEAL_CARDS":

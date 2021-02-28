@@ -9,12 +9,12 @@ import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import styles from "./CardStock.module.scss";
 
-export type cardStockStateTypes = {
+export type CardStockStateTypes = {
   cardsOnStock?: cardConfigType[];
   cardsFromStock?: cardConfigType[];
   cardsOnFoundations?: cardConfigType[];
 };
-export type cardStockDispatchTypes = {
+export type CardStockDispatchTypes = {
   takeOneFromStock: (cardToPush: cardConfigType) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
   removeCardMovedToFoundation: (card: cardConfigType[]) => void;
@@ -27,12 +27,12 @@ export type cardStockDispatchTypes = {
   startGame: () => void;
 };
 
-export type cardStockPropTypes = {
+export type CardStockPropTypes = {
   distanceBtwPiles?: number;
 };
 
 const CardStock: React.FC<
-  cardStockPropTypes & cardStockStateTypes & cardStockDispatchTypes
+  CardStockPropTypes & CardStockStateTypes & CardStockDispatchTypes
 > = (props) => {
   const {
     cardsOnStock,
@@ -153,9 +153,9 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 export default connect<
-  cardStockStateTypes,
-  cardStockDispatchTypes,
-  cardStockPropTypes
+  CardStockStateTypes,
+  CardStockDispatchTypes,
+  CardStockPropTypes
 >(
   mapStateToProps as any,
   mapDispatchToProps as any

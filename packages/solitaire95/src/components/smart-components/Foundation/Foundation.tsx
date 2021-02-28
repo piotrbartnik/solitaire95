@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import { CardBackContext } from "../../game-containers";
-import { cardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
+import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
 import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
 import * as cardActions from "../../../store/actions/cardActions";
 import * as scoreActions from "../../../store/actions/scoreActions";
@@ -12,12 +12,12 @@ import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Foundation.module.scss";
 
-export type foundationStateTypes = {
+export type FoundationStateTypes = {
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: FoundationInitialState;
 };
 
-export type foundationDispatchTypes = {
+export type FoundationDispatchTypes = {
   addCardToFoundation: (
     card: cardConfigType,
     foundationNumber: string,
@@ -29,13 +29,13 @@ export type foundationDispatchTypes = {
   startGame: () => void;
 };
 
-export type foundationPropTypes = {
+export type FoundationPropTypes = {
   cardsOnFoundation: cardConfigType[];
   foundationId: string | number;
 };
 
 const Foundation: React.FC<
-  foundationPropTypes & foundationDispatchTypes & foundationStateTypes
+  FoundationPropTypes & FoundationDispatchTypes & FoundationStateTypes
 > = (props) => {
   const {
     cardsOnFoundation,
@@ -162,7 +162,7 @@ const Foundation: React.FC<
 };
 
 const mapStateToProps = (state: {
-  cardDistribution: cardsDistributionInitialState;
+  cardDistribution: CardsDistributionInitialState;
   cardsOnFoundation: FoundationInitialState;
 }) => {
   return {
@@ -192,9 +192,9 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 export default connect<
-  foundationStateTypes,
-  foundationDispatchTypes,
-  foundationPropTypes
+  FoundationStateTypes,
+  FoundationDispatchTypes,
+  FoundationPropTypes
 >(
   mapStateToProps,
   mapDispatchToProps

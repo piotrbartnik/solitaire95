@@ -3,7 +3,7 @@ import { DragElementWrapper, DragSourceOptions } from "react-dnd";
 import appIco from "../../../static/appIco.png";
 import styles from "./TopBar.module.scss";
 
-type propTypes = {
+type PropTypes = {
   title: string;
   showIcon?: boolean;
   children?: JSX.Element;
@@ -11,7 +11,7 @@ type propTypes = {
   dragRef?: DragElementWrapper<DragSourceOptions>;
 };
 
-const TopBar: React.FC<propTypes> = (props) => {
+const TopBar: React.FC<PropTypes> = (props) => {
   const { title, showIcon, children, shouldBeGreyedOut, dragRef } = props;
   return (
     <>

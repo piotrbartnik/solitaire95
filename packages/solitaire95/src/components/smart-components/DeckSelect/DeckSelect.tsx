@@ -6,14 +6,14 @@ import { SettingsWindow } from "../../ui-components";
 import { cardBackImages } from "../../../static/cardBacks";
 import styles from "./DeckSelect.module.scss";
 
-export type deckSelectStateTypes = {
+export type DeckSelectStateTypes = {
   isWindowVisible?: boolean;
 };
-export type deckSelectDispatchTypes = {
+export type DeckSelectDispatchTypes = {
   toggleCardBackWindow?: any;
 };
 
-const DeckSelect: React.FC<deckSelectStateTypes & deckSelectDispatchTypes> = (
+const DeckSelect: React.FC<DeckSelectStateTypes & DeckSelectDispatchTypes> = (
   props
 ) => {
   const { isWindowVisible, toggleCardBackWindow } = props;
@@ -77,7 +77,7 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect<deckSelectStateTypes, deckSelectDispatchTypes>(
+export default connect<DeckSelectStateTypes, DeckSelectDispatchTypes>(
   mapStateToProps,
   mapDispatchToProps
 )(DeckSelect);

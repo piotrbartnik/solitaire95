@@ -12,7 +12,7 @@ import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import { useSetCardsPositionFromTopOnPiles } from "./PileHooks";
 
-type pilePropTypes = {
+type PilePropTypes = {
   cardsOnPile: cardConfigType[];
   pileIndex: number;
   removeCardFromPile: (pile: string) => void;
@@ -31,7 +31,7 @@ type pilePropTypes = {
   startGame: () => void;
 };
 
-const Pile: React.FC<pilePropTypes> = (props) => {
+const Pile: React.FC<PilePropTypes> = (props) => {
   const {
     cardsOnPile,
     pileIndex,
