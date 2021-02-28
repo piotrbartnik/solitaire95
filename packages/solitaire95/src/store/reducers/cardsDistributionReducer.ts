@@ -1,6 +1,6 @@
 import { cardConfigType } from "../../configs/cardTypes";
 
-export interface initialState {
+export interface cardsDistributionInitialState {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
@@ -18,7 +18,7 @@ export interface cardDistributionActionTypes {
   addCardToPile: number;
 }
 
-const initialState: initialState = {
+const initialState: cardsDistributionInitialState = {
   cardsOnStock: [],
   cardsFromStock: [],
   cardsOnPiles: {},
@@ -27,7 +27,7 @@ const initialState: initialState = {
 export const cardDistribution = (
   state = initialState,
   action: cardDistributionActionTypes
-): initialState => {
+): cardsDistributionInitialState => {
   switch (action.type) {
     case "DEAL_CARDS":
       return {

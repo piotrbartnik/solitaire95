@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import { CardBackContext } from "../../game-containers";
+import { cardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
+import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
 import * as cardActions from "../../../store/actions/cardActions";
 import * as scoreActions from "../../../store/actions/scoreActions";
 import * as gameActions from "../../../store/actions/gameActions";
@@ -12,7 +14,7 @@ import styles from "./Foundation.module.scss";
 
 export type foundationStateTypes = {
   cardsFromStock: cardConfigType[];
-  cardsOnFoundations: cardConfigType[];
+  cardsOnFoundations: FoundationInitialState;
 };
 
 export type foundationDispatchTypes = {
@@ -49,6 +51,8 @@ const Foundation: React.FC<
 
   const { cardBackImage } = useContext(CardBackContext);
 
+  console.log(cardsOnFoundations);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const canBeDroppedOnFoundation = (card: any) => {
     const foundationTargetId = foundationTarget.props.id;
@@ -59,10 +63,14 @@ const Foundation: React.FC<
     if (card.cardFront?.match(/ace/)) {
       return foundationObject.foundationSuite === undefined;
     } else {
-      const cardsOnFoundation = foundationObject.cards;
+      const resolvedCardsOnFoundation = foundationObject.cards;
       return (
         card.cardSuite === foundationObject.foundationSuite &&
-        parseInt(cardsOnFoundation[cardsOnFoundation.length - 1][4]) ===
+        parseInt(
+          resolvedCardsOnFoundation[
+            resolvedCardsOnFoundation.length - 1
+          ][4] as string
+        ) ===
           card.cardOrder - 1
       );
     }
@@ -153,13 +161,17 @@ const Foundation: React.FC<
   return <>{foundationTarget}</>;
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: {
+  cardDistribution: cardsDistributionInitialState;
+  cardsOnFoundation: FoundationInitialState;
+}) => {
   return {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
     addCardToFoundation: (

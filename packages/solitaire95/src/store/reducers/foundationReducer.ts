@@ -11,11 +11,11 @@ interface cardsOnFoundationActionReturnActionTypes {
   removeCardFromFoundation: number;
 }
 
-interface initialFoundationState {
+export interface FoundationInitialState {
   [key: string]: foundationState;
 }
 
-const initialState: initialFoundationState = {
+const initialState: FoundationInitialState = {
   cardsOnFirstFoundation: { foundationSuite: undefined, cards: [] },
   cardsOnSecondFoundation: { foundationSuite: undefined, cards: [] },
   cardsOnThirdFoundation: { foundationSuite: undefined, cards: [] },
@@ -23,7 +23,7 @@ const initialState: initialFoundationState = {
 };
 
 const immutableCardsArray = (
-  state: initialFoundationState,
+  state: FoundationInitialState,
   action: cardsOnFoundationActionReturnActionTypes,
   foundation: string
 ) => {
@@ -33,7 +33,7 @@ const immutableCardsArray = (
 };
 
 const cardsOnFoundationActionReturn = (
-  state: initialFoundationState,
+  state: FoundationInitialState,
   action: cardsOnFoundationActionReturnActionTypes,
   foundation: string
 ): {
