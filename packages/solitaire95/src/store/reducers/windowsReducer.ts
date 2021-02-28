@@ -1,4 +1,4 @@
-interface WindowsState {
+export interface WindowsState {
   cardBackWindowState: boolean;
 }
 
