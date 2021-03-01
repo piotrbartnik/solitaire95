@@ -5,15 +5,16 @@ import * as cardActions from "../../../store/actions/cardActions";
 import * as scoreActions from "../../../store/actions/scoreActions";
 import * as gameActions from "../../../store/actions/gameActions";
 import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
+import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
 import { Card } from "..";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import styles from "./CardStock.module.scss";
 
 export type CardStockStateTypes = {
-  cardsOnStock?: cardConfigType[];
-  cardsFromStock?: cardConfigType[];
-  cardsOnFoundations?: cardConfigType[];
+  cardsOnStock: cardConfigType[];
+  cardsFromStock: cardConfigType[];
+  cardsOnFoundations: FoundationInitialState;
 };
 export type CardStockDispatchTypes = {
   takeOneFromStock: (cardToPush: cardConfigType) => void;
@@ -107,7 +108,7 @@ const CardStock: React.FC<
               ) =>
                 moveToFoundation(
                   e,
-                  cardsOnFoundations as cardConfigType[],
+                  cardsOnFoundations,
                   addCardToFoundation,
                   removeCardMovedToFoundation,
                   false,
@@ -126,7 +127,7 @@ const CardStock: React.FC<
 
 const mapStateToProps = (state: {
   cardDistribution: CardsDistributionInitialState;
-  cardsOnFoundation: any;
+  cardsOnFoundation: FoundationInitialState;
 }) => {
   return {
     cardsOnStock: state.cardDistribution.cardsOnStock,
