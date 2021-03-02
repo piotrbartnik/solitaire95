@@ -15,13 +15,13 @@ export const CardBackContext = createContext({
   playSounds: true,
 });
 
-type propTypes = {
+type PropTypes = {
   isWindowVisible?: boolean;
   playSounds?: boolean;
   score?: number;
 };
 
-const MainPage: React.FC<propTypes> = (props) => {
+const MainPage: React.FC<PropTypes> = (props) => {
   const { isWindowVisible, playSounds, score } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {

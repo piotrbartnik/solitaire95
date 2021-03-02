@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./Button.module.scss";
 
-type propTypes = {
+type PropTypes = {
   text: string;
   onClick?: () => void;
 };
 
-const Button: React.FC<propTypes> = (props) => {
+const Button: React.FC<PropTypes> = (props) => {
   const { text, onClick } = props;
   return (
     <div className={styles.button} tabIndex={0} onClick={onClick}>

@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 
-export interface resetScoreTypes {
+export interface ResetScoreTypes {
   type: string;
 }
 
@@ -13,7 +13,7 @@ export const countScore = (
   };
 };
 
-export const resetScore = (): resetScoreTypes => {
+export const resetScore = (): ResetScoreTypes => {
   return {
     type: actionTypes.RESET_SCORE,
   };

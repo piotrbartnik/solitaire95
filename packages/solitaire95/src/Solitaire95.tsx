@@ -30,11 +30,11 @@ if (!persistedState) {
   store.dispatch(scoreActions.resetScore());
 }
 
-type propTypes = {
+type PropTypes = {
   playSounds?: boolean;
 };
 
-const Solitaire95: React.FC<propTypes> = (props) => {
+const Solitaire95: React.FC<PropTypes> = (props) => {
   const { playSounds } = props;
   return (
     <Provider store={store}>

@@ -4,17 +4,19 @@ import { CardBackContext } from "../../game-containers";
 import * as cardActions from "../../../store/actions/cardActions";
 import * as scoreActions from "../../../store/actions/scoreActions";
 import * as gameActions from "../../../store/actions/gameActions";
+import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
+import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
 import { Card } from "..";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import styles from "./CardStock.module.scss";
 
-export type cardStockStateTypes = {
-  cardsOnStock?: cardConfigType[];
-  cardsFromStock?: cardConfigType[];
-  cardsOnFoundations?: cardConfigType[];
+export type CardStockStateTypes = {
+  cardsOnStock: cardConfigType[];
+  cardsFromStock: cardConfigType[];
+  cardsOnFoundations: FoundationInitialState;
 };
-export type cardStockDispatchTypes = {
+export type CardStockDispatchTypes = {
   takeOneFromStock: (cardToPush: cardConfigType) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
   removeCardMovedToFoundation: (card: cardConfigType[]) => void;
@@ -27,12 +29,12 @@ export type cardStockDispatchTypes = {
   startGame: () => void;
 };
 
-export type cardStockPropTypes = {
+export type CardStockPropTypes = {
   distanceBtwPiles?: number;
 };
 
 const CardStock: React.FC<
-  cardStockPropTypes & cardStockStateTypes & cardStockDispatchTypes
+  CardStockPropTypes & CardStockStateTypes & CardStockDispatchTypes
 > = (props) => {
   const {
     cardsOnStock,
@@ -106,7 +108,7 @@ const CardStock: React.FC<
               ) =>
                 moveToFoundation(
                   e,
-                  cardsOnFoundations as cardConfigType[],
+                  cardsOnFoundations,
                   addCardToFoundation,
                   removeCardMovedToFoundation,
                   false,
@@ -123,7 +125,10 @@ const CardStock: React.FC<
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: {
+  cardDistribution: CardsDistributionInitialState;
+  cardsOnFoundation: FoundationInitialState;
+}) => {
   return {
     cardsOnStock: state.cardDistribution.cardsOnStock,
     cardsFromStock: state.cardDistribution.cardsFromStock,
@@ -131,6 +136,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
     takeOneFromStock: (payload: cardConfigType) =>
@@ -153,10 +159,10 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 export default connect<
-  cardStockStateTypes,
-  cardStockDispatchTypes,
-  cardStockPropTypes
+  CardStockStateTypes,
+  CardStockDispatchTypes,
+  CardStockPropTypes
 >(
-  mapStateToProps as any,
-  mapDispatchToProps as any
+  mapStateToProps,
+  mapDispatchToProps
 )(CardStock);

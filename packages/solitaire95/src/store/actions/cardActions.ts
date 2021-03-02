@@ -1,7 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import { createCards, cardConfigType } from "../../configs/cardTypes";
 
-export interface cardDealTypes {
+export interface CardDealTypes {
   type: string;
   cardsForStock: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
@@ -32,7 +32,7 @@ const orderPiles = (
   return cardsOnPiles;
 };
 
-export const dealCards = (): cardDealTypes => {
+export const dealCards = (): CardDealTypes => {
   const [cardsForStock, cardsForPiles] = mixCardsForGame(
     createCards as cardConfigType[]
   );

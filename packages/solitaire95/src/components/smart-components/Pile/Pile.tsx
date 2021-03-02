@@ -1,6 +1,8 @@
 import React, { useRef, useContext, MouseEvent } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
+import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
+import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
 import * as cardActions from "../../../store/actions/cardActions";
 import * as scoreActions from "../../../store/actions/scoreActions";
 import * as gameActions from "../../../store/actions/gameActions";
@@ -12,26 +14,34 @@ import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import { useSetCardsPositionFromTopOnPiles } from "./PileHooks";
 
-type pilePropTypes = {
-  cardsOnPile: cardConfigType[];
-  pileIndex: number;
+type PileStateTypes = {
+  cardsFromStock: cardConfigType[];
+  cardsOnFoundations: FoundationInitialState;
+  cardsOnPiles: { [key: string]: cardConfigType[] };
+};
+
+type PileDispatchTypes = {
   removeCardFromPile: (pile: string) => void;
   addCardToPile: (pileNumber: string, cardToPile: cardConfigType) => void;
   removeCardMovedToFoundation: (cards: cardConfigType[]) => void;
-  cardsFromStock: cardConfigType[];
-  cardsOnFoundations: cardConfigType[];
   addCardToFoundation: (
     card: cardConfigType,
     foundationNumber: string,
     foundationSuite: string
   ) => void;
-  cardsOnPiles: { [key: string]: cardConfigType[] };
   removeCardFromFoundation: (foundationNumber: string) => void;
   addPoints: (points: number) => void;
   startGame: () => void;
 };
 
-const Pile: React.FC<pilePropTypes> = (props) => {
+type PilePropTypes = {
+  cardsOnPile: cardConfigType[];
+  pileIndex: number;
+};
+
+const Pile: React.FC<PileStateTypes & PileDispatchTypes & PilePropTypes> = (
+  props
+) => {
   const {
     cardsOnPile,
     pileIndex,
@@ -210,7 +220,10 @@ const Pile: React.FC<pilePropTypes> = (props) => {
   return <>{pileTarget}</>;
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: {
+  cardDistribution: CardsDistributionInitialState;
+  cardsOnFoundation: FoundationInitialState;
+}) => {
   return {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
@@ -218,6 +231,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
     removeCardFromPile: (pileNumber: string) =>
@@ -244,4 +258,7 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pile);
+export default connect<PileStateTypes, PileDispatchTypes, PilePropTypes>(
+  mapStateToProps,
+  mapDispatchToProps
+)(Pile);

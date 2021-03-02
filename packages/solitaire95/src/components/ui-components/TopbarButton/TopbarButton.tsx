@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./TopbarButton.module.scss";
 
-type propTypes = {
+type PropTypes = {
   buttonText: string;
   onClick: () => void;
 };
 
-const TopbarButton: React.FC<propTypes> = (props) => {
+const TopbarButton: React.FC<PropTypes> = (props) => {
   const { buttonText, onClick } = props;
   return (
     <div className={styles.container} onClick={onClick}>
@@ -14,7 +14,5 @@ const TopbarButton: React.FC<propTypes> = (props) => {
     </div>
   );
 };
-
-TopbarButton.propTypes = {};
 
 export default TopbarButton;

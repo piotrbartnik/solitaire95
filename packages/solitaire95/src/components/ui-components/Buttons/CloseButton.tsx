@@ -2,11 +2,11 @@ import React from "react";
 import xButton from "../../../static/misc/xButton.png";
 import styles from "./Button.module.scss";
 
-type propTypes = {
+type PropTypes = {
   onClick?: () => void;
 };
 
-const CloseButton: React.FC<propTypes> = (props) => {
+const CloseButton: React.FC<PropTypes> = (props) => {
   const { onClick } = props;
   return (
     <div

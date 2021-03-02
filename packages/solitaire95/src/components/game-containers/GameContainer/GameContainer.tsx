@@ -6,7 +6,7 @@ import { FoundationField, Pile, CardStock } from "../../smart-components";
 import { cardConfigType } from "../../../configs/cardTypes";
 import styles from "./GameContainer.module.scss";
 
-type propTypes = {
+type PropTypes = {
   cardsOnFirstFoundation: cardConfigType[];
   cardsOnSecondFoundation: cardConfigType[];
   cardsOnThirdFoundation: cardConfigType[];
@@ -19,7 +19,7 @@ type propTypes = {
   cardsOnPiles: cardConfigType;
 };
 
-const GameContainer: React.FC<propTypes> = (props) => {
+const GameContainer: React.FC<PropTypes> = (props) => {
   const {
     cardsOnFirstFoundation,
     cardsOnSecondFoundation,

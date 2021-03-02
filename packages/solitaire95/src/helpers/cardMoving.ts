@@ -1,8 +1,9 @@
 import { cardConfigType } from "../configs/cardTypes";
+import { FoundationInitialState } from "../store/reducers/foundationReducer";
 
 export const moveToFoundation = (
   event: React.SyntheticEvent<HTMLDivElement>,
-  cardsOnFoundations: cardConfigType[],
+  cardsOnFoundations: FoundationInitialState,
   addToFoundationCallback: (
     card: cardConfigType,
     foundationNumber: string,
@@ -46,7 +47,9 @@ export const moveToFoundation = (
       if (cardsOnFoundations[foundation].foundationSuite === suite) {
         const cardsOnFoundation = cardsOnFoundations[foundation].cards;
         if (
-          parseInt(cardsOnFoundation[cardsOnFoundation.length - 1][4]) ===
+          parseInt(
+            cardsOnFoundation[cardsOnFoundation.length - 1][4] as string
+          ) ===
           order - 1
         ) {
           pileOrStock

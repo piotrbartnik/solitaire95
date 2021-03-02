@@ -1,19 +1,20 @@
 import React, { useContext, useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/windowActions";
+import { WindowsState } from "../../../store/reducers/windowsReducer";
 import { CardBackContext } from "../../game-containers";
 import { SettingsWindow } from "../../ui-components";
 import { cardBackImages } from "../../../static/cardBacks";
 import styles from "./DeckSelect.module.scss";
 
-export type deckSelectStateTypes = {
+export type DeckSelectStateTypes = {
   isWindowVisible?: boolean;
 };
-export type deckSelectDispatchTypes = {
-  toggleCardBackWindow?: any;
+export type DeckSelectDispatchTypes = {
+  toggleCardBackWindow: (windowState: boolean) => void;
 };
 
-const DeckSelect: React.FC<deckSelectStateTypes & deckSelectDispatchTypes> = (
+const DeckSelect: React.FC<DeckSelectStateTypes & DeckSelectDispatchTypes> = (
   props
 ) => {
   const { isWindowVisible, toggleCardBackWindow } = props;
@@ -64,12 +65,13 @@ const DeckSelect: React.FC<deckSelectStateTypes & deckSelectDispatchTypes> = (
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
   return {
     isWindowVisible: state.toggleWindows.cardBackWindowState,
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
     toggleCardBackWindow: (payload: boolean) =>
@@ -77,7 +79,7 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect<deckSelectStateTypes, deckSelectDispatchTypes>(
+export default connect<DeckSelectStateTypes, DeckSelectDispatchTypes>(
   mapStateToProps,
   mapDispatchToProps
 )(DeckSelect);

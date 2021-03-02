@@ -4,8 +4,8 @@ import * as cardActions from "../../../store/actions/cardActions";
 import * as windowActions from "../../../store/actions/windowActions";
 import * as scoreActions from "../../../store/actions/scoreActions";
 import * as gameActions from "../../../store/actions/gameActions";
-import { cardDealTypes } from "../../../store/actions/cardActions";
-import { resetScoreTypes } from "../../../store/actions/scoreActions";
+import { CardDealTypes } from "../../../store/actions/cardActions";
+import { ResetScoreTypes } from "../../../store/actions/scoreActions";
 import {
   ToolBar,
   TopbarButton,
@@ -15,7 +15,7 @@ import {
 import { ToolDropdown } from "../../smart-components";
 import styles from "./AppToolbar.module.scss";
 
-type propTypes = {
+type PropTypes = {
   dealCards: () => void;
   toggleCardBackWindow: (windowState: boolean) => void;
   gameVisible: boolean;
@@ -27,7 +27,7 @@ type propTypes = {
   stopGame: () => void;
 };
 
-const AppToolbar: React.FC<propTypes> = (props) => {
+const AppToolbar: React.FC<PropTypes> = (props) => {
   const {
     dealCards,
     toggleCardBackWindow,
@@ -131,7 +131,7 @@ const AppToolbar: React.FC<propTypes> = (props) => {
 };
 
 const mapDispatchToProps = (
-  dispatch: (dispatch: cardDealTypes | resetScoreTypes) => void
+  dispatch: (dispatch: CardDealTypes | ResetScoreTypes) => void
 ) => {
   return {
     dealCards: () => dispatch(cardActions.dealCards()),

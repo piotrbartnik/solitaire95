@@ -1,8 +1,8 @@
-interface dragItemsConfig {
+interface DragItemsConfig {
   [key: string]: string;
 }
 
-export const itemTypes: dragItemsConfig = {
+export const itemTypes: DragItemsConfig = {
   CARD: "card",
   WINDOW: "window",
 };

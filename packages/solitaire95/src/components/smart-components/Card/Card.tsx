@@ -6,7 +6,7 @@ import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardBackImages } from "../../../static/cardBacks";
 import styles from "./Card.module.scss";
 
-type cardPropTypes = {
+type CardPropTypes = {
   cardFront: string;
   cardColor: string;
   cardSuite: string;
@@ -22,7 +22,7 @@ type cardPropTypes = {
   canBeTurned?: boolean;
 };
 
-const Card: React.FC<cardPropTypes> = (props) => {
+const Card: React.FC<CardPropTypes> = (props) => {
   const {
     cardFront,
     cardBack,

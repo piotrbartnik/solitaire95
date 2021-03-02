@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./ToolDropdown.module.scss";
 
-type propTypes = {
+type PropTypes = {
   children?: React.ReactChild;
   visible: boolean;
 };
 
-const ToolDropdown: React.FC<propTypes> = (props) => {
+const ToolDropdown: React.FC<PropTypes> = (props) => {
   const { children, visible } = props;
   return (
     <div

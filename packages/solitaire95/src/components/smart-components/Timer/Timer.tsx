@@ -4,13 +4,13 @@ import * as scoreActions from "../../../store/actions/scoreActions";
 import styles from "./Timer.module.scss";
 import { useStartTimer, useSubstractPointsEveryTenSeconds } from "./TimerHooks";
 
-type timerPropTypes = {
+type TimerPropTypes = {
   gameStarted: boolean;
   substractPoints: (poinst: number) => void;
   score: number;
 };
 
-const Timer: React.FC<timerPropTypes> = (props) => {
+const Timer: React.FC<TimerPropTypes> = (props) => {
   const { gameStarted, substractPoints, score } = props;
 
   const time = useStartTimer(gameStarted);
