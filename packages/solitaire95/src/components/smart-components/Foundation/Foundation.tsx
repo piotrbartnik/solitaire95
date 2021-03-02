@@ -51,8 +51,6 @@ const Foundation: React.FC<
 
   const { cardBackImage } = useContext(CardBackContext);
 
-  console.log(cardsOnFoundations);
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const canBeDroppedOnFoundation = (card: any) => {
     const foundationTargetId = foundationTarget.props.id;
