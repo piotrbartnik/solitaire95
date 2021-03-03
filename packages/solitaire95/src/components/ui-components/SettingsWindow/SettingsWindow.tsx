@@ -9,7 +9,7 @@ import { TopBar, Button, CloseButton } from "../index";
 import { SettingsWindowDragLayer } from "./SettingsWindowDragLayer";
 import styles from "./SettingsWindow.module.scss";
 
-type PropTypes = {
+type SettingWindowPropTypes = {
   children?: React.ReactNode;
   windowTitle: string;
   visible: boolean;
@@ -19,7 +19,7 @@ type PropTypes = {
   closeButtonAction?: () => void;
 };
 
-export const SettingsWindow: React.FC<PropTypes> = (props) => {
+export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
   const {
     children,
     windowTitle,

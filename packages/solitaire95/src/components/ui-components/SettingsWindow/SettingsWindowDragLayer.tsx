@@ -3,11 +3,13 @@ import CSS from "csstype";
 import { useDragLayer } from "react-dnd";
 import { itemTypes } from "../../../configs/dragndropConfig";
 
-type PropTypes = {
+type SettingsWindowDragLayerPropTypes = {
   size: string[];
 };
 
-export const SettingsWindowDragLayer: React.FC<PropTypes> = (props) => {
+export const SettingsWindowDragLayer: React.FC<SettingsWindowDragLayerPropTypes> = (
+  props
+) => {
   const { size } = props;
 
   const { itemType, currentOffset } = useDragLayer((monitor) => ({
