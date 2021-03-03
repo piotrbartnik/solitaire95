@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Score from "../Score";
+import { Score } from "../Score";
 
 describe("renders Score", () => {
   it("and check score wrapper exists", () => {

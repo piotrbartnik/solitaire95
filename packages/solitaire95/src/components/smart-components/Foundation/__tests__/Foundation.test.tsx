@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
-import Foundation from "../Foundation";
+import { Foundation } from "../Foundation";
 import { cardConfigType } from "src/configs/cardTypes";
 
 const testAceCardStock = [["ace", "clubs", undefined, "black", 1]];

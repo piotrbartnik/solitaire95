@@ -1,10 +1,10 @@
 import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import { reduxWrapper } from "../../../../helpers/testHelpers";
 import { render } from "@testing-library/react";
-import Timer from "../Timer";
 import { act } from "react-dom/test-utils";
+import { reduxWrapper } from "../../../../helpers/testHelpers";
+import { Timer } from "../Timer";
 
 jest.useFakeTimers();
 const mockStore = configureStore([]);

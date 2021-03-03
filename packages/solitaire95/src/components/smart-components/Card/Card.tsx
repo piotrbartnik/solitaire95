@@ -22,7 +22,7 @@ type CardPropTypes = {
   canBeTurned?: boolean;
 };
 
-const Card: React.FC<CardPropTypes> = (props) => {
+export const Card: React.FC<CardPropTypes> = (props) => {
   const {
     cardFront,
     cardBack,
@@ -100,5 +100,3 @@ const Card: React.FC<CardPropTypes> = (props) => {
     </div>
   );
 };
-
-export default Card;

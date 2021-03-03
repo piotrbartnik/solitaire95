@@ -3,7 +3,7 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { render, fireEvent } from "@testing-library/react";
 import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
-import CardStock from "../CardStock";
+import { CardStock } from "../CardStock";
 
 const mockStore = configureStore([]);
 

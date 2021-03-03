@@ -14,9 +14,9 @@ export type DeckSelectDispatchTypes = {
   toggleCardBackWindow: (windowState: boolean) => void;
 };
 
-const DeckSelect: React.FC<DeckSelectStateTypes & DeckSelectDispatchTypes> = (
-  props
-) => {
+const DeckSelectInternal: React.FC<
+  DeckSelectStateTypes & DeckSelectDispatchTypes
+> = (props) => {
   const { isWindowVisible, toggleCardBackWindow } = props;
   const [selectedCardBack, setSelectedCardBack] = useState<string>("");
   const { cardBackImage, setCardBackImage } = useContext(CardBackContext);
@@ -79,7 +79,10 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect<DeckSelectStateTypes, DeckSelectDispatchTypes>(
+export const DeckSelect = connect<
+  DeckSelectStateTypes,
+  DeckSelectDispatchTypes
+>(
   mapStateToProps,
   mapDispatchToProps
-)(DeckSelect);
+)(DeckSelectInternal);

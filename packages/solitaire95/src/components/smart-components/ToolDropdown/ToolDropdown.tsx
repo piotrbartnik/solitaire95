@@ -6,7 +6,7 @@ type PropTypes = {
   visible: boolean;
 };
 
-const ToolDropdown: React.FC<PropTypes> = (props) => {
+export const ToolDropdown: React.FC<PropTypes> = (props) => {
   const { children, visible } = props;
   return (
     <div
@@ -19,5 +19,3 @@ const ToolDropdown: React.FC<PropTypes> = (props) => {
     </div>
   );
 };
-
-export default ToolDropdown;

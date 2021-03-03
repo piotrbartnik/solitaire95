@@ -39,9 +39,9 @@ type PilePropTypes = {
   pileIndex: number;
 };
 
-const Pile: React.FC<PileStateTypes & PileDispatchTypes & PilePropTypes> = (
-  props
-) => {
+const PileInternal: React.FC<
+  PileStateTypes & PileDispatchTypes & PilePropTypes
+> = (props) => {
   const {
     cardsOnPile,
     pileIndex,
@@ -258,7 +258,7 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect<PileStateTypes, PileDispatchTypes, PilePropTypes>(
+export const Pile = connect<PileStateTypes, PileDispatchTypes, PilePropTypes>(
   mapStateToProps,
   mapDispatchToProps
-)(Pile);
+)(PileInternal);

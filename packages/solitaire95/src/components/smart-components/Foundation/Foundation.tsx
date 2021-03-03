@@ -34,7 +34,7 @@ export type FoundationPropTypes = {
   foundationId: string | number;
 };
 
-const Foundation: React.FC<
+const FoundationInternal: React.FC<
   FoundationPropTypes & FoundationDispatchTypes & FoundationStateTypes
 > = (props) => {
   const {
@@ -189,11 +189,11 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect<
+export const Foundation = connect<
   FoundationStateTypes,
   FoundationDispatchTypes,
   FoundationPropTypes
 >(
   mapStateToProps,
   mapDispatchToProps
-)(Foundation);
+)(FoundationInternal);

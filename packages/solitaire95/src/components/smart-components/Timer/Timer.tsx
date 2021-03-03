@@ -10,7 +10,7 @@ type TimerPropTypes = {
   score: number;
 };
 
-const Timer: React.FC<TimerPropTypes> = (props) => {
+const TimerInternal: React.FC<TimerPropTypes> = (props) => {
   const { gameStarted, substractPoints, score } = props;
 
   const time = useStartTimer(gameStarted);
@@ -33,4 +33,7 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+export const Timer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TimerInternal);

@@ -33,7 +33,7 @@ export type CardStockPropTypes = {
   distanceBtwPiles?: number;
 };
 
-const CardStock: React.FC<
+const CardStockInternal: React.FC<
   CardStockPropTypes & CardStockStateTypes & CardStockDispatchTypes
 > = (props) => {
   const {
@@ -158,11 +158,11 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect<
+export const CardStock = connect<
   CardStockStateTypes,
   CardStockDispatchTypes,
   CardStockPropTypes
 >(
   mapStateToProps,
   mapDispatchToProps
-)(CardStock);
+)(CardStockInternal);
