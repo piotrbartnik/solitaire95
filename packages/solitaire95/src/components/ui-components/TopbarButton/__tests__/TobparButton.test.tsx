@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import TopbarButton from "../TopbarButton";
+import { TopbarButton } from "../TopbarButton";
 
 describe("render TopbarButton", () => {
   it("and check if it is visible", () => {

@@ -6,7 +6,7 @@ type PropTypes = {
   onClick?: () => void;
 };
 
-const CloseButton: React.FC<PropTypes> = (props) => {
+export const CloseButton: React.FC<PropTypes> = (props) => {
   const { onClick } = props;
   return (
     <div
@@ -19,5 +19,3 @@ const CloseButton: React.FC<PropTypes> = (props) => {
     </div>
   );
 };
-
-export default CloseButton;

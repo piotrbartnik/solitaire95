@@ -6,7 +6,7 @@ type PropTypes = {
   onClick?: () => void;
 };
 
-const Button: React.FC<PropTypes> = (props) => {
+export const Button: React.FC<PropTypes> = (props) => {
   const { text, onClick } = props;
   return (
     <div className={styles.button} tabIndex={0} onClick={onClick}>
@@ -14,5 +14,3 @@ const Button: React.FC<PropTypes> = (props) => {
     </div>
   );
 };
-
-export default Button;

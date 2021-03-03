@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
-import BottomBar from "../BottomBar";
+import { BottomBar } from "../BottomBar";
 
 describe("render BottomBar", () => {
   it("and check if bottom bar container is rendered", () => {

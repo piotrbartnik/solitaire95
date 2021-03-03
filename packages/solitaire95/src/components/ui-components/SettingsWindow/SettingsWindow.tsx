@@ -19,7 +19,7 @@ type PropTypes = {
   closeButtonAction?: () => void;
 };
 
-const SettingsWindow: React.FC<PropTypes> = (props) => {
+export const SettingsWindow: React.FC<PropTypes> = (props) => {
   const {
     children,
     windowTitle,
@@ -149,5 +149,3 @@ const SettingsWindow: React.FC<PropTypes> = (props) => {
     </div>
   );
 };
-
-export default SettingsWindow;

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Button from "../Button";
-import CloseButton from "../CloseButton";
+import { Button } from "../Button";
+import { CloseButton } from "../CloseButton";
 
 describe("render Button", () => {
   it("and check if it has text on it rendered", () => {

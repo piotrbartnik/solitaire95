@@ -11,7 +11,7 @@ type PropTypes = {
   dragRef?: DragElementWrapper<DragSourceOptions>;
 };
 
-const TopBar: React.FC<PropTypes> = (props) => {
+export const TopBar: React.FC<PropTypes> = (props) => {
   const { title, showIcon, children, shouldBeGreyedOut, dragRef } = props;
   return (
     <>
@@ -37,5 +37,3 @@ const TopBar: React.FC<PropTypes> = (props) => {
     </>
   );
 };
-
-export default TopBar;

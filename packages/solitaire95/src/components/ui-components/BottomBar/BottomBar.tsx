@@ -7,7 +7,7 @@ type PropTypes = {
   score?: number;
 };
 
-const BottomBar: React.FC<PropTypes> = (props) => {
+export const BottomBar: React.FC<PropTypes> = (props) => {
   const { text, score } = props;
 
   return (
@@ -20,5 +20,3 @@ const BottomBar: React.FC<PropTypes> = (props) => {
     </div>
   );
 };
-
-export default BottomBar;

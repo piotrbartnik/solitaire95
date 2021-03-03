@@ -6,7 +6,7 @@ type PropTypes = {
   onClick: () => void;
 };
 
-const TopbarButton: React.FC<PropTypes> = (props) => {
+export const TopbarButton: React.FC<PropTypes> = (props) => {
   const { buttonText, onClick } = props;
   return (
     <div className={styles.container} onClick={onClick}>
@@ -14,5 +14,3 @@ const TopbarButton: React.FC<PropTypes> = (props) => {
     </div>
   );
 };
-
-export default TopbarButton;
