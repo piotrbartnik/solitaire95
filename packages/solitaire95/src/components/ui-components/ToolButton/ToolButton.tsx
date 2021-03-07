@@ -9,7 +9,7 @@ type ToolButtonPropTypes = {
   text: string;
 };
 
-const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
+export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
   const { onClick, onMouseOver, onMouseLeave, text, disabled } = props;
   return (
     <div className={styles.toolElement}>
@@ -26,5 +26,3 @@ const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
     </div>
   );
 };
-
-export default ToolButton;

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { dndWrapper } from "../../../../helpers/testHelpers";
-import SettingsWindow from "../SettingsWindow";
+import { SettingsWindow } from "../SettingsWindow";
 
 describe("render SettingsWindows", () => {
   it("and check if it is visible", () => {

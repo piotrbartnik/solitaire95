@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Separator from "../Separator";
+import { Separator } from "../Separator";
 
 describe("render Separator", () => {
   it("and check if it is visible", () => {

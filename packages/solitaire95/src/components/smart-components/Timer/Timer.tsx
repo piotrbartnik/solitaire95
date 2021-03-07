@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as scoreActions from "../../../store/actions/scoreActions";
+import { countScore } from "../../../store/actions/";
 import styles from "./Timer.module.scss";
 import { useStartTimer, useSubstractPointsEveryTenSeconds } from "./TimerHooks";
 
@@ -10,7 +10,7 @@ type TimerPropTypes = {
   score: number;
 };
 
-const Timer: React.FC<TimerPropTypes> = (props) => {
+const TimerInternal: React.FC<TimerPropTypes> = (props) => {
   const { gameStarted, substractPoints, score } = props;
 
   const time = useStartTimer(gameStarted);
@@ -28,9 +28,11 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    substractPoints: (payload: number) =>
-      dispatch(scoreActions.countScore(payload)),
+    substractPoints: (payload: number) => dispatch(countScore(payload)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+export const Timer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TimerInternal);

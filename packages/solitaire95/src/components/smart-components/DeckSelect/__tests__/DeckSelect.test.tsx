@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
-import DeckSelect from "../DeckSelect";
+import { DeckSelect } from "../DeckSelect";
 
 const deckSelectComponent = dndWrapper(reduxWrapper(<DeckSelect />));
 

@@ -4,9 +4,13 @@ import { useDrop } from "react-dnd";
 import { CardBackContext } from "../../game-containers";
 import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
 import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
-import * as cardActions from "../../../store/actions/cardActions";
-import * as scoreActions from "../../../store/actions/scoreActions";
-import * as gameActions from "../../../store/actions/gameActions";
+import {
+  addCardToFoundation,
+  removeCardFromPile,
+  removeCardMovedToFoundation,
+  startGame,
+  countScore,
+} from "../../../store/actions/";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
@@ -34,7 +38,7 @@ export type FoundationPropTypes = {
   foundationId: string | number;
 };
 
-const Foundation: React.FC<
+const FoundationInternal: React.FC<
   FoundationPropTypes & FoundationDispatchTypes & FoundationStateTypes
 > = (props) => {
   const {
@@ -176,24 +180,21 @@ const mapDispatchToProps = (dispatch: any) => {
       card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
-    ) =>
-      dispatch(
-        cardActions.addCardToFoundation(card, foundationNumber, foundationSuite)
-      ),
+    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
     removeCardFromPile: (pileNumber: string) =>
-      dispatch(cardActions.removeCardFromPile(pileNumber)),
+      dispatch(removeCardFromPile(pileNumber)),
     removeCardMovedToFoundation: (card: cardConfigType[]) =>
-      dispatch(cardActions.removeCardMovedToFoundation(card)),
-    addPoints: (points: number) => dispatch(scoreActions.countScore(points)),
-    startGame: () => dispatch(gameActions.startGame()),
+      dispatch(removeCardMovedToFoundation(card)),
+    addPoints: (points: number) => dispatch(countScore(points)),
+    startGame: () => dispatch(startGame()),
   };
 };
 
-export default connect<
+export const Foundation = connect<
   FoundationStateTypes,
   FoundationDispatchTypes,
   FoundationPropTypes
 >(
   mapStateToProps,
   mapDispatchToProps
-)(Foundation);
+)(FoundationInternal);

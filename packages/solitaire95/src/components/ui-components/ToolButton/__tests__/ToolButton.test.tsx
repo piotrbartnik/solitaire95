@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
-import ToolButton from "../ToolButton";
+import { ToolButton } from "../ToolButton";
 
 describe("render ToolButton", () => {
   it("and check if it is visible", () => {

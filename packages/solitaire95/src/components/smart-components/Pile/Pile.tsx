@@ -3,9 +3,15 @@ import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
 import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
-import * as cardActions from "../../../store/actions/cardActions";
-import * as scoreActions from "../../../store/actions/scoreActions";
-import * as gameActions from "../../../store/actions/gameActions";
+import {
+  removeCardFromPile,
+  addCardToPile,
+  removeCardMovedToFoundation,
+  addCardToFoundation,
+  removeCardFromFoundation,
+  countScore,
+  startGame,
+} from "../../../store/actions/";
 import { CardBackContext } from "../../game-containers";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
@@ -39,9 +45,9 @@ type PilePropTypes = {
   pileIndex: number;
 };
 
-const Pile: React.FC<PileStateTypes & PileDispatchTypes & PilePropTypes> = (
-  props
-) => {
+const PileInternal: React.FC<
+  PileStateTypes & PileDispatchTypes & PilePropTypes
+> = (props) => {
   const {
     cardsOnPile,
     pileIndex,
@@ -235,30 +241,27 @@ const mapStateToProps = (state: {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     removeCardFromPile: (pileNumber: string) =>
-      dispatch(cardActions.removeCardFromPile(pileNumber)),
+      dispatch(removeCardFromPile(pileNumber)),
     addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
-      dispatch(cardActions.addCardToPile(pileNumber, cardToPile)),
+      dispatch(addCardToPile(pileNumber, cardToPile)),
     removeCardMovedToFoundation: (cards: cardConfigType[]) => {
-      dispatch(cardActions.removeCardMovedToFoundation(cards));
+      dispatch(removeCardMovedToFoundation(cards));
     },
     addCardToFoundation: (
       card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
-    ) =>
-      dispatch(
-        cardActions.addCardToFoundation(card, foundationNumber, foundationSuite)
-      ),
+    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
     removeCardFromFoundation: (foundationNumber: string) =>
-      dispatch(cardActions.removeCardFromFoundation(foundationNumber)),
+      dispatch(removeCardFromFoundation(foundationNumber)),
     addPoints: (payload: number) => {
-      dispatch(scoreActions.countScore(payload));
+      dispatch(countScore(payload));
     },
-    startGame: () => dispatch(gameActions.startGame()),
+    startGame: () => dispatch(startGame()),
   };
 };
 
-export default connect<PileStateTypes, PileDispatchTypes, PilePropTypes>(
+export const Pile = connect<PileStateTypes, PileDispatchTypes, PilePropTypes>(
   mapStateToProps,
   mapDispatchToProps
-)(Pile);
+)(PileInternal);

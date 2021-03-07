@@ -2,12 +2,12 @@ import React from "react";
 import { Timer, Score } from "../../smart-components";
 import styles from "./BottomBar.module.scss";
 
-type PropTypes = {
+type BottomBarPropTypes = {
   text?: string;
   score?: number;
 };
 
-const BottomBar: React.FC<PropTypes> = (props) => {
+export const BottomBar: React.FC<BottomBarPropTypes> = (props) => {
   const { text, score } = props;
 
   return (
@@ -20,5 +20,3 @@ const BottomBar: React.FC<PropTypes> = (props) => {
     </div>
   );
 };
-
-export default BottomBar;

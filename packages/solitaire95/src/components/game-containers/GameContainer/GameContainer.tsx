@@ -1,8 +1,8 @@
 import React, { useRef, MutableRefObject } from "react";
 import { connect } from "react-redux";
 import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
-import * as actions from "../../../store/actions/cardActions";
-import { FoundationField, Pile, CardStock } from "../../smart-components";
+import { addCardToFoundation } from "../../../store/actions/";
+import { Foundation, Pile, CardStock } from "../../smart-components";
 import { cardConfigType } from "../../../configs/cardTypes";
 import styles from "./GameContainer.module.scss";
 
@@ -58,7 +58,7 @@ const GameContainer: React.FC<PropTypes> = (props) => {
               cardsOnThirdFoundation,
               cardsOnFourthFoundation,
             ].map((cardsOnFondation, index) => (
-              <FoundationField
+              <Foundation
                 cardsOnFoundation={cardsOnFondation}
                 foundationId={index}
                 key={index}
@@ -94,10 +94,7 @@ const mapDispatchToProps = (dispatch: any) => {
       card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
-    ) =>
-      dispatch(
-        actions.addCardToFoundation(card, foundationNumber, foundationSuite)
-      ),
+    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
   };
 };
 

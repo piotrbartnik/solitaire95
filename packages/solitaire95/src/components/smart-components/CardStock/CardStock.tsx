@@ -1,9 +1,14 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
 import { CardBackContext } from "../../game-containers";
-import * as cardActions from "../../../store/actions/cardActions";
-import * as scoreActions from "../../../store/actions/scoreActions";
-import * as gameActions from "../../../store/actions/gameActions";
+import {
+  takeOneFromStock,
+  reverseStock,
+  removeCardMovedToFoundation,
+  addCardToFoundation,
+  countScore,
+  startGame,
+} from "../../../store/actions";
 import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
 import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
 import { Card } from "..";
@@ -33,7 +38,7 @@ export type CardStockPropTypes = {
   distanceBtwPiles?: number;
 };
 
-const CardStock: React.FC<
+const CardStockInternal: React.FC<
   CardStockPropTypes & CardStockStateTypes & CardStockDispatchTypes
 > = (props) => {
   const {
@@ -140,29 +145,26 @@ const mapStateToProps = (state: {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     takeOneFromStock: (payload: cardConfigType) =>
-      dispatch(cardActions.takeOneFromStock(payload)),
+      dispatch(takeOneFromStock(payload)),
     reverseStock: (payload: cardConfigType[]) =>
-      dispatch(cardActions.reverseStock(payload)),
+      dispatch(reverseStock(payload)),
     removeCardMovedToFoundation: (payload: cardConfigType[]) =>
-      dispatch(cardActions.removeCardMovedToFoundation(payload)),
+      dispatch(removeCardMovedToFoundation(payload)),
     addCardToFoundation: (
       card: cardConfigType,
       foundationNumber: string,
       foundationSuite: string
-    ) =>
-      dispatch(
-        cardActions.addCardToFoundation(card, foundationNumber, foundationSuite)
-      ),
-    addPoints: (payload: number) => dispatch(scoreActions.countScore(payload)),
-    startGame: () => dispatch(gameActions.startGame()),
+    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
+    addPoints: (payload: number) => dispatch(countScore(payload)),
+    startGame: () => dispatch(startGame()),
   };
 };
 
-export default connect<
+export const CardStock = connect<
   CardStockStateTypes,
   CardStockDispatchTypes,
   CardStockPropTypes
 >(
   mapStateToProps,
   mapDispatchToProps
-)(CardStock);
+)(CardStockInternal);

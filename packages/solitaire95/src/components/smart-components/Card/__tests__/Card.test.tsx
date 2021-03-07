@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { dndWrapper } from "../../../../helpers/testHelpers";
-import Card from "../Card";
+import { Card } from "../Card";
 
 describe("renders Card", () => {
   it("and check if card back is rendered", () => {

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../../store/actions/windowActions";
+import { toggleCardBackWindow } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/windowsReducer";
 import { CardBackContext } from "../../game-containers";
 import { SettingsWindow } from "../../ui-components";
@@ -14,9 +14,9 @@ export type DeckSelectDispatchTypes = {
   toggleCardBackWindow: (windowState: boolean) => void;
 };
 
-const DeckSelect: React.FC<DeckSelectStateTypes & DeckSelectDispatchTypes> = (
-  props
-) => {
+const DeckSelectInternal: React.FC<
+  DeckSelectStateTypes & DeckSelectDispatchTypes
+> = (props) => {
   const { isWindowVisible, toggleCardBackWindow } = props;
   const [selectedCardBack, setSelectedCardBack] = useState<string>("");
   const { cardBackImage, setCardBackImage } = useContext(CardBackContext);
@@ -75,11 +75,14 @@ const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     toggleCardBackWindow: (payload: boolean) =>
-      dispatch(actions.toggleCardBackWindow(payload)),
+      dispatch(toggleCardBackWindow(payload)),
   };
 };
 
-export default connect<DeckSelectStateTypes, DeckSelectDispatchTypes>(
+export const DeckSelect = connect<
+  DeckSelectStateTypes,
+  DeckSelectDispatchTypes
+>(
   mapStateToProps,
   mapDispatchToProps
-)(DeckSelect);
+)(DeckSelectInternal);

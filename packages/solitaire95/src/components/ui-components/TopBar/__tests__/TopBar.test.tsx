@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import TopBar from "../TopBar";
+import { TopBar } from "../TopBar";
 
 describe("render TopBar", () => {
   it("and check if it is visible", () => {
