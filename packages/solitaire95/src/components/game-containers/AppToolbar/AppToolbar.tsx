@@ -1,11 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as cardActions from "../../../store/actions/cardActions";
-import * as windowActions from "../../../store/actions/windowActions";
-import * as scoreActions from "../../../store/actions/scoreActions";
-import * as gameActions from "../../../store/actions/gameActions";
-import { CardDealTypes } from "../../../store/actions/cardActions";
-import { ResetScoreTypes } from "../../../store/actions/scoreActions";
+import {
+  dealCards,
+  resetScore,
+  stopGame,
+  toggleCardBackWindow,
+  CardDealTypes,
+  ResetScoreTypes,
+} from "../../../store/actions/";
 import {
   ToolBar,
   TopbarButton,
@@ -134,11 +136,11 @@ const mapDispatchToProps = (
   dispatch: (dispatch: CardDealTypes | ResetScoreTypes) => void
 ) => {
   return {
-    dealCards: () => dispatch(cardActions.dealCards()),
-    resetScore: () => dispatch(scoreActions.resetScore()),
-    stopGame: () => dispatch(gameActions.stopGame()),
+    dealCards: () => dispatch(dealCards()),
+    resetScore: () => dispatch(resetScore()),
+    stopGame: () => dispatch(stopGame()),
     toggleCardBackWindow: (payload: boolean) =>
-      dispatch(windowActions.toggleCardBackWindow(payload)),
+      dispatch(toggleCardBackWindow(payload)),
   };
 };
 

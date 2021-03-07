@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as scoreActions from "../../../store/actions/scoreActions";
+import { countScore } from "../../../store/actions/";
 import styles from "./Timer.module.scss";
 import { useStartTimer, useSubstractPointsEveryTenSeconds } from "./TimerHooks";
 
@@ -28,8 +28,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    substractPoints: (payload: number) =>
-      dispatch(scoreActions.countScore(payload)),
+    substractPoints: (payload: number) => dispatch(countScore(payload)),
   };
 };
 

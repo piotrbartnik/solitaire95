@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../../store/actions/windowActions";
+import { toggleCardBackWindow } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/windowsReducer";
 import { CardBackContext } from "../../game-containers";
 import { SettingsWindow } from "../../ui-components";
@@ -75,7 +75,7 @@ const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     toggleCardBackWindow: (payload: boolean) =>
-      dispatch(actions.toggleCardBackWindow(payload)),
+      dispatch(toggleCardBackWindow(payload)),
   };
 };
 

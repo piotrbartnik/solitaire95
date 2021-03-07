@@ -1,5 +1,3 @@
-import { formatDiagnostic } from "typescript";
-
 export {
   dealCards,
   takeOneFromStock,
@@ -9,7 +7,8 @@ export {
   removeCardFromPile,
   addCardToPile,
   removeCardFromFoundation,
+  CardDealTypes,
 } from "./cardActions";
 export { startGame, stopGame } from "./gameActions";
-export { countScore, resetScore } from "./scoreActions";
+export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";
 export { toggleCardBackWindow } from "./windowActions";
