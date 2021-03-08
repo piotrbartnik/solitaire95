@@ -5,8 +5,6 @@ import {
   resetScore,
   stopGame,
   toggleCardBackWindow,
-  CardDealTypes,
-  ResetScoreTypes,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -17,19 +15,24 @@ import {
 import { ToolDropdown } from "../../smart-components";
 import styles from "./AppToolbar.module.scss";
 
-type PropTypes = {
+type AppToolbarDispatchTypes = {
   dealCards: () => void;
   toggleCardBackWindow: (windowState: boolean) => void;
-  gameVisible: boolean;
-  helpVisible: boolean;
-  setGameVisible: any;
-  setHelpVisible: any;
-  setBottomBarText: (text: string) => void;
   resetScore: () => void;
   stopGame: () => void;
 };
 
-const AppToolbar: React.FC<PropTypes> = (props) => {
+type AppToolbarPropTypes = {
+  gameVisible: boolean;
+  helpVisible: boolean;
+  setGameVisible: (prevState: boolean) => void;
+  setHelpVisible: (prevState: boolean) => void;
+  setBottomBarText: (text: string) => void;
+};
+
+const AppToolbar: React.FC<AppToolbarDispatchTypes & AppToolbarPropTypes> = (
+  props
+) => {
   const {
     dealCards,
     toggleCardBackWindow,
@@ -48,7 +51,7 @@ const AppToolbar: React.FC<PropTypes> = (props) => {
         <div style={{ width: "100%" }}>
           <TopbarButton
             onClick={() => {
-              setGameVisible((gameVisible: boolean) => !gameVisible);
+              setGameVisible(!gameVisible);
               setHelpVisible(false);
             }}
             buttonText={"Game"}
@@ -60,7 +63,7 @@ const AppToolbar: React.FC<PropTypes> = (props) => {
                   dealCards();
                   resetScore();
                   stopGame();
-                  setGameVisible((gameVisible: boolean) => !gameVisible);
+                  setGameVisible(!gameVisible);
                   setHelpVisible(false);
                 }}
                 onMouseOver={() => setBottomBarText("Deal a new game")}
@@ -102,7 +105,7 @@ const AppToolbar: React.FC<PropTypes> = (props) => {
         <div style={{ width: "100%" }}>
           <TopbarButton
             onClick={() => {
-              setHelpVisible((helpVisible: boolean) => !helpVisible);
+              setHelpVisible(!helpVisible);
               setGameVisible(false);
             }}
             buttonText={"Help"}
@@ -132,9 +135,8 @@ const AppToolbar: React.FC<PropTypes> = (props) => {
   );
 };
 
-const mapDispatchToProps = (
-  dispatch: (dispatch: CardDealTypes | ResetScoreTypes) => void
-) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapDispatchToProps = (dispatch: any) => {
   return {
     dealCards: () => dispatch(dealCards()),
     resetScore: () => dispatch(resetScore()),
@@ -144,4 +146,7 @@ const mapDispatchToProps = (
   };
 };
 
-export default connect(undefined, mapDispatchToProps)(AppToolbar);
+export default connect<never, AppToolbarDispatchTypes, AppToolbarPropTypes>(
+  undefined,
+  mapDispatchToProps
+)(AppToolbar);
