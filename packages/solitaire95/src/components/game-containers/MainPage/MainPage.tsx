@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { TopBar, BottomBar } from "../../ui-components";
 import { DeckSelect } from "../../smart-components";
 import { GameContainer } from "../";
-import AppToolbar from "../AppToolbar/AppToolbar";
+import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
 
 export const CardBackContext = createContext({

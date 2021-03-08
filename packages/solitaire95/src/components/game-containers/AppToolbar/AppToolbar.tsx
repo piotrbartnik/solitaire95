@@ -30,9 +30,9 @@ type AppToolbarPropTypes = {
   setBottomBarText: (text: string) => void;
 };
 
-const AppToolbar: React.FC<AppToolbarDispatchTypes & AppToolbarPropTypes> = (
-  props
-) => {
+const AppToolbarInternal: React.FC<
+  AppToolbarDispatchTypes & AppToolbarPropTypes
+> = (props) => {
   const {
     dealCards,
     toggleCardBackWindow,
@@ -146,7 +146,11 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect<never, AppToolbarDispatchTypes, AppToolbarPropTypes>(
+export const AppToolbar = connect<
+  never,
+  AppToolbarDispatchTypes,
+  AppToolbarPropTypes
+>(
   undefined,
   mapDispatchToProps
-)(AppToolbar);
+)(AppToolbarInternal);
