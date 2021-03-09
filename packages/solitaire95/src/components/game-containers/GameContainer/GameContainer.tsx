@@ -1,25 +1,32 @@
 import React, { useRef, MutableRefObject } from "react";
 import { connect } from "react-redux";
+import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
+import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
 import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
 import { addCardToFoundation } from "../../../store/actions/";
 import { Foundation, Pile, CardStock } from "../../smart-components";
 import { cardConfigType } from "../../../configs/cardTypes";
 import styles from "./GameContainer.module.scss";
 
-type PropTypes = {
+type GameContainerStateTypes = {
   cardsOnFirstFoundation: cardConfigType[];
   cardsOnSecondFoundation: cardConfigType[];
   cardsOnThirdFoundation: cardConfigType[];
   cardsOnFourthFoundation: cardConfigType[];
+  cardsOnPiles: { [key: string]: cardConfigType[] };
+};
+
+type GameContainerDispatchTypes = {
   addCardToFoundation: (
     card: cardConfigType,
     foundationNumber: string,
     foundationSuite: string
   ) => void;
-  cardsOnPiles: cardConfigType;
 };
 
-const GameContainer: React.FC<PropTypes> = (props) => {
+const GameContainer: React.FC<
+  GameContainerStateTypes & GameContainerDispatchTypes
+> = (props) => {
   const {
     cardsOnFirstFoundation,
     cardsOnSecondFoundation,
@@ -28,7 +35,7 @@ const GameContainer: React.FC<PropTypes> = (props) => {
     cardsOnPiles,
   } = props;
 
-  const piles = (config: cardConfigType) =>
+  const piles = (config: { [key: string]: cardConfigType[] }) =>
     Object.keys(config).map((el, index) => (
       <div className={styles.gameContainer__singlePile} key={index}>
         <Pile cardsOnPile={config[el]} pileIndex={index} />
@@ -74,7 +81,10 @@ const GameContainer: React.FC<PropTypes> = (props) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: {
+  cardsOnFoundation: FoundationInitialState;
+  cardDistribution: CardsDistributionInitialState;
+}) => {
   return {
     cardsOnFirstFoundation:
       state.cardsOnFoundation.cardsOnFirstFoundation.cards,
@@ -88,6 +98,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
     addCardToFoundation: (
@@ -98,4 +109,7 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);
+export default connect<GameContainerStateTypes, GameContainerDispatchTypes>(
+  mapStateToProps,
+  mapDispatchToProps
+)(GameContainer);
