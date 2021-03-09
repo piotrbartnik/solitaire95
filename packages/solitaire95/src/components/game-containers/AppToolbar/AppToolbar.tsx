@@ -55,8 +55,9 @@ const AppToolbarInternal: React.FC<
               setHelpVisible(false);
             }}
             buttonText={"Game"}
+            id={"gameButton"}
           />
-          <ToolDropdown visible={gameVisible}>
+          <ToolDropdown visible={gameVisible} buttonId={"gameButton"}>
             <>
               <ToolButton
                 onClick={() => {
@@ -109,8 +110,9 @@ const AppToolbarInternal: React.FC<
               setGameVisible(false);
             }}
             buttonText={"Help"}
+            id={"helpButton"}
           />
-          <ToolDropdown visible={helpVisible}>
+          <ToolDropdown visible={helpVisible} buttonId={"helpButton"}>
             <>
               <ToolButton
                 onMouseOver={() =>

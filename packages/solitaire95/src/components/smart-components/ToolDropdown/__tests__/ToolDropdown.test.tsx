@@ -4,13 +4,15 @@ import { ToolDropdown } from "../ToolDropdown";
 
 describe("render ToolDropdown", () => {
   it("and check if it is visible", () => {
-    const { container } = render(<ToolDropdown visible />);
+    const { container } = render(<ToolDropdown buttonId={"Test"} visible />);
     expect(
       container.querySelector(".dropdownContainer__visible")
     ).toBeVisible();
   });
   it("and check if it is not visible", () => {
-    const { container } = render(<ToolDropdown visible={false} />);
+    const { container } = render(
+      <ToolDropdown buttonId={"Test"} visible={false} />
+    );
     expect(container.querySelector(".dropdownContainer__visible")).toBeFalsy();
   });
 });

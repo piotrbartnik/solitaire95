@@ -20,6 +20,7 @@ export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
         )}
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}
+        role="button"
       >
         {text}
       </div>
