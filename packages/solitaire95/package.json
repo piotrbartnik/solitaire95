@@ -33,7 +33,6 @@
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
     "ts-loader": "^8.0.13",
-    "tslib": "1.10.0",
     "typescript": "3.9.5",
     "url-loader": "^4.1.1",
     "webpack": "^5.11.1",
