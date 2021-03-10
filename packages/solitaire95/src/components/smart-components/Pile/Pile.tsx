@@ -1,8 +1,10 @@
 import React, { useRef, useContext, MouseEvent } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
-import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
-import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
+import {
+  CardsDistributionInitialState,
+  FoundationInitialState,
+} from "../../../store/reducers/";
 import {
   removeCardFromPile,
   addCardToPile,

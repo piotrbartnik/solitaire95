@@ -1,5 +1,5 @@
 import { cardConfigType } from "../configs/cardTypes";
-import { FoundationInitialState } from "../store/reducers/foundationReducer";
+import { FoundationInitialState } from "../store/reducers/";
 
 export const moveToFoundation = (
   event: React.SyntheticEvent<HTMLDivElement>,

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { connect } from "react-redux";
 import { toggleCardBackWindow } from "../../../store/actions/";
-import { WindowsState } from "../../../store/reducers/windowsReducer";
+import { WindowsState } from "../../../store/reducers/";
 import { CardBackContext } from "../../game-containers";
 import { SettingsWindow } from "../../ui-components";
 import { cardBackImages } from "../../../static/cardBacks";

@@ -1,7 +1,9 @@
 import React, { useRef, MutableRefObject } from "react";
 import { connect } from "react-redux";
-import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
-import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
+import {
+  FoundationInitialState,
+  CardsDistributionInitialState,
+} from "../../../store/reducers/";
 import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
 import { addCardToFoundation } from "../../../store/actions/";
 import { Foundation, Pile, CardStock } from "../../smart-components";

@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import { CardBackContext } from "../../game-containers";
-import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
-import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
+import {
+  CardsDistributionInitialState,
+  FoundationInitialState,
+} from "../../../store/reducers/";
 import {
   addCardToFoundation,
   removeCardFromPile,

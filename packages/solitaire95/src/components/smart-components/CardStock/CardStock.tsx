@@ -9,8 +9,10 @@ import {
   countScore,
   startGame,
 } from "../../../store/actions";
-import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
-import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
+import {
+  CardsDistributionInitialState,
+  FoundationInitialState,
+} from "../../../store/reducers/";
 import { Card } from "..";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
