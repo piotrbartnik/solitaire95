@@ -3,6 +3,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import { connect } from "react-redux";
+import { WindowsState } from "../../../store/reducers/windowsReducer";
+import { Points } from "../../../store/reducers/scoreReducer";
 import { TopBar, BottomBar } from "../../ui-components";
 import { DeckSelect } from "../../smart-components";
 import { GameContainer } from "../";
@@ -15,17 +17,18 @@ export const CardBackContext = createContext({
   playSounds: true,
 });
 
-type PropTypes = {
+type MainPageStateTypes = {
   isWindowVisible?: boolean;
   playSounds?: boolean;
   score?: number;
 };
 
-const MainPage: React.FC<PropTypes> = (props) => {
+const MainPage: React.FC<MainPageStateTypes> = (props) => {
   const { isWindowVisible, playSounds, score } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
     cardBackImage: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setCardBackImage: any;
     playSounds: boolean;
   } = {
@@ -47,6 +50,7 @@ const MainPage: React.FC<PropTypes> = (props) => {
       <div
         className={styles.mainPage}
         onClick={(e) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const eventTarget = e.target as any;
           const disabledButton = [
             ...eventTarget.offsetParent.classList,
@@ -81,11 +85,17 @@ const MainPage: React.FC<PropTypes> = (props) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: {
+  toggleWindows: WindowsState;
+  countScore: Points;
+}) => {
   return {
     isWindowVisible: state.toggleWindows.cardBackWindowState,
     score: state.countScore.points,
   };
 };
 
-export default connect(mapStateToProps, undefined)(MainPage);
+export default connect<MainPageStateTypes, undefined>(
+  mapStateToProps,
+  undefined
+)(MainPage);

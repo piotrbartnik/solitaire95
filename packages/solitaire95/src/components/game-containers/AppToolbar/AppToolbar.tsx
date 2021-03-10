@@ -149,7 +149,7 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 export const AppToolbar = connect<
-  never,
+  undefined,
   AppToolbarDispatchTypes,
   AppToolbarPropTypes
 >(
