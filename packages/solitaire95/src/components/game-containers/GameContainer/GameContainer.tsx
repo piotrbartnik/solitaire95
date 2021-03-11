@@ -26,7 +26,7 @@ type GameContainerDispatchTypes = {
   ) => void;
 };
 
-const GameContainer: React.FC<
+const GameContainerInternal: React.FC<
   GameContainerStateTypes & GameContainerDispatchTypes
 > = (props) => {
   const {
@@ -111,7 +111,10 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect<GameContainerStateTypes, GameContainerDispatchTypes>(
+export const GameContainer = connect<
+  GameContainerStateTypes,
+  GameContainerDispatchTypes
+>(
   mapStateToProps,
   mapDispatchToProps
-)(GameContainer);
+)(GameContainerInternal);
