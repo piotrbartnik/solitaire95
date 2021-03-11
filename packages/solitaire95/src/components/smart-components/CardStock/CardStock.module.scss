@@ -25,7 +25,7 @@
     justify-content: center;
     align-items: center;
 
-    div.card {
+    div.cardContainer {
       @for $i from 0 through 7 {
         &.card_#{$i} {
           position: absolute;

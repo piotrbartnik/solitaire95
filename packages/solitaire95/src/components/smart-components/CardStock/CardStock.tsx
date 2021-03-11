@@ -9,8 +9,10 @@ import {
   countScore,
   startGame,
 } from "../../../store/actions";
-import { CardsDistributionInitialState } from "../../../store/reducers/cardsDistributionReducer";
-import { FoundationInitialState } from "../../../store/reducers/foundationReducer";
+import {
+  CardsDistributionInitialState,
+  FoundationInitialState,
+} from "../../../store/reducers/";
 import { Card } from "..";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
@@ -77,7 +79,10 @@ const CardStockInternal: React.FC<
           {cardsOnStock?.length
             ? cardsOnStock.map((card, index) => (
                 <div
-                  className={[styles.card, styles[`card_${index}`]].join(" ")}
+                  className={[
+                    styles.cardContainer,
+                    styles[`card_${index}`],
+                  ].join(" ")}
                   id={`${index}`}
                   key={`${index}${card}cardsOnStock`}
                 >

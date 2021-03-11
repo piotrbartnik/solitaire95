@@ -1,8 +1,8 @@
-interface Points {
+export interface Points {
   points: number;
 }
 
-interface CountScoreActionTypes {
+export interface CountScoreActionTypes {
   type: string;
   countScore: number;
 }
