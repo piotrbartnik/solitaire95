@@ -79,7 +79,10 @@ const CardStockInternal: React.FC<
           {cardsOnStock?.length
             ? cardsOnStock.map((card, index) => (
                 <div
-                  className={[styles.card, styles[`card_${index}`]].join(" ")}
+                  className={[
+                    styles.cardContainer,
+                    styles[`card_${index}`],
+                  ].join(" ")}
                   id={`${index}`}
                   key={`${index}${card}cardsOnStock`}
                 >
