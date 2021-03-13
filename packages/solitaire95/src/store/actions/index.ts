@@ -11,4 +11,4 @@ export {
 } from "./cardActions";
 export { startGame, stopGame } from "./gameActions";
 export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";
-export { toggleCardBackWindow } from "./windowActions";
+export { toggleCardBackWindow, toggleAboutWindow } from "./windowActions";

@@ -36,7 +36,7 @@ const AboutSolitareInternal: React.FC<
 
 const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
   return {
-    isWindowVisible: state.toggleWindows.cardBackWindowState,
+    isWindowVisible: state.toggleWindows.aboutWindowState,
   };
 };
 
