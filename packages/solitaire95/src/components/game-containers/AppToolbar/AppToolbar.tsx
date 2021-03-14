@@ -4,6 +4,7 @@ import {
   dealCards,
   resetScore,
   stopGame,
+  toggleAboutWindow,
   toggleCardBackWindow,
 } from "../../../store/actions/";
 import {
@@ -20,6 +21,7 @@ type AppToolbarDispatchTypes = {
   toggleCardBackWindow: (windowState: boolean) => void;
   resetScore: () => void;
   stopGame: () => void;
+  toggleAboutWindow: (windowState: boolean) => void;
 };
 
 type AppToolbarPropTypes = {
@@ -43,6 +45,7 @@ const AppToolbarInternal: React.FC<
     setBottomBarText,
     resetScore,
     stopGame,
+    toggleAboutWindow,
   } = props;
 
   return (
@@ -126,8 +129,11 @@ const AppToolbarInternal: React.FC<
               <ToolButton
                 onMouseOver={() => setBottomBarText("About Solitaire")}
                 onMouseLeave={() => setBottomBarText("")}
+                onClick={() => {
+                  toggleAboutWindow(true);
+                  setHelpVisible(false);
+                }}
                 text="About"
-                disabled
               />
             </>
           </ToolDropdown>
@@ -145,6 +151,9 @@ const mapDispatchToProps = (dispatch: any) => {
     stopGame: () => dispatch(stopGame()),
     toggleCardBackWindow: (payload: boolean) =>
       dispatch(toggleCardBackWindow(payload)),
+    toggleAboutWindow: (payload: boolean) => {
+      dispatch(toggleAboutWindow(payload));
+    },
   };
 };
 
