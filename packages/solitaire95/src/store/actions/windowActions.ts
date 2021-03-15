@@ -2,12 +2,12 @@ import * as actionTypes from "./actionTypes";
 
 export const toggleWindow = (
   windowState: boolean,
-  windowToClose: string
-): { type: string; windowState: boolean; windowToClose: string } => {
+  windowToToggle: string
+): { type: string; windowState: boolean; windowToToggle: string } => {
   return {
     type: actionTypes.TOGGLE_WINDOW,
     windowState,
-    windowToClose,
+    windowToToggle,
   };
 };
 export const toggleAboutWindow = (

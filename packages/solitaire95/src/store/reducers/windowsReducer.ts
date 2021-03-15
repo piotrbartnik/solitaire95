@@ -7,7 +7,7 @@ interface WindowActionTypes {
   type: string;
   windowState: boolean;
   aboutWindowState: boolean;
-  windowToClose: string;
+  windowToToggle: string;
 }
 
 const initialState: WindowsState = {
@@ -21,7 +21,7 @@ export const toggleWindows = (
 ): WindowsState => {
   switch (action.type) {
     case "TOGGLE_WINDOW":
-      return { ...state, [action.windowToClose]: action.windowState };
+      return { ...state, [action.windowToToggle]: action.windowState };
     case "TOGGLE_ABOUT_WINDOW":
       return { ...state, aboutWindowState: action.aboutWindowState };
     default:

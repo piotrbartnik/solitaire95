@@ -18,7 +18,7 @@ import styles from "./AppToolbar.module.scss";
 
 type AppToolbarDispatchTypes = {
   dealCards: () => void;
-  toggleCardBackWindow: (windowState: boolean, windowToClose: string) => void;
+  toggleCardBackWindow: (windowState: boolean, windowToToggle: string) => void;
   resetScore: () => void;
   stopGame: () => void;
   toggleAboutWindow: (windowState: boolean) => void;
@@ -149,8 +149,8 @@ const mapDispatchToProps = (dispatch: any) => {
     dealCards: () => dispatch(dealCards()),
     resetScore: () => dispatch(resetScore()),
     stopGame: () => dispatch(stopGame()),
-    toggleCardBackWindow: (windowState: boolean, windowToClose: string) =>
-      dispatch(toggleWindow(windowState, windowToClose)),
+    toggleCardBackWindow: (windowState: boolean, windowToToggle: string) =>
+      dispatch(toggleWindow(windowState, windowToToggle)),
     toggleAboutWindow: (payload: boolean) => {
       dispatch(toggleAboutWindow(payload));
     },

@@ -11,7 +11,7 @@ export type DeckSelectStateTypes = {
   isWindowVisible?: boolean;
 };
 export type DeckSelectDispatchTypes = {
-  toggleCardBackWindow: (windowState: boolean, windowToClose: string) => void;
+  toggleCardBackWindow: (windowState: boolean, windowToToggle: string) => void;
 };
 
 const DeckSelectInternal: React.FC<
@@ -74,8 +74,8 @@ const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    toggleCardBackWindow: (windowState: boolean, windowToClose: string) =>
-      dispatch(toggleWindow(windowState, windowToClose)),
+    toggleCardBackWindow: (windowState: boolean, windowToToggle: string) =>
+      dispatch(toggleWindow(windowState, windowToToggle)),
   };
 };
 
