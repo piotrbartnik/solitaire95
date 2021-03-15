@@ -1,11 +1,13 @@
 import * as actionTypes from "./actionTypes";
 
-export const toggleCardBackWindow = (
-  cardBackWindowState: boolean
-): { type: string; cardBackWindowState: boolean } => {
+export const toggleWindow = (
+  windowState: boolean,
+  windowToClose: string
+): { type: string; windowState: boolean; windowToClose: string } => {
   return {
-    type: actionTypes.TOGGLE_CARDBACK_WINDOW,
-    cardBackWindowState: cardBackWindowState,
+    type: actionTypes.TOGGLE_WINDOW,
+    windowState,
+    windowToClose,
   };
 };
 export const toggleAboutWindow = (

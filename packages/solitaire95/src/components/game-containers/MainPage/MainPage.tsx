@@ -90,7 +90,7 @@ const mapStateToProps = (state: {
   countScore: Points;
 }) => {
   return {
-    isWindowVisible: state.toggleWindows.cardBackWindowState,
+    isWindowVisible: state.toggleWindows.cardBackWindow,
     score: state.countScore.points,
   };
 };

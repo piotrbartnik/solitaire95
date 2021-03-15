@@ -5,7 +5,7 @@ import {
   resetScore,
   stopGame,
   toggleAboutWindow,
-  toggleCardBackWindow,
+  toggleWindow,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -18,7 +18,7 @@ import styles from "./AppToolbar.module.scss";
 
 type AppToolbarDispatchTypes = {
   dealCards: () => void;
-  toggleCardBackWindow: (windowState: boolean) => void;
+  toggleCardBackWindow: (windowState: boolean, windowToClose: string) => void;
   resetScore: () => void;
   stopGame: () => void;
   toggleAboutWindow: (windowState: boolean) => void;
@@ -83,7 +83,7 @@ const AppToolbarInternal: React.FC<
               />
               <ToolButton
                 onClick={() => {
-                  toggleCardBackWindow(true);
+                  toggleCardBackWindow(true, "cardBackWindow");
                   setGameVisible(false);
                 }}
                 onMouseOver={() => setBottomBarText("Choose new deck back")}
@@ -149,8 +149,8 @@ const mapDispatchToProps = (dispatch: any) => {
     dealCards: () => dispatch(dealCards()),
     resetScore: () => dispatch(resetScore()),
     stopGame: () => dispatch(stopGame()),
-    toggleCardBackWindow: (payload: boolean) =>
-      dispatch(toggleCardBackWindow(payload)),
+    toggleCardBackWindow: (windowState: boolean, windowToClose: string) =>
+      dispatch(toggleWindow(windowState, windowToClose)),
     toggleAboutWindow: (payload: boolean) => {
       dispatch(toggleAboutWindow(payload));
     },
