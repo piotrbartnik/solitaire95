@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.textContainer {
+  width: 80%;
+  height: 264px;
+  padding: 25px 10px;
+
+  p {
+    padding: 10px;
+  }
+}
+
+.gameIcon {
+  width: 35px;
+  height: fit-content;
+  margin: 25px;
+}

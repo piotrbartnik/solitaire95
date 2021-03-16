@@ -1,9 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Separator } from "../../ui-components";
+import appIco from "../../../static/appIco.png";
 import { toggleWindow } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
-// import styles from "./DeckSelect.module.scss";
+import styles from "./AboutSolitaireWindow.module.scss";
 
 export type AboutSolitareStateTypes = {
   isWindowVisible?: boolean;
@@ -21,6 +23,8 @@ const AboutSolitareInternal: React.FC<
     toggleAboutWindow(false, "aboutWindow");
   };
 
+  const timeInSecondsSinceGameOpened = Math.floor(performance.now() / 1000);
+
   return (
     <SettingsWindow
       windowTitle={"About Solitare"}
@@ -29,7 +33,37 @@ const AboutSolitareInternal: React.FC<
       closeButtonAction={() => toggleAboutWindow(false, "aboutWindow")}
       width={"528px"}
     >
-      About Solitaire
+      <div className={styles.container}>
+        <img src={appIco} className={styles.gameIcon} />
+        <div className={styles.textContainer}>
+          <p>Solitaire</p>
+          <p>Windows 95 Solitaire remake in React</p>
+          <p>
+            developed by{" "}
+            <a
+              href="https://www.linkedin.com/in/piotr-bartnik/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              Piotr Bartnik
+            </a>
+          </p>
+          <p>
+            <a
+              href="https://github.com/piotrbartnik/solitaire95"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              GitHub Repository
+            </a>
+          </p>
+          <Separator />
+          <p>
+            Time since opening Solitaire: {timeInSecondsSinceGameOpened} seconds
+          </p>
+          <p>Your operation system is: {window.navigator.platform}</p>
+        </div>
+      </div>
     </SettingsWindow>
   );
 };
