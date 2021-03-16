@@ -5,6 +5,7 @@ import appIco from "../../../static/appIco.png";
 import { toggleWindow } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
+import { useTimeSinceGameOpened } from "./AboutSolitareWindowHooks";
 import styles from "./AboutSolitaireWindow.module.scss";
 
 export type AboutSolitareStateTypes = {
@@ -23,7 +24,7 @@ const AboutSolitareInternal: React.FC<
     toggleAboutWindow(false, "aboutWindow");
   };
 
-  const timeInSecondsSinceGameOpened = Math.floor(performance.now() / 1000);
+  const timeInSecondsSinceGameOpened = useTimeSinceGameOpened();
 
   return (
     <SettingsWindow
