@@ -46,6 +46,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "yarn eslint:packages",
+      "pre-push": "yarn test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
