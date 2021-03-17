@@ -20,10 +20,11 @@ type MainPageStateTypes = {
   isWindowVisible?: boolean;
   playSounds?: boolean;
   score?: number;
+  aboutChildren?: JSX.Element;
 };
 
 const MainPage: React.FC<MainPageStateTypes> = (props) => {
-  const { isWindowVisible, playSounds, score } = props;
+  const { isWindowVisible, playSounds, score, aboutChildren } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
     cardBackImage: string;
@@ -64,7 +65,7 @@ const MainPage: React.FC<MainPageStateTypes> = (props) => {
       >
         <CardBackContext.Provider value={value}>
           <DeckSelect />
-          <AboutSolitare />
+          <AboutSolitare aboutChildren={aboutChildren} />
           <TopBar
             title={"Solitaire"}
             showIcon

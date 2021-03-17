@@ -8,6 +8,10 @@ import { SettingsWindow } from "../../ui-components";
 import { useTimeSinceGameOpened } from "./AboutSolitareWindowHooks";
 import styles from "./AboutSolitaireWindow.module.scss";
 
+export type AboutSolitareWindowProps = {
+  aboutChildren?: JSX.Element;
+};
+
 export type AboutSolitareStateTypes = {
   isWindowVisible?: boolean;
 };
@@ -16,9 +20,11 @@ export type AboutSolitareDispatchTypes = {
 };
 
 const AboutSolitareInternal: React.FC<
-  AboutSolitareDispatchTypes & AboutSolitareStateTypes
+  AboutSolitareDispatchTypes &
+    AboutSolitareStateTypes &
+    AboutSolitareWindowProps
 > = (props) => {
-  const { isWindowVisible, toggleAboutWindow } = props;
+  const { isWindowVisible, toggleAboutWindow, aboutChildren } = props;
 
   const okOnClick = () => {
     toggleAboutWindow(false, "aboutWindow");
@@ -38,26 +44,7 @@ const AboutSolitareInternal: React.FC<
         <img src={appIco} className={styles.gameIcon} />
         <div className={styles.textContainer}>
           <p>Solitaire</p>
-          <p>Windows 95 Solitaire remake in React</p>
-          <p>
-            developed by{" "}
-            <a
-              href="https://www.linkedin.com/in/piotr-bartnik/"
-              target="blank"
-              rel="noopener noreferrer"
-            >
-              Piotr Bartnik
-            </a>
-          </p>
-          <p>
-            <a
-              href="https://github.com/piotrbartnik/solitaire95"
-              target="blank"
-              rel="noopener noreferrer"
-            >
-              GitHub Repository
-            </a>
-          </p>
+          {aboutChildren}
           <Separator />
           <p>
             Time since opening Solitaire: {timeInSecondsSinceGameOpened} seconds
@@ -85,7 +72,8 @@ const mapDispatchToProps = (dispatch: any) => {
 
 export const AboutSolitare = connect<
   AboutSolitareStateTypes,
-  AboutSolitareDispatchTypes
+  AboutSolitareDispatchTypes,
+  AboutSolitareWindowProps
 >(
   mapStateToProps,
   mapDispatchToProps

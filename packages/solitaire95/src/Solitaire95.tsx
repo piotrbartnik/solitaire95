@@ -32,13 +32,14 @@ if (!persistedState) {
 
 type PropTypes = {
   playSounds?: boolean;
+  aboutChildren?: JSX.Element;
 };
 
 const Solitaire95: React.FC<PropTypes> = (props) => {
-  const { playSounds } = props;
+  const { playSounds, aboutChildren } = props;
   return (
     <Provider store={store}>
-      <MainPage playSounds={playSounds} />
+      <MainPage playSounds={playSounds} aboutChildren={aboutChildren} />
     </Provider>
   );
 };
