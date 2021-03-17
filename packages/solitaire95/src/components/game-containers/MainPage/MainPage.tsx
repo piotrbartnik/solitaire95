@@ -5,7 +5,7 @@ import { TouchBackend } from "react-dnd-touch-backend";
 import { connect } from "react-redux";
 import { WindowsState, Points } from "../../../store/reducers/";
 import { TopBar, BottomBar } from "../../ui-components";
-import { DeckSelect } from "../../smart-components";
+import { DeckSelect, AboutSolitare } from "../../smart-components";
 import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
@@ -20,10 +20,11 @@ type MainPageStateTypes = {
   isWindowVisible?: boolean;
   playSounds?: boolean;
   score?: number;
+  aboutChildren?: JSX.Element;
 };
 
 const MainPage: React.FC<MainPageStateTypes> = (props) => {
-  const { isWindowVisible, playSounds, score } = props;
+  const { isWindowVisible, playSounds, score, aboutChildren } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
     cardBackImage: string;
@@ -64,6 +65,7 @@ const MainPage: React.FC<MainPageStateTypes> = (props) => {
       >
         <CardBackContext.Provider value={value}>
           <DeckSelect />
+          <AboutSolitare aboutChildren={aboutChildren} />
           <TopBar
             title={"Solitaire"}
             showIcon
@@ -89,7 +91,7 @@ const mapStateToProps = (state: {
   countScore: Points;
 }) => {
   return {
-    isWindowVisible: state.toggleWindows.cardBackWindowState,
+    isWindowVisible: state.toggleWindows.cardBackWindow,
     score: state.countScore.points,
   };
 };

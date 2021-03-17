@@ -1,14 +1,17 @@
 export interface WindowsState {
-  cardBackWindowState: boolean;
+  cardBackWindow: boolean;
+  aboutWindow: boolean;
 }
 
 interface WindowActionTypes {
   type: string;
-  cardBackWindowState: boolean;
+  windowState: boolean;
+  windowToToggle: string;
 }
 
 const initialState: WindowsState = {
-  cardBackWindowState: false,
+  cardBackWindow: false,
+  aboutWindow: false,
 };
 
 export const toggleWindows = (
@@ -17,7 +20,7 @@ export const toggleWindows = (
 ): WindowsState => {
   switch (action.type) {
     case "TOGGLE_WINDOW":
-      return { ...state, cardBackWindowState: action.cardBackWindowState };
+      return { ...state, [action.windowToToggle]: action.windowState };
     default:
       return state;
   }

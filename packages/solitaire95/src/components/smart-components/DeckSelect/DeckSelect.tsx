@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { connect } from "react-redux";
-import { toggleCardBackWindow } from "../../../store/actions/";
+import { toggleWindow } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
 import { CardBackContext } from "../../game-containers";
 import { SettingsWindow } from "../../ui-components";
@@ -11,7 +11,7 @@ export type DeckSelectStateTypes = {
   isWindowVisible?: boolean;
 };
 export type DeckSelectDispatchTypes = {
-  toggleCardBackWindow: (windowState: boolean) => void;
+  toggleCardBackWindow: (windowState: boolean, windowToToggle: string) => void;
 };
 
 const DeckSelectInternal: React.FC<
@@ -23,11 +23,11 @@ const DeckSelectInternal: React.FC<
 
   const okOnClick = () => {
     selectedCardBack ? setCardBackImage(selectedCardBack) : undefined;
-    toggleCardBackWindow(false);
+    toggleCardBackWindow(false, "cardBackWindow");
   };
 
   const cancelOnClick = () => {
-    toggleCardBackWindow(false);
+    toggleCardBackWindow(false, "cardBackWindow");
   };
 
   return (
@@ -38,7 +38,7 @@ const DeckSelectInternal: React.FC<
         { text: "Cancel", onClick: cancelOnClick },
       ]}
       visible={isWindowVisible as boolean}
-      closeButtonAction={() => toggleCardBackWindow(false)}
+      closeButtonAction={() => toggleCardBackWindow(false, "cardBackWindow")}
       width={"528px"}
     >
       <div className={styles.deckContainer}>
@@ -55,7 +55,7 @@ const DeckSelectInternal: React.FC<
               onClick={() => setSelectedCardBack(cardBack)}
               onDoubleClick={() => {
                 setCardBackImage(cardBack);
-                toggleCardBackWindow(false);
+                toggleCardBackWindow(false, "cardBackWindow");
               }}
             />
           ))}
@@ -67,15 +67,15 @@ const DeckSelectInternal: React.FC<
 
 const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
   return {
-    isWindowVisible: state.toggleWindows.cardBackWindowState,
+    isWindowVisible: state.toggleWindows.cardBackWindow,
   };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    toggleCardBackWindow: (payload: boolean) =>
-      dispatch(toggleCardBackWindow(payload)),
+    toggleCardBackWindow: (windowState: boolean, windowToToggle: string) =>
+      dispatch(toggleWindow(windowState, windowToToggle)),
   };
 };
 

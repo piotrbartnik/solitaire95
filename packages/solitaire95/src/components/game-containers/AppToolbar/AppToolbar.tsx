@@ -4,7 +4,7 @@ import {
   dealCards,
   resetScore,
   stopGame,
-  toggleCardBackWindow,
+  toggleWindow,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -17,9 +17,10 @@ import styles from "./AppToolbar.module.scss";
 
 type AppToolbarDispatchTypes = {
   dealCards: () => void;
-  toggleCardBackWindow: (windowState: boolean) => void;
+  toggleCardBackWindow: (windowState: boolean, windowToToggle: string) => void;
   resetScore: () => void;
   stopGame: () => void;
+  toggleAboutWindow: (windowState: boolean, windowToToggle: string) => void;
 };
 
 type AppToolbarPropTypes = {
@@ -43,6 +44,7 @@ const AppToolbarInternal: React.FC<
     setBottomBarText,
     resetScore,
     stopGame,
+    toggleAboutWindow,
   } = props;
 
   return (
@@ -80,7 +82,7 @@ const AppToolbarInternal: React.FC<
               />
               <ToolButton
                 onClick={() => {
-                  toggleCardBackWindow(true);
+                  toggleCardBackWindow(true, "cardBackWindow");
                   setGameVisible(false);
                 }}
                 onMouseOver={() => setBottomBarText("Choose new deck back")}
@@ -126,8 +128,11 @@ const AppToolbarInternal: React.FC<
               <ToolButton
                 onMouseOver={() => setBottomBarText("About Solitaire")}
                 onMouseLeave={() => setBottomBarText("")}
+                onClick={() => {
+                  toggleAboutWindow(true, "aboutWindow");
+                  setHelpVisible(false);
+                }}
                 text="About"
-                disabled
               />
             </>
           </ToolDropdown>
@@ -143,8 +148,10 @@ const mapDispatchToProps = (dispatch: any) => {
     dealCards: () => dispatch(dealCards()),
     resetScore: () => dispatch(resetScore()),
     stopGame: () => dispatch(stopGame()),
-    toggleCardBackWindow: (payload: boolean) =>
-      dispatch(toggleCardBackWindow(payload)),
+    toggleCardBackWindow: (windowState: boolean, windowToToggle: string) =>
+      dispatch(toggleWindow(windowState, windowToToggle)),
+    toggleAboutWindow: (windowState: boolean, windowToToggle: string) =>
+      dispatch(toggleWindow(windowState, windowToToggle)),
   };
 };
 
