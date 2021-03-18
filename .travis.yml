@@ -14,8 +14,7 @@ matrix:
     - name: solitaire95-webapp
       env: PACKAGE_LOCATION=applications/web-app PACKAGE_NAME=solitaire95-webapp
 script:
-  - cd ./packages/solitaire95 && npx webpack --no-watch
-  - cd ../author-bio && npx webpack --no-watch
+  - yarn build:packages
   - cd ../../$PACKAGE_LOCATION && yarn build
 after_success:
   - bash <(curl -s https://codecov.io/bash)
