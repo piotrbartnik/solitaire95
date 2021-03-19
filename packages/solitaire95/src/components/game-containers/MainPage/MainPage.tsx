@@ -5,7 +5,7 @@ import { TouchBackend } from "react-dnd-touch-backend";
 import { connect } from "react-redux";
 import { WindowsState, Points } from "../../../store/reducers/";
 import { TopBar, BottomBar } from "../../ui-components";
-import { DeckSelect, AboutSolitare } from "../../smart-components";
+import { DeckSelect, AboutSolitaire } from "../../smart-components";
 import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
@@ -65,7 +65,7 @@ const MainPage: React.FC<MainPageStateTypes> = (props) => {
       >
         <CardBackContext.Provider value={value}>
           <DeckSelect />
-          <AboutSolitare aboutChildren={aboutChildren} />
+          <AboutSolitaire aboutChildren={aboutChildren} />
           <TopBar
             title={"Solitaire"}
             showIcon
