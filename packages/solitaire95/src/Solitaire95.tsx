@@ -4,7 +4,7 @@ import { createStore } from "redux";
 import * as cardActions from "../src/store/actions/cardActions";
 import * as scoreActions from "../src/store/actions/scoreActions";
 import { rootReducer } from "./store/reducers";
-import MainPage from "./components/game-containers/MainPage/MainPage";
+import { MainPage } from "./components/game-containers/MainPage/MainPage";
 import "./Solitaire95.scss";
 
 const persistedState = localStorage.getItem("solitaireState")

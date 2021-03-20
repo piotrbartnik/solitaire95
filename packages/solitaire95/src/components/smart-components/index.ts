@@ -6,7 +6,7 @@ import { CardStock } from "./CardStock/CardStock";
 import { Pile } from "./Pile/Pile";
 import { ToolDropdown } from "./ToolDropdown/ToolDropdown";
 import { DeckSelect } from "./DeckSelect/DeckSelect";
-import { AboutSolitare } from "./AboutSolitaireWindow/AboutSolitaireWindow";
+import { AboutSolitaire } from "./AboutSolitaireWindow/AboutSolitaireWindow";
 
 export {
   Timer,
@@ -17,5 +17,5 @@ export {
   Pile,
   ToolDropdown,
   DeckSelect,
-  AboutSolitare,
+  AboutSolitaire,
 };

@@ -5,7 +5,7 @@ import { TouchBackend } from "react-dnd-touch-backend";
 import { connect } from "react-redux";
 import { WindowsState, Points } from "../../../store/reducers/";
 import { TopBar, BottomBar } from "../../ui-components";
-import { DeckSelect, AboutSolitare } from "../../smart-components";
+import { DeckSelect, AboutSolitaire } from "../../smart-components";
 import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
@@ -23,7 +23,7 @@ type MainPageStateTypes = {
   aboutChildren?: JSX.Element;
 };
 
-const MainPage: React.FC<MainPageStateTypes> = (props) => {
+const MainPageInternal: React.FC<MainPageStateTypes> = (props) => {
   const { isWindowVisible, playSounds, score, aboutChildren } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -52,9 +52,12 @@ const MainPage: React.FC<MainPageStateTypes> = (props) => {
         onClick={(e) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const eventTarget = e.target as any;
-          const disabledButton = [
-            ...eventTarget.offsetParent.classList,
-          ].filter((el) => el.match("dropdownContainer")).length;
+          const classListOfParent = eventTarget.offsetParent?.classList;
+          const disabledButton = classListOfParent
+            ? [...eventTarget?.offsetParent?.classList].filter((el) =>
+                el.match("dropdownContainer")
+              ).length
+            : undefined;
           if (gameVisible && !disabledButton) {
             setGameVisible(false);
           }
@@ -65,7 +68,7 @@ const MainPage: React.FC<MainPageStateTypes> = (props) => {
       >
         <CardBackContext.Provider value={value}>
           <DeckSelect />
-          <AboutSolitare aboutChildren={aboutChildren} />
+          <AboutSolitaire aboutChildren={aboutChildren} />
           <TopBar
             title={"Solitaire"}
             showIcon
@@ -96,7 +99,7 @@ const mapStateToProps = (state: {
   };
 };
 
-export default connect<MainPageStateTypes, undefined>(
+export const MainPage = connect<MainPageStateTypes, undefined>(
   mapStateToProps,
   undefined
-)(MainPage);
+)(MainPageInternal);

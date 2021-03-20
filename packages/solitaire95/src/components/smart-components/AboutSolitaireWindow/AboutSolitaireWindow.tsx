@@ -5,24 +5,24 @@ import appIco from "../../../static/appIco.png";
 import { toggleWindow } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
-import { useTimeSinceGameOpened } from "./AboutSolitareWindowHooks";
+import { useTimeSinceGameOpened } from "./AboutSolitaireWindowHooks";
 import styles from "./AboutSolitaireWindow.module.scss";
 
-export type AboutSolitareWindowProps = {
+export type AboutSolitaireWindowProps = {
   aboutChildren?: JSX.Element;
 };
 
-export type AboutSolitareStateTypes = {
+export type AboutSolitaireStateTypes = {
   isWindowVisible?: boolean;
 };
-export type AboutSolitareDispatchTypes = {
+export type AboutSolitaireDispatchTypes = {
   toggleAboutWindow: (windowState: boolean, windowToToggle: string) => void;
 };
 
-const AboutSolitareInternal: React.FC<
-  AboutSolitareDispatchTypes &
-    AboutSolitareStateTypes &
-    AboutSolitareWindowProps
+const AboutSolitaireInternal: React.FC<
+  AboutSolitaireDispatchTypes &
+    AboutSolitaireStateTypes &
+    AboutSolitaireWindowProps
 > = (props) => {
   const { isWindowVisible, toggleAboutWindow, aboutChildren } = props;
 
@@ -70,11 +70,11 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export const AboutSolitare = connect<
-  AboutSolitareStateTypes,
-  AboutSolitareDispatchTypes,
-  AboutSolitareWindowProps
+export const AboutSolitaire = connect<
+  AboutSolitaireStateTypes,
+  AboutSolitaireDispatchTypes,
+  AboutSolitaireWindowProps
 >(
   mapStateToProps,
   mapDispatchToProps
-)(AboutSolitareInternal);
+)(AboutSolitaireInternal);
