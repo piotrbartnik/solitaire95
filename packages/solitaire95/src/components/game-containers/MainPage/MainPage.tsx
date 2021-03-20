@@ -23,7 +23,7 @@ type MainPageStateTypes = {
   aboutChildren?: JSX.Element;
 };
 
-const MainPage: React.FC<MainPageStateTypes> = (props) => {
+const MainPageInternal: React.FC<MainPageStateTypes> = (props) => {
   const { isWindowVisible, playSounds, score, aboutChildren } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -52,9 +52,12 @@ const MainPage: React.FC<MainPageStateTypes> = (props) => {
         onClick={(e) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const eventTarget = e.target as any;
-          const disabledButton = [
-            ...eventTarget.offsetParent.classList,
-          ].filter((el) => el.match("dropdownContainer")).length;
+          const classListOfParent = eventTarget.offsetParent?.classList;
+          const disabledButton = classListOfParent
+            ? [...eventTarget?.offsetParent?.classList].filter((el) =>
+                el.match("dropdownContainer")
+              ).length
+            : undefined;
           if (gameVisible && !disabledButton) {
             setGameVisible(false);
           }
@@ -96,7 +99,7 @@ const mapStateToProps = (state: {
   };
 };
 
-export default connect<MainPageStateTypes, undefined>(
+export const MainPage = connect<MainPageStateTypes, undefined>(
   mapStateToProps,
   undefined
-)(MainPage);
+)(MainPageInternal);
