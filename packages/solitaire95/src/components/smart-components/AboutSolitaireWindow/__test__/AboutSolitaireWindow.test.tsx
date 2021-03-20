@@ -24,7 +24,7 @@ describe("renders AboutSolitaire", () => {
     });
 
     expect(
-      screen.getByText("Time since opening Solitaire: 133 seconds")
+      screen.getByText(/Time since opening Solitaire: 13\d seconds/)
     ).toBeInTheDocument();
   });
 });
