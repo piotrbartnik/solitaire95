@@ -20,11 +20,11 @@ describe("renders AboutSolitaire", () => {
   it("and timer is updated", () => {
     render(aboutSolitaireWindow);
     act(() => {
-      jest.advanceTimersByTime(127000);
+      jest.advanceTimersByTime(130000);
     });
 
     expect(
-      screen.getByText("Time since opening Solitaire: 128 seconds")
+      screen.getByText("Time since opening Solitaire: 133 seconds")
     ).toBeInTheDocument();
   });
 });
