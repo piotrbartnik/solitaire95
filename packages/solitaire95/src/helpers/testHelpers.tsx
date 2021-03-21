@@ -6,6 +6,7 @@ import { render as rtlRender } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { rootReducer } from "../store/reducers";
+import * as actions from "../store/actions/cardActions";
 
 export const dndWrapper = (component: JSX.Element): JSX.Element => (
   <DndProvider backend={HTML5Backend}>{component}</DndProvider>
@@ -13,11 +14,20 @@ export const dndWrapper = (component: JSX.Element): JSX.Element => (
 
 export const reduxRtlWrapper = (
   component: JSX.Element,
-  {
-    initialState,
-    store = createStore(rootReducer, initialState),
-  }: { initialState?: any; store?: any }
+  state?: { initialState: any; store?: any }
 ): any => {
+  let initialState;
+  let store: any;
+  if (state) {
+    initialState = state.initialState;
+    store = createStore(rootReducer, initialState);
+  }
+
+  if (!state) {
+    store = createStore(rootReducer);
+    store.dispatch(actions.dealCards());
+  }
+
   function Wrapper({ children }: { children: JSX.Element }) {
     return <Provider store={store}>{children}</Provider>;
   }

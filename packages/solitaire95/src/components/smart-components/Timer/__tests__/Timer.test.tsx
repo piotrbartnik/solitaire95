@@ -3,7 +3,7 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { reduxWrapper } from "../../../../helpers/testHelpers";
+import { reduxRtlWrapper } from "../../../../helpers/testHelpers";
 import { Timer } from "../Timer";
 
 jest.useFakeTimers();
@@ -11,12 +11,12 @@ const mockStore = configureStore([]);
 
 describe("renders Timer", () => {
   it("and check if it has the single div wrapper", () => {
-    const { asFragment } = render(reduxWrapper(<Timer />));
+    const { asFragment } = reduxRtlWrapper(<Timer />);
     expect(asFragment().querySelectorAll("div")).toHaveLength(1);
   });
 
   it("and it should have time 0 at the beggining", () => {
-    const { getByText } = render(reduxWrapper(<Timer />));
+    const { getByText } = reduxRtlWrapper(<Timer />);
     expect(getByText("Time: 0")).toBeInTheDocument();
   });
 
@@ -40,15 +40,13 @@ describe("renders Timer", () => {
   });
 
   it("and it should have time 127 after 127 seconds", () => {
-    const store = mockStore({
+    const intialState = {
       gameState: { gameStarted: true },
       countScore: { points: 0 },
+    };
+    const { getByText } = reduxRtlWrapper(<Timer />, {
+      initialState: intialState,
     });
-    const { getByText } = render(
-      <Provider store={store}>
-        <Timer />
-      </Provider>
-    );
     act(() => {
       jest.advanceTimersByTime(127000);
     });
