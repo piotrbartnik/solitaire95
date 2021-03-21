@@ -1,8 +1,8 @@
 import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import { render, fireEvent } from "@testing-library/react";
-import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
+import { fireEvent } from "@testing-library/react";
+import { dndWrapper, reduxRtlWrapper } from "../../../../helpers/testHelpers";
 import { CardStock } from "../CardStock";
 
 const mockStore = configureStore([]);
@@ -24,19 +24,19 @@ const store = mockStore({
 
 describe("renders CardStock", () => {
   it("with 24 cards turned back on it", () => {
-    const { container } = render(dndWrapper(reduxWrapper(<CardStock />)));
+    const { container } = reduxRtlWrapper(dndWrapper(<CardStock />));
     expect(container.querySelectorAll(".cardBack")).toHaveLength(24);
   });
 
   it("and when card clicked it is turned front and added to cards on table", () => {
-    const { container } = render(dndWrapper(reduxWrapper(<CardStock />)));
+    const { container } = reduxRtlWrapper(dndWrapper(<CardStock />));
     fireEvent.click(container.querySelector(".card") as Element);
     expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
   });
 
   describe("with custom state", () => {
     it("with 1 card turned back on it", () => {
-      const { container } = render(
+      const { container } = reduxRtlWrapper(
         dndWrapper(
           <Provider store={store}>
             <CardStock />
@@ -47,7 +47,7 @@ describe("renders CardStock", () => {
     });
 
     it("with ace and it is moved to foundations on doubleclick", () => {
-      const { container } = render(
+      const { container } = reduxRtlWrapper(
         dndWrapper(
           <Provider store={store}>
             <CardStock />

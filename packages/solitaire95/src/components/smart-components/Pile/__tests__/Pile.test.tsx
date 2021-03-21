@@ -1,6 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import { dndWrapper, reduxWrapper } from "../../../../helpers/testHelpers";
+import { dndWrapper, reduxRtlWrapper } from "../../../../helpers/testHelpers";
 import { Pile } from "../Pile";
 import { cardConfigType } from "src/configs/cardTypes";
 
@@ -19,25 +18,24 @@ const testAceCardStockTwoBackTwoFront: cardConfigType[] = [
 
 describe("render Pile", () => {
   it("and it is visible", () => {
-    const { container } = render(
-      dndWrapper(reduxWrapper(<Pile cardsOnPile={[]} pileIndex={0} />))
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<Pile cardsOnPile={[]} pileIndex={0} />)
     );
+
     expect(container.querySelector(".pile__container")).toBeVisible();
   });
   it("and one card is rendered", () => {
-    const { container } = render(
-      dndWrapper(
-        reduxWrapper(<Pile cardsOnPile={testAceCardStock} pileIndex={0} />)
-      )
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<Pile cardsOnPile={testAceCardStock} pileIndex={0} />)
     );
+
     expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
   });
   it("first card has 0px and second 27px from top etc if all cards are turned front", () => {
-    const { container } = render(
-      dndWrapper(
-        reduxWrapper(<Pile cardsOnPile={testAceCardStock} pileIndex={0} />)
-      )
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<Pile cardsOnPile={testAceCardStock} pileIndex={0} />)
     );
+
     expect(container.querySelectorAll("div[style*='top: 0px;']")).toHaveLength(
       1
     );
@@ -49,11 +47,10 @@ describe("render Pile", () => {
     );
   });
   it("first card has 0px and second 5px from top etc if all cards are turned back", () => {
-    const { container } = render(
-      dndWrapper(
-        reduxWrapper(<Pile cardsOnPile={testAceCardStock} pileIndex={4} />)
-      )
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<Pile cardsOnPile={testAceCardStock} pileIndex={4} />)
     );
+
     expect(container.querySelectorAll("div[style*='top: 0px;']")).toHaveLength(
       1
     );
@@ -65,13 +62,12 @@ describe("render Pile", () => {
     );
   });
   it("and two cards are back and two fron", () => {
-    const { container } = render(
+    const { container } = reduxRtlWrapper(
       dndWrapper(
-        reduxWrapper(
-          <Pile cardsOnPile={testAceCardStockTwoBackTwoFront} pileIndex={4} />
-        )
+        <Pile cardsOnPile={testAceCardStockTwoBackTwoFront} pileIndex={4} />
       )
     );
+
     expect(container.querySelectorAll("div[style*='top: 0px;']")).toHaveLength(
       1
     );

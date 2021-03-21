@@ -49,5 +49,8 @@
       "pre-push": "yarn test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "dependencies": {
+    "redux-test-utils": "^1.0.2"
   }
 }
