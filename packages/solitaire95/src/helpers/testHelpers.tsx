@@ -14,17 +14,11 @@ export const dndWrapper = (component: JSX.Element): JSX.Element => (
 
 export const reduxRtlWrapper = (
   component: JSX.Element,
-  state?: { initialState: any; store?: any }
+  initialState?: any | undefined
 ): any => {
-  let initialState;
-  let store: any;
-  if (state) {
-    initialState = state.initialState;
-    store = createStore(rootReducer, initialState);
-  }
+  const store = createStore(rootReducer, initialState);
 
-  if (!state) {
-    store = createStore(rootReducer);
+  if (!initialState) {
     store.dispatch(actions.dealCards());
   }
 

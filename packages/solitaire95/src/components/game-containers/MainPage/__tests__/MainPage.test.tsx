@@ -10,10 +10,10 @@ jest.useFakeTimers();
 
 describe("render MainPage with custom state for cards on stock", () => {
   let clubsCards;
-  let preloadedState: any;
+  let initialState: any;
   beforeEach(() => {
     clubsCards = createCards.filter((card) => card[1] === "clubs").reverse();
-    preloadedState = {
+    initialState = {
       cardDistribution: {
         cardsOnStock: clubsCards,
         cardsFromStock: [],
@@ -22,9 +22,10 @@ describe("render MainPage with custom state for cards on stock", () => {
     };
   });
   it("and ace is added to first empty foundation on double click and score updated to 10", () => {
-    const { container } = reduxRtlWrapper(dndWrapper(<MainPage />), {
-      initialState: preloadedState,
-    });
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      initialState
+    );
 
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
@@ -36,9 +37,10 @@ describe("render MainPage with custom state for cards on stock", () => {
     expect(screen.getByText("Score: 10")).toBeVisible();
   });
   it("and when two is added to foundation with ace on double click and score updated to 20 after 10 seconds score is downed to 18 and after 30 to 14 points", () => {
-    const { container } = reduxRtlWrapper(dndWrapper(<MainPage />), {
-      initialState: preloadedState,
-    });
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      initialState
+    );
 
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
@@ -58,9 +60,10 @@ describe("render MainPage with custom state for cards on stock", () => {
     expect(screen.getByText("Score: 4")).toBeVisible();
   });
   it("and ace is added to first empty foundation on double click and score updated to 10", () => {
-    const { container } = reduxRtlWrapper(dndWrapper(<MainPage />), {
-      initialState: preloadedState,
-    });
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      initialState
+    );
     for (let i = 0; i < 13; i++) {
       fireEvent.click(
         container.querySelector(".cardStock__cardHolder") as Element

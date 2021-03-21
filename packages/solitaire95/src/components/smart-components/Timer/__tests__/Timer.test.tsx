@@ -40,13 +40,11 @@ describe("renders Timer", () => {
   });
 
   it("and it should have time 127 after 127 seconds", () => {
-    const intialState = {
+    const initialState = {
       gameState: { gameStarted: true },
       countScore: { points: 0 },
     };
-    const { getByText } = reduxRtlWrapper(<Timer />, {
-      initialState: intialState,
-    });
+    const { getByText } = reduxRtlWrapper(<Timer />, initialState);
     act(() => {
       jest.advanceTimersByTime(127000);
     });
