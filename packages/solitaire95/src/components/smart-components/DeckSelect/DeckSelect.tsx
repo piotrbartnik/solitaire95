@@ -45,6 +45,8 @@ const DeckSelectInternal: React.FC<
         <div className={styles.deckContainer__cardBackContainer}>
           {Object.keys(cardBackImages).map((cardBack, index) => (
             <div
+              role="button"
+              title={cardBack}
               key={index}
               className={[
                 styles.deckContainer__cardBack,

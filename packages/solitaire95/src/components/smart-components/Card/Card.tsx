@@ -90,6 +90,7 @@ export const Card: React.FC<CardPropTypes> = (props) => {
           data-order={cardOrder}
           data-pilenumber={pileNumber}
           data-foundationnumber={foundationNumber}
+          data-cardback={cardBack}
         ></div>
       ) : (
         <div
