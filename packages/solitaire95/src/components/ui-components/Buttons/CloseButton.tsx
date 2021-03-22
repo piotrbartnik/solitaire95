@@ -10,6 +10,8 @@ export const CloseButton: React.FC<CloseButtonPropTypes> = (props) => {
   const { onClick } = props;
   return (
     <div
+      role="button"
+      title="close window"
       className={[styles.button, styles.closeButton].join(" ")}
       tabIndex={0}
       onClick={onClick}
