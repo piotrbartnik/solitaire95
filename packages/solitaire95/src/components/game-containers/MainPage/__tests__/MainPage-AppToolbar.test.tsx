@@ -40,6 +40,8 @@ describe("render MainPage for AppToolbar testing", () => {
     Object.keys(gameButtonTexts).forEach((button) => {
       fireEvent.mouseOver(screen.getByRole("button", { name: button }));
       expect(screen.getByText(gameButtonTexts[button])).toBeVisible();
+      fireEvent.mouseLeave(screen.getByRole("button", { name: button }));
+      expect(screen.queryByText(gameButtonTexts[button])).toBeNull();
     });
   });
   it("each Help button on mouse hover shows different text on bottom bar", () => {
