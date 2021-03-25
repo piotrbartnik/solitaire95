@@ -54,6 +54,8 @@ describe("render MainPage for AppToolbar testing", () => {
     Object.keys(helpButtonTexts).forEach((button) => {
       fireEvent.mouseOver(screen.getByRole("button", { name: button }));
       expect(screen.getByText(helpButtonTexts[button])).toBeVisible();
+      fireEvent.mouseLeave(screen.getByRole("button", { name: button }));
+      expect(screen.queryByText(helpButtonTexts[button])).toBeNull();
     });
   });
 });
