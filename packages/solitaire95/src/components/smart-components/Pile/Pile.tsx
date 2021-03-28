@@ -175,7 +175,7 @@ const PileInternal: React.FC<
       return cardsOnPileLength > 0 ? (
         <div
           className={styles[`pile__${index}`]}
-          data-turned={shouldBeTurnedAfterDrag}
+          data-turnedback={shouldBeTurnedAfterDrag}
           key={`${index}${card[0]}${card[1]}${card[3]}${card[4]}`}
         >
           <Card

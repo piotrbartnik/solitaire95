@@ -11,11 +11,14 @@ describe("render MainPage with custom state for cards on piles ", () => {
       cardDistribution: {
         cardsOnStock: [],
         cardsFromStock: [],
-        cardsOnPiles: { 0: [["ace", "clubs", false, "black", 1]] },
+        cardsOnPiles: {
+          0: [["ace", "clubs", undefined, "black", 1]],
+          1: [["ace", "clubs", undefined, "black", 1]],
+        },
       },
     };
   });
-  it("and card when ace is moved to foundation on doble click and points added to score", () => {
+  it("and card on first pile is visible on default and if ace is moved to foundation on doble click and points added to score", () => {
     const { container } = reduxRtlWrapper(
       dndWrapper(<MainPage />),
       initialState
@@ -25,5 +28,18 @@ describe("render MainPage with custom state for cards on piles ", () => {
       container.querySelector(".foundation")?.querySelectorAll(".card")
     ).toHaveLength(1);
     expect(screen.getByText("Score: 10")).toBeVisible();
+  });
+  it("and card on 2 pile is turned back, can be turned front, and can't be turned back again", () => {
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      initialState
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
+    fireEvent.click(container.querySelector(".cardBack") as Element);
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(2);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
+    fireEvent.click(container.querySelector(".cardFront") as Element);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
   });
 });
