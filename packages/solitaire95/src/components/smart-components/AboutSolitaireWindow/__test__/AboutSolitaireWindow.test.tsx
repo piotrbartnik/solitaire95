@@ -10,7 +10,7 @@ beforeEach(() => {
 
 describe("renders AboutSolitaire", () => {
   it("and check score wrapper exists with top label", () => {
-    expect(screen.getByText("About Solitare")).toBeTruthy();
+    expect(screen.getByText("About Solitaire")).toBeTruthy();
   });
   it("and default text is there", () => {
     expect(screen.getByText("Solitaire")).toBeTruthy();
