@@ -115,9 +115,11 @@ const PileInternal: React.FC<
       });
       cardsToDrag.forEach(() => removeCardFromPile(pileNumber));
     } else if (foundationNumber) {
+      addPoints(-15);
       removeCardFromFoundation(foundationNumber);
       addCardToPile((ref.current as HTMLDivElement).id, cardToPile);
     } else {
+      addPoints(5);
       addCardToPile((ref.current as HTMLDivElement).id, cardToPile);
       removeCardMovedToFoundation(
         cardsFromStock?.filter(
