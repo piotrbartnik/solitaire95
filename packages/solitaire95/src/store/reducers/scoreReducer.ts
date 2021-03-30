@@ -16,8 +16,10 @@ export const countScore = (
   action: CountScoreActionTypes
 ): Points => {
   switch (action.type) {
-    case "COUNT_SCORE":
-      return { ...state, points: state.points + action.countScore };
+    case "COUNT_SCORE": {
+      const pointsCounted = state.points + action.countScore;
+      return { ...state, points: pointsCounted < 0 ? 0 : pointsCounted };
+    }
     case "RESET_SCORE":
       return { ...state, points: 0 };
     default:

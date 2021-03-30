@@ -14,6 +14,6 @@ describe("renders App page", () => {
         <Solitaire95 />
       </Provider>
     );
-    expect(asFragment().querySelectorAll(".topBar__bar")).toHaveLength(3);
+    expect(asFragment().querySelectorAll(".topBar__bar")).toHaveLength(1);
   });
 });

@@ -34,7 +34,7 @@ const AboutSolitaireInternal: React.FC<
 
   return (
     <SettingsWindow
-      windowTitle={"About Solitare"}
+      windowTitle={"About Solitaire"}
       buttons={[{ text: "OK", onClick: okOnClick }]}
       visible={isWindowVisible as boolean}
       closeButtonAction={() => toggleAboutWindow(false, "aboutWindow")}

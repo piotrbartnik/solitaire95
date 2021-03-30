@@ -21,7 +21,7 @@ export const useSubstractPointsEveryTenSeconds = (
   substractFunction: (poinst: number) => void
 ): void => {
   useEffect(() => {
-    if (score && time && time % 10 === 0) {
+    if (time && time % 10 === 0) {
       substractFunction(-2);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

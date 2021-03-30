@@ -17,13 +17,18 @@ export const CardBackContext = createContext({
 });
 
 type MainPageStateTypes = {
-  isWindowVisible?: boolean;
-  playSounds?: boolean;
+  isWindowVisible?: WindowsState;
   score?: number;
+};
+
+type MainPagePropTypes = {
+  playSounds?: boolean;
   aboutChildren?: JSX.Element;
 };
 
-const MainPageInternal: React.FC<MainPageStateTypes> = (props) => {
+const MainPageInternal: React.FC<MainPageStateTypes & MainPagePropTypes> = (
+  props
+) => {
   const { isWindowVisible, playSounds, score, aboutChildren } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -67,12 +72,16 @@ const MainPageInternal: React.FC<MainPageStateTypes> = (props) => {
         }}
       >
         <CardBackContext.Provider value={value}>
-          <DeckSelect />
-          <AboutSolitaire aboutChildren={aboutChildren} />
+          {isWindowVisible?.cardBackWindow ? <DeckSelect /> : null}
+          {isWindowVisible?.aboutWindow ? (
+            <AboutSolitaire aboutChildren={aboutChildren} />
+          ) : null}
           <TopBar
             title={"Solitaire"}
             showIcon
-            shouldBeGreyedOut={isWindowVisible}
+            shouldBeGreyedOut={Object.values(
+              isWindowVisible as WindowsState
+            ).some((window) => window === true)}
           />
           <AppToolbar
             gameVisible={gameVisible}
@@ -94,12 +103,16 @@ const mapStateToProps = (state: {
   countScore: Points;
 }) => {
   return {
-    isWindowVisible: state.toggleWindows.cardBackWindow,
+    isWindowVisible: state.toggleWindows,
     score: state.countScore.points,
   };
 };
 
-export const MainPage = connect<MainPageStateTypes, undefined>(
+export const MainPage = connect<
+  MainPageStateTypes,
+  undefined,
+  MainPagePropTypes
+>(
   mapStateToProps,
   undefined
 )(MainPageInternal);
