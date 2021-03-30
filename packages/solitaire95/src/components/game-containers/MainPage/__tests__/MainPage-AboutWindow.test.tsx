@@ -21,13 +21,13 @@ describe("render MainPage for About window testing", () => {
     openAboutWindow();
 
     fireEvent.click(screen.getByRole("button", { name: "OK" }));
-    expect(screen.getByText("Select Card Back")).not.toBeVisible();
+    expect(screen.queryByText("About Solitaire")).toBeNull();
   });
   it("when dropdown Help -> About clicked About window is visible and x button is clicked it is closed", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openAboutWindow();
 
     fireEvent.click(screen.getByRole("button", { name: "close window" }));
-    expect(screen.getByText("Select Card Back")).not.toBeVisible();
+    expect(screen.queryByText("About Solitaire")).toBeNull();
   });
 });

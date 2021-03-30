@@ -21,28 +21,28 @@ describe("render MainPage for DeckSelect window testing", () => {
     openDeckWindow();
 
     fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
-    expect(screen.getByText("Select Card Back")).not.toBeVisible();
+    expect(screen.queryByText("Select Card Back")).toBeNull();
   });
   it("when dropdown Game -> Deck clicked Select Card Barck window is visible and on OK click it is closed", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 
     fireEvent.click(screen.getByRole("button", { name: "OK" }));
-    expect(screen.getByText("Select Card Back")).not.toBeVisible();
+    expect(screen.queryByText("Select Card Back")).toBeNull();
   });
   it("when dropdown Game -> Deck clicked Select Card Barck window is visible and card back is dobule clicked it is closed", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 
     fireEvent.dblClick(screen.getByRole("button", { name: "castle" }));
-    expect(screen.getByText("Select Card Back")).not.toBeVisible();
+    expect(screen.queryByText("Select Card Back")).toBeNull();
   });
   it("when dropdown Game -> Deck clicked Select Card Barck window is visible and x button is clicked it is closed", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 
     fireEvent.click(screen.getByRole("button", { name: "close window" }));
-    expect(screen.getByText("Select Card Back")).not.toBeVisible();
+    expect(screen.queryByText("Select Card Back")).toBeNull();
   });
   it("when window is visible it is possible to change card back on double click from default acorns card back", () => {
     const { container } = reduxRtlWrapper(dndWrapper(<MainPage />));

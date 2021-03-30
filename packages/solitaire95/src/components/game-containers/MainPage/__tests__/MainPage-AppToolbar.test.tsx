@@ -12,7 +12,7 @@ describe("render MainPage for AppToolbar testing", () => {
     fireEvent.click(screen.getByRole("button", { name: "Game" }));
     // game dropdown visible after button click
     expect(screen.getByRole("listbox", { name: "Game" })).toBeVisible();
-    fireEvent.click(screen.getAllByText("Solitaire")[1]);
+    fireEvent.click(screen.getByRole("button", { name: "Help" }));
     // not visible after clicking anywhere else
     expect(screen.queryByRole("listbox", { name: "Game" })).toBeNull();
   });
@@ -23,7 +23,7 @@ describe("render MainPage for AppToolbar testing", () => {
     fireEvent.click(screen.getByRole("button", { name: "Help" }));
     // help dropdown visible after button click
     expect(screen.getByRole("listbox", { name: "Help" })).toBeVisible();
-    fireEvent.click(screen.getAllByText("Solitaire")[1]);
+    fireEvent.click(screen.getByRole("button", { name: "Game" }));
     // not visible after clicking anywhere else
     expect(screen.queryByRole("listbox", { name: "Help" })).toBeNull();
   });
