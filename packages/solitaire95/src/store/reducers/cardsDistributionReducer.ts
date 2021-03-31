@@ -12,7 +12,7 @@ export interface CardDistributionActionTypes {
   cardsForStock: cardConfigType[];
   card: cardConfigType;
   reverseStock: cardConfigType[];
-  removeCardMovedToFoundation: cardConfigType[];
+  removeCardFromStock: cardConfigType[];
   removeCardFromPile: number;
   cardToPile: cardConfigType;
   addCardToPile: number;
@@ -46,10 +46,10 @@ export const cardDistribution = (
         cardsOnStock: action.reverseStock,
         cardsFromStock: [],
       };
-    case "REMOVE_CARD_MOVED_TO_FOUNDATION":
+    case "REMOVE_CARD_FROM_STOCK":
       return {
         ...state,
-        cardsFromStock: action.removeCardMovedToFoundation,
+        cardsFromStock: action.removeCardFromStock,
       };
     case "REMOVE_CARD_FROM_PILE":
       return {

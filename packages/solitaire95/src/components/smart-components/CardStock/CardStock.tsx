@@ -4,7 +4,7 @@ import { CardBackContext } from "../../game-containers";
 import {
   takeOneFromStock,
   reverseStock,
-  removeCardMovedToFoundation,
+  removeCardFromStock,
   addCardToFoundation,
   countScore,
   startGame,
@@ -26,7 +26,7 @@ export type CardStockStateTypes = {
 export type CardStockDispatchTypes = {
   takeOneFromStock: (cardToPush: cardConfigType) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
-  removeCardMovedToFoundation: (card: cardConfigType[]) => void;
+  removeCardFromStock: (card: cardConfigType[]) => void;
   addCardToFoundation: (
     card: cardConfigType,
     foundationNumber: string,
@@ -48,7 +48,7 @@ const CardStockInternal: React.FC<
     cardsFromStock,
     takeOneFromStock,
     reverseStock,
-    removeCardMovedToFoundation,
+    removeCardFromStock,
     cardsOnFoundations,
     addCardToFoundation,
     distanceBtwPiles,
@@ -120,7 +120,7 @@ const CardStockInternal: React.FC<
                   e,
                   cardsOnFoundations,
                   addCardToFoundation,
-                  removeCardMovedToFoundation,
+                  removeCardFromStock,
                   false,
                   addPoints,
                   cardsFromStock
@@ -153,8 +153,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(takeOneFromStock(payload)),
     reverseStock: (payload: cardConfigType[]) =>
       dispatch(reverseStock(payload)),
-    removeCardMovedToFoundation: (payload: cardConfigType[]) =>
-      dispatch(removeCardMovedToFoundation(payload)),
+    removeCardFromStock: (payload: cardConfigType[]) =>
+      dispatch(removeCardFromStock(payload)),
     addCardToFoundation: (
       card: cardConfigType,
       foundationNumber: string,

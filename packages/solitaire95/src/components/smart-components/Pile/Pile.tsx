@@ -8,7 +8,7 @@ import {
 import {
   removeCardFromPile,
   addCardToPile,
-  removeCardMovedToFoundation,
+  removeCardFromStock,
   addCardToFoundation,
   removeCardFromFoundation,
   countScore,
@@ -31,7 +31,7 @@ type PileStateTypes = {
 type PileDispatchTypes = {
   removeCardFromPile: (pile: string) => void;
   addCardToPile: (pileNumber: string, cardToPile: cardConfigType) => void;
-  removeCardMovedToFoundation: (cards: cardConfigType[]) => void;
+  removeCardFromStock: (cards: cardConfigType[]) => void;
   addCardToFoundation: (
     card: cardConfigType,
     foundationNumber: string,
@@ -55,7 +55,7 @@ const PileInternal: React.FC<
     pileIndex,
     removeCardFromPile,
     addCardToPile,
-    removeCardMovedToFoundation,
+    removeCardFromStock,
     cardsFromStock,
     cardsOnFoundations,
     addCardToFoundation,
@@ -121,7 +121,7 @@ const PileInternal: React.FC<
     } else {
       addPoints(5);
       addCardToPile((ref.current as HTMLDivElement).id, cardToPile);
-      removeCardMovedToFoundation(
+      removeCardFromStock(
         cardsFromStock?.filter(
           (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
         )
@@ -248,8 +248,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(removeCardFromPile(pileNumber)),
     addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
       dispatch(addCardToPile(pileNumber, cardToPile)),
-    removeCardMovedToFoundation: (cards: cardConfigType[]) => {
-      dispatch(removeCardMovedToFoundation(cards));
+    removeCardFromStock: (cards: cardConfigType[]) => {
+      dispatch(removeCardFromStock(cards));
     },
     addCardToFoundation: (
       card: cardConfigType,

@@ -3,7 +3,7 @@ export {
   takeOneFromStock,
   reverseStock,
   addCardToFoundation,
-  removeCardMovedToFoundation,
+  removeCardFromStock,
   removeCardFromPile,
   addCardToPile,
   removeCardFromFoundation,
