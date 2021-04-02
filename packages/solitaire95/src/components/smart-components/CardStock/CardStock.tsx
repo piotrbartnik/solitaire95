@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { connect } from "react-redux";
 import { CardBackContext } from "../../game-containers";
 import {
@@ -68,6 +68,26 @@ const CardStockInternal: React.FC<
 
   const { cardBackImage } = useContext(CardBackContext);
 
+  const moveToFoundationCallback = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+      moveToFoundation(
+        e,
+        cardsOnFoundations,
+        addCardToFoundation,
+        removeCardFromStock,
+        false,
+        addPoints,
+        cardsFromStock
+      ),
+    [
+      addCardToFoundation,
+      addPoints,
+      cardsFromStock,
+      cardsOnFoundations,
+      removeCardFromStock,
+    ]
+  );
+
   return (
     <div className={styles.cardStock__container}>
       <div
@@ -113,19 +133,7 @@ const CardStockInternal: React.FC<
               cardOrder={card[4]}
               cardBack={cardBackImage}
               isTurnedBack={false}
-              onDoubleClick={(
-                e: React.MouseEvent<HTMLDivElement, MouseEvent>
-              ) =>
-                moveToFoundation(
-                  e,
-                  cardsOnFoundations,
-                  addCardToFoundation,
-                  removeCardFromStock,
-                  false,
-                  addPoints,
-                  cardsFromStock
-                )
-              }
+              onDoubleClick={moveToFoundationCallback}
               key={`${index}${card}`}
             />
           </div>

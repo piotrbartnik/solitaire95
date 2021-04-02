@@ -1,4 +1,4 @@
-import React, { useRef, useContext, MouseEvent } from "react";
+import React, { useRef, useContext, MouseEvent, useCallback } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
@@ -165,6 +165,27 @@ const PileInternal: React.FC<
 
   drop(ref, null);
 
+  const moveToFoundationCallback = useCallback(
+    (e: MouseEvent<HTMLInputElement>) =>
+      moveToFoundation(
+        e,
+        cardsOnFoundations,
+        addCardToFoundation,
+        removeCardFromPile,
+        true,
+        addPoints,
+        undefined,
+        startGame
+      ),
+    [
+      cardsOnFoundations,
+      addCardToFoundation,
+      removeCardFromPile,
+      addPoints,
+      startGame,
+    ]
+  );
+
   const distributeCards = (cardsOnPile: cardConfigType[]) =>
     cardsOnPile.map((card, index) => {
       const isTurnedBackString = card[2];
@@ -189,18 +210,7 @@ const PileInternal: React.FC<
             isTurnedBack={shouldBeTurnedAfterDrag}
             canBeTurned={canBeTurned}
             pileNumber={pileIndex}
-            onDoubleClick={(e: MouseEvent<HTMLInputElement>) =>
-              moveToFoundation(
-                e,
-                cardsOnFoundations,
-                addCardToFoundation,
-                removeCardFromPile,
-                true,
-                addPoints,
-                undefined,
-                startGame
-              )
-            }
+            onDoubleClick={moveToFoundationCallback}
           />
         </div>
       ) : (
