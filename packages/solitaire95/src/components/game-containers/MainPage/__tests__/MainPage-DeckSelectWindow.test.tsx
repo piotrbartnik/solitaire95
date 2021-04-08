@@ -10,34 +10,34 @@ const openDeckWindow = () => {
 };
 
 describe("render MainPage for DeckSelect window testing", () => {
-  it("when dropdown Game -> Deck clikced Select Card Barck window is visible", () => {
+  it("when dropdown Game -> Deck clicked Select Card Back window is visible", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 
     expect(screen.getByText("Select Card Back")).toBeVisible();
   });
-  it("when dropdown Game -> Deck clicked Select Card Barck window is visible and on Cancel click it is closed", () => {
+  it("when dropdown Game -> Deck clicked Select Card Back window is visible and on Cancel click it is closed", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 
     fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
     expect(screen.queryByText("Select Card Back")).toBeNull();
   });
-  it("when dropdown Game -> Deck clicked Select Card Barck window is visible and on OK click it is closed", () => {
+  it("when dropdown Game -> Deck clicked Select Card Back window is visible and on OK click it is closed", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 
     fireEvent.click(screen.getByRole("button", { name: "OK" }));
     expect(screen.queryByText("Select Card Back")).toBeNull();
   });
-  it("when dropdown Game -> Deck clicked Select Card Barck window is visible and card back is dobule clicked it is closed", () => {
+  it("when dropdown Game -> Deck clicked Select Card Back window is visible and card back is dobule clicked it is closed", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 
     fireEvent.dblClick(screen.getByRole("button", { name: "castle" }));
     expect(screen.queryByText("Select Card Back")).toBeNull();
   });
-  it("when dropdown Game -> Deck clicked Select Card Barck window is visible and x button is clicked it is closed", () => {
+  it("when dropdown Game -> Deck clicked Select Card Back window is visible and x button is clicked it is closed", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 

@@ -9,7 +9,7 @@ import {
 import {
   addCardToFoundation,
   removeCardFromPile,
-  removeCardMovedToFoundation,
+  removeCardFromStock,
   startGame,
   countScore,
 } from "../../../store/actions/";
@@ -31,7 +31,7 @@ export type FoundationDispatchTypes = {
   ) => void;
   removeCardFromPile: (pileNumber: string) => void;
   addPoints: (points: number) => void;
-  removeCardMovedToFoundation: (card: cardConfigType[]) => void;
+  removeCardFromStock: (card: cardConfigType[]) => void;
   startGame: () => void;
 };
 
@@ -47,7 +47,7 @@ const FoundationInternal: React.FC<
     cardsOnFoundation,
     addCardToFoundation,
     removeCardFromPile,
-    removeCardMovedToFoundation,
+    removeCardFromStock,
     cardsFromStock,
     cardsOnFoundations,
     foundationId,
@@ -113,7 +113,7 @@ const FoundationInternal: React.FC<
     if (typeof pileNumber === "number") {
       removeCardFromPile(pileNumber.toString());
     } else {
-      removeCardMovedToFoundation(
+      removeCardFromStock(
         cardsFromStock.filter(
           (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
         )
@@ -185,8 +185,8 @@ const mapDispatchToProps = (dispatch: any) => {
     ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
     removeCardFromPile: (pileNumber: string) =>
       dispatch(removeCardFromPile(pileNumber)),
-    removeCardMovedToFoundation: (card: cardConfigType[]) =>
-      dispatch(removeCardMovedToFoundation(card)),
+    removeCardFromStock: (card: cardConfigType[]) =>
+      dispatch(removeCardFromStock(card)),
     addPoints: (points: number) => dispatch(countScore(points)),
     startGame: () => dispatch(startGame()),
   };

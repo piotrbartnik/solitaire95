@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import { connect } from "react-redux";
 import { toggleWindow } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
@@ -30,6 +30,11 @@ const DeckSelectInternal: React.FC<
     toggleCardBackWindow(false, "cardBackWindow");
   };
 
+  const closeButtonActionCallback = useCallback(
+    () => toggleCardBackWindow(false, "cardBackWindow"),
+    [toggleCardBackWindow]
+  );
+
   return (
     <SettingsWindow
       windowTitle={"Select Card Back"}
@@ -38,7 +43,7 @@ const DeckSelectInternal: React.FC<
         { text: "Cancel", onClick: cancelOnClick },
       ]}
       visible={isWindowVisible as boolean}
-      closeButtonAction={() => toggleCardBackWindow(false, "cardBackWindow")}
+      closeButtonAction={closeButtonActionCallback}
       width={"528px"}
     >
       <div className={styles.deckContainer}>

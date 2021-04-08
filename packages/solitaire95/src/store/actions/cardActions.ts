@@ -86,12 +86,12 @@ export const addCardToFoundation = (
   };
 };
 
-export const removeCardMovedToFoundation = (
+export const removeCardFromStock = (
   payload: cardConfigType[]
-): { type: string; removeCardMovedToFoundation: cardConfigType[] } => {
+): { type: string; removeCardFromStock: cardConfigType[] } => {
   return {
-    type: actionTypes.REMOVE_CARD_MOVED_TO_FOUNDATION,
-    removeCardMovedToFoundation: payload,
+    type: actionTypes.REMOVE_CARD_FROM_STOCK,
+    removeCardFromStock: payload,
   };
 };
 
@@ -121,5 +121,14 @@ export const removeCardFromFoundation = (
   return {
     type: actionTypes.REMOVE_CARD_FROM_FOUNDATION,
     removeCardFromFoundation: foundationNumber,
+  };
+};
+
+export const turnCardOnPile = (
+  cardToTurn: number
+): { type: string; cardToTurn: number } => {
+  return {
+    type: actionTypes.TURN_CARD_ON_PILE,
+    cardToTurn,
   };
 };

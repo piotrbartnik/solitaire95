@@ -1,4 +1,4 @@
-import React, { useRef, useContext, MouseEvent } from "react";
+import React, { useRef, useContext, MouseEvent, useCallback } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
@@ -8,11 +8,12 @@ import {
 import {
   removeCardFromPile,
   addCardToPile,
-  removeCardMovedToFoundation,
+  removeCardFromStock,
   addCardToFoundation,
   removeCardFromFoundation,
   countScore,
   startGame,
+  turnCardOnPile,
 } from "../../../store/actions/";
 import { CardBackContext } from "../../game-containers";
 import { itemTypes } from "../../../configs/dragndropConfig";
@@ -31,7 +32,7 @@ type PileStateTypes = {
 type PileDispatchTypes = {
   removeCardFromPile: (pile: string) => void;
   addCardToPile: (pileNumber: string, cardToPile: cardConfigType) => void;
-  removeCardMovedToFoundation: (cards: cardConfigType[]) => void;
+  removeCardFromStock: (cards: cardConfigType[]) => void;
   addCardToFoundation: (
     card: cardConfigType,
     foundationNumber: string,
@@ -40,6 +41,7 @@ type PileDispatchTypes = {
   removeCardFromFoundation: (foundationNumber: string) => void;
   addPoints: (points: number) => void;
   startGame: () => void;
+  turnCardOnPile: (cardToTurn: number) => void;
 };
 
 type PilePropTypes = {
@@ -55,7 +57,7 @@ const PileInternal: React.FC<
     pileIndex,
     removeCardFromPile,
     addCardToPile,
-    removeCardMovedToFoundation,
+    removeCardFromStock,
     cardsFromStock,
     cardsOnFoundations,
     addCardToFoundation,
@@ -63,6 +65,7 @@ const PileInternal: React.FC<
     removeCardFromFoundation,
     addPoints,
     startGame,
+    turnCardOnPile,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -121,7 +124,7 @@ const PileInternal: React.FC<
     } else {
       addPoints(5);
       addCardToPile((ref.current as HTMLDivElement).id, cardToPile);
-      removeCardMovedToFoundation(
+      removeCardFromStock(
         cardsFromStock?.filter(
           (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
         )
@@ -165,6 +168,41 @@ const PileInternal: React.FC<
 
   drop(ref, null);
 
+  const moveToFoundationCallback = useCallback(
+    (e: MouseEvent<HTMLInputElement>) =>
+      moveToFoundation(
+        e,
+        cardsOnFoundations,
+        addCardToFoundation,
+        removeCardFromPile,
+        true,
+        addPoints,
+        undefined,
+        startGame
+      ),
+    [
+      cardsOnFoundations,
+      addCardToFoundation,
+      removeCardFromPile,
+      addPoints,
+      startGame,
+    ]
+  );
+
+  const turnCardOnPileCallback = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (e: any) => {
+      const pileNumber = e.target.parentNode.dataset?.pilenumber;
+      const cardOnPileNumber = e.target.parentNode.dataset?.positiononpile;
+      const isTargetCardTurnedFront = e.target.dataset?.cardname;
+      if (cardOnPileNumber && pileNumber && !isTargetCardTurnedFront) {
+        addPoints(5);
+        turnCardOnPile(pileNumber);
+      }
+    },
+    [turnCardOnPile, addPoints]
+  );
+
   const distributeCards = (cardsOnPile: cardConfigType[]) =>
     cardsOnPile.map((card, index) => {
       const isTurnedBackString = card[2];
@@ -189,18 +227,9 @@ const PileInternal: React.FC<
             isTurnedBack={shouldBeTurnedAfterDrag}
             canBeTurned={canBeTurned}
             pileNumber={pileIndex}
-            onDoubleClick={(e: MouseEvent<HTMLInputElement>) =>
-              moveToFoundation(
-                e,
-                cardsOnFoundations,
-                addCardToFoundation,
-                removeCardFromPile,
-                true,
-                addPoints,
-                undefined,
-                startGame
-              )
-            }
+            positionOnPile={index}
+            onDoubleClick={moveToFoundationCallback}
+            onClick={turnCardOnPileCallback}
           />
         </div>
       ) : (
@@ -248,8 +277,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(removeCardFromPile(pileNumber)),
     addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
       dispatch(addCardToPile(pileNumber, cardToPile)),
-    removeCardMovedToFoundation: (cards: cardConfigType[]) => {
-      dispatch(removeCardMovedToFoundation(cards));
+    removeCardFromStock: (cards: cardConfigType[]) => {
+      dispatch(removeCardFromStock(cards));
     },
     addCardToFoundation: (
       card: cardConfigType,
@@ -262,6 +291,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(countScore(payload));
     },
     startGame: () => dispatch(startGame()),
+    turnCardOnPile: (cardToTurn: number) =>
+      dispatch(turnCardOnPile(cardToTurn)),
   };
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import { Separator } from "../../ui-components";
 import appIco from "../../../static/appIco.png";
@@ -32,12 +32,17 @@ const AboutSolitaireInternal: React.FC<
 
   const timeInSecondsSinceGameOpened = useTimeSinceGameOpened();
 
+  const closeButtonActionCallback = useCallback(
+    () => toggleAboutWindow(false, "aboutWindow"),
+    [toggleAboutWindow]
+  );
+
   return (
     <SettingsWindow
       windowTitle={"About Solitaire"}
       buttons={[{ text: "OK", onClick: okOnClick }]}
       visible={isWindowVisible as boolean}
-      closeButtonAction={() => toggleAboutWindow(false, "aboutWindow")}
+      closeButtonAction={closeButtonActionCallback}
       width={"528px"}
     >
       <div className={styles.container}>
