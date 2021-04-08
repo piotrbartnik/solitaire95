@@ -38,24 +38,6 @@ describe("renders Card", () => {
     expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
   });
 
-  it("and card can be turned on click if turned back", () => {
-    const { container } = render(
-      dndWrapper(
-        <Card
-          isTurnedBack
-          canBeTurned
-          cardBack={"test"}
-          cardColor={"test"}
-          cardFront={"test"}
-          cardOrder={"test"}
-          cardSuite={"test"}
-        />
-      )
-    );
-    fireEvent.click(container.querySelector(".card") as Element);
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
-  });
-
   it("and cards makes action on double click", () => {
     const handleDoubleClick = jest.fn();
 

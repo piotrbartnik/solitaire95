@@ -1,6 +1,5 @@
 import React from "react";
 import { useDrag } from "react-dnd";
-import { useSetCardPosition } from "./CardHooks";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardBackImages } from "../../../static/cardBacks";
@@ -20,6 +19,8 @@ type CardPropTypes = {
   foundationNumber?: string;
   wasCardTurnedFront?: boolean;
   canBeTurned?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  positionOnPile?: number;
 };
 
 export const Card: React.FC<CardPropTypes> = (props) => {
@@ -33,22 +34,11 @@ export const Card: React.FC<CardPropTypes> = (props) => {
     cardColor,
     cardSuite,
     cardOrder,
-    canBeTurned,
+    onClick,
+    positionOnPile,
   } = props;
 
-  const [
-    cardPositionFront,
-    wasCardTurnedFront,
-    changeCardPosition,
-  ] = useSetCardPosition(isTurnedBack);
-
-  const canDragCard = !cardPositionFront;
-
-  const onClick = () => {
-    if (!wasCardTurnedFront && canBeTurned) {
-      changeCardPosition(() => false);
-    }
-  };
+  const canDragCard = !isTurnedBack;
 
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -57,7 +47,6 @@ export const Card: React.FC<CardPropTypes> = (props) => {
       cardSuite,
       cardColor,
       pileNumber,
-      cardPositionFront,
       cardOrder,
       foundationNumber,
     },
@@ -75,12 +64,14 @@ export const Card: React.FC<CardPropTypes> = (props) => {
     <div
       className={styles.card}
       onClick={onClick}
-      onDoubleClick={!cardPositionFront ? onDoubleClick : undefined}
+      onDoubleClick={!isTurnedBack ? onDoubleClick : undefined}
       ref={drag}
       style={isDragging ? { opacity: "0" } : undefined}
-      data-front={!cardPositionFront}
+      data-front={!isTurnedBack}
+      data-pilenumber={pileNumber}
+      data-positiononpile={positionOnPile}
     >
-      {!cardPositionFront ? (
+      {!isTurnedBack ? (
         <div
           className={styles.cardFront}
           style={{ backgroundImage: `url(${frontImage})` }}

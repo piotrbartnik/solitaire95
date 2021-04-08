@@ -13,6 +13,7 @@ import {
   removeCardFromFoundation,
   countScore,
   startGame,
+  turnCardOnPile,
 } from "../../../store/actions/";
 import { CardBackContext } from "../../game-containers";
 import { itemTypes } from "../../../configs/dragndropConfig";
@@ -40,6 +41,7 @@ type PileDispatchTypes = {
   removeCardFromFoundation: (foundationNumber: string) => void;
   addPoints: (points: number) => void;
   startGame: () => void;
+  turnCardOnPile: (cardToTurn: number) => void;
 };
 
 type PilePropTypes = {
@@ -63,6 +65,7 @@ const PileInternal: React.FC<
     removeCardFromFoundation,
     addPoints,
     startGame,
+    turnCardOnPile,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -186,6 +189,20 @@ const PileInternal: React.FC<
     ]
   );
 
+  const turnCardOnPileCallback = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (e: any) => {
+      const pileNumber = e.target.parentNode.dataset?.pilenumber;
+      const cardOnPileNumber = e.target.parentNode.dataset?.positiononpile;
+      const isTargetCardTurnedFront = e.target.dataset?.cardname;
+      if (cardOnPileNumber && pileNumber && !isTargetCardTurnedFront) {
+        addPoints(5);
+        turnCardOnPile(pileNumber);
+      }
+    },
+    [turnCardOnPile, addPoints]
+  );
+
   const distributeCards = (cardsOnPile: cardConfigType[]) =>
     cardsOnPile.map((card, index) => {
       const isTurnedBackString = card[2];
@@ -210,7 +227,9 @@ const PileInternal: React.FC<
             isTurnedBack={shouldBeTurnedAfterDrag}
             canBeTurned={canBeTurned}
             pileNumber={pileIndex}
+            positionOnPile={index}
             onDoubleClick={moveToFoundationCallback}
+            onClick={turnCardOnPileCallback}
           />
         </div>
       ) : (
@@ -272,6 +291,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(countScore(payload));
     },
     startGame: () => dispatch(startGame()),
+    turnCardOnPile: (cardToTurn: number) =>
+      dispatch(turnCardOnPile(cardToTurn)),
   };
 };
 

@@ -123,3 +123,12 @@ export const removeCardFromFoundation = (
     removeCardFromFoundation: foundationNumber,
   };
 };
+
+export const turnCardOnPile = (
+  cardToTurn: number
+): { type: string; cardToTurn: number } => {
+  return {
+    type: actionTypes.TURN_CARD_ON_PILE,
+    cardToTurn,
+  };
+};

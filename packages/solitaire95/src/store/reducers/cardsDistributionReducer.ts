@@ -16,6 +16,7 @@ export interface CardDistributionActionTypes {
   removeCardFromPile: number;
   cardToPile: cardConfigType;
   addCardToPile: number;
+  cardToTurn: number;
 }
 
 const initialState: CardsDistributionInitialState = {
@@ -71,6 +72,27 @@ export const cardDistribution = (
           [action.addCardToPile]: state.cardsOnPiles[
             action.addCardToPile
           ].concat(cardAdded),
+        },
+      };
+    case "TURN_CARD_ON_PILE":
+      // eslint-disable-next-line no-case-declarations
+      const newStateForPile = state.cardsOnPiles[action.cardToTurn];
+      // eslint-disable-next-line no-case-declarations
+      const mapState = newStateForPile.map((card, index) => {
+        return index === newStateForPile.length - 1
+          ? card.map((attribute) => {
+              if (!attribute) {
+                return true;
+              }
+              return attribute;
+            })
+          : card;
+      });
+      return {
+        ...state,
+        cardsOnPiles: {
+          ...state.cardsOnPiles,
+          [action.cardToTurn[0]]: mapState,
         },
       };
     default:
