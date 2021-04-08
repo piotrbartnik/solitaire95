@@ -90,10 +90,13 @@ const AppToolbarInternal: React.FC<
                 text="Deck"
               />
               <ToolButton
+                onClick={() => {
+                  toggleCardBackWindow(true, "optionsWindow");
+                  setGameVisible(false);
+                }}
                 onMouseOver={() => setBottomBarText("Change Solitaire options")}
                 onMouseLeave={() => setBottomBarText("")}
                 text="Options"
-                disabled
               />
               <Separator />
               <ToolButton

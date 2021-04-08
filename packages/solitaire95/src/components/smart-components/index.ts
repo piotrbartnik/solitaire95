@@ -7,6 +7,7 @@ import { Pile } from "./Pile/Pile";
 import { ToolDropdown } from "./ToolDropdown/ToolDropdown";
 import { DeckSelect } from "./DeckSelect/DeckSelect";
 import { AboutSolitaire } from "./AboutSolitaireWindow/AboutSolitaireWindow";
+import { Options } from "./OptionsWindow/OptionsWindow";
 
 export {
   Timer,
@@ -18,4 +19,5 @@ export {
   ToolDropdown,
   DeckSelect,
   AboutSolitaire,
+  Options,
 };
