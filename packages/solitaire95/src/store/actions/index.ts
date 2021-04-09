@@ -9,6 +9,7 @@ export {
   removeCardFromFoundation,
   CardDealTypes,
   turnCardOnPile,
+  stockTurnCounter,
 } from "./cardActions";
 export { startGame, stopGame } from "./gameActions";
 export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";
