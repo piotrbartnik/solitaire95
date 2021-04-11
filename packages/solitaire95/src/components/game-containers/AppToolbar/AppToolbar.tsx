@@ -5,6 +5,7 @@ import {
   resetScore,
   stopGame,
   toggleWindow,
+  resetStockCounter,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -21,6 +22,7 @@ type AppToolbarDispatchTypes = {
   resetScore: () => void;
   stopGame: () => void;
   toggleAboutWindow: (windowState: boolean, windowToToggle: string) => void;
+  resetStockCounter: () => void;
 };
 
 type AppToolbarPropTypes = {
@@ -45,6 +47,7 @@ const AppToolbarInternal: React.FC<
     resetScore,
     stopGame,
     toggleAboutWindow,
+    resetStockCounter,
   } = props;
 
   return (
@@ -65,6 +68,7 @@ const AppToolbarInternal: React.FC<
                 onClick={() => {
                   dealCards();
                   resetScore();
+                  resetStockCounter();
                   stopGame();
                   setGameVisible(!gameVisible);
                   setHelpVisible(false);
@@ -150,6 +154,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     dealCards: () => dispatch(dealCards()),
     resetScore: () => dispatch(resetScore()),
+    resetStockCounter: () => dispatch(resetStockCounter()),
     stopGame: () => dispatch(stopGame()),
     toggleCardBackWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),

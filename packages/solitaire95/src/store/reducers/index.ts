@@ -4,12 +4,14 @@ import { cardsOnFoundation } from "./foundationReducer";
 import { toggleWindows } from "./windowsReducer";
 import { countScore } from "./scoreReducer";
 import { gameState } from "./gameReducer";
+import { stockCounter } from "./stockCounterReducer";
 
 export { FoundationInitialState } from "./foundationReducer";
 export { CardsDistributionInitialState } from "./cardsDistributionReducer";
 export { WindowsState } from "./windowsReducer";
 export { Points } from "./scoreReducer";
 export { GameState } from "./gameReducer";
+export { StockCount } from "./stockCounterReducer";
 
 export const rootReducer = combineReducers({
   cardDistribution,
@@ -17,4 +19,5 @@ export const rootReducer = combineReducers({
   toggleWindows,
   countScore,
   gameState,
+  stockCounter,
 });

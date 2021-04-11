@@ -8,10 +8,12 @@ import {
   addCardToFoundation,
   countScore,
   startGame,
+  stockTurnCounter,
 } from "../../../store/actions";
 import {
   CardsDistributionInitialState,
   FoundationInitialState,
+  StockCount,
 } from "../../../store/reducers/";
 import { Card } from "..";
 import { cardConfigType } from "../../../configs/cardTypes";
@@ -22,6 +24,7 @@ export type CardStockStateTypes = {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: FoundationInitialState;
+  stockCounter: StockCount;
 };
 export type CardStockDispatchTypes = {
   takeOneFromStock: (cardToPush: cardConfigType) => void;
@@ -34,6 +37,7 @@ export type CardStockDispatchTypes = {
   ) => void;
   addPoints: (points: number) => void;
   startGame: () => void;
+  addToStockCounter: () => void;
 };
 
 export type CardStockPropTypes = {
@@ -54,6 +58,8 @@ const CardStockInternal: React.FC<
     distanceBtwPiles,
     addPoints,
     startGame,
+    addToStockCounter,
+    stockCounter,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -62,7 +68,11 @@ const CardStockInternal: React.FC<
       takeOneFromStock(cardToPush as cardConfigType);
       startGame();
     } else {
+      addToStockCounter();
       reverseStock((cardsFromStock as cardConfigType[]).reverse());
+      if (stockCounter.stockRevolutions >= 1) {
+        addPoints(-100);
+      }
     }
   };
 
@@ -146,11 +156,13 @@ const CardStockInternal: React.FC<
 const mapStateToProps = (state: {
   cardDistribution: CardsDistributionInitialState;
   cardsOnFoundation: FoundationInitialState;
+  stockCounter: StockCount;
 }) => {
   return {
     cardsOnStock: state.cardDistribution.cardsOnStock,
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
+    stockCounter: state.stockCounter,
   };
 };
 
@@ -170,6 +182,7 @@ const mapDispatchToProps = (dispatch: any) => {
     ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
     addPoints: (payload: number) => dispatch(countScore(payload)),
     startGame: () => dispatch(startGame()),
+    addToStockCounter: () => dispatch(stockTurnCounter()),
   };
 };
 

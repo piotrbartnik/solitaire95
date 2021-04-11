@@ -132,3 +132,15 @@ export const turnCardOnPile = (
     cardToTurn,
   };
 };
+
+export const stockTurnCounter = (): { type: string } => {
+  return {
+    type: actionTypes.STOCK_TURN_COUNTER,
+  };
+};
+
+export const resetStockCounter = (): { type: string } => {
+  return {
+    type: actionTypes.RESET_STOCK_COUNTER,
+  };
+};

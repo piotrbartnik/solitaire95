@@ -1,8 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import * as cardActions from "../src/store/actions/cardActions";
-import * as scoreActions from "../src/store/actions/scoreActions";
+import { dealCards } from "../src/store/actions/";
 import { rootReducer } from "./store/reducers";
 import { MainPage } from "./components/game-containers/MainPage/MainPage";
 import "./Solitaire95.scss";
@@ -26,8 +25,7 @@ store.subscribe(() => {
 });
 
 if (!persistedState) {
-  store.dispatch(cardActions.dealCards());
-  store.dispatch(scoreActions.resetScore());
+  store.dispatch(dealCards());
 }
 
 type PropTypes = {
