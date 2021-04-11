@@ -18,6 +18,9 @@ export const stockCounter = (
     case "STOCK_TURN_COUNTER": {
       return { ...state, stockRevolutions: state.stockRevolutions + 1 };
     }
+    case "RESET_STOCK_COUNTER": {
+      return { ...state, stockRevolutions: 0 };
+    }
     default:
       return state;
   }

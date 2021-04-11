@@ -11,6 +11,7 @@ export { CardsDistributionInitialState } from "./cardsDistributionReducer";
 export { WindowsState } from "./windowsReducer";
 export { Points } from "./scoreReducer";
 export { GameState } from "./gameReducer";
+export { StockCount } from "./stockCounterReducer";
 
 export const rootReducer = combineReducers({
   cardDistribution,

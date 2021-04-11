@@ -138,3 +138,9 @@ export const stockTurnCounter = (): { type: string } => {
     type: actionTypes.STOCK_TURN_COUNTER,
   };
 };
+
+export const resetStockCounter = (): { type: string } => {
+  return {
+    type: actionTypes.RESET_STOCK_COUNTER,
+  };
+};
