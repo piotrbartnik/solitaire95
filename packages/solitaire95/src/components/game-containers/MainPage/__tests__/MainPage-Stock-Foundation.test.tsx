@@ -8,7 +8,7 @@ import { MainPage } from "../MainPage";
 
 jest.useFakeTimers();
 
-describe("render MainPage with custom state for cards on stock and double click actions for foundations", () => {
+describe("render MainPage with custom state for cards on stock", () => {
   let clubsCards;
   let initialState: any;
   beforeEach(() => {
@@ -109,5 +109,36 @@ describe("render MainPage with custom state for cards on stock and double click 
       ).toHaveLength(1);
     });
     expect(screen.getByText("Score: 40")).toBeVisible();
+  });
+
+  const stockResetState = {
+    cardDistribution: {
+      cardsOnStock: [["ace", "clubs", undefined, "black", 1]],
+      cardsFromStock: [],
+      cardsOnPiles: {},
+    },
+    countScore: { points: 150 },
+  };
+  it("after second and more stok count 100 points is substracted from score", () => {
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      stockResetState
+    );
+
+    for (let i = 0; i < 4; i++) {
+      fireEvent.click(
+        container.querySelector(".cardStock__cardHolder") as Element
+      );
+    }
+
+    expect(screen.getByText("Score: 50")).toBeVisible();
+
+    for (let i = 0; i < 2; i++) {
+      fireEvent.click(
+        container.querySelector(".cardStock__cardHolder") as Element
+      );
+    }
+
+    expect(screen.getByText("Score: 0")).toBeVisible();
   });
 });
