@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { connect } from "react-redux";
-import { dealCards, toggleWindow } from "../../../store/actions/";
+import {
+  dealCards,
+  toggleWindow,
+  stopGame,
+  resetScore,
+} from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
 
@@ -8,24 +13,50 @@ export type DealAgainStateTypes = {
   isWindowVisible: boolean;
 };
 export type DealAgainDispatchTypes = {
-  toggleAboutWindow: (windowState: boolean, windowToToggle: string) => void;
+  toggleDealWindow: (windowState: boolean, windowToToggle: string) => void;
   dealCards: () => void;
+  stopGame: () => void;
+  resetScore: () => void;
 };
 
 const DealAgainInternal: React.FC<
   DealAgainDispatchTypes & DealAgainStateTypes
 > = (props) => {
-  const { dealCards, isWindowVisible } = props;
+  const {
+    dealCards,
+    isWindowVisible,
+    toggleDealWindow,
+    stopGame,
+    resetScore,
+  } = props;
 
   const dealWindowPositionX = window.innerWidth;
   const dealWindowPositionY = window.innerHeight;
+
+  const yesActions = useCallback(() => {
+    dealCards();
+    stopGame();
+    resetScore();
+    toggleDealWindow(false, "dealAgainWindow");
+  }, [dealCards, stopGame, resetScore, toggleDealWindow]);
+
+  const closeActions = useCallback(
+    () => toggleDealWindow(false, "dealAgainWindow"),
+    [toggleDealWindow]
+  );
 
   return (
     <SettingsWindow
       windowTitle={"Solitaire"}
       buttons={[
-        { text: "Yes", onClick: dealCards },
-        { text: "No", onClick: dealCards },
+        {
+          text: "Yes",
+          onClick: yesActions,
+        },
+        {
+          text: "No",
+          onClick: closeActions,
+        },
       ]}
       visible={isWindowVisible}
       width={"350px"}
@@ -34,6 +65,7 @@ const DealAgainInternal: React.FC<
         dealWindowPositionY / 2 - 100,
         dealWindowPositionX / 2 - 175,
       ]}
+      closeButtonAction={closeActions}
     >
       Deal again?
     </SettingsWindow>
@@ -50,8 +82,10 @@ const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     dealCards: () => dispatch(dealCards()),
-    toggleAboutWindow: (windowState: boolean, windowToToggle: string) =>
+    toggleDealWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
+    stopGame: () => dispatch(stopGame()),
+    resetScore: () => dispatch(resetScore()),
   };
 };
 
