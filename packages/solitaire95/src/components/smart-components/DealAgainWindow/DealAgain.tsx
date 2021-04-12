@@ -16,6 +16,10 @@ const DealAgainInternal: React.FC<
   DealAgainDispatchTypes & DealAgainStateTypes
 > = (props) => {
   const { dealCards, isWindowVisible } = props;
+
+  const dealWindowPositionX = window.innerWidth;
+  const dealWindowPositionY = window.innerHeight;
+
   return (
     <SettingsWindow
       windowTitle={"Solitaire"}
@@ -26,7 +30,10 @@ const DealAgainInternal: React.FC<
       visible={isWindowVisible}
       width={"350px"}
       height={"200px"}
-      positionOnWindow={[400, 700]}
+      positionOnWindow={[
+        dealWindowPositionY / 2 - 100,
+        dealWindowPositionX / 2 - 175,
+      ]}
     >
       Deal again?
     </SettingsWindow>
