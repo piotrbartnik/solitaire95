@@ -15,7 +15,7 @@ const initialState: WindowsState = {
   cardBackWindow: false,
   aboutWindow: false,
   optionsWindow: false,
-  dealAgainWindow: true,
+  dealAgainWindow: false,
 };
 
 export const toggleWindows = (
