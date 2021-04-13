@@ -35,6 +35,10 @@ export const createCards: (
   | number
 )[][] = cardRank
   .map((rank) =>
-    cardConfigTypes.map((config) => [rank, ...config, cardRank.indexOf(rank)])
+    cardConfigTypes.map((config) => [
+      rank,
+      ...config,
+      cardRank.indexOf(rank).toString(),
+    ])
   )
   .reduce((a, b) => a.concat(b), []);
