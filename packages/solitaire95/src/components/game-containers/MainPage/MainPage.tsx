@@ -77,12 +77,12 @@ const MainPageInternal: React.FC<MainPageStateTypes & MainPagePropTypes> = (
         }}
       >
         <CardBackContext.Provider value={value}>
-          {isWindowVisible?.cardBackWindow ? <DeckSelect /> : null}
-          {isWindowVisible?.aboutWindow ? (
+          {isWindowVisible?.cardBackWindow && <DeckSelect />}
+          {isWindowVisible?.aboutWindow && (
             <AboutSolitaire aboutChildren={aboutChildren} />
-          ) : null}
-          {isWindowVisible?.optionsWindow ? <Options /> : null}
-          <DealAgain />
+          )}
+          {isWindowVisible?.optionsWindow && <Options />}
+          {isWindowVisible?.dealAgainWindow && <DealAgain />}
           <TopBar
             title={"Solitaire"}
             showIcon
