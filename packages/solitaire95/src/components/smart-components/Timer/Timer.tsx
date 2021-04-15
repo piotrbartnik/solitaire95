@@ -10,12 +10,13 @@ type TimerPropTypes = {
   substractPoints: (poinst: number) => void;
   score: number;
   saveTime: (timeToSave: number) => void;
+  intialTime: number;
 };
 
 const TimerInternal: React.FC<TimerPropTypes> = (props) => {
-  const { gameStarted, substractPoints, score, saveTime } = props;
+  const { gameStarted, substractPoints, score, saveTime, intialTime } = props;
 
-  const time = useStartTimer(gameStarted);
+  const time = useStartTimer(gameStarted, intialTime);
   useSubstractPointsEveryTenSeconds(score, time, substractPoints);
 
   const saveTimeCallback = () => saveTime(time);
@@ -27,10 +28,12 @@ const TimerInternal: React.FC<TimerPropTypes> = (props) => {
 const mapStateToProps = (state: {
   gameState: GameState;
   countScore: Points;
+  timeCounter: { time: number };
 }) => {
   return {
     gameStarted: state.gameState.gameStarted,
     score: state.countScore.points,
+    intialTime: state.timeCounter.time,
   };
 };
 
