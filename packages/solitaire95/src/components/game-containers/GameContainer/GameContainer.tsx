@@ -1,16 +1,11 @@
-import React, { useRef, MutableRefObject, useEffect, useCallback } from "react";
+import React, { useRef, MutableRefObject } from "react";
 import { connect } from "react-redux";
 import {
   FoundationInitialState,
   CardsDistributionInitialState,
-  FoundationState,
 } from "../../../store/reducers/";
 import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
-import {
-  addCardToFoundation,
-  toggleWindow,
-  stopGame,
-} from "../../../store/actions/";
+import { addCardToFoundation } from "../../../store/actions/";
 import { Foundation, Pile, CardStock } from "../../smart-components";
 import { cardConfigType } from "../../../configs/cardTypes";
 import styles from "./GameContainer.module.scss";
@@ -30,8 +25,6 @@ type GameContainerDispatchTypes = {
     foundationNumber: string,
     foundationSuite: string
   ) => void;
-  toggleDealWindow: (windowState: boolean, windowToToggle: string) => void;
-  stopGame: () => void;
 };
 
 const GameContainerInternal: React.FC<
@@ -43,9 +36,6 @@ const GameContainerInternal: React.FC<
     cardsOnThirdFoundation,
     cardsOnFourthFoundation,
     cardsOnPiles,
-    cardsOnFoundations,
-    toggleDealWindow,
-    stopGame,
   } = props;
 
   const piles = (config: { [key: string]: cardConfigType[] }) =>
@@ -60,19 +50,6 @@ const GameContainerInternal: React.FC<
   const distanceBtwPiles = useCountDistanceBetweenPiles(
     pilesContainer as MutableRefObject<null>
   );
-
-  const isGameEnded = useCallback(() => {
-    const cards = Object.values(cardsOnFoundations);
-    const testCard = cards.map((el: FoundationState) => el?.cards);
-    const allCards = testCard?.reduce((acc, val) => acc.concat(val), []);
-
-    if (allCards.length === 52) {
-      toggleDealWindow(true, "dealAgainWindow");
-      stopGame();
-    }
-  }, [cardsOnFoundations, toggleDealWindow, stopGame]);
-
-  useEffect(() => isGameEnded(), [cardsOnFoundations, isGameEnded]);
 
   return (
     <div className={styles.gameUIBorder}>
@@ -133,9 +110,6 @@ const mapDispatchToProps = (dispatch: any) => {
       foundationNumber: string,
       foundationSuite: string
     ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
-    toggleDealWindow: (windowState: boolean, windowToToggle: string) =>
-      dispatch(toggleWindow(windowState, windowToToggle)),
-    stopGame: () => dispatch(stopGame()),
   };
 };
 
