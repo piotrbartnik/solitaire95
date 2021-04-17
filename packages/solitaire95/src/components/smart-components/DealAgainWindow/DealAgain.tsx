@@ -8,6 +8,7 @@ import {
 } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
+import styles from "./DealAgain.module.scss";
 
 export type DealAgainStateTypes = {
   isWindowVisible: boolean;
@@ -59,15 +60,15 @@ const DealAgainInternal: React.FC<
         },
       ]}
       visible={isWindowVisible}
-      width={"350px"}
-      height={"200px"}
+      width={"250px"}
+      height={"150px"}
       positionOnWindow={[
-        dealWindowPositionY / 2 - 100,
-        dealWindowPositionX / 2 - 175,
+        dealWindowPositionY / 2 - 75,
+        dealWindowPositionX / 2 - 125,
       ]}
       closeButtonAction={closeActions}
     >
-      Deal again?
+      <div className={styles.contentContainer}>Deal again?</div>
     </SettingsWindow>
   );
 };
