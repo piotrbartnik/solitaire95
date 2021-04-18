@@ -9,6 +9,6 @@ beforeEach(() => {
 
 describe("renders DealAgain", () => {
   it("and check score wrapper exists with top label", () => {
-    expect(screen.getByText("Deal again?")).toBeVisible();
+    expect(screen.getByText("Deal again?")).toBeTruthy();
   });
 });
