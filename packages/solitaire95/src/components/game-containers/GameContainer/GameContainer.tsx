@@ -16,6 +16,7 @@ type GameContainerStateTypes = {
   cardsOnThirdFoundation: cardConfigType[];
   cardsOnFourthFoundation: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
+  cardsOnFoundations: FoundationInitialState;
 };
 
 type GameContainerDispatchTypes = {
@@ -96,6 +97,7 @@ const mapStateToProps = (state: {
       state.cardsOnFoundation.cardsOnThirdFoundation.cards,
     cardsOnFourthFoundation:
       state.cardsOnFoundation.cardsOnFourthFoundation.cards,
+    cardsOnFoundations: state.cardsOnFoundation,
     cardsOnPiles: state.cardDistribution.cardsOnPiles,
   };
 };

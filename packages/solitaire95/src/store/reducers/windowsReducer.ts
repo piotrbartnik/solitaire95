@@ -2,6 +2,7 @@ export interface WindowsState {
   cardBackWindow: boolean;
   aboutWindow: boolean;
   optionsWindow: boolean;
+  dealAgainWindow: boolean;
 }
 
 interface WindowActionTypes {
@@ -14,6 +15,7 @@ const initialState: WindowsState = {
   cardBackWindow: false,
   aboutWindow: false,
   optionsWindow: false,
+  dealAgainWindow: false,
 };
 
 export const toggleWindows = (

@@ -1,11 +1,28 @@
-import React, { useState, createContext } from "react";
+import React, {
+  useState,
+  createContext,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import { connect } from "react-redux";
-import { WindowsState, Points } from "../../../store/reducers/";
+import { toggleWindow, stopGame, countScore } from "../../../store/actions/";
+import {
+  WindowsState,
+  Points,
+  FoundationInitialState,
+  FoundationState,
+} from "../../../store/reducers/";
 import { TopBar, BottomBar } from "../../ui-components";
-import { DeckSelect, AboutSolitaire, Options } from "../../smart-components";
+import {
+  DeckSelect,
+  AboutSolitaire,
+  Options,
+  DealAgain,
+} from "../../smart-components";
 import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
@@ -16,9 +33,16 @@ export const CardBackContext = createContext({
   playSounds: true,
 });
 
+type MainPageDispatchTypes = {
+  toggleDealWindow: (state: boolean, window: string) => void;
+  stopGame: () => void;
+  addPointsOnEnd: (pointsToAdd: number) => void;
+};
+
 type MainPageStateTypes = {
   isWindowVisible?: WindowsState;
   score?: number;
+  cardsOnFoundations: FoundationInitialState;
 };
 
 type MainPagePropTypes = {
@@ -26,10 +50,19 @@ type MainPagePropTypes = {
   aboutChildren?: JSX.Element;
 };
 
-const MainPageInternal: React.FC<MainPageStateTypes & MainPagePropTypes> = (
-  props
-) => {
-  const { isWindowVisible, playSounds, score, aboutChildren } = props;
+const MainPageInternal: React.FC<
+  MainPageStateTypes & MainPagePropTypes & MainPageDispatchTypes
+> = (props) => {
+  const {
+    isWindowVisible,
+    playSounds,
+    score,
+    aboutChildren,
+    cardsOnFoundations,
+    toggleDealWindow,
+    stopGame,
+    addPointsOnEnd,
+  } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
     cardBackImage: string;
@@ -46,6 +79,30 @@ const MainPageInternal: React.FC<MainPageStateTypes & MainPagePropTypes> = (
   const [helpVisible, setHelpVisible] = useState(false);
   const [bottomBarText, setBottomBarText] = useState("");
 
+  const mainPageRef = useRef<HTMLDivElement>(null);
+
+  const isGameEnded = useCallback(() => {
+    const cards = Object.values(cardsOnFoundations);
+    const testCard = cards.map((el: FoundationState) => el?.cards);
+    const allCards = testCard?.reduce((acc, val) => acc.concat(val), []);
+
+    const secondsToFinish = parseInt(
+      ((mainPageRef.current as HTMLDivElement).querySelector(
+        "[class*='timer']"
+      ) as HTMLDivElement)?.innerText?.split(" ")[1]
+    );
+
+    const pointsToAddOnEnd = Math.round((20000 / secondsToFinish) * 35);
+
+    if (allCards.length === 52) {
+      addPointsOnEnd(pointsToAddOnEnd);
+      toggleDealWindow(true, "dealAgainWindow");
+      stopGame();
+    }
+  }, [cardsOnFoundations, toggleDealWindow, stopGame, addPointsOnEnd]);
+
+  useEffect(() => isGameEnded(), [cardsOnFoundations, isGameEnded]);
+
   const dndProviderBackend = /Mobi|Android/i.test(navigator.userAgent)
     ? TouchBackend
     : HTML5Backend;
@@ -54,6 +111,7 @@ const MainPageInternal: React.FC<MainPageStateTypes & MainPagePropTypes> = (
     <DndProvider backend={dndProviderBackend}>
       <div
         className={styles.mainPage}
+        ref={mainPageRef}
         onClick={(e) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const eventTarget = e.target as any;
@@ -72,11 +130,12 @@ const MainPageInternal: React.FC<MainPageStateTypes & MainPagePropTypes> = (
         }}
       >
         <CardBackContext.Provider value={value}>
-          {isWindowVisible?.cardBackWindow ? <DeckSelect /> : null}
-          {isWindowVisible?.aboutWindow ? (
+          {isWindowVisible?.cardBackWindow && <DeckSelect />}
+          {isWindowVisible?.aboutWindow && (
             <AboutSolitaire aboutChildren={aboutChildren} />
-          ) : null}
-          {isWindowVisible?.optionsWindow ? <Options /> : null}
+          )}
+          {isWindowVisible?.optionsWindow && <Options />}
+          {isWindowVisible?.dealAgainWindow && <DealAgain />}
           <TopBar
             title={"Solitaire"}
             showIcon
@@ -99,21 +158,33 @@ const MainPageInternal: React.FC<MainPageStateTypes & MainPagePropTypes> = (
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    toggleDealWindow: (windowState: boolean, windowToToggle: string) =>
+      dispatch(toggleWindow(windowState, windowToToggle)),
+    stopGame: () => dispatch(stopGame()),
+    addPointsOnEnd: (pointsToAdd: number) => dispatch(countScore(pointsToAdd)),
+  };
+};
+
 const mapStateToProps = (state: {
   toggleWindows: WindowsState;
   countScore: Points;
+  cardsOnFoundation: FoundationInitialState;
 }) => {
   return {
     isWindowVisible: state.toggleWindows,
     score: state.countScore.points,
+    cardsOnFoundations: state.cardsOnFoundation,
   };
 };
 
 export const MainPage = connect<
   MainPageStateTypes,
-  undefined,
+  MainPageDispatchTypes,
   MainPagePropTypes
 >(
   mapStateToProps,
-  undefined
+  mapDispatchToProps
 )(MainPageInternal);

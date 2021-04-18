@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 
-export const useStartTimer = (gameStarted: boolean): number => {
-  const [time, setTime] = useState(0);
+export const useStartTimer = (
+  gameStarted: boolean,
+  intitalTime: number
+): number => {
+  const [time, setTime] = useState(intitalTime);
 
   useEffect(() => {
     if (gameStarted) {

@@ -17,6 +17,7 @@ type SettingWindowPropTypes = {
   height?: string;
   buttons?: { text: string; onClick: () => void }[];
   closeButtonAction?: () => void;
+  positionOnWindow?: number[];
 };
 
 export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
@@ -28,9 +29,13 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     buttons,
     visible,
     closeButtonAction,
+    positionOnWindow,
   } = props;
 
-  const [windowPosition, setWindowPosition] = useState([100, 100]);
+  const [windowPosition, setWindowPosition] = useState([
+    positionOnWindow?.[0] || 100,
+    positionOnWindow?.[1] || 100,
+  ]);
 
   const { playSounds } = useContext(CardBackContext);
 

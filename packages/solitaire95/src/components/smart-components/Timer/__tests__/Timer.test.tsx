@@ -1,13 +1,9 @@
 import React from "react";
-import configureStore from "redux-mock-store";
-import { Provider } from "react-redux";
-import { render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { reduxRtlWrapper } from "../../../../helpers/testHelpers";
 import { Timer } from "../Timer";
 
 jest.useFakeTimers();
-const mockStore = configureStore([]);
 
 describe("renders Timer", () => {
   it("and check if it has the single div wrapper", () => {
@@ -20,18 +16,12 @@ describe("renders Timer", () => {
     expect(getByText("Time: 0")).toBeInTheDocument();
   });
 
-  // fix after adding start time after first move
-
   it("and it should have time 5 after five seconds", () => {
-    const store = mockStore({
+    const store = {
       gameState: { gameStarted: true },
       countScore: { points: 0 },
-    });
-    const { getByText } = render(
-      <Provider store={store}>
-        <Timer />
-      </Provider>
-    );
+    };
+    const { getByText } = reduxRtlWrapper(<Timer />, store);
     act(() => {
       jest.advanceTimersByTime(5000);
     });
