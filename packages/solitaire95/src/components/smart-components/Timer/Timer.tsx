@@ -5,15 +5,20 @@ import { countScore, saveTime } from "../../../store/actions/";
 import styles from "./Timer.module.scss";
 import { useStartTimer, useSubstractPointsEveryTenSeconds } from "./TimerHooks";
 
-type TimerPropTypes = {
+type TimerStatePropTypes = {
   gameStarted: boolean;
-  substractPoints: (poinst: number) => void;
   score: number;
-  saveTime: (timeToSave: number) => void;
   intialTime: number;
 };
 
-const TimerInternal: React.FC<TimerPropTypes> = (props) => {
+type TimerDispatchPropTypes = {
+  substractPoints: (poinst: number) => void;
+  saveTime: (timeToSave: number) => void;
+};
+
+const TimerInternal: React.FC<TimerStatePropTypes & TimerDispatchPropTypes> = (
+  props
+) => {
   const { gameStarted, substractPoints, score, saveTime, intialTime } = props;
 
   const time = useStartTimer(gameStarted, intialTime);
@@ -45,7 +50,7 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export const Timer = connect(
+export const Timer = connect<TimerStatePropTypes, TimerDispatchPropTypes>(
   mapStateToProps,
   mapDispatchToProps
 )(TimerInternal);
