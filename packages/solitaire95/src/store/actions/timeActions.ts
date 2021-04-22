@@ -10,7 +10,7 @@ export interface SaveTimeTypes extends TimeActionTypes {
 
 export const saveTime = (timeToSave: number): SaveTimeTypes => {
   return {
-    type: actionTypes.SAVE_TIME,
+    type: actionTypes.SAVE_INITIAL_TIME,
     timeToSave: timeToSave,
   };
 };

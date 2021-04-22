@@ -1,5 +1,5 @@
 export interface TimeState {
-  time: number;
+  initialTime: number;
 }
 
 interface TimeActionTypes {
@@ -8,7 +8,7 @@ interface TimeActionTypes {
 }
 
 const initialState: TimeState = {
-  time: 0,
+  initialTime: 0,
 };
 
 export const timeCounter = (
@@ -16,10 +16,10 @@ export const timeCounter = (
   action: TimeActionTypes
 ): TimeState => {
   switch (action.type) {
-    case "SAVE_TIME":
-      return { ...state, time: action.timeToSave };
+    case "SAVE_INITIAL_TIME":
+      return { ...state, initialTime: action.timeToSave };
     case "RESET_TIME":
-      return { ...state, time: 0 };
+      return { ...state, initialTime: 0 };
     default:
       return state;
   }

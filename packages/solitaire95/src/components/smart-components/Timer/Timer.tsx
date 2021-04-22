@@ -42,13 +42,13 @@ const TimerInternal: React.FC<TimerStatePropTypes & TimerDispatchPropTypes> = (
 const mapStateToProps = (state: {
   gameState: GameState;
   countScore: Points;
-  timeCounter: { time: number };
+  timeCounter: { initialTime: number };
 }) => {
   return {
     gameStarted: state.gameState.gameStarted,
     gameFinished: state.gameState.gameFinished,
     score: state.countScore.points,
-    intialTime: state.timeCounter.time,
+    intialTime: state.timeCounter.initialTime,
   };
 };
 
