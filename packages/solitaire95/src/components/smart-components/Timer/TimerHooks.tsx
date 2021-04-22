@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 
 export const useStartTimer = (
   gameStarted: boolean,
-  intitialTime: number
+  gameFinished: boolean,
+  intitialTime: number,
+  saveTimeCallback: (time: number) => void
 ): number => {
   const [time, setTime] = useState(intitialTime);
 
@@ -11,9 +13,15 @@ export const useStartTimer = (
       const timeInterval = setInterval(() => setTime(time + 1), 1000);
       return () => clearInterval(timeInterval);
     }
-    setTime(0);
+    if (gameFinished) {
+      setTime(time);
+      saveTimeCallback(time);
+    }
+    if (!gameFinished && !gameStarted) {
+      setTime(0);
+    }
     return;
-  }, [gameStarted, time]);
+  }, [gameStarted, time, gameFinished, saveTimeCallback]);
 
   return time;
 };

@@ -14,6 +14,7 @@ export const COUNT_SCORE = "COUNT_SCORE";
 export const RESET_SCORE = "RESET_SCORE";
 export const START_GAME = "START_GAME";
 export const STOP_GAME = "STOP_GAME";
+export const FINISH_GAME = "FINISH_GAME";
 export const TURN_CARD_ON_PILE = "TURN_CARD_ON_PILE";
 export const STOCK_TURN_COUNTER = "STOCK_TURN_COUNTER";
 export const RESET_STOCK_COUNTER = "RESET_STOCK_COUNTER";

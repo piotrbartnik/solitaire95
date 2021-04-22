@@ -5,6 +5,8 @@ import { dndWrapper, reduxRtlWrapper } from "../../../../helpers/testHelpers";
 import { MainPage } from "../MainPage";
 import { createCards } from "../../../../configs/cardTypes";
 
+jest.useFakeTimers();
+
 const filterCards = (suite: string): (string | number | undefined)[][] =>
   createCards.filter((card) => card[1] === suite);
 
@@ -36,6 +38,8 @@ const initialState = {
       cards: spades,
     },
   },
+  gameState: { gameStarted: true },
+  timeCounter: { time: 500 },
 };
 
 describe("render MainPage for Deal again window testing", () => {
@@ -89,5 +93,13 @@ describe("render MainPage for Deal again window testing", () => {
       container.querySelectorAll("div[data-foundationnumber]")
     ).toHaveLength(0);
     expect(screen.queryByText("Deal again?")).toBeNull();
+  });
+  it("when game is finished appropriate score is added based on time needed to finish the game", () => {
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      initialState
+    );
+    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    expect(screen.getByText(/Score: 1410/)).toBeTruthy();
   });
 });

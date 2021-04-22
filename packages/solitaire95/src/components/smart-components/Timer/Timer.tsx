@@ -9,6 +9,7 @@ type TimerStatePropTypes = {
   gameStarted: boolean;
   score: number;
   intialTime: number;
+  gameFinished: boolean;
 };
 
 type TimerDispatchPropTypes = {
@@ -19,12 +20,20 @@ type TimerDispatchPropTypes = {
 const TimerInternal: React.FC<TimerStatePropTypes & TimerDispatchPropTypes> = (
   props
 ) => {
-  const { gameStarted, substractPoints, score, saveTime, intialTime } = props;
-
-  const time = useStartTimer(gameStarted, intialTime);
-  useSubstractPointsEveryTenSeconds(score, time, substractPoints);
+  const {
+    gameStarted,
+    substractPoints,
+    score,
+    saveTime,
+    intialTime,
+    gameFinished,
+  } = props;
 
   const saveTimeCallback = () => saveTime(time);
+
+  const time = useStartTimer(gameStarted, gameFinished, intialTime, saveTime);
+  useSubstractPointsEveryTenSeconds(score, time, substractPoints);
+
   window.addEventListener("beforeunload", saveTimeCallback);
 
   return <div className={styles.timer}>Time: {time}</div>;
@@ -37,6 +46,7 @@ const mapStateToProps = (state: {
 }) => {
   return {
     gameStarted: state.gameState.gameStarted,
+    gameFinished: state.gameState.gameFinished,
     score: state.countScore.points,
     intialTime: state.timeCounter.time,
   };

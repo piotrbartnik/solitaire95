@@ -9,7 +9,12 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import { connect } from "react-redux";
-import { toggleWindow, stopGame, countScore } from "../../../store/actions/";
+import {
+  toggleWindow,
+  stopGame,
+  countScore,
+  finishGame,
+} from "../../../store/actions/";
 import {
   WindowsState,
   Points,
@@ -37,12 +42,14 @@ type MainPageDispatchTypes = {
   toggleDealWindow: (state: boolean, window: string) => void;
   stopGame: () => void;
   addPointsOnEnd: (pointsToAdd: number) => void;
+  setGameFinished: (gameState: boolean) => void;
 };
 
 type MainPageStateTypes = {
   isWindowVisible?: WindowsState;
   score?: number;
   cardsOnFoundations: FoundationInitialState;
+  stopTime: number;
 };
 
 type MainPagePropTypes = {
@@ -62,6 +69,8 @@ const MainPageInternal: React.FC<
     toggleDealWindow,
     stopGame,
     addPointsOnEnd,
+    setGameFinished,
+    stopTime,
   } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -86,20 +95,21 @@ const MainPageInternal: React.FC<
     const testCard = cards.map((el: FoundationState) => el?.cards);
     const allCards = testCard?.reduce((acc, val) => acc.concat(val), []);
 
-    const secondsToFinish = parseInt(
-      ((mainPageRef.current as HTMLDivElement).querySelector(
-        "[class*='timer']"
-      ) as HTMLDivElement)?.innerText?.split(" ")[1]
-    );
-
-    const pointsToAddOnEnd = Math.round((20000 / secondsToFinish) * 35);
-
     if (allCards.length === 52) {
-      addPointsOnEnd(pointsToAddOnEnd);
       toggleDealWindow(true, "dealAgainWindow");
       stopGame();
+      setGameFinished(true);
+      const pointsToAddOnEnd = Math.round((20000 / stopTime) * 35);
+      addPointsOnEnd(pointsToAddOnEnd);
     }
-  }, [cardsOnFoundations, toggleDealWindow, stopGame, addPointsOnEnd]);
+  }, [
+    cardsOnFoundations,
+    toggleDealWindow,
+    stopGame,
+    addPointsOnEnd,
+    setGameFinished,
+    stopTime,
+  ]);
 
   useEffect(() => isGameEnded(), [cardsOnFoundations, isGameEnded]);
 
@@ -165,6 +175,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(toggleWindow(windowState, windowToToggle)),
     stopGame: () => dispatch(stopGame()),
     addPointsOnEnd: (pointsToAdd: number) => dispatch(countScore(pointsToAdd)),
+    setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
   };
 };
 
@@ -172,11 +183,13 @@ const mapStateToProps = (state: {
   toggleWindows: WindowsState;
   countScore: Points;
   cardsOnFoundation: FoundationInitialState;
+  timeCounter: { time: number };
 }) => {
   return {
     isWindowVisible: state.toggleWindows,
     score: state.countScore.points,
     cardsOnFoundations: state.cardsOnFoundation,
+    stopTime: state.timeCounter.time,
   };
 };
 

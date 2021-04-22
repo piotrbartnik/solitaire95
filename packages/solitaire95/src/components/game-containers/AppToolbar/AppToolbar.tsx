@@ -6,6 +6,7 @@ import {
   stopGame,
   toggleWindow,
   resetStockCounter,
+  finishGame,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -23,6 +24,7 @@ type AppToolbarDispatchTypes = {
   stopGame: () => void;
   toggleAboutWindow: (windowState: boolean, windowToToggle: string) => void;
   resetStockCounter: () => void;
+  setGameFinished: (gameState: boolean) => void;
 };
 
 type AppToolbarPropTypes = {
@@ -48,6 +50,7 @@ const AppToolbarInternal: React.FC<
     stopGame,
     toggleAboutWindow,
     resetStockCounter,
+    setGameFinished,
   } = props;
 
   return (
@@ -72,6 +75,7 @@ const AppToolbarInternal: React.FC<
                   stopGame();
                   setGameVisible(!gameVisible);
                   setHelpVisible(false);
+                  setGameFinished(false);
                 }}
                 onMouseOver={() => setBottomBarText("Deal a new game")}
                 onMouseLeave={() => setBottomBarText("")}
@@ -160,6 +164,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(toggleWindow(windowState, windowToToggle)),
     toggleAboutWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
+    setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
   };
 };
 
