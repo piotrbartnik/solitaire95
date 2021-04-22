@@ -93,6 +93,8 @@ describe("render MainPage for Deal again window testing", () => {
       container.querySelectorAll("div[data-foundationnumber]")
     ).toHaveLength(0);
     expect(screen.queryByText("Deal again?")).toBeNull();
+    expect(screen.getByText(/Score: 0/)).toBeVisible();
+    expect(screen.getByText(/Time: 0/)).toBeVisible();
   });
   it("when game is finished appropriate score is added based on time needed to finish the game", () => {
     const { container } = reduxRtlWrapper(
