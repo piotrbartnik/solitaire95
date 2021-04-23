@@ -39,7 +39,7 @@ const initialState = {
     },
   },
   gameState: { gameStarted: true },
-  timeCounter: { time: 500 },
+  timeCounter: { scoreTime: 500 },
 };
 
 describe("render MainPage for Deal again window testing", () => {

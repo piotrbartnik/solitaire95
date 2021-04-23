@@ -4,7 +4,7 @@ export const useStartTimer = (
   gameStarted: boolean,
   gameFinished: boolean,
   intitialTime: number,
-  saveTimeCallback: (time: number) => void
+  saveScoreTimeCallback: (time: number) => void
 ): number => {
   const [time, setTime] = useState(intitialTime);
 
@@ -15,13 +15,13 @@ export const useStartTimer = (
     }
     if (gameFinished) {
       setTime(time);
-      saveTimeCallback(time);
+      saveScoreTimeCallback(time);
     }
     if (!gameFinished && !gameStarted) {
       setTime(0);
     }
     return;
-  }, [gameStarted, time, gameFinished, saveTimeCallback]);
+  }, [gameStarted, time, gameFinished, saveScoreTimeCallback]);
 
   return time;
 };

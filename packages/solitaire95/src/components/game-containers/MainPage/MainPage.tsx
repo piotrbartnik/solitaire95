@@ -49,7 +49,7 @@ type MainPageStateTypes = {
   isWindowVisible?: WindowsState;
   score?: number;
   cardsOnFoundations: FoundationInitialState;
-  stopTime: number;
+  scoreTime: number;
 };
 
 type MainPagePropTypes = {
@@ -70,7 +70,7 @@ const MainPageInternal: React.FC<
     stopGame,
     addPointsOnEnd,
     setGameFinished,
-    stopTime,
+    scoreTime,
   } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -99,8 +99,10 @@ const MainPageInternal: React.FC<
       toggleDealWindow(true, "dealAgainWindow");
       stopGame();
       setGameFinished(true);
-      const pointsToAddOnEnd = Math.round((20000 / stopTime) * 35);
-      addPointsOnEnd(pointsToAddOnEnd);
+      if (scoreTime > 30) {
+        const pointsToAddOnEnd = Math.round((20000 / scoreTime) * 35);
+        addPointsOnEnd(pointsToAddOnEnd);
+      }
     }
   }, [
     cardsOnFoundations,
@@ -108,7 +110,7 @@ const MainPageInternal: React.FC<
     stopGame,
     addPointsOnEnd,
     setGameFinished,
-    stopTime,
+    scoreTime,
   ]);
 
   useEffect(() => isGameEnded(), [cardsOnFoundations, isGameEnded]);
@@ -183,13 +185,13 @@ const mapStateToProps = (state: {
   toggleWindows: WindowsState;
   countScore: Points;
   cardsOnFoundation: FoundationInitialState;
-  timeCounter: { time: number };
+  timeCounter: { scoreTime: number };
 }) => {
   return {
     isWindowVisible: state.toggleWindows,
     score: state.countScore.points,
     cardsOnFoundations: state.cardsOnFoundation,
-    stopTime: state.timeCounter.time,
+    scoreTime: state.timeCounter.scoreTime,
   };
 };
 

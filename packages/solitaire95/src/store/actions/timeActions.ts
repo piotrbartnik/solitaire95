@@ -15,6 +15,13 @@ export const saveTime = (timeToSave: number): SaveTimeTypes => {
   };
 };
 
+export const saveScoreTime = (timeToSave: number): SaveTimeTypes => {
+  return {
+    type: actionTypes.SAVE_SCORE_TIME,
+    timeToSave: timeToSave,
+  };
+};
+
 export const resetTime = (): TimeActionTypes => {
   return {
     type: actionTypes.RESET_TIME,
