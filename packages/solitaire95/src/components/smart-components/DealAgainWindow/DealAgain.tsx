@@ -6,6 +6,7 @@ import {
   stopGame,
   resetScore,
   finishGame,
+  resetTime,
 } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
@@ -20,6 +21,7 @@ export type DealAgainDispatchTypes = {
   stopGame: () => void;
   resetScore: () => void;
   setGameFinished: (gameState: boolean) => void;
+  resetStateSavedTimers: () => void;
 };
 
 const DealAgainInternal: React.FC<
@@ -32,6 +34,7 @@ const DealAgainInternal: React.FC<
     stopGame,
     resetScore,
     setGameFinished,
+    resetStateSavedTimers,
   } = props;
 
   const dealWindowPositionX = window.innerWidth;
@@ -43,7 +46,15 @@ const DealAgainInternal: React.FC<
     resetScore();
     toggleDealWindow(false, "dealAgainWindow");
     setGameFinished(false);
-  }, [dealCards, stopGame, resetScore, toggleDealWindow, setGameFinished]);
+    resetStateSavedTimers();
+  }, [
+    dealCards,
+    stopGame,
+    resetScore,
+    toggleDealWindow,
+    setGameFinished,
+    resetStateSavedTimers,
+  ]);
 
   const closeActions = useCallback(
     () => toggleDealWindow(false, "dealAgainWindow"),
@@ -92,6 +103,7 @@ const mapDispatchToProps = (dispatch: any) => {
     stopGame: () => dispatch(stopGame()),
     resetScore: () => dispatch(resetScore()),
     setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
+    resetStateSavedTimers: () => dispatch(resetTime()),
   };
 };
 
