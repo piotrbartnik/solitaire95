@@ -14,6 +14,7 @@ import {
   CardsDistributionInitialState,
   FoundationInitialState,
   StockCount,
+  GameState,
 } from "../../../store/reducers/";
 import { Card } from "..";
 import { cardConfigType } from "../../../configs/cardTypes";
@@ -25,7 +26,9 @@ export type CardStockStateTypes = {
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: FoundationInitialState;
   stockCounter: StockCount;
+  gameStarted: boolean;
 };
+
 export type CardStockDispatchTypes = {
   takeOneFromStock: (cardToPush: cardConfigType) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
@@ -60,13 +63,14 @@ const CardStockInternal: React.FC<
     startGame,
     addToStockCounter,
     stockCounter,
+    gameStarted,
   } = props;
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
       const cardToPush = cardsOnStock.pop();
       takeOneFromStock(cardToPush as cardConfigType);
-      startGame();
+      !gameStarted && startGame();
     } else {
       addToStockCounter();
       reverseStock((cardsFromStock as cardConfigType[]).reverse());
@@ -157,12 +161,14 @@ const mapStateToProps = (state: {
   cardDistribution: CardsDistributionInitialState;
   cardsOnFoundation: FoundationInitialState;
   stockCounter: StockCount;
+  gameState: GameState;
 }) => {
   return {
     cardsOnStock: state.cardDistribution.cardsOnStock,
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
     stockCounter: state.stockCounter,
+    gameStarted: state.gameState.gameStarted,
   };
 };
 

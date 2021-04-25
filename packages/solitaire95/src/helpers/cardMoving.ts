@@ -13,7 +13,8 @@ export const moveToFoundation = (
   pileOrStock: boolean,
   addPoints: (points: number) => void,
   cardsFromStock?: cardConfigType[],
-  startGame?: () => void
+  startGame?: () => void,
+  gameStarted?: boolean
 ): void => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { dataset } = event.target as any;
@@ -31,7 +32,7 @@ export const moveToFoundation = (
     if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
       addToFoundationCallback(cardConfig, foundationToPopulate[0], suite);
       addPoints(10);
-      startGame && startGame();
+      !gameStarted && startGame && startGame();
       pileOrStock
         ? removeFromCallback(pilenumber)
         : removeFromCallback(
@@ -61,7 +62,7 @@ export const moveToFoundation = (
               );
           addToFoundationCallback(cardConfig, foundation);
           addPoints(10);
-          startGame && startGame();
+          !gameStarted && startGame && startGame();
         }
       }
     });
