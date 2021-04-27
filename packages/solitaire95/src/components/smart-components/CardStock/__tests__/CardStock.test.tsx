@@ -14,6 +14,7 @@ const store = mockStore({
     cardsOnStock: testAceCardStock,
     cardsFromStock: testAceCardStock,
   },
+  gameState: { gameStarted: false },
   cardsOnFoundation: {
     cardsOnFirstFoundation: { foundationSuite: undefined, cards: [] },
     cardsOnSecondFoundation: { foundationSuite: undefined, cards: [] },

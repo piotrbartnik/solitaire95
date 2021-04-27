@@ -6,6 +6,8 @@ import {
   stopGame,
   toggleWindow,
   resetStockCounter,
+  finishGame,
+  resetTime,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -23,6 +25,8 @@ type AppToolbarDispatchTypes = {
   stopGame: () => void;
   toggleAboutWindow: (windowState: boolean, windowToToggle: string) => void;
   resetStockCounter: () => void;
+  setGameFinished: (gameState: boolean) => void;
+  resetStateSavedTimers: () => void;
 };
 
 type AppToolbarPropTypes = {
@@ -48,6 +52,8 @@ const AppToolbarInternal: React.FC<
     stopGame,
     toggleAboutWindow,
     resetStockCounter,
+    setGameFinished,
+    resetStateSavedTimers,
   } = props;
 
   return (
@@ -72,6 +78,8 @@ const AppToolbarInternal: React.FC<
                   stopGame();
                   setGameVisible(!gameVisible);
                   setHelpVisible(false);
+                  setGameFinished(false);
+                  resetStateSavedTimers();
                 }}
                 onMouseOver={() => setBottomBarText("Deal a new game")}
                 onMouseLeave={() => setBottomBarText("")}
@@ -160,6 +168,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(toggleWindow(windowState, windowToToggle)),
     toggleAboutWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
+    setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
+    resetStateSavedTimers: () => dispatch(resetTime()),
   };
 };
 

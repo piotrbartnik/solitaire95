@@ -4,6 +4,7 @@ import { useDrop } from "react-dnd";
 import {
   CardsDistributionInitialState,
   FoundationInitialState,
+  GameState,
 } from "../../../store/reducers/";
 import {
   removeCardFromPile,
@@ -27,6 +28,7 @@ type PileStateTypes = {
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: FoundationInitialState;
   cardsOnPiles: { [key: string]: cardConfigType[] };
+  gameStarted: boolean;
 };
 
 type PileDispatchTypes = {
@@ -66,6 +68,7 @@ const PileInternal: React.FC<
     addPoints,
     startGame,
     turnCardOnPile,
+    gameStarted,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -113,7 +116,7 @@ const PileInternal: React.FC<
           card[3],
           card[4],
         ];
-        startGame();
+        !gameStarted && startGame();
         return addCardToPile((ref.current as HTMLDivElement).id, cardToDrag);
       });
       cardsToDrag.forEach(() => removeCardFromPile(pileNumber));
@@ -178,7 +181,8 @@ const PileInternal: React.FC<
         true,
         addPoints,
         undefined,
-        startGame
+        startGame,
+        gameStarted
       ),
     [
       cardsOnFoundations,
@@ -186,6 +190,7 @@ const PileInternal: React.FC<
       removeCardFromPile,
       addPoints,
       startGame,
+      gameStarted,
     ]
   );
 
@@ -262,11 +267,13 @@ const PileInternal: React.FC<
 const mapStateToProps = (state: {
   cardDistribution: CardsDistributionInitialState;
   cardsOnFoundation: FoundationInitialState;
+  gameState: GameState;
 }) => {
   return {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
     cardsOnPiles: state.cardDistribution.cardsOnPiles,
+    gameStarted: state.gameState.gameStarted,
   };
 };
 

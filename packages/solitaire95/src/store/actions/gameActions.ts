@@ -11,3 +11,12 @@ export const stopGame = (): { type: string } => {
     type: actionTypes.STOP_GAME,
   };
 };
+
+export const finishGame = (
+  gameFinished: boolean
+): { type: string; gameFinished: boolean } => {
+  return {
+    type: actionTypes.FINISH_GAME,
+    gameFinished,
+  };
+};

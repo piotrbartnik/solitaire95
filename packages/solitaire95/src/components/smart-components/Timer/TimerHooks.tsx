@@ -2,18 +2,26 @@ import { useState, useEffect } from "react";
 
 export const useStartTimer = (
   gameStarted: boolean,
-  intitalTime: number
+  gameFinished: boolean,
+  intitialTime: number,
+  saveScoreTimeCallback: (time: number) => void
 ): number => {
-  const [time, setTime] = useState(intitalTime);
+  const [time, setTime] = useState(intitialTime);
 
   useEffect(() => {
     if (gameStarted) {
       const timeInterval = setInterval(() => setTime(time + 1), 1000);
       return () => clearInterval(timeInterval);
     }
-    setTime(0);
+    if (gameFinished) {
+      setTime(time);
+      saveScoreTimeCallback(time);
+    }
+    if (!gameFinished && !gameStarted) {
+      setTime(0);
+    }
     return;
-  }, [gameStarted, time]);
+  }, [gameStarted, time, gameFinished, saveScoreTimeCallback]);
 
   return time;
 };
@@ -24,7 +32,7 @@ export const useSubstractPointsEveryTenSeconds = (
   substractFunction: (poinst: number) => void
 ): void => {
   useEffect(() => {
-    if (time && time % 10 === 0) {
+    if (score && time && time % 10 === 0) {
       substractFunction(-2);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

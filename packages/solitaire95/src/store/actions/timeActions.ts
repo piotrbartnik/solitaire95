@@ -10,7 +10,14 @@ export interface SaveTimeTypes extends TimeActionTypes {
 
 export const saveTime = (timeToSave: number): SaveTimeTypes => {
   return {
-    type: actionTypes.SAVE_TIME,
+    type: actionTypes.SAVE_INITIAL_TIME,
+    timeToSave: timeToSave,
+  };
+};
+
+export const saveScoreTime = (timeToSave: number): SaveTimeTypes => {
+  return {
+    type: actionTypes.SAVE_SCORE_TIME,
     timeToSave: timeToSave,
   };
 };

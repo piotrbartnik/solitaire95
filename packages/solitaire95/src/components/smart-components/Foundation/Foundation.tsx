@@ -5,6 +5,7 @@ import { CardBackContext } from "../../game-containers";
 import {
   CardsDistributionInitialState,
   FoundationInitialState,
+  GameState,
 } from "../../../store/reducers/";
 import {
   addCardToFoundation,
@@ -21,6 +22,7 @@ import styles from "./Foundation.module.scss";
 export type FoundationStateTypes = {
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: FoundationInitialState;
+  gameStarted: boolean;
 };
 
 export type FoundationDispatchTypes = {
@@ -53,6 +55,7 @@ const FoundationInternal: React.FC<
     foundationId,
     addPoints,
     startGame,
+    gameStarted,
   } = props;
 
   const { cardBackImage } = useContext(CardBackContext);
@@ -109,7 +112,8 @@ const FoundationInternal: React.FC<
 
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
     addPoints(10);
-    startGame();
+    !gameStarted && startGame();
+
     if (typeof pileNumber === "number") {
       removeCardFromPile(pileNumber.toString());
     } else {
@@ -168,10 +172,12 @@ const FoundationInternal: React.FC<
 const mapStateToProps = (state: {
   cardDistribution: CardsDistributionInitialState;
   cardsOnFoundation: FoundationInitialState;
+  gameState: GameState;
 }) => {
   return {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
+    gameStarted: state.gameState.gameStarted,
   };
 };
 
