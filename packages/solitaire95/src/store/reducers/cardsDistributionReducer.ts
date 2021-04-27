@@ -10,7 +10,8 @@ export interface CardDistributionActionTypes {
   type: string;
   cardsOnPiles: { [key: string]: cardConfigType[] };
   cardsForStock: cardConfigType[];
-  card: cardConfigType;
+  cardsOnStock: cardConfigType[];
+  cardToAddToTable: cardConfigType;
   reverseStock: cardConfigType[];
   removeCardFromStock: cardConfigType[];
   removeCardFromPile: number;
@@ -39,7 +40,8 @@ export const cardDistribution = (
     case "TAKE_ONE_FROM_STOCK":
       return {
         ...state,
-        cardsFromStock: [...state.cardsFromStock, action.card],
+        cardsFromStock: [...state.cardsFromStock, action.cardToAddToTable],
+        cardsOnStock: action.cardsOnStock,
       };
     case "REVERSE_STOCK":
       return {

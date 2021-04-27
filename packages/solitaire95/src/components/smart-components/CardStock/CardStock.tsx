@@ -30,7 +30,10 @@ export type CardStockStateTypes = {
 };
 
 export type CardStockDispatchTypes = {
-  takeOneFromStock: (cardToPush: cardConfigType) => void;
+  takeOneFromStock: (
+    cardsOnStock: cardConfigType[],
+    cardToAddToTable: cardConfigType
+  ) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
   removeCardFromStock: (card: cardConfigType[]) => void;
   addCardToFoundation: (
@@ -68,12 +71,13 @@ const CardStockInternal: React.FC<
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
-      const cardToPush = cardsOnStock.pop();
-      takeOneFromStock(cardToPush as cardConfigType);
+      const cardsOnStockCopy = cardsOnStock.slice();
+      const cardToPush = cardsOnStockCopy.pop();
+      takeOneFromStock(cardsOnStockCopy, cardToPush as cardConfigType);
       !gameStarted && startGame();
     } else {
       addToStockCounter();
-      reverseStock((cardsFromStock as cardConfigType[]).reverse());
+      reverseStock(cardsFromStock.reverse());
       if (stockCounter.stockRevolutions >= 1) {
         addPoints(-100);
       }
@@ -175,8 +179,10 @@ const mapStateToProps = (state: {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    takeOneFromStock: (payload: cardConfigType) =>
-      dispatch(takeOneFromStock(payload)),
+    takeOneFromStock: (
+      cardsOnStock: cardConfigType[],
+      cardToAddToTable: cardConfigType
+    ) => dispatch(takeOneFromStock(cardsOnStock, cardToAddToTable)),
     reverseStock: (payload: cardConfigType[]) =>
       dispatch(reverseStock(payload)),
     removeCardFromStock: (payload: cardConfigType[]) =>

@@ -44,11 +44,17 @@ export const dealCards = (): CardDealTypes => {
 };
 
 export const takeOneFromStock = (
-  payload: cardConfigType
-): { type: string; card: cardConfigType } => {
+  cardsOnStock: cardConfigType[],
+  cardToAddToTable: cardConfigType
+): {
+  type: string;
+  cardsOnStock: cardConfigType[];
+  cardToAddToTable: cardConfigType;
+} => {
   return {
     type: actionTypes.TAKE_ONE_FROM_STOCK,
-    card: payload,
+    cardsOnStock,
+    cardToAddToTable,
   };
 };
 
