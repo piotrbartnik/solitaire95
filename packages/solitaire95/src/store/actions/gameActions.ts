@@ -20,3 +20,12 @@ export const finishGame = (
     gameFinished,
   };
 };
+
+export const setUndoAction = (
+  actionToUndo: unknown[]
+): { type: string; actionToUndo: unknown[] } => {
+  return {
+    type: actionTypes.SET_UNDO_ACTION,
+    actionToUndo,
+  };
+};

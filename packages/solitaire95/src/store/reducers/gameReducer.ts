@@ -1,16 +1,19 @@
 export interface GameState {
   gameStarted: boolean;
   gameFinished: boolean;
+  actionToUndo: unknown[];
 }
 
 interface GameStateActionTypes {
   type: string;
   gameFinished: boolean;
+  actionToUndo: unknown[];
 }
 
 const initialState: GameState = {
   gameStarted: false,
   gameFinished: false,
+  actionToUndo: [],
 };
 
 export const gameState = (
@@ -24,6 +27,8 @@ export const gameState = (
       return { ...state, gameStarted: false };
     case "FINISH_GAME":
       return { ...state, gameFinished: action.gameFinished };
+    case "SET_UNDO_ACTION":
+      return { ...state, actionToUndo: action.actionToUndo };
     default:
       return state;
   }

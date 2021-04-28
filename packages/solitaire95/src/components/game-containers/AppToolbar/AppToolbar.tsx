@@ -8,6 +8,7 @@ import {
   resetStockCounter,
   finishGame,
   resetTime,
+  undoTakeOneFromStock,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -15,6 +16,8 @@ import {
   ToolButton,
   Separator,
 } from "../../ui-components";
+import { GameState } from "../../../store/reducers";
+import { cardConfigType } from "../../../configs/cardTypes";
 import { ToolDropdown } from "../../smart-components";
 import styles from "./AppToolbar.module.scss";
 
@@ -27,6 +30,14 @@ type AppToolbarDispatchTypes = {
   resetStockCounter: () => void;
   setGameFinished: (gameState: boolean) => void;
   resetStateSavedTimers: () => void;
+  undoTakeOneFromStock: (
+    cardsOnStockUndo: cardConfigType[],
+    cardsFromStockUndo: cardConfigType[]
+  ) => void;
+};
+
+type AppToolbarStateTypes = {
+  actionToUndo: unknown[];
 };
 
 type AppToolbarPropTypes = {
@@ -38,7 +49,7 @@ type AppToolbarPropTypes = {
 };
 
 const AppToolbarInternal: React.FC<
-  AppToolbarDispatchTypes & AppToolbarPropTypes
+  AppToolbarDispatchTypes & AppToolbarPropTypes & AppToolbarStateTypes
 > = (props) => {
   const {
     dealCards,
@@ -54,6 +65,8 @@ const AppToolbarInternal: React.FC<
     resetStockCounter,
     setGameFinished,
     resetStateSavedTimers,
+    undoTakeOneFromStock,
+    actionToUndo,
   } = props;
 
   return (
@@ -90,7 +103,19 @@ const AppToolbarInternal: React.FC<
                 onMouseOver={() => setBottomBarText("Undo last action")}
                 onMouseLeave={() => setBottomBarText("")}
                 text="Undo"
-                disabled
+                disabled={actionToUndo.length < 1}
+                onClick={() => {
+                  setGameVisible(!gameVisible);
+                  if (actionToUndo.length >= 1) {
+                    const stateToRetrieve =
+                      actionToUndo[actionToUndo.length - 1];
+
+                    undoTakeOneFromStock(
+                      stateToRetrieve[1],
+                      stateToRetrieve[2]
+                    );
+                  }
+                }}
               />
               <ToolButton
                 onClick={() => {
@@ -157,6 +182,12 @@ const AppToolbarInternal: React.FC<
   );
 };
 
+const mapStateToProps = (state: { gameState: GameState }) => {
+  return {
+    actionToUndo: state.gameState.actionToUndo,
+  };
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -170,14 +201,18 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(toggleWindow(windowState, windowToToggle)),
     setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
     resetStateSavedTimers: () => dispatch(resetTime()),
+    undoTakeOneFromStock: (
+      cardsOnStockUndo: cardConfigType[],
+      cardsFromStockUndo: cardConfigType[]
+    ) => dispatch(undoTakeOneFromStock(cardsOnStockUndo, cardsFromStockUndo)),
   };
 };
 
 export const AppToolbar = connect<
-  undefined,
+  AppToolbarStateTypes,
   AppToolbarDispatchTypes,
   AppToolbarPropTypes
 >(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps
 )(AppToolbarInternal);

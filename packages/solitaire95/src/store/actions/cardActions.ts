@@ -150,3 +150,18 @@ export const resetStockCounter = (): { type: string } => {
     type: actionTypes.RESET_STOCK_COUNTER,
   };
 };
+
+export const undoTakeOneFromStock = (
+  cardsOnStockUndo: cardConfigType[],
+  cardsFromStockUndo: cardConfigType[]
+): {
+  type: string;
+  cardsOnStockUndo: cardConfigType[];
+  cardsFromStockUndo: cardConfigType[];
+} => {
+  return {
+    type: actionTypes.UNDO_TAKE_ONE_FROM_STOCK,
+    cardsOnStockUndo,
+    cardsFromStockUndo,
+  };
+};

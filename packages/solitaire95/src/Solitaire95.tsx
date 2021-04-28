@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import { dealCards } from "../src/store/actions/";
+import { createStore, Middleware, applyMiddleware, compose } from "redux";
+import { dealCards, setUndoAction } from "../src/store/actions/";
 import { rootReducer } from "./store/reducers";
 import { MainPage } from "./components/game-containers/MainPage/MainPage";
 import "./Solitaire95.scss";
@@ -13,11 +13,39 @@ const persistedState = localStorage.getItem("solitaireState")
 
 delete persistedState?.toggleWindows;
 
+const test: unknown[] = [];
+
+const logger: Middleware = (store) => (next) => (action) => {
+  // console.group(action.type);
+  // console.info("dispatching", action);
+  const previousState = store.getState();
+  console.log("previous state", previousState);
+  const result = next(action);
+  const nextState = store.getState();
+  console.log("next state", nextState);
+  // console.groupEnd();
+  if (action.type === "TAKE_ONE_FROM_STOCK") {
+    test.push([
+      "TAKE_ONE_FROM_STOCK",
+      previousState.cardDistribution.cardsOnStock,
+      previousState.cardDistribution.cardsFromStock,
+    ]);
+    store.dispatch(setUndoAction(test));
+  }
+
+  return result;
+};
+
+const middlewareEnhancer = applyMiddleware(logger);
+
 const store = createStore(
   rootReducer,
   persistedState,
-  // @ts-ignore
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  compose(
+    middlewareEnhancer,
+    // @ts-ignore
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 );
 
 store.subscribe(() => {
