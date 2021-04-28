@@ -1,13 +1,15 @@
+import { cardConfigType } from "../../configs/cardTypes";
+
 export interface GameState {
   gameStarted: boolean;
   gameFinished: boolean;
-  actionToUndo: unknown[];
+  actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
 }
 
 interface GameStateActionTypes {
   type: string;
   gameFinished: boolean;
-  actionToUndo: unknown[];
+  actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
 }
 
 const initialState: GameState = {

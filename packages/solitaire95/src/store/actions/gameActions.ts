@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import { cardConfigType } from "../../configs/cardTypes";
 
 export const startGame = (): { type: string } => {
   return {
@@ -22,8 +23,11 @@ export const finishGame = (
 };
 
 export const setUndoAction = (
-  actionToUndo: unknown[]
-): { type: string; actionToUndo: unknown[] } => {
+  actionToUndo: [string, cardConfigType[], cardConfigType[]] | []
+): {
+  type: string;
+  actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
+} => {
   return {
     type: actionTypes.SET_UNDO_ACTION,
     actionToUndo,

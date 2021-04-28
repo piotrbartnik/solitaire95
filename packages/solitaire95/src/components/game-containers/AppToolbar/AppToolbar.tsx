@@ -37,7 +37,7 @@ type AppToolbarDispatchTypes = {
 };
 
 type AppToolbarStateTypes = {
-  actionToUndo: unknown[];
+  actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
 };
 
 type AppToolbarPropTypes = {
@@ -103,17 +103,11 @@ const AppToolbarInternal: React.FC<
                 onMouseOver={() => setBottomBarText("Undo last action")}
                 onMouseLeave={() => setBottomBarText("")}
                 text="Undo"
-                disabled={actionToUndo.length < 1}
+                disabled={!actionToUndo.length}
                 onClick={() => {
                   setGameVisible(!gameVisible);
-                  if (actionToUndo.length >= 1) {
-                    const stateToRetrieve =
-                      actionToUndo[actionToUndo.length - 1];
-
-                    undoTakeOneFromStock(
-                      stateToRetrieve[1],
-                      stateToRetrieve[2]
-                    );
+                  if (actionToUndo.length) {
+                    undoTakeOneFromStock(actionToUndo[1], actionToUndo[2]);
                   }
                 }}
               />
