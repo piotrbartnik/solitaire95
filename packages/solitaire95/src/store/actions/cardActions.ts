@@ -165,3 +165,15 @@ export const undoTakeOneFromStock = (
     cardsFromStockUndo,
   };
 };
+
+export const undoRemoveCardFromPile = (pilesState: {
+  [key: string]: cardConfigType[];
+}): {
+  type: string;
+  pilesState: { [key: string]: cardConfigType[] };
+} => {
+  return {
+    type: actionTypes.UNDO_REMOVE_FROM_PILE,
+    pilesState,
+  };
+};

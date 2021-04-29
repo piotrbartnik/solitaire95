@@ -12,6 +12,7 @@ export {
   stockTurnCounter,
   resetStockCounter,
   undoTakeOneFromStock,
+  undoRemoveCardFromPile,
 } from "./cardActions";
 export { startGame, stopGame, finishGame, setUndoAction } from "./gameActions";
 export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";

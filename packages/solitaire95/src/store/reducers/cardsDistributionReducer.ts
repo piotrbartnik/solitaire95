@@ -20,6 +20,7 @@ export interface CardDistributionActionTypes {
   cardToTurn: number;
   cardsOnStockUndo: cardConfigType[];
   cardsFromStockUndo: cardConfigType[];
+  pilesState: { [key: string]: cardConfigType[] };
 }
 
 const initialState: CardsDistributionInitialState = {
@@ -104,6 +105,11 @@ export const cardDistribution = (
         ...state,
         cardsOnStock: action.cardsOnStockUndo,
         cardsFromStock: action.cardsFromStockUndo,
+      };
+    case "UNDO_REMOVE_FROM_PILE":
+      return {
+        ...state,
+        cardsOnPiles: { ...action.pilesState },
       };
     default:
       return state;
