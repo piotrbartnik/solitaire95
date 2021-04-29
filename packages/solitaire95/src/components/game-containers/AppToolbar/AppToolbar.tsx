@@ -9,6 +9,7 @@ import {
   finishGame,
   resetTime,
   undoTakeOneFromStock,
+  setUndoAction,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -34,6 +35,7 @@ type AppToolbarDispatchTypes = {
     cardsOnStockUndo: cardConfigType[],
     cardsFromStockUndo: cardConfigType[]
   ) => void;
+  setUndoAction: (clearUndoActions: []) => void;
 };
 
 type AppToolbarStateTypes = {
@@ -67,6 +69,7 @@ const AppToolbarInternal: React.FC<
     resetStateSavedTimers,
     undoTakeOneFromStock,
     actionToUndo,
+    setUndoAction,
   } = props;
 
   return (
@@ -107,7 +110,9 @@ const AppToolbarInternal: React.FC<
                 onClick={() => {
                   setGameVisible(!gameVisible);
                   if (actionToUndo.length) {
+                    console.log(actionToUndo[0]);
                     undoTakeOneFromStock(actionToUndo[1], actionToUndo[2]);
+                    setUndoAction([]);
                   }
                 }}
               />
@@ -199,6 +204,8 @@ const mapDispatchToProps = (dispatch: any) => {
       cardsOnStockUndo: cardConfigType[],
       cardsFromStockUndo: cardConfigType[]
     ) => dispatch(undoTakeOneFromStock(cardsOnStockUndo, cardsFromStockUndo)),
+    setUndoAction: (clearUndoActions: []) =>
+      dispatch(setUndoAction(clearUndoActions)),
   };
 };
 
