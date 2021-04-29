@@ -25,6 +25,14 @@ const logger: Middleware = (store) => (next) => (action) => {
     ];
     store.dispatch(setUndoAction(actionToUndo));
   }
+  if (action.type === "ADD_CARD_TO_PILE") {
+    actionToUndo = [
+      "ADD_CARD_TO_PILE",
+      previousState.cardDistribution.cardsOnPiles,
+      [],
+    ];
+    store.dispatch(setUndoAction(actionToUndo));
+  }
 
   return next(action);
 };
