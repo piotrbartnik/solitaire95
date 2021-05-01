@@ -10,6 +10,7 @@ import {
   resetTime,
   undoTakeOneFromStock,
   setUndoAction,
+  undoRemoveCardFromPile,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -36,10 +37,13 @@ type AppToolbarDispatchTypes = {
     cardsFromStockUndo: cardConfigType[]
   ) => void;
   setUndoAction: (clearUndoActions: []) => void;
+  undoRemoveCardFromPile: (pilesState: {
+    [key: string]: cardConfigType[];
+  }) => void;
 };
 
 type AppToolbarStateTypes = {
-  actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
+  actionToUndo: any;
 };
 
 type AppToolbarPropTypes = {
@@ -70,6 +74,7 @@ const AppToolbarInternal: React.FC<
     undoTakeOneFromStock,
     actionToUndo,
     setUndoAction,
+    undoRemoveCardFromPile,
   } = props;
 
   return (
@@ -110,8 +115,12 @@ const AppToolbarInternal: React.FC<
                 onClick={() => {
                   setGameVisible(!gameVisible);
                   if (actionToUndo.length) {
-                    console.log(actionToUndo[0]);
-                    undoTakeOneFromStock(actionToUndo[1], actionToUndo[2]);
+                    if (actionToUndo[0] === "TAKE_ONE_FROM_STOCK") {
+                      undoTakeOneFromStock(actionToUndo[1], actionToUndo[2]);
+                    }
+                    if (actionToUndo[0] === "ADD_CARD_TO_PILE") {
+                      undoRemoveCardFromPile(actionToUndo[1]);
+                    }
                     setUndoAction([]);
                   }
                 }}
@@ -206,6 +215,8 @@ const mapDispatchToProps = (dispatch: any) => {
     ) => dispatch(undoTakeOneFromStock(cardsOnStockUndo, cardsFromStockUndo)),
     setUndoAction: (clearUndoActions: []) =>
       dispatch(setUndoAction(clearUndoActions)),
+    undoRemoveCardFromPile: (pilesState: { [key: string]: cardConfigType[] }) =>
+      dispatch(undoRemoveCardFromPile(pilesState)),
   };
 };
 
