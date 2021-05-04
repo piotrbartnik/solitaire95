@@ -11,6 +11,7 @@ import {
   undoTakeOneFromStock,
   setUndoAction,
   undoRemoveCardFromPile,
+  undoMoveFromStockToPiles,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -40,6 +41,10 @@ type AppToolbarDispatchTypes = {
   undoRemoveCardFromPile: (pilesState: {
     [key: string]: cardConfigType[];
   }) => void;
+  undoMoveFromStockToPiles: (
+    pilesState: { [key: string]: cardConfigType[] },
+    cardsFromStockState: cardConfigType[]
+  ) => void;
 };
 
 type AppToolbarStateTypes = {
@@ -75,6 +80,7 @@ const AppToolbarInternal: React.FC<
     actionToUndo,
     setUndoAction,
     undoRemoveCardFromPile,
+    undoMoveFromStockToPiles,
   } = props;
 
   return (
@@ -120,6 +126,13 @@ const AppToolbarInternal: React.FC<
                     }
                     if (actionToUndo[0] === "ADD_CARD_TO_PILE") {
                       undoRemoveCardFromPile(actionToUndo[1]);
+                    }
+                    if (actionToUndo[0] === "FROM_STOCK_TO_PILE") {
+                      console.log(actionToUndo[1], actionToUndo[2]);
+                      undoMoveFromStockToPiles(
+                        actionToUndo[1],
+                        actionToUndo[2]
+                      );
                     }
                     setUndoAction([]);
                   }
@@ -217,6 +230,10 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(setUndoAction(clearUndoActions)),
     undoRemoveCardFromPile: (pilesState: { [key: string]: cardConfigType[] }) =>
       dispatch(undoRemoveCardFromPile(pilesState)),
+    undoMoveFromStockToPiles: (
+      pilesState: { [key: string]: cardConfigType[] },
+      cardsFromStockState: cardConfigType[]
+    ) => dispatch(undoMoveFromStockToPiles(pilesState, cardsFromStockState)),
   };
 };
 

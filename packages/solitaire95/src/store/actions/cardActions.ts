@@ -177,3 +177,20 @@ export const undoRemoveCardFromPile = (pilesState: {
     pilesState,
   };
 };
+
+export const undoMoveFromStockToPiles = (
+  pilesState: {
+    [key: string]: cardConfigType[];
+  },
+  cardsFromStockState: cardConfigType[]
+): {
+  type: string;
+  pilesState: { [key: string]: cardConfigType[] };
+  cardsFromStockState: cardConfigType[];
+} => {
+  return {
+    type: actionTypes.UNDO_MOVE_FROM_STOCK_TO_PILE,
+    pilesState,
+    cardsFromStockState,
+  };
+};

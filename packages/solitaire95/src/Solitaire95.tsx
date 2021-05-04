@@ -33,6 +33,12 @@ const logger: Middleware = (store) => (next) => (action) => {
     ];
     store.dispatch(setUndoAction(actionToUndo));
   }
+  if (action.type === "REMOVE_CARD_FROM_STOCK") {
+    const undoState = store.getState().gameState.actionToUndo;
+    undoState[0] = "FROM_STOCK_TO_PILE";
+    undoState[2] = previousState.cardDistribution.cardsFromStock;
+    store.dispatch(setUndoAction(undoState));
+  }
 
   return next(action);
 };
@@ -49,9 +55,9 @@ const store = createStore(
   )
 );
 
-// store.subscribe(() => {
-//   localStorage.setItem("solitaireState", JSON.stringify(store.getState()));
-// });
+store.subscribe(() => {
+  localStorage.setItem("solitaireState", JSON.stringify(store.getState()));
+});
 
 if (!persistedState) {
   store.dispatch(dealCards());

@@ -21,6 +21,7 @@ export interface CardDistributionActionTypes {
   cardsOnStockUndo: cardConfigType[];
   cardsFromStockUndo: cardConfigType[];
   pilesState: { [key: string]: cardConfigType[] };
+  cardsFromStockState: cardConfigType[];
 }
 
 const initialState: CardsDistributionInitialState = {
@@ -110,6 +111,12 @@ export const cardDistribution = (
       return {
         ...state,
         cardsOnPiles: { ...action.pilesState },
+      };
+    case "UNDO_MOVE_FROM_STOCK_TO_PILE":
+      return {
+        ...state,
+        cardsOnPiles: { ...action.pilesState },
+        cardsFromStock: action.cardsFromStockState,
       };
     default:
       return state;
