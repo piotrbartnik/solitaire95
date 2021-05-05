@@ -12,6 +12,7 @@ import {
   setUndoAction,
   undoRemoveCardFromPile,
   undoMoveFromStockToPiles,
+  countScore,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -45,6 +46,7 @@ type AppToolbarDispatchTypes = {
     pilesState: { [key: string]: cardConfigType[] },
     cardsFromStockState: cardConfigType[]
   ) => void;
+  substractScorePoints: (pointsToSubstract: number) => void;
 };
 
 type AppToolbarStateTypes = {
@@ -81,6 +83,7 @@ const AppToolbarInternal: React.FC<
     setUndoAction,
     undoRemoveCardFromPile,
     undoMoveFromStockToPiles,
+    substractScorePoints,
   } = props;
 
   return (
@@ -128,7 +131,7 @@ const AppToolbarInternal: React.FC<
                       undoRemoveCardFromPile(actionToUndo[1]);
                     }
                     if (actionToUndo[0] === "FROM_STOCK_TO_PILE") {
-                      console.log(actionToUndo[1], actionToUndo[2]);
+                      substractScorePoints(-5);
                       undoMoveFromStockToPiles(
                         actionToUndo[1],
                         actionToUndo[2]
@@ -234,6 +237,8 @@ const mapDispatchToProps = (dispatch: any) => {
       pilesState: { [key: string]: cardConfigType[] },
       cardsFromStockState: cardConfigType[]
     ) => dispatch(undoMoveFromStockToPiles(pilesState, cardsFromStockState)),
+    substractScorePoints: (pointsToSubstract: number) =>
+      dispatch(countScore(pointsToSubstract)),
   };
 };
 
