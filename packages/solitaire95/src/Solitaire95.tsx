@@ -35,9 +35,22 @@ const logger: Middleware = (store) => (next) => (action) => {
   }
   if (action.type === "REMOVE_CARD_FROM_STOCK") {
     const undoState = store.getState().gameState.actionToUndo;
-    undoState[0] = "FROM_STOCK_TO_PILE";
+    if (undoState[0] === "ADD_CARD_TO_FIRST_FOUNDATION") {
+      undoState[0] = "FROM_STOCK_TO_FOUNDATION";
+    }
+    if (undoState[0] === "ADD_CARD_TO_PILE") {
+      undoState[0] = "FROM_STOCK_TO_PILE";
+    }
     undoState[2] = previousState.cardDistribution.cardsFromStock;
     store.dispatch(setUndoAction(undoState));
+  }
+  if (action.type === "ADD_CARD_TO_FIRST_FOUNDATION") {
+    actionToUndo = [
+      "ADD_CARD_TO_FIRST_FOUNDATION",
+      previousState.cardsOnFoundation,
+      [],
+    ];
+    store.dispatch(setUndoAction(actionToUndo));
   }
 
   return next(action);
@@ -47,7 +60,8 @@ const middlewareEnhancer = applyMiddleware(logger);
 
 const store = createStore(
   rootReducer,
-  persistedState,
+  // persistedState,
+  {},
   compose(
     middlewareEnhancer,
     // @ts-ignore
@@ -55,9 +69,9 @@ const store = createStore(
   )
 );
 
-store.subscribe(() => {
-  localStorage.setItem("solitaireState", JSON.stringify(store.getState()));
-});
+// store.subscribe(() => {
+//   localStorage.setItem("solitaireState", JSON.stringify(store.getState()));
+// });
 
 if (!persistedState) {
   store.dispatch(dealCards());
