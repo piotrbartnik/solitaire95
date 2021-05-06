@@ -152,6 +152,13 @@ const AppToolbarInternal: React.FC<
                         actionToUndo[2]
                       );
                     }
+                    if (actionToUndo[0] === "FROM_PILE_TO_FOUNDATION") {
+                      substractScorePoints(-10);
+                      // undoMoveFromStockToFoundation(
+                      //   actionToUndo[1],
+                      //   actionToUndo[2]
+                      // );
+                    }
 
                     setUndoAction([]);
                   }
