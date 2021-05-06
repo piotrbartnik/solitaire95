@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import { createCards, cardConfigType } from "../../configs/cardTypes";
+import { FoundationState } from "../reducers/foundationReducer";
 
 export interface CardDealTypes {
   type: string;
@@ -191,6 +192,24 @@ export const undoMoveFromStockToPiles = (
   return {
     type: actionTypes.UNDO_MOVE_FROM_STOCK_TO_PILE,
     pilesState,
+    cardsFromStockState,
+  };
+};
+export const undoMoveFromStockToFoundation = (
+  foundationState: { [key: string]: FoundationState },
+  cardsFromStockState: {
+    [key: string]: cardConfigType[];
+  }
+): {
+  type: string;
+  foundationState: { [key: string]: FoundationState };
+  cardsFromStockState: {
+    [key: string]: cardConfigType[];
+  };
+} => {
+  return {
+    type: actionTypes.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION,
+    foundationState,
     cardsFromStockState,
   };
 };

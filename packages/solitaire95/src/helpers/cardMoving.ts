@@ -53,6 +53,9 @@ export const moveToFoundation = (
           ) ===
           order - 1
         ) {
+          addToFoundationCallback(cardConfig, foundation);
+          addPoints(10);
+          !gameStarted && startGame && startGame();
           pileOrStock
             ? removeFromCallback(pilenumber)
             : removeFromCallback(
@@ -60,9 +63,6 @@ export const moveToFoundation = (
                   (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
                 )
               );
-          addToFoundationCallback(cardConfig, foundation);
-          addPoints(10);
-          !gameStarted && startGame && startGame();
         }
       }
     });

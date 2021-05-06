@@ -13,6 +13,7 @@ import {
   undoRemoveCardFromPile,
   undoMoveFromStockToPiles,
   countScore,
+  undoMoveFromStockToFoundation,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -20,7 +21,7 @@ import {
   ToolButton,
   Separator,
 } from "../../ui-components";
-import { GameState } from "../../../store/reducers";
+import { GameState, FoundationState } from "../../../store/reducers";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { ToolDropdown } from "../../smart-components";
 import styles from "./AppToolbar.module.scss";
@@ -47,6 +48,12 @@ type AppToolbarDispatchTypes = {
     cardsFromStockState: cardConfigType[]
   ) => void;
   substractScorePoints: (pointsToSubstract: number) => void;
+  undoMoveFromStockToFoundation: (
+    foundationState: { [key: string]: FoundationState },
+    cardsFromStockState: {
+      [key: string]: cardConfigType[];
+    }
+  ) => void;
 };
 
 type AppToolbarStateTypes = {
@@ -84,6 +91,7 @@ const AppToolbarInternal: React.FC<
     undoRemoveCardFromPile,
     undoMoveFromStockToPiles,
     substractScorePoints,
+    undoMoveFromStockToFoundation,
   } = props;
 
   return (
@@ -139,11 +147,10 @@ const AppToolbarInternal: React.FC<
                     }
                     if (actionToUndo[0] === "FROM_STOCK_TO_FOUNDATION") {
                       substractScorePoints(-10);
-                      console.log("test undo from stock to foundation");
-                      // undoMoveFromStockToPiles(
-                      //   actionToUndo[1],
-                      //   actionToUndo[2]
-                      // );
+                      undoMoveFromStockToFoundation(
+                        actionToUndo[1],
+                        actionToUndo[2]
+                      );
                     }
 
                     setUndoAction([]);
@@ -248,6 +255,15 @@ const mapDispatchToProps = (dispatch: any) => {
     ) => dispatch(undoMoveFromStockToPiles(pilesState, cardsFromStockState)),
     substractScorePoints: (pointsToSubstract: number) =>
       dispatch(countScore(pointsToSubstract)),
+    undoMoveFromStockToFoundation: (
+      foundationState: { [key: string]: FoundationState },
+      cardsFromStockState: {
+        [key: string]: cardConfigType[];
+      }
+    ) =>
+      dispatch(
+        undoMoveFromStockToFoundation(foundationState, cardsFromStockState)
+      ),
   };
 };
 

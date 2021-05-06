@@ -9,6 +9,7 @@ export interface CardsOnFoundationActionReturnActionTypes {
   addFoundationColor: string;
   addCardToFoundation: cardConfigType;
   removeCardFromFoundation: number;
+  foundationState: { [key: string]: FoundationState };
 }
 
 export interface FoundationInitialState {
@@ -103,6 +104,10 @@ export const cardsOnFoundation = (
                 .foundationSuite
             : undefined,
         },
+      };
+    case "UNDO_MOVE_FROM_STOCK_TO_FOUNDATION":
+      return {
+        ...action.foundationState,
       };
     default:
       return state;
