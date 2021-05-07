@@ -15,6 +15,7 @@ export {
   undoRemoveCardFromPile,
   undoMoveFromStockToPiles,
   undoMoveFromStockToFoundation,
+  undoMoveFromPileToFoundation,
 } from "./cardActions";
 export { startGame, stopGame, finishGame, setUndoAction } from "./gameActions";
 export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";

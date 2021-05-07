@@ -213,3 +213,17 @@ export const undoMoveFromStockToFoundation = (
     cardsFromStockState,
   };
 };
+export const undoMoveFromPileToFoundation = (
+  foundationState: { [key: string]: FoundationState },
+  pilesState: { [key: string]: cardConfigType[] }
+): {
+  type: string;
+  foundationState: { [key: string]: FoundationState };
+  pilesState: { [key: string]: cardConfigType[] };
+} => {
+  return {
+    type: actionTypes.UNDO_MOVE_FROM_PILE_TO_FOUNDATION,
+    foundationState,
+    pilesState,
+  };
+};

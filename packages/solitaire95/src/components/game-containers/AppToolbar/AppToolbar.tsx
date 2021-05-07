@@ -14,6 +14,7 @@ import {
   undoMoveFromStockToPiles,
   countScore,
   undoMoveFromStockToFoundation,
+  undoMoveFromPileToFoundation,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -54,6 +55,10 @@ type AppToolbarDispatchTypes = {
       [key: string]: cardConfigType[];
     }
   ) => void;
+  undoMoveFromPileToFoundation: (
+    foundationState: { [key: string]: FoundationState },
+    pilesState: { [key: string]: cardConfigType[] }
+  ) => void;
 };
 
 type AppToolbarStateTypes = {
@@ -92,6 +97,7 @@ const AppToolbarInternal: React.FC<
     undoMoveFromStockToPiles,
     substractScorePoints,
     undoMoveFromStockToFoundation,
+    undoMoveFromPileToFoundation,
   } = props;
 
   return (
@@ -154,12 +160,11 @@ const AppToolbarInternal: React.FC<
                     }
                     if (actionToUndo[0] === "FROM_PILE_TO_FOUNDATION") {
                       substractScorePoints(-10);
-                      // undoMoveFromStockToFoundation(
-                      //   actionToUndo[1],
-                      //   actionToUndo[2]
-                      // );
+                      undoMoveFromPileToFoundation(
+                        actionToUndo[1],
+                        actionToUndo[2]
+                      );
                     }
-
                     setUndoAction([]);
                   }
                 }}
@@ -271,6 +276,10 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(
         undoMoveFromStockToFoundation(foundationState, cardsFromStockState)
       ),
+    undoMoveFromPileToFoundation: (
+      foundationState: { [key: string]: FoundationState },
+      pilesState: { [key: string]: cardConfigType[] }
+    ) => dispatch(undoMoveFromPileToFoundation(foundationState, pilesState)),
   };
 };
 
