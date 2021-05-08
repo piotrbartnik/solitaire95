@@ -92,8 +92,9 @@ export const cardsOnFoundation = (
       );
     case "REMOVE_CARD_FROM_FOUNDATION":
       // eslint-disable-next-line no-case-declarations
-      const cardsOnFoundation =
-        state[foundations[action.removeCardFromFoundation]].cards;
+      const cardsOnFoundation = state[
+        foundations[action.removeCardFromFoundation]
+      ].cards.slice();
       cardsOnFoundation?.pop();
       return {
         ...state,

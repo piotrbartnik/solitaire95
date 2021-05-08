@@ -25,13 +25,28 @@ const logger: Middleware = (store) => (next) => (action) => {
     ];
     store.dispatch(setUndoAction(actionToUndo));
   }
-  if (action.type === "ADD_CARD_TO_PILE") {
+  if (action.type === "REMOVE_CARD_FROM_FOUNDATION") {
     actionToUndo = [
-      "ADD_CARD_TO_PILE",
-      previousState.cardDistribution.cardsOnPiles,
+      "REMOVE_CARD_FROM_FOUNDATION",
+      previousState.cardsOnFoundation,
       [],
     ];
     store.dispatch(setUndoAction(actionToUndo));
+  }
+  if (action.type === "ADD_CARD_TO_PILE") {
+    const undoState = store.getState().gameState.actionToUndo;
+    if (undoState[0] === "REMOVE_CARD_FROM_FOUNDATION") {
+      undoState[0] = "FROM_FOUNDATION_TO_STOCK";
+      undoState[2] = previousState.cardDistribution.cardsOnPiles;
+      store.dispatch(setUndoAction(undoState));
+    } else {
+      actionToUndo = [
+        "ADD_CARD_TO_PILE",
+        previousState.cardDistribution.cardsOnPiles,
+        [],
+      ];
+      store.dispatch(setUndoAction(actionToUndo));
+    }
   }
   if (action.type === "REMOVE_CARD_FROM_STOCK") {
     const undoState = store.getState().gameState.actionToUndo;
