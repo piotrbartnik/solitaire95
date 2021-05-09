@@ -128,6 +128,11 @@ export const cardDistribution = (
         ...state,
         cardsOnPiles: { ...action.pilesState },
       };
+    case "UNDO_MOVE_FROM_FOUNDATION_TO_STOCK":
+      return {
+        ...state,
+        cardsOnPiles: { ...action.pilesState },
+      };
     default:
       return state;
   }

@@ -36,7 +36,7 @@ const logger: Middleware = (store) => (next) => (action) => {
   if (action.type === "ADD_CARD_TO_PILE") {
     const undoState = store.getState().gameState.actionToUndo;
     if (undoState[0] === "REMOVE_CARD_FROM_FOUNDATION") {
-      undoState[0] = "FROM_FOUNDATION_TO_STOCK";
+      undoState[0] = "FROM_FOUNDATION_TO_PILES";
       undoState[2] = previousState.cardDistribution.cardsOnPiles;
       store.dispatch(setUndoAction(undoState));
     } else {

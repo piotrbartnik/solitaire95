@@ -114,6 +114,10 @@ export const cardsOnFoundation = (
       return {
         ...action.foundationState,
       };
+    case "UNDO_MOVE_FROM_FOUNDATION_TO_STOCK":
+      return {
+        ...action.foundationState,
+      };
     default:
       return state;
   }
