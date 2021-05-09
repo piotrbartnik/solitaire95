@@ -236,7 +236,7 @@ export const undoMoveFromFoundationToPiles = (
   pilesState: { [key: string]: cardConfigType[] };
 } => {
   return {
-    type: actionTypes.UNDO_MOVE_FROM_FOUNDATION_TO_STOCK,
+    type: actionTypes.UNDO_MOVE_FROM_FOUNDATION_TO_PILE,
     foundationState,
     pilesState,
   };

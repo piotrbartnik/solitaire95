@@ -128,7 +128,7 @@ export const cardDistribution = (
         ...state,
         cardsOnPiles: { ...action.pilesState },
       };
-    case "UNDO_MOVE_FROM_FOUNDATION_TO_STOCK":
+    case "UNDO_MOVE_FROM_FOUNDATION_TO_PILE":
       return {
         ...state,
         cardsOnPiles: { ...action.pilesState },
