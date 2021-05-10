@@ -64,11 +64,13 @@ const logger: Middleware = (store) => (next) => (action) => {
       break;
   }
   if (action.type.match(/ADD_CARD_TO_[A-Z]+_FOUNDATION/)) {
-    actionToUndo = [action.type, previousState.cardsOnFoundation, []];
+    actionToUndo = [
+      "ADD_CARD_TO_FOUNDATION",
+      previousState.cardsOnFoundation,
+      [],
+    ];
     store.dispatch(setUndoAction(actionToUndo));
   }
-
-  console.log(actionToUndo, undoState);
 
   return next(action);
 };
