@@ -1,8 +1,11 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { createStore, Middleware, applyMiddleware, compose } from "redux";
-import { dealCards, setUndoAction } from "../src/store/actions/";
-import { cardConfigType } from "./configs/cardTypes";
+import {
+  dealCards,
+  setUndoAction,
+  UndoActionType,
+} from "../src/store/actions/";
 import { rootReducer } from "./store/reducers";
 import { MainPage } from "./components/game-containers/MainPage/MainPage";
 import "./Solitaire95.scss";
@@ -16,8 +19,10 @@ delete persistedState?.toggleWindows;
 
 const logger: Middleware = (store) => (next) => (action) => {
   const previousState = store.getState();
-  let actionToUndo: [string, cardConfigType[], cardConfigType[]] | [] = [];
+
+  let actionToUndo: UndoActionType = [];
   const undoState = store.getState().gameState.actionToUndo;
+
   switch (action.type) {
     case "TAKE_ONE_FROM_STOCK":
       actionToUndo = [

@@ -16,6 +16,7 @@ import {
   undoMoveFromStockToFoundation,
   undoMoveFromPileToFoundation,
   undoMoveFromFoundationToPiles,
+  UndoActionType,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -67,7 +68,7 @@ type AppToolbarDispatchTypes = {
 };
 
 type AppToolbarStateTypes = {
-  actionToUndo: any;
+  actionToUndo: UndoActionType;
 };
 
 type AppToolbarPropTypes = {
@@ -145,37 +146,46 @@ const AppToolbarInternal: React.FC<
                   setGameVisible(!gameVisible);
                   if (actionToUndo.length) {
                     if (actionToUndo[0] === "TAKE_ONE_FROM_STOCK") {
-                      undoTakeOneFromStock(actionToUndo[1], actionToUndo[2]);
+                      undoTakeOneFromStock(
+                        actionToUndo[1] as cardConfigType[],
+                        actionToUndo[2] as cardConfigType[]
+                      );
                     }
                     if (actionToUndo[0] === "ADD_CARD_TO_PILE") {
-                      undoRemoveCardFromPile(actionToUndo[1]);
+                      undoRemoveCardFromPile(
+                        actionToUndo[1] as {
+                          [key: string]: cardConfigType[];
+                        }
+                      );
                     }
                     if (actionToUndo[0] === "FROM_STOCK_TO_PILE") {
                       substractScorePoints(-5);
                       undoMoveFromStockToPiles(
-                        actionToUndo[1],
-                        actionToUndo[2]
+                        actionToUndo[1] as {
+                          [key: string]: cardConfigType[];
+                        },
+                        actionToUndo[2] as cardConfigType[]
                       );
                     }
                     if (actionToUndo[0] === "FROM_STOCK_TO_FOUNDATION") {
                       substractScorePoints(-10);
                       undoMoveFromStockToFoundation(
-                        actionToUndo[1],
-                        actionToUndo[2]
+                        actionToUndo[1] as { [key: string]: FoundationState },
+                        actionToUndo[2] as { [key: string]: cardConfigType[] }
                       );
                     }
                     if (actionToUndo[0] === "FROM_PILE_TO_FOUNDATION") {
                       substractScorePoints(-10);
                       undoMoveFromPileToFoundation(
-                        actionToUndo[1],
-                        actionToUndo[2]
+                        actionToUndo[1] as { [key: string]: FoundationState },
+                        actionToUndo[2] as { [key: string]: cardConfigType[] }
                       );
                     }
                     if (actionToUndo[0] === "FROM_FOUNDATION_TO_PILES") {
                       substractScorePoints(10);
                       undoMoveFromFoundationToPiles(
-                        actionToUndo[1],
-                        actionToUndo[2]
+                        actionToUndo[1] as { [key: string]: FoundationState },
+                        actionToUndo[2] as { [key: string]: cardConfigType[] }
                       );
                     }
 

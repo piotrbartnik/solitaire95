@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import { cardConfigType } from "../../configs/cardTypes";
+import { FoundationState } from "../reducers";
 
 export const startGame = (): { type: string } => {
   return {
@@ -22,11 +23,23 @@ export const finishGame = (
   };
 };
 
+export type UndoActionType =
+  | [
+      string,
+      (
+        | cardConfigType[]
+        | { [key: string]: FoundationState }
+        | { [key: string]: cardConfigType[] }
+      ),
+      cardConfigType[] | { [key: string]: cardConfigType[] }
+    ]
+  | [];
+
 export const setUndoAction = (
-  actionToUndo: [string, cardConfigType[], cardConfigType[]] | []
+  actionToUndo: UndoActionType
 ): {
   type: string;
-  actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
+  actionToUndo: UndoActionType;
 } => {
   return {
     type: actionTypes.SET_UNDO_ACTION,
