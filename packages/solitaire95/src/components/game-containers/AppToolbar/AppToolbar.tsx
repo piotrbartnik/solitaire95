@@ -141,7 +141,7 @@ const AppToolbarInternal: React.FC<
                 onMouseOver={() => setBottomBarText("Undo last action")}
                 onMouseLeave={() => setBottomBarText("")}
                 text="Undo"
-                disabled={!actionToUndo.length}
+                disabled={!actionToUndo?.length}
                 onClick={() => {
                   setGameVisible(!gameVisible);
                   if (actionToUndo.length) {
