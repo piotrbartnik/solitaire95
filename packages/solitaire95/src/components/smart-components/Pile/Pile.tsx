@@ -15,6 +15,7 @@ import {
   countScore,
   startGame,
   turnCardOnPile,
+  setUndoAction,
 } from "../../../store/actions/";
 import { CardBackContext } from "../../game-containers";
 import { itemTypes } from "../../../configs/dragndropConfig";
@@ -44,6 +45,7 @@ type PileDispatchTypes = {
   addPoints: (points: number) => void;
   startGame: () => void;
   turnCardOnPile: (cardToTurn: number) => void;
+  setUndoAction: (clearUndoActions: []) => void;
 };
 
 type PilePropTypes = {
@@ -69,6 +71,7 @@ const PileInternal: React.FC<
     startGame,
     turnCardOnPile,
     gameStarted,
+    setUndoAction,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -203,9 +206,10 @@ const PileInternal: React.FC<
       if (cardOnPileNumber && pileNumber && !isTargetCardTurnedFront) {
         addPoints(5);
         turnCardOnPile(pileNumber);
+        setUndoAction([]);
       }
     },
-    [turnCardOnPile, addPoints]
+    [turnCardOnPile, addPoints, setUndoAction]
   );
 
   const distributeCards = (cardsOnPile: cardConfigType[]) =>
@@ -300,6 +304,8 @@ const mapDispatchToProps = (dispatch: any) => {
     startGame: () => dispatch(startGame()),
     turnCardOnPile: (cardToTurn: number) =>
       dispatch(turnCardOnPile(cardToTurn)),
+    setUndoAction: (clearUndoActions: []) =>
+      dispatch(setUndoAction(clearUndoActions)),
   };
 };
 

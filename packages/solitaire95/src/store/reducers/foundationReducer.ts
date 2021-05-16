@@ -9,6 +9,7 @@ export interface CardsOnFoundationActionReturnActionTypes {
   addFoundationColor: string;
   addCardToFoundation: cardConfigType;
   removeCardFromFoundation: number;
+  foundationState: { [key: string]: FoundationState };
 }
 
 export interface FoundationInitialState {
@@ -91,8 +92,9 @@ export const cardsOnFoundation = (
       );
     case "REMOVE_CARD_FROM_FOUNDATION":
       // eslint-disable-next-line no-case-declarations
-      const cardsOnFoundation =
-        state[foundations[action.removeCardFromFoundation]].cards;
+      const cardsOnFoundation = state[
+        foundations[action.removeCardFromFoundation]
+      ].cards.slice();
       cardsOnFoundation?.pop();
       return {
         ...state,
@@ -103,6 +105,18 @@ export const cardsOnFoundation = (
                 .foundationSuite
             : undefined,
         },
+      };
+    case "UNDO_MOVE_FROM_STOCK_TO_FOUNDATION":
+      return {
+        ...action.foundationState,
+      };
+    case "UNDO_MOVE_FROM_PILE_TO_FOUNDATION":
+      return {
+        ...action.foundationState,
+      };
+    case "UNDO_MOVE_FROM_FOUNDATION_TO_PILE":
+      return {
+        ...action.foundationState,
       };
     default:
       return state;

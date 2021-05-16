@@ -1,7 +1,8 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import { dealCards } from "../src/store/actions/";
+import { createStore, applyMiddleware, compose } from "redux";
+import { dealCards } from "./store/actions/";
+import { undoActions } from "./helpers/undo";
 import { rootReducer } from "./store/reducers";
 import { MainPage } from "./components/game-containers/MainPage/MainPage";
 import "./Solitaire95.scss";
@@ -13,11 +14,19 @@ const persistedState = localStorage.getItem("solitaireState")
 
 delete persistedState?.toggleWindows;
 
+const middlewareEnhancer = applyMiddleware(undoActions);
+
 const store = createStore(
   rootReducer,
   persistedState,
-  // @ts-ignore
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  // {},
+  compose(
+    middlewareEnhancer,
+    process.env.NODE_ENV === "development"
+      ? // @ts-ignore
+        window && (window as unknown).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
+      : (a: unknown) => a
+  )
 );
 
 store.subscribe(() => {

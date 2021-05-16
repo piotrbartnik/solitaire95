@@ -8,6 +8,15 @@ import {
   resetStockCounter,
   finishGame,
   resetTime,
+  undoTakeOneFromStock,
+  setUndoAction,
+  undoRemoveCardFromPile,
+  undoMoveFromStockToPiles,
+  countScore,
+  undoMoveFromStockToFoundation,
+  undoMoveFromPileToFoundation,
+  undoMoveFromFoundationToPiles,
+  UndoActionType,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -15,6 +24,8 @@ import {
   ToolButton,
   Separator,
 } from "../../ui-components";
+import { GameState, FoundationState } from "../../../store/reducers";
+import { cardConfigType } from "../../../configs/cardTypes";
 import { ToolDropdown } from "../../smart-components";
 import styles from "./AppToolbar.module.scss";
 
@@ -27,6 +38,37 @@ type AppToolbarDispatchTypes = {
   resetStockCounter: () => void;
   setGameFinished: (gameState: boolean) => void;
   resetStateSavedTimers: () => void;
+  undoTakeOneFromStock: (
+    cardsOnStockUndo: cardConfigType[],
+    cardsFromStockUndo: cardConfigType[]
+  ) => void;
+  setUndoAction: (clearUndoActions: []) => void;
+  undoRemoveCardFromPile: (pilesState: {
+    [key: string]: cardConfigType[];
+  }) => void;
+  undoMoveFromStockToPiles: (
+    pilesState: { [key: string]: cardConfigType[] },
+    cardsFromStockState: cardConfigType[]
+  ) => void;
+  substractScorePoints: (pointsToSubstract: number) => void;
+  undoMoveFromStockToFoundation: (
+    foundationState: { [key: string]: FoundationState },
+    cardsFromStockState: {
+      [key: string]: cardConfigType[];
+    }
+  ) => void;
+  undoMoveFromPileToFoundation: (
+    foundationState: { [key: string]: FoundationState },
+    pilesState: { [key: string]: cardConfigType[] }
+  ) => void;
+  undoMoveFromFoundationToPiles: (
+    foundationState: { [key: string]: FoundationState },
+    pilesState: { [key: string]: cardConfigType[] }
+  ) => void;
+};
+
+type AppToolbarStateTypes = {
+  actionToUndo: UndoActionType;
 };
 
 type AppToolbarPropTypes = {
@@ -38,7 +80,7 @@ type AppToolbarPropTypes = {
 };
 
 const AppToolbarInternal: React.FC<
-  AppToolbarDispatchTypes & AppToolbarPropTypes
+  AppToolbarDispatchTypes & AppToolbarPropTypes & AppToolbarStateTypes
 > = (props) => {
   const {
     dealCards,
@@ -54,6 +96,15 @@ const AppToolbarInternal: React.FC<
     resetStockCounter,
     setGameFinished,
     resetStateSavedTimers,
+    undoTakeOneFromStock,
+    actionToUndo,
+    setUndoAction,
+    undoRemoveCardFromPile,
+    undoMoveFromStockToPiles,
+    substractScorePoints,
+    undoMoveFromStockToFoundation,
+    undoMoveFromPileToFoundation,
+    undoMoveFromFoundationToPiles,
   } = props;
 
   return (
@@ -90,7 +141,57 @@ const AppToolbarInternal: React.FC<
                 onMouseOver={() => setBottomBarText("Undo last action")}
                 onMouseLeave={() => setBottomBarText("")}
                 text="Undo"
-                disabled
+                disabled={!actionToUndo?.length}
+                onClick={() => {
+                  setGameVisible(!gameVisible);
+                  if (actionToUndo.length) {
+                    if (actionToUndo[0] === "TAKE_ONE_FROM_STOCK") {
+                      undoTakeOneFromStock(
+                        actionToUndo[1] as cardConfigType[],
+                        actionToUndo[2] as cardConfigType[]
+                      );
+                    }
+                    if (actionToUndo[0] === "ADD_CARD_TO_PILE") {
+                      undoRemoveCardFromPile(
+                        actionToUndo[1] as {
+                          [key: string]: cardConfigType[];
+                        }
+                      );
+                    }
+                    if (actionToUndo[0] === "FROM_STOCK_TO_PILE") {
+                      substractScorePoints(-5);
+                      undoMoveFromStockToPiles(
+                        actionToUndo[1] as {
+                          [key: string]: cardConfigType[];
+                        },
+                        actionToUndo[2] as cardConfigType[]
+                      );
+                    }
+                    if (actionToUndo[0] === "FROM_STOCK_TO_FOUNDATION") {
+                      substractScorePoints(-10);
+                      undoMoveFromStockToFoundation(
+                        actionToUndo[1] as { [key: string]: FoundationState },
+                        actionToUndo[2] as { [key: string]: cardConfigType[] }
+                      );
+                    }
+                    if (actionToUndo[0] === "FROM_PILE_TO_FOUNDATION") {
+                      substractScorePoints(-10);
+                      undoMoveFromPileToFoundation(
+                        actionToUndo[1] as { [key: string]: FoundationState },
+                        actionToUndo[2] as { [key: string]: cardConfigType[] }
+                      );
+                    }
+                    if (actionToUndo[0] === "FROM_FOUNDATION_TO_PILES") {
+                      substractScorePoints(10);
+                      undoMoveFromFoundationToPiles(
+                        actionToUndo[1] as { [key: string]: FoundationState },
+                        actionToUndo[2] as { [key: string]: cardConfigType[] }
+                      );
+                    }
+
+                    setUndoAction([]);
+                  }
+                }}
               />
               <ToolButton
                 onClick={() => {
@@ -157,6 +258,12 @@ const AppToolbarInternal: React.FC<
   );
 };
 
+const mapStateToProps = (state: { gameState: GameState }) => {
+  return {
+    actionToUndo: state.gameState.actionToUndo,
+  };
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -170,14 +277,45 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(toggleWindow(windowState, windowToToggle)),
     setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
     resetStateSavedTimers: () => dispatch(resetTime()),
+    undoTakeOneFromStock: (
+      cardsOnStockUndo: cardConfigType[],
+      cardsFromStockUndo: cardConfigType[]
+    ) => dispatch(undoTakeOneFromStock(cardsOnStockUndo, cardsFromStockUndo)),
+    setUndoAction: (clearUndoActions: []) =>
+      dispatch(setUndoAction(clearUndoActions)),
+    undoRemoveCardFromPile: (pilesState: { [key: string]: cardConfigType[] }) =>
+      dispatch(undoRemoveCardFromPile(pilesState)),
+    undoMoveFromStockToPiles: (
+      pilesState: { [key: string]: cardConfigType[] },
+      cardsFromStockState: cardConfigType[]
+    ) => dispatch(undoMoveFromStockToPiles(pilesState, cardsFromStockState)),
+    substractScorePoints: (pointsToSubstract: number) =>
+      dispatch(countScore(pointsToSubstract)),
+    undoMoveFromStockToFoundation: (
+      foundationState: { [key: string]: FoundationState },
+      cardsFromStockState: {
+        [key: string]: cardConfigType[];
+      }
+    ) =>
+      dispatch(
+        undoMoveFromStockToFoundation(foundationState, cardsFromStockState)
+      ),
+    undoMoveFromPileToFoundation: (
+      foundationState: { [key: string]: FoundationState },
+      pilesState: { [key: string]: cardConfigType[] }
+    ) => dispatch(undoMoveFromPileToFoundation(foundationState, pilesState)),
+    undoMoveFromFoundationToPiles: (
+      foundationState: { [key: string]: FoundationState },
+      pilesState: { [key: string]: cardConfigType[] }
+    ) => dispatch(undoMoveFromFoundationToPiles(foundationState, pilesState)),
   };
 };
 
 export const AppToolbar = connect<
-  undefined,
+  AppToolbarStateTypes,
   AppToolbarDispatchTypes,
   AppToolbarPropTypes
 >(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps
 )(AppToolbarInternal);

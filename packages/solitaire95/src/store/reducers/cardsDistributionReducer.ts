@@ -18,6 +18,10 @@ export interface CardDistributionActionTypes {
   cardToPile: cardConfigType;
   addCardToPile: number;
   cardToTurn: number;
+  cardsOnStockUndo: cardConfigType[];
+  cardsFromStockUndo: cardConfigType[];
+  pilesState: { [key: string]: cardConfigType[] };
+  cardsFromStockState: cardConfigType[];
 }
 
 const initialState: CardsDistributionInitialState = {
@@ -96,6 +100,38 @@ export const cardDistribution = (
           ...state.cardsOnPiles,
           [action.cardToTurn[0]]: mapState,
         },
+      };
+    case "UNDO_TAKE_ONE_FROM_STOCK":
+      return {
+        ...state,
+        cardsOnStock: action.cardsOnStockUndo,
+        cardsFromStock: action.cardsFromStockUndo,
+      };
+    case "UNDO_REMOVE_FROM_PILE":
+      return {
+        ...state,
+        cardsOnPiles: { ...action.pilesState },
+      };
+    case "UNDO_MOVE_FROM_STOCK_TO_PILE":
+      return {
+        ...state,
+        cardsOnPiles: { ...action.pilesState },
+        cardsFromStock: action.cardsFromStockState,
+      };
+    case "UNDO_MOVE_FROM_STOCK_TO_FOUNDATION":
+      return {
+        ...state,
+        cardsFromStock: action.cardsFromStockState,
+      };
+    case "UNDO_MOVE_FROM_PILE_TO_FOUNDATION":
+      return {
+        ...state,
+        cardsOnPiles: { ...action.pilesState },
+      };
+    case "UNDO_MOVE_FROM_FOUNDATION_TO_PILE":
+      return {
+        ...state,
+        cardsOnPiles: { ...action.pilesState },
       };
     default:
       return state;

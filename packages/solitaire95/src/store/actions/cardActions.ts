@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import { createCards, cardConfigType } from "../../configs/cardTypes";
+import { FoundationState } from "../reducers/foundationReducer";
 
 export interface CardDealTypes {
   type: string;
@@ -148,5 +149,95 @@ export const stockTurnCounter = (): { type: string } => {
 export const resetStockCounter = (): { type: string } => {
   return {
     type: actionTypes.RESET_STOCK_COUNTER,
+  };
+};
+
+export const undoTakeOneFromStock = (
+  cardsOnStockUndo: cardConfigType[],
+  cardsFromStockUndo: cardConfigType[]
+): {
+  type: string;
+  cardsOnStockUndo: cardConfigType[];
+  cardsFromStockUndo: cardConfigType[];
+} => {
+  return {
+    type: actionTypes.UNDO_TAKE_ONE_FROM_STOCK,
+    cardsOnStockUndo,
+    cardsFromStockUndo,
+  };
+};
+
+export const undoRemoveCardFromPile = (pilesState: {
+  [key: string]: cardConfigType[];
+}): {
+  type: string;
+  pilesState: { [key: string]: cardConfigType[] };
+} => {
+  return {
+    type: actionTypes.UNDO_REMOVE_FROM_PILE,
+    pilesState,
+  };
+};
+
+export const undoMoveFromStockToPiles = (
+  pilesState: {
+    [key: string]: cardConfigType[];
+  },
+  cardsFromStockState: cardConfigType[]
+): {
+  type: string;
+  pilesState: { [key: string]: cardConfigType[] };
+  cardsFromStockState: cardConfigType[];
+} => {
+  return {
+    type: actionTypes.UNDO_MOVE_FROM_STOCK_TO_PILE,
+    pilesState,
+    cardsFromStockState,
+  };
+};
+export const undoMoveFromStockToFoundation = (
+  foundationState: { [key: string]: FoundationState },
+  cardsFromStockState: {
+    [key: string]: cardConfigType[];
+  }
+): {
+  type: string;
+  foundationState: { [key: string]: FoundationState };
+  cardsFromStockState: {
+    [key: string]: cardConfigType[];
+  };
+} => {
+  return {
+    type: actionTypes.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION,
+    foundationState,
+    cardsFromStockState,
+  };
+};
+export const undoMoveFromPileToFoundation = (
+  foundationState: { [key: string]: FoundationState },
+  pilesState: { [key: string]: cardConfigType[] }
+): {
+  type: string;
+  foundationState: { [key: string]: FoundationState };
+  pilesState: { [key: string]: cardConfigType[] };
+} => {
+  return {
+    type: actionTypes.UNDO_MOVE_FROM_PILE_TO_FOUNDATION,
+    foundationState,
+    pilesState,
+  };
+};
+export const undoMoveFromFoundationToPiles = (
+  foundationState: { [key: string]: FoundationState },
+  pilesState: { [key: string]: cardConfigType[] }
+): {
+  type: string;
+  foundationState: { [key: string]: FoundationState };
+  pilesState: { [key: string]: cardConfigType[] };
+} => {
+  return {
+    type: actionTypes.UNDO_MOVE_FROM_FOUNDATION_TO_PILE,
+    foundationState,
+    pilesState,
   };
 };
