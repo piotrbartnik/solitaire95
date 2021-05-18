@@ -2,8 +2,9 @@ import React, {
   useState,
   createContext,
   useRef,
-  useEffect,
+  useLayoutEffect,
   useCallback,
+  useEffect,
 } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -90,13 +91,34 @@ const MainPageInternal: React.FC<
 
   const mainPageRef = useRef<HTMLDivElement>(null);
 
-  const isGameEnded = useCallback(() => {
-    const cards = Object.values(cardsOnFoundations);
-    const testCard = cards.map((el: FoundationState) => el?.cards);
-    const allCards = testCard?.reduce((acc, val) => acc.concat(val), []);
+  const cardsOnfoundationRef = mainPageRef.current?.querySelectorAll(
+    "[data-foundationnumber]"
+  );
 
-    if (allCards.length === 52) {
-      toggleDealWindow(true, "dealAgainWindow");
+  const isGameEnded = useCallback(() => {
+    if (cardsOnfoundationRef?.length === 52) {
+      // toggleDealWindow(true, "dealAgainWindow");
+
+      const pageRef = mainPageRef.current;
+      const king = cardsOnfoundationRef[51]?.parentElement;
+      const parentPosition = [
+        king?.getBoundingClientRect().x,
+        king?.getBoundingClientRect().y,
+      ];
+
+      const gameContainer = pageRef?.querySelector("[class*='gameContainer']");
+
+      for (let i = 0; i < 90; i++) {
+        const kingClone = king?.cloneNode(true);
+
+        kingClone?.setAttribute(
+          "style",
+          `position:fixed; top:${parentPosition[1] + 5 + i * 8}px;
+        left:${parentPosition[0] - 5 - i * 8}px`
+        );
+        gameContainer?.append(kingClone as Node);
+      }
+
       stopGame();
       setGameFinished(true);
       if (scoreTime > 30) {
@@ -105,15 +127,14 @@ const MainPageInternal: React.FC<
       }
     }
   }, [
-    cardsOnFoundations,
-    toggleDealWindow,
-    stopGame,
     addPointsOnEnd,
-    setGameFinished,
+    cardsOnfoundationRef,
     scoreTime,
+    setGameFinished,
+    stopGame,
   ]);
 
-  useEffect(() => isGameEnded(), [cardsOnFoundations, isGameEnded]);
+  useLayoutEffect(() => isGameEnded(), [cardsOnfoundationRef, isGameEnded]);
 
   const dndProviderBackend = /Mobi|Android/i.test(navigator.userAgent)
     ? TouchBackend
