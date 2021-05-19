@@ -4,7 +4,6 @@ import React, {
   useRef,
   useLayoutEffect,
   useCallback,
-  useEffect,
 } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -20,7 +19,6 @@ import {
   WindowsState,
   Points,
   FoundationInitialState,
-  FoundationState,
 } from "../../../store/reducers/";
 import { TopBar, BottomBar } from "../../ui-components";
 import {
@@ -29,6 +27,7 @@ import {
   Options,
   DealAgain,
 } from "../../smart-components";
+import { cardWaterfall } from "../../../helpers/cardWaterfall";
 import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
@@ -66,8 +65,7 @@ const MainPageInternal: React.FC<
     playSounds,
     score,
     aboutChildren,
-    cardsOnFoundations,
-    toggleDealWindow,
+    // toggleDealWindow,
     stopGame,
     addPointsOnEnd,
     setGameFinished,
@@ -97,27 +95,9 @@ const MainPageInternal: React.FC<
 
   const isGameEnded = useCallback(() => {
     if (cardsOnfoundationRef?.length === 52) {
+      cardWaterfall(mainPageRef, cardsOnfoundationRef);
+
       // toggleDealWindow(true, "dealAgainWindow");
-
-      const pageRef = mainPageRef.current;
-      const king = cardsOnfoundationRef[51]?.parentElement;
-      const parentPosition = [
-        king?.getBoundingClientRect().x,
-        king?.getBoundingClientRect().y,
-      ];
-
-      const gameContainer = pageRef?.querySelector("[class*='gameContainer']");
-
-      for (let i = 0; i < 90; i++) {
-        const kingClone = king?.cloneNode(true);
-
-        kingClone?.setAttribute(
-          "style",
-          `position:fixed; top:${parentPosition[1] + 5 + i * 8}px;
-        left:${parentPosition[0] - 5 - i * 8}px`
-        );
-        gameContainer?.append(kingClone as Node);
-      }
 
       stopGame();
       setGameFinished(true);
