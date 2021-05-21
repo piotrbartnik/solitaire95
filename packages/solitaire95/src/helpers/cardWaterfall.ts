@@ -6,10 +6,9 @@ const whileCallback = (
   vy: number,
   vx: number,
   decay: number,
-  cardToMove: HTMLElement | null
+  cardToMove: HTMLElement | null,
+  y: number
 ) => {
-  let y = 0;
-
   const cardArray = [];
 
   while (cx > -126 && cx < window.innerWidth + 126) {
@@ -40,39 +39,54 @@ const whileCallback = (
 export const cardWaterfall = (
   mainPageRef: RefObject<HTMLDivElement>,
   cardsOnfoundationRef: NodeListOf<Element>,
-  i: number,
   vy: number | undefined,
   vx: number | undefined,
   decay: number | undefined
 ): void => {
-  console.log(i);
+  console.log(cardsOnfoundationRef);
   const pageRef = mainPageRef.current;
-  const cardToMove = cardsOnfoundationRef[12]?.parentElement;
-  const parentPosition: number[] = [
-    cardToMove?.getBoundingClientRect().x as number,
-    cardToMove?.getBoundingClientRect().y as number,
-  ];
-  const gameContainer = pageRef?.querySelector("[class*='gameContainer']");
-
-  const cx = parentPosition[0]; // position from the left
-  const cy = parentPosition[1]; // position from the top
-
   const cardsToRender: (Node | undefined)[] = [];
+  const gameContainer = pageRef?.querySelector("[class*='gameContainer']");
+  const helperArray = [
+    0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10, 11, 12, 12, 0, 1, 2, 3, 3, 4, 5,
+    6, 6, 7, 8, 9, 9, 10, 11, 12, 12, 0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10,
+    11, 12, 12, 0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10, 11, 12, 12,
+  ];
+  for (let g = 1; g < 54; g++) {
+    const cardToMove =
+      cardsOnfoundationRef[((12 * g) % 52) + helperArray[g - 1]]?.parentElement;
+    console.log((12 * g) % 52, helperArray[g - 1]);
+    const parentPosition: number[] = [
+      cardToMove?.getBoundingClientRect().x as number,
+      cardToMove?.getBoundingClientRect().y as number,
+    ];
 
-  cardsToRender.push(
-    ...whileCallback(
-      cx,
-      cy,
-      vy as number,
-      vx as number,
-      decay as number,
-      cardToMove
-    )
-  );
+    const cx = parentPosition[0]; // position from the left
+    const cy = parentPosition[1]; // position from the top
 
-  for (let y = 0; y < cardsToRender.length; y++) {
-    setTimeout(() => {
-      gameContainer?.append(cardsToRender[y] as Node);
-    }, 10 * y);
+    decay = 0.3;
+    vx = 4 * (1 - Math.random() * 2);
+    if (vx > 0) vx += 1;
+    else vx -= 1;
+    vy = 4 * Math.random();
+
+    cardsToRender.push(
+      ...whileCallback(
+        cx,
+        cy,
+        vy as number,
+        vx as number,
+        decay as number,
+        cardToMove,
+        g * 10 * 100
+      )
+    );
   }
+  setTimeout(() => {
+    for (let y = 0; y < cardsToRender.length; y++) {
+      setTimeout(() => {
+        gameContainer?.append(cardsToRender[y] as Node);
+      }, 10 * y);
+    }
+  }, 1000);
 };
