@@ -1,4 +1,4 @@
-import React, { useRef, MutableRefObject } from "react";
+import React, { useRef, MutableRefObject, useMemo } from "react";
 import { connect } from "react-redux";
 import {
   FoundationInitialState,
@@ -51,6 +51,26 @@ const GameContainerInternal: React.FC<
     pilesContainer as MutableRefObject<null>
   );
 
+  const renderFoundations = useMemo(() => {
+    return [
+      cardsOnFirstFoundation,
+      cardsOnSecondFoundation,
+      cardsOnThirdFoundation,
+      cardsOnFourthFoundation,
+    ].map((cardsOnFondation, index) => (
+      <Foundation
+        cardsOnFoundation={cardsOnFondation}
+        foundationId={index}
+        key={index}
+      />
+    ));
+  }, [
+    cardsOnFirstFoundation,
+    cardsOnSecondFoundation,
+    cardsOnThirdFoundation,
+    cardsOnFourthFoundation,
+  ]);
+
   return (
     <div className={styles.gameUIBorder}>
       <div className={styles.gameContainer}>
@@ -62,18 +82,7 @@ const GameContainerInternal: React.FC<
             <div className={styles.gameContainer__foundationFiller}></div>
             <div className={styles.gameContainer__foundationFiller}></div>
             <div className={styles.gameContainer__foundationFiller}></div>
-            {[
-              cardsOnFirstFoundation,
-              cardsOnSecondFoundation,
-              cardsOnThirdFoundation,
-              cardsOnFourthFoundation,
-            ].map((cardsOnFondation, index) => (
-              <Foundation
-                cardsOnFoundation={cardsOnFondation}
-                foundationId={index}
-                key={index}
-              />
-            ))}
+            {renderFoundations}
           </div>
         </div>
         <div ref={pilesContainer} className={styles.gameContainer__piles}>
