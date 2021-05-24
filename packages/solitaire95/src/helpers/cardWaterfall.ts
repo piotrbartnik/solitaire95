@@ -43,7 +43,14 @@ export const cardWaterfall = (
   vx: number | undefined,
   decay: number | undefined
 ): void => {
-  console.log(cardsOnfoundationRef);
+  const nodeArray = Array.from(cardsOnfoundationRef);
+
+  const cardsArray = [];
+  const divideIn4 = 13;
+  for (let i = 0; i < nodeArray.length; i += divideIn4) {
+    cardsArray.push(nodeArray.slice(i, i + divideIn4));
+  }
+
   const pageRef = mainPageRef.current;
   const cardsToRender: (Node | undefined)[] = [];
   const gameContainer = pageRef?.querySelector("[class*='gameContainer']");
@@ -55,7 +62,6 @@ export const cardWaterfall = (
   for (let g = 1; g < 54; g++) {
     const cardToMove =
       cardsOnfoundationRef[((12 * g) % 52) + helperArray[g - 1]]?.parentElement;
-    console.log((12 * g) % 52, helperArray[g - 1]);
     const parentPosition: number[] = [
       cardToMove?.getBoundingClientRect().x as number,
       cardToMove?.getBoundingClientRect().y as number,
