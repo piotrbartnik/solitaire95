@@ -28,7 +28,7 @@ const whileCallback = (
       "style",
       `position:fixed; top:${cy}px;
       left:${cx}px;
-      z-index: ${1000 + y}`
+      z-index: ${1000 + y + 10}`
     );
     cardArray.push(cardClone);
   }
@@ -54,39 +54,36 @@ export const cardWaterfall = (
   const pageRef = mainPageRef.current;
   const cardsToRender: (Node | undefined)[] = [];
   const gameContainer = pageRef?.querySelector("[class*='gameContainer']");
-  const helperArray = [
-    0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10, 11, 12, 12, 0, 1, 2, 3, 3, 4, 5,
-    6, 6, 7, 8, 9, 9, 10, 11, 12, 12, 0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10,
-    11, 12, 12, 0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10, 11, 12, 12,
-  ];
-  for (let g = 1; g < 54; g++) {
-    const cardToMove =
-      cardsOnfoundationRef[((12 * g) % 52) + helperArray[g - 1]]?.parentElement;
-    const parentPosition: number[] = [
-      cardToMove?.getBoundingClientRect().x as number,
-      cardToMove?.getBoundingClientRect().y as number,
-    ];
 
-    const cx = parentPosition[0]; // position from the left
-    const cy = parentPosition[1]; // position from the top
+  for (let k = 13; k >= 0; k--) {
+    for (let i = 0; i < 4; i++) {
+      const cardToMove = (cardsArray[i][k] as Node)?.parentElement;
+      const parentPosition: number[] = [
+        cardToMove?.getBoundingClientRect().x as number,
+        cardToMove?.getBoundingClientRect().y as number,
+      ];
 
-    decay = 0.3;
-    vx = 4 * (1 - Math.random() * 2);
-    if (vx > 0) vx += 1;
-    else vx -= 1;
-    vy = 4 * Math.random();
+      const cx = parentPosition[0]; // position from the left
+      const cy = parentPosition[1]; // position from the top
 
-    cardsToRender.push(
-      ...whileCallback(
-        cx,
-        cy,
-        vy as number,
-        vx as number,
-        decay as number,
-        cardToMove,
-        g * 10 * 100
-      )
-    );
+      decay = 0.3;
+      vx = 4 * (1 - Math.random() * 2);
+      if (vx > 0) vx += 1;
+      else vx -= 1;
+      vy = 4 * Math.random();
+
+      cardsToRender.push(
+        ...whileCallback(
+          cx,
+          cy,
+          vy as number,
+          vx as number,
+          decay as number,
+          cardToMove,
+          (Math.abs(k - 14) + (i + 8) / 4) * 1000
+        )
+      );
+    }
   }
   setTimeout(() => {
     for (let y = 0; y < cardsToRender.length; y++) {
