@@ -13,6 +13,7 @@ import {
   WindowsState,
   Points,
   FoundationInitialState,
+  GameState,
 } from "../../../store/reducers/";
 import { TopBar, BottomBar } from "../../ui-components";
 import {
@@ -21,7 +22,6 @@ import {
   Options,
   DealAgain,
 } from "../../smart-components";
-import { cardWaterfall } from "../../../helpers/cardWaterfall";
 import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
@@ -44,6 +44,7 @@ type MainPageStateTypes = {
   score?: number;
   cardsOnFoundations: FoundationInitialState;
   scoreTime: number;
+  gameFinished: boolean;
 };
 
 type MainPagePropTypes = {
@@ -60,10 +61,11 @@ const MainPageInternal: React.FC<
     score,
     aboutChildren,
     // toggleDealWindow,
-    // stopGame,
-    // addPointsOnEnd,
-    // setGameFinished,
-    // scoreTime,
+    stopGame,
+    addPointsOnEnd,
+    setGameFinished,
+    scoreTime,
+    gameFinished,
   } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -87,29 +89,23 @@ const MainPageInternal: React.FC<
     "[data-foundationnumber]"
   );
 
-  // useEffect(() => {
-  //   if (cardsOnfoundationRef?.length === 52) {
-  //     // toggleDealWindow(true, "dealAgainWindow");
-  //     stopGame();
-  //     setGameFinished(true);
-  //     if (scoreTime > 30) {
-  //       const pointsToAddOnEnd = Math.round((20000 / scoreTime) * 35);
-  //       addPointsOnEnd(pointsToAddOnEnd);
-  //     }
-  //   }
-  // }, [
-  //   addPointsOnEnd,
-  //   cardsOnfoundationRef,
-  //   scoreTime,
-  //   setGameFinished,
-  //   stopGame,
-  // ]);
-
-  // useEffect(() => {
-  //   if (cardsOnfoundationRef?.length === 52) {
-  //     cardWaterfall(mainPageRef, cardsOnfoundationRef, 4, -4, 0.2);
-  //   }
-  // }, [cardsOnfoundationRef]);
+  useEffect(() => {
+    if (cardsOnfoundationRef?.length === 52) {
+      // toggleDealWindow(true, "dealAgainWindow");
+      stopGame();
+      setGameFinished(true);
+      if (scoreTime > 30) {
+        const pointsToAddOnEnd = Math.round((20000 / scoreTime) * 35);
+        addPointsOnEnd(pointsToAddOnEnd);
+      }
+    }
+  }, [
+    addPointsOnEnd,
+    cardsOnfoundationRef,
+    scoreTime,
+    setGameFinished,
+    stopGame,
+  ]);
 
   const dndProviderBackend = /Mobi|Android/i.test(navigator.userAgent)
     ? TouchBackend
@@ -158,7 +154,7 @@ const MainPageInternal: React.FC<
             setHelpVisible={setHelpVisible}
             setBottomBarText={setBottomBarText}
           />
-          {cardsOnfoundationRef?.length === 52 ? (
+          {gameFinished ? (
             <canvas id="can" width="800" height="600" />
           ) : (
             <GameContainer />
@@ -186,12 +182,14 @@ const mapStateToProps = (state: {
   countScore: Points;
   cardsOnFoundation: FoundationInitialState;
   timeCounter: { scoreTime: number };
+  gameState: GameState;
 }) => {
   return {
     isWindowVisible: state.toggleWindows,
     score: state.countScore.points,
     cardsOnFoundations: state.cardsOnFoundation,
     scoreTime: state.timeCounter.scoreTime,
+    gameFinished: state.gameState.gameFinished,
   };
 };
 
