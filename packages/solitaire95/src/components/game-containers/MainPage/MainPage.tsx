@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  createContext,
-  useRef,
-  useLayoutEffect,
-  useCallback,
-} from "react";
+import React, { useState, createContext, useRef, useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
@@ -66,10 +60,10 @@ const MainPageInternal: React.FC<
     score,
     aboutChildren,
     // toggleDealWindow,
-    stopGame,
-    addPointsOnEnd,
-    setGameFinished,
-    scoreTime,
+    // stopGame,
+    // addPointsOnEnd,
+    // setGameFinished,
+    // scoreTime,
   } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -93,28 +87,29 @@ const MainPageInternal: React.FC<
     "[data-foundationnumber]"
   );
 
-  const isGameEnded = useCallback(() => {
-    if (cardsOnfoundationRef?.length === 52) {
-      cardWaterfall(mainPageRef, cardsOnfoundationRef);
+  // useEffect(() => {
+  //   if (cardsOnfoundationRef?.length === 52) {
+  //     // toggleDealWindow(true, "dealAgainWindow");
+  //     stopGame();
+  //     setGameFinished(true);
+  //     if (scoreTime > 30) {
+  //       const pointsToAddOnEnd = Math.round((20000 / scoreTime) * 35);
+  //       addPointsOnEnd(pointsToAddOnEnd);
+  //     }
+  //   }
+  // }, [
+  //   addPointsOnEnd,
+  //   cardsOnfoundationRef,
+  //   scoreTime,
+  //   setGameFinished,
+  //   stopGame,
+  // ]);
 
-      // toggleDealWindow(true, "dealAgainWindow");
-
-      stopGame();
-      setGameFinished(true);
-      if (scoreTime > 30) {
-        const pointsToAddOnEnd = Math.round((20000 / scoreTime) * 35);
-        addPointsOnEnd(pointsToAddOnEnd);
-      }
-    }
-  }, [
-    addPointsOnEnd,
-    cardsOnfoundationRef,
-    scoreTime,
-    setGameFinished,
-    stopGame,
-  ]);
-
-  useLayoutEffect(() => isGameEnded(), [cardsOnfoundationRef, isGameEnded]);
+  // useEffect(() => {
+  //   if (cardsOnfoundationRef?.length === 52) {
+  //     cardWaterfall(mainPageRef, cardsOnfoundationRef, 4, -4, 0.2);
+  //   }
+  // }, [cardsOnfoundationRef]);
 
   const dndProviderBackend = /Mobi|Android/i.test(navigator.userAgent)
     ? TouchBackend
@@ -163,7 +158,11 @@ const MainPageInternal: React.FC<
             setHelpVisible={setHelpVisible}
             setBottomBarText={setBottomBarText}
           />
-          <GameContainer />
+          {cardsOnfoundationRef?.length === 52 ? (
+            <canvas id="can" width="800" height="600" />
+          ) : (
+            <GameContainer />
+          )}
           <BottomBar text={bottomBarText} score={score} />
         </CardBackContext.Provider>
       </div>
