@@ -15,7 +15,7 @@ import {
   FoundationInitialState,
   GameState,
 } from "../../../store/reducers/";
-import { TopBar, BottomBar } from "../../ui-components";
+import { TopBar, BottomBar, WaterfallCanvas } from "../../ui-components";
 import {
   DeckSelect,
   AboutSolitaire,
@@ -155,7 +155,7 @@ const MainPageInternal: React.FC<
             setBottomBarText={setBottomBarText}
           />
           {gameFinished ? (
-            <canvas id="can" width="800" height="600" />
+            <WaterfallCanvas canvasWidth={900} canvasHeight={900} />
           ) : (
             <GameContainer />
           )}
