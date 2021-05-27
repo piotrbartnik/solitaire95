@@ -73,7 +73,7 @@ const GameContainerInternal: React.FC<
 
   return (
     <div className={styles.gameUIBorder}>
-      <div className={styles.gameContainer}>
+      <div className={styles.gameContainer} id="gameContainer">
         <div className={styles.gameContainer__top}>
           <div className={styles.gameContainer__cardStock}>
             <CardStock distanceBtwPiles={distanceBtwPiles} />

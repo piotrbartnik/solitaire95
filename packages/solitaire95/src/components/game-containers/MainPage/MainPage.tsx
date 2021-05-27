@@ -82,8 +82,21 @@ const MainPageInternal: React.FC<
   const [gameVisible, setGameVisible] = useState<boolean>(false);
   const [helpVisible, setHelpVisible] = useState(false);
   const [bottomBarText, setBottomBarText] = useState("");
+  const [gameContainerSize, setGameContainerSize] = useState([]);
 
   const mainPageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const gameContainerRef =
+      mainPageRef.current?.querySelector("#gameContainer");
+    console.log(gameContainerRef, gameContainerRef.width);
+    setGameContainerSize([
+      gameContainerRef.offsetWidth,
+      gameContainerRef.offsetHeight,
+    ]);
+  }, [setGameContainerSize, mainPageRef]);
+
+  console.log(gameContainerSize);
 
   const cardsOnfoundationRef = mainPageRef.current?.querySelectorAll(
     "[data-foundationnumber]"
@@ -155,7 +168,10 @@ const MainPageInternal: React.FC<
             setBottomBarText={setBottomBarText}
           />
           {gameFinished ? (
-            <WaterfallCanvas canvasWidth={900} canvasHeight={900} />
+            <WaterfallCanvas
+              canvasWidth={gameContainerSize[0]}
+              canvasHeight={gameContainerSize[1]}
+            />
           ) : (
             <GameContainer />
           )}
