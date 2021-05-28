@@ -13,9 +13,8 @@ import {
   WindowsState,
   Points,
   FoundationInitialState,
-  GameState,
 } from "../../../store/reducers/";
-import { TopBar, BottomBar, WaterfallCanvas } from "../../ui-components";
+import { TopBar, BottomBar } from "../../ui-components";
 import {
   DeckSelect,
   AboutSolitaire,
@@ -44,7 +43,6 @@ type MainPageStateTypes = {
   score?: number;
   cardsOnFoundations: FoundationInitialState;
   scoreTime: number;
-  gameFinished: boolean;
 };
 
 type MainPagePropTypes = {
@@ -65,7 +63,6 @@ const MainPageInternal: React.FC<
     addPointsOnEnd,
     setGameFinished,
     scoreTime,
-    gameFinished,
   } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -82,21 +79,8 @@ const MainPageInternal: React.FC<
   const [gameVisible, setGameVisible] = useState<boolean>(false);
   const [helpVisible, setHelpVisible] = useState(false);
   const [bottomBarText, setBottomBarText] = useState("");
-  const [gameContainerSize, setGameContainerSize] = useState([]);
 
   const mainPageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const gameContainerRef =
-      mainPageRef.current?.querySelector("#gameContainer");
-    console.log(gameContainerRef, gameContainerRef.width);
-    setGameContainerSize([
-      gameContainerRef.offsetWidth,
-      gameContainerRef.offsetHeight,
-    ]);
-  }, [setGameContainerSize, mainPageRef]);
-
-  console.log(gameContainerSize);
 
   const cardsOnfoundationRef = mainPageRef.current?.querySelectorAll(
     "[data-foundationnumber]"
@@ -167,14 +151,7 @@ const MainPageInternal: React.FC<
             setHelpVisible={setHelpVisible}
             setBottomBarText={setBottomBarText}
           />
-          {gameFinished ? (
-            <WaterfallCanvas
-              canvasWidth={gameContainerSize[0]}
-              canvasHeight={gameContainerSize[1]}
-            />
-          ) : (
-            <GameContainer />
-          )}
+          <GameContainer />
           <BottomBar text={bottomBarText} score={score} />
         </CardBackContext.Provider>
       </div>
@@ -198,14 +175,12 @@ const mapStateToProps = (state: {
   countScore: Points;
   cardsOnFoundation: FoundationInitialState;
   timeCounter: { scoreTime: number };
-  gameState: GameState;
 }) => {
   return {
     isWindowVisible: state.toggleWindows,
     score: state.countScore.points,
     cardsOnFoundations: state.cardsOnFoundation,
     scoreTime: state.timeCounter.scoreTime,
-    gameFinished: state.gameState.gameFinished,
   };
 };
 

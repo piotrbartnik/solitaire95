@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import {
   FoundationInitialState,
   CardsDistributionInitialState,
+  GameState,
 } from "../../../store/reducers/";
+import { WaterfallCanvas } from "../../ui-components";
 import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
 import { addCardToFoundation } from "../../../store/actions/";
 import { Foundation, Pile, CardStock } from "../../smart-components";
@@ -17,6 +19,7 @@ type GameContainerStateTypes = {
   cardsOnFourthFoundation: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
   cardsOnFoundations: FoundationInitialState;
+  gameFinished: boolean;
 };
 
 type GameContainerDispatchTypes = {
@@ -36,6 +39,7 @@ const GameContainerInternal: React.FC<
     cardsOnThirdFoundation,
     cardsOnFourthFoundation,
     cardsOnPiles,
+    gameFinished,
   } = props;
 
   const piles = (config: { [key: string]: cardConfigType[] }) =>
@@ -74,20 +78,26 @@ const GameContainerInternal: React.FC<
   return (
     <div className={styles.gameUIBorder}>
       <div className={styles.gameContainer} id="gameContainer">
-        <div className={styles.gameContainer__top}>
-          <div className={styles.gameContainer__cardStock}>
-            <CardStock distanceBtwPiles={distanceBtwPiles} />
-          </div>
-          <div className={styles.gameContainer__foundation}>
-            <div className={styles.gameContainer__foundationFiller}></div>
-            <div className={styles.gameContainer__foundationFiller}></div>
-            <div className={styles.gameContainer__foundationFiller}></div>
-            {renderFoundations}
-          </div>
-        </div>
-        <div ref={pilesContainer} className={styles.gameContainer__piles}>
-          {piles(cardsOnPiles)}
-        </div>
+        {gameFinished ? (
+          <WaterfallCanvas canvasWidth={300} canvasHeight={300} />
+        ) : (
+          <>
+            <div className={styles.gameContainer__top}>
+              <div className={styles.gameContainer__cardStock}>
+                <CardStock distanceBtwPiles={distanceBtwPiles} />
+              </div>
+              <div className={styles.gameContainer__foundation}>
+                <div className={styles.gameContainer__foundationFiller}></div>
+                <div className={styles.gameContainer__foundationFiller}></div>
+                <div className={styles.gameContainer__foundationFiller}></div>
+                {renderFoundations}
+              </div>
+            </div>
+            <div ref={pilesContainer} className={styles.gameContainer__piles}>
+              {piles(cardsOnPiles)}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -96,6 +106,7 @@ const GameContainerInternal: React.FC<
 const mapStateToProps = (state: {
   cardsOnFoundation: FoundationInitialState;
   cardDistribution: CardsDistributionInitialState;
+  gameState: GameState;
 }) => {
   return {
     cardsOnFirstFoundation:
@@ -108,6 +119,7 @@ const mapStateToProps = (state: {
       state.cardsOnFoundation.cardsOnFourthFoundation.cards,
     cardsOnFoundations: state.cardsOnFoundation,
     cardsOnPiles: state.cardDistribution.cardsOnPiles,
+    gameFinished: state.gameState.gameFinished,
   };
 };
 
