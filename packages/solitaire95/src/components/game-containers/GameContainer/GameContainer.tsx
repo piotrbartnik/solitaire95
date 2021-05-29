@@ -79,7 +79,7 @@ const GameContainerInternal: React.FC<
     <div className={styles.gameUIBorder}>
       <div className={styles.gameContainer} id="gameContainer">
         {gameFinished ? (
-          <WaterfallCanvas canvasWidth={300} canvasHeight={300} />
+          <WaterfallCanvas />
         ) : (
           <>
             <div className={styles.gameContainer__top}>

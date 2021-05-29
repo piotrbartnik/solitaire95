@@ -1,13 +1,6 @@
 import React, { useRef, useEffect } from "react";
 
-type WaterfallCanvasPropTypes = {
-  canvasWidth: number;
-  canvasHeight: number;
-};
-
-export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
-  const { canvasWidth, canvasHeight } = props;
-
+export const WaterfallCanvas: React.FC = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -16,16 +9,9 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
     if (canvas) {
       const context = canvas.getContext("2d");
       //Our first draw
-      context.fillStyle = "#64ac55";
+      context.fillStyle = "#20ac55";
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
     }
   }, []);
-  return (
-    <canvas
-      ref={canvasRef}
-      id="can"
-      width={canvasWidth}
-      height={canvasHeight}
-    />
-  );
+  return <canvas ref={canvasRef} id="can" />;
 };
