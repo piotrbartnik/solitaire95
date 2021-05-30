@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import king from "../../../static/cardsFronts/clubs/kingOfClubs-min.png";
 
 export const WaterfallCanvas: React.FC = () => {
   const canvasRef = useRef(null);
@@ -11,6 +12,9 @@ export const WaterfallCanvas: React.FC = () => {
       //Our first draw
       context.fillStyle = "#20ac55";
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+      const image = new Image(60, 45);
+      image.src = king;
+      context.drawImage(image, 40, 50);
     }
   }, []);
   return <canvas ref={canvasRef} id="can" />;
