@@ -12,6 +12,11 @@ import { Foundation, Pile, CardStock } from "../../smart-components";
 import { cardConfigType } from "../../../configs/cardTypes";
 import styles from "./GameContainer.module.scss";
 
+type GameContainerPropTypes = {
+  canvasWidth?: number;
+  canvasHeight?: number;
+};
+
 type GameContainerStateTypes = {
   cardsOnFirstFoundation: cardConfigType[];
   cardsOnSecondFoundation: cardConfigType[];
@@ -31,7 +36,7 @@ type GameContainerDispatchTypes = {
 };
 
 const GameContainerInternal: React.FC<
-  GameContainerStateTypes & GameContainerDispatchTypes
+  GameContainerStateTypes & GameContainerDispatchTypes & GameContainerPropTypes
 > = (props) => {
   const {
     cardsOnFirstFoundation,
@@ -40,6 +45,8 @@ const GameContainerInternal: React.FC<
     cardsOnFourthFoundation,
     cardsOnPiles,
     gameFinished,
+    canvasWidth,
+    canvasHeight,
   } = props;
 
   const piles = (config: { [key: string]: cardConfigType[] }) =>
@@ -79,7 +86,10 @@ const GameContainerInternal: React.FC<
     <div className={styles.gameUIBorder}>
       <div className={styles.gameContainer} id="gameContainer">
         {gameFinished ? (
-          <WaterfallCanvas />
+          <WaterfallCanvas
+            canvasWidth={canvasWidth as number}
+            canvasHeight={canvasHeight as number}
+          />
         ) : (
           <>
             <div className={styles.gameContainer__top}>
@@ -136,7 +146,8 @@ const mapDispatchToProps = (dispatch: any) => {
 
 export const GameContainer = connect<
   GameContainerStateTypes,
-  GameContainerDispatchTypes
+  GameContainerDispatchTypes,
+  GameContainerPropTypes
 >(
   mapStateToProps,
   mapDispatchToProps
