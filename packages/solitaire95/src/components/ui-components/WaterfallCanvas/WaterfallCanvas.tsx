@@ -21,12 +21,14 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       // const image = new Image(60, 45);
       // image.src = king;
       // context.drawImage(image, 40, 50);
-
+      context.lineWidth = 2;
       context.beginPath();
-      context.lineWidth = 15;
-      context.moveTo(0, 0);
-      context.lineTo(125, 45);
-      context.lineTo(45, 125);
+      context.moveTo(19, 12);
+      context.lineTo(19, 187);
+      // context.arcTo(19, 24, 12, 12, 7);
+      context.lineTo(149, 187);
+
+      context.lineTo(149, 12);
       context.closePath();
       context.stroke();
     }
