@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import king from "../../../static/cardsFronts/clubs/kingOfClubs-min.png";
+// import king from "../../../static/cardsFronts/clubs/kingOfClubs-min.png";
 
 type WaterfallCanvasPropTypes = {
   canvasWidth: number;
