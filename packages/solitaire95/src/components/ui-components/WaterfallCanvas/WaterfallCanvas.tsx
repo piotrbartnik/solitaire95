@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect } from "react";
 // import king from "../../../static/cardsFronts/clubs/kingOfClubs-min.png";
 
 type WaterfallCanvasPropTypes = {
@@ -9,11 +9,10 @@ type WaterfallCanvasPropTypes = {
 export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
   const { canvasWidth, canvasHeight } = props;
   const canvasRef = useRef(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const canvas = canvasRef.current as any;
 
   useEffect(() => {
-    const drawStockRectangle = (context: any) => {
+    const canvas = canvasRef.current;
+    const drawStocRectangle = (context: CanvasRenderingContext2D) => {
       context.lineWidth = 2;
       context.beginPath();
       context.moveTo(19, 12);
@@ -26,17 +25,16 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       context.stroke();
     };
     if (canvas) {
-      const context = canvas.getContext("2d");
+      const context = (canvas as HTMLCanvasElement).getContext("2d");
       //Our first draw
-      context.fillStyle = "#20ac55";
+      (context as CanvasRenderingContext2D).fillStyle = "#20ac55";
       // context.fillRect(0, 0, context.canvas.width, context.canvas.height);
       // const image = new Image(60, 45);
       // image.src = king;
       // context.drawImage(image, 40, 50);
-
-      drawStockRectangle(context);
+      drawStocRectangle(context as CanvasRenderingContext2D);
     }
-  }, [canvas]);
+  }, []);
   return (
     <canvas
       ref={canvasRef}
