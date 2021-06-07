@@ -10,20 +10,20 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
   const { canvasWidth, canvasHeight } = props;
   const canvasRef = useRef(null);
 
+  const drawStocRectangle = (context: CanvasRenderingContext2D) => {
+    context.lineWidth = 2;
+    context.beginPath();
+    context.moveTo(143, 187);
+    context.arcTo(19, 187, 0, 0, 7);
+    context.arcTo(19, 12, 149, 0, 7);
+    context.arcTo(149, 12, 149, 187, 7);
+    context.arcTo(149, 187, 0, 187, 7);
+    context.stroke();
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
-    const drawStocRectangle = (context: CanvasRenderingContext2D) => {
-      context.lineWidth = 2;
-      context.beginPath();
-      context.moveTo(19, 12);
-      context.lineTo(19, 187);
-      // context.arcTo(19, 24, 12, 12, 7);
-      context.lineTo(149, 187);
 
-      context.lineTo(149, 12);
-      context.closePath();
-      context.stroke();
-    };
     if (canvas) {
       const context = (canvas as HTMLCanvasElement).getContext("2d");
       //Our first draw
