@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-// import king from "../../../static/cardsFronts/clubs/kingOfClubs-min.png";
+import sprite from "./cards-sprite.png";
 
 type WaterfallCanvasPropTypes = {
   canvasWidth: number;
@@ -30,12 +30,28 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
     const canvas = canvasRef.current;
 
     if (canvas) {
-      const context = (canvas as HTMLCanvasElement).getContext("2d");
-      (context as CanvasRenderingContext2D).fillStyle = "#20ac55";
-      // context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-      // const image = new Image(60, 45);
-      // image.src = king;
-      // context.drawImage(image, 40, 50);
+      const context = (canvas as HTMLCanvasElement).getContext(
+        "2d"
+      ) as CanvasRenderingContext2D;
+      context.imageSmoothingEnabled = false;
+      context.fillStyle = "#20ac55";
+      context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+      const image = new Image();
+      image.src = sprite;
+      image.onload = () =>
+        context.drawImage(
+          image,
+          12 * 71, //Sprite X
+          1 * 96, //Sprite Y
+          71,
+          96,
+          200, //on screen X
+          12, //on screen Y
+          130,
+          175
+        );
+
+      // context.drawImage(image, 350, 350, 126, 171);
       drawStockRectangle(context as CanvasRenderingContext2D);
     }
   }, []);
@@ -45,6 +61,7 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       id="can"
       width={canvasWidth}
       height={canvasHeight}
+      style={{ imageRendering: "pixelated" }}
     />
   );
 };
