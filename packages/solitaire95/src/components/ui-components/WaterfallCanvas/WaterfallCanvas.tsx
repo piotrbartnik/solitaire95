@@ -31,18 +31,21 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
   const drawKings = (context: CanvasRenderingContext2D) => {
     const image = new Image();
     image.src = sprite;
-    image.onload = () =>
-      context.drawImage(
-        image,
-        12 * 71, //Sprite X
-        1 * 96, //Sprite Y
-        71,
-        96,
-        200, //on screen X
-        12, //on screen Y
-        130,
-        175
-      );
+    image.onload = () => {
+      for (let i = 1; i < 5; i++) {
+        context.drawImage(
+          image,
+          12 * 71, //Sprite X
+          (i - 1) * 96, //Sprite Y
+          71,
+          96,
+          i * 200, //on screen X
+          12, //on screen Y
+          130,
+          175
+        );
+      }
+    };
   };
 
   useEffect(() => {
