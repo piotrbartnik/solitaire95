@@ -9,7 +9,7 @@ type WaterfallCanvasPropTypes = {
 
 export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
   const { canvasWidth, canvasHeight, foundationsOrder } = props;
-  console.log(foundationsOrder);
+
   const canvasRef = useRef(null);
 
   const drawStockRectangle = (context: CanvasRenderingContext2D) => {
@@ -29,22 +29,29 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
   };
 
   const drawKings = (context: CanvasRenderingContext2D) => {
+    const spriteSuiteOrder = {
+      clubs: 0,
+      hearts: 1,
+      spades: 2,
+      diamonds: 3,
+    };
+    console.log(spriteSuiteOrder);
     const image = new Image();
     image.src = sprite;
     image.onload = () => {
-      for (let i = 1; i < 5; i++) {
+      foundationsOrder.forEach((cardSuite, index) => {
         context.drawImage(
           image,
           12 * 71, //Sprite X
-          (i - 1) * 96, //Sprite Y
+          spriteSuiteOrder[cardSuite] * 96, //Sprite Y
           71,
           96,
-          i * 200, //on screen X
+          index * 200, //on screen X
           12, //on screen Y
           130,
           175
         );
-      }
+      });
     };
   };
 
