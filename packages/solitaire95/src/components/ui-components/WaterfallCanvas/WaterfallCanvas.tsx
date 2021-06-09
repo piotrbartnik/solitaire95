@@ -4,10 +4,12 @@ import sprite from "./cards-sprite.png";
 type WaterfallCanvasPropTypes = {
   canvasWidth: number;
   canvasHeight: number;
+  foundationsOrder: string[];
 };
 
 export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
-  const { canvasWidth, canvasHeight } = props;
+  const { canvasWidth, canvasHeight, foundationsOrder } = props;
+  console.log(foundationsOrder);
   const canvasRef = useRef(null);
 
   const drawStockRectangle = (context: CanvasRenderingContext2D) => {

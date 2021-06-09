@@ -82,6 +82,13 @@ const GameContainerInternal: React.FC<
     cardsOnFourthFoundation,
   ]);
 
+  const foundationsSuiteOrder = [
+    cardsOnFirstFoundation[0][1],
+    cardsOnSecondFoundation[0][1],
+    cardsOnThirdFoundation[0][1],
+    cardsOnFourthFoundation[0][1],
+  ];
+
   return (
     <div className={styles.gameUIBorder}>
       <div className={styles.gameContainer} id="gameContainer">
@@ -89,6 +96,7 @@ const GameContainerInternal: React.FC<
           <WaterfallCanvas
             canvasWidth={canvasWidth as number}
             canvasHeight={canvasHeight as number}
+            foundationsOrder={foundationsSuiteOrder}
           />
         ) : (
           <>
