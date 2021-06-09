@@ -26,6 +26,23 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
     context.stroke();
   };
 
+  const drawKings = (context: CanvasRenderingContext2D) => {
+    const image = new Image();
+    image.src = sprite;
+    image.onload = () =>
+      context.drawImage(
+        image,
+        12 * 71, //Sprite X
+        1 * 96, //Sprite Y
+        71,
+        96,
+        200, //on screen X
+        12, //on screen Y
+        130,
+        175
+      );
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
 
@@ -36,23 +53,8 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       context.imageSmoothingEnabled = false;
       context.fillStyle = "#20ac55";
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-      const image = new Image();
-      image.src = sprite;
-      image.onload = () =>
-        context.drawImage(
-          image,
-          12 * 71, //Sprite X
-          1 * 96, //Sprite Y
-          71,
-          96,
-          200, //on screen X
-          12, //on screen Y
-          130,
-          175
-        );
-
-      // context.drawImage(image, 350, 350, 126, 171);
-      drawStockRectangle(context as CanvasRenderingContext2D);
+      drawKings(context);
+      drawStockRectangle(context);
     }
   }, []);
   return (
