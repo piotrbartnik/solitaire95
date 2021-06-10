@@ -4,7 +4,7 @@ import sprite from "./cards-sprite.png";
 type WaterfallCanvasPropTypes = {
   canvasWidth: number;
   canvasHeight: number;
-  foundationsOrder: string[];
+  foundationsOrder: [string, number][];
 };
 
 export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
@@ -35,18 +35,17 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       spades: 2,
       diamonds: 3,
     };
-    console.log(spriteSuiteOrder);
     const image = new Image();
     image.src = sprite;
     image.onload = () => {
-      foundationsOrder.forEach((cardSuite, index) => {
+      foundationsOrder.forEach((cardSuite) => {
         context.drawImage(
           image,
           12 * 71, //Sprite X
-          spriteSuiteOrder[cardSuite] * 96, //Sprite Y
+          spriteSuiteOrder[cardSuite[0]] * 96, //Sprite Y
           71,
           96,
-          index * 200, //on screen X
+          cardSuite[1], //on screen X
           12, //on screen Y
           130,
           175
@@ -68,6 +67,7 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       drawKings(context);
       drawStockRectangle(context);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <canvas

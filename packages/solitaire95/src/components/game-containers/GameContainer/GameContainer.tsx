@@ -62,6 +62,8 @@ const GameContainerInternal: React.FC<
     pilesContainer as MutableRefObject<null>
   );
 
+  const foundationCountaierRef = useRef<HTMLDivElement>(null);
+
   const renderFoundations = useMemo(() => {
     return [
       cardsOnFirstFoundation,
@@ -82,12 +84,42 @@ const GameContainerInternal: React.FC<
     cardsOnFourthFoundation,
   ]);
 
-  const foundationsSuiteOrder = [
-    cardsOnFirstFoundation[0][1],
-    cardsOnSecondFoundation[0][1],
-    cardsOnThirdFoundation[0][1],
-    cardsOnFourthFoundation[0][1],
-  ];
+  const foundationsSuiteOrder: [string, number][] = gameFinished
+    ? [
+        [
+          cardsOnFirstFoundation[0][1],
+          (
+            foundationCountaierRef.current?.querySelector(
+              "div[id='0']"
+            ) as Element
+          )?.getBoundingClientRect().left,
+        ],
+        [
+          cardsOnSecondFoundation[0][1],
+          (
+            foundationCountaierRef.current?.querySelector(
+              "div[id='1']"
+            ) as Element
+          )?.getBoundingClientRect().left,
+        ],
+        [
+          cardsOnThirdFoundation[0][1],
+          (
+            foundationCountaierRef.current?.querySelector(
+              "div[id='2']"
+            ) as Element
+          )?.getBoundingClientRect().left,
+        ],
+        [
+          cardsOnFourthFoundation[0][1],
+          (
+            foundationCountaierRef.current?.querySelector(
+              "div[id='3']"
+            ) as Element
+          )?.getBoundingClientRect().left,
+        ],
+      ]
+    : [];
 
   return (
     <div className={styles.gameUIBorder}>
@@ -104,7 +136,10 @@ const GameContainerInternal: React.FC<
               <div className={styles.gameContainer__cardStock}>
                 <CardStock distanceBtwPiles={distanceBtwPiles} />
               </div>
-              <div className={styles.gameContainer__foundation}>
+              <div
+                className={styles.gameContainer__foundation}
+                ref={foundationCountaierRef}
+              >
                 <div className={styles.gameContainer__foundationFiller}></div>
                 <div className={styles.gameContainer__foundationFiller}></div>
                 <div className={styles.gameContainer__foundationFiller}></div>
