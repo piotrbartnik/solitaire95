@@ -54,59 +54,6 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
     };
   };
 
-  const drawCards = (context: CanvasRenderingContext2D) => {
-    let vx = -4; // next image position from the left
-    let vy = 4; // next image from the top
-    let cx = 450; // position from the left
-    let cy = 10; // position from the top
-    let decay = 0.2;
-    let spot = 0;
-    let value = 12;
-
-    const draw = () => {
-      const image = new Image();
-      image.src = sprite;
-      cx += vx;
-      cy += vy;
-      vy += decay;
-
-      if (cy >= 600 - 96) {
-        cy = 600 - 96;
-        vy = vy * -1 * 0.7 + (1.0 - Math.random() * 2.0); //(Math.random() *2)
-        if (vy > 0.1) vy = -1;
-      }
-
-      if (cx <= -71 || cx >= 800) {
-        spot++;
-        if (spot >= 4) {
-          spot = 0;
-          value--;
-        }
-        decay = 0.3;
-        vx = 4 * (1 - Math.random() * 2);
-        if (vx > 0) vx += 1;
-        else vx -= 1;
-        vy = 4 * Math.random();
-        cx = 450 + spot * 80;
-        cy = 10;
-      }
-      image.onload = () => {
-        context.drawImage(
-          image,
-          value * 71, //Sprite X
-          spot * 96, //Sprite Y
-          71,
-          96,
-          Math.round(cx + 0.5), //on screen X
-          Math.round(cy + 0.5), //on screen Y
-          130,
-          175
-        );
-      };
-    };
-    draw();
-  };
-
   useEffect(() => {
     const canvas = canvasRef.current;
 
@@ -119,8 +66,59 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
       drawKings(context);
       drawStockRectangle(context);
+      let vx = -4; // next image position from the left
+      let vy = 4; // next image from the top
+      let cx = 450; // position from the left
+      let cy = 10; // position from the top
+      let decay = 0.2;
+      let spot = 0;
+      let value = 12;
 
       const animate = () => {
+        const drawCards = (context: CanvasRenderingContext2D) => {
+          const draw = () => {
+            const image = new Image();
+            image.src = sprite;
+            cx += vx;
+            cy += vy;
+            vy += decay;
+
+            if (cy >= 600 - 96) {
+              cy = 600 - 96;
+              vy = vy * -1 * 0.7 + (1.0 - Math.random() * 2.0); //(Math.random() *2)
+              if (vy > 0.1) vy = -1;
+            }
+
+            if (cx <= -71 || cx >= 800) {
+              spot++;
+              if (spot >= 4) {
+                spot = 0;
+                value--;
+              }
+              decay = 0.3;
+              vx = 4 * (1 - Math.random() * 2);
+              if (vx > 0) vx += 1;
+              else vx -= 1;
+              vy = 4 * Math.random();
+              cx = 450 + spot * 80;
+              cy = 10;
+            }
+            image.onload = () => {
+              context.drawImage(
+                image,
+                value * 71, //Sprite X
+                spot * 96, //Sprite Y
+                71,
+                96,
+                Math.round(cx + 0.5), //on screen X
+                Math.round(cy + 0.5), //on screen Y
+                130,
+                175
+              );
+            };
+          };
+          draw();
+        };
         window.requestAnimationFrame(animate);
         drawCards(context);
       };
