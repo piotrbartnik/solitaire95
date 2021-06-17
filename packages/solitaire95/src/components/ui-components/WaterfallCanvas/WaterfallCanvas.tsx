@@ -83,13 +83,13 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
             cy += vy;
             vy += decay;
 
-            if (cy >= 600 - 96) {
-              cy = 600 - 96;
+            if (cy >= canvasHeight - 175) {
+              cy = canvasHeight - 175;
               vy = vy * -1 * 0.7 + (1.0 - Math.random() * 2.0); //(Math.random() *2)
               if (vy > 0.1) vy = -1;
             }
 
-            if (cx <= -71 || cx >= 800) {
+            if (cx <= -130 || cx >= canvasWidth) {
               spot++;
               if (spot >= 4) {
                 spot = 0;
