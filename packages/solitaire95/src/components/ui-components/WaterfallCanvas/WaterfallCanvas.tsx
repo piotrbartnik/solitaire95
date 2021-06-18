@@ -7,6 +7,13 @@ type WaterfallCanvasPropTypes = {
   foundationsOrder: [string, number][];
 };
 
+const spriteSuiteOrder = {
+  clubs: 0,
+  hearts: 1,
+  spades: 2,
+  diamonds: 3,
+};
+
 export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
   const { canvasWidth, canvasHeight, foundationsOrder } = props;
 
@@ -29,12 +36,6 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
   };
 
   const drawKings = (context: CanvasRenderingContext2D) => {
-    const spriteSuiteOrder = {
-      clubs: 0,
-      hearts: 1,
-      spades: 2,
-      diamonds: 3,
-    };
     const image = new Image();
     image.src = sprite;
     image.onload = () => {
@@ -66,12 +67,12 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
       drawKings(context);
       drawStockRectangle(context);
+      let cardSpot = 0;
       let nextImagePositionFromLetf = -4; // next image position from the left
       let nextImagePositionFromTop = 4; // next image from the top
-      let startingPositionFromLeft = 450; // position from the left
+      let startingPositionFromLeft = foundationsOrder[cardSpot][1]; // position from the left
       let startingPositionFromTop = 10; // position from the top
       let cardDecaySpeed = 0.2;
-      let cardSpot = 0;
       let cardToAnimate = 12;
 
       const animate = () => {
@@ -105,7 +106,7 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
               if (nextImagePositionFromLetf > 0) nextImagePositionFromLetf += 1;
               else nextImagePositionFromLetf -= 1;
               nextImagePositionFromTop = 4 * Math.random();
-              startingPositionFromLeft = 450 + cardSpot * 80;
+              startingPositionFromLeft = foundationsOrder[cardSpot][1];
               startingPositionFromTop = 10;
             }
             image.onload = () => {
