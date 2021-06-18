@@ -66,52 +66,57 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
       drawKings(context);
       drawStockRectangle(context);
-      let vx = -4; // next image position from the left
-      let vy = 4; // next image from the top
-      let cx = 450; // position from the left
-      let cy = 10; // position from the top
-      let decay = 0.2;
-      let spot = 0;
-      let value = 12;
+      let nextImagePositionFromLetf = -4; // next image position from the left
+      let nextImagePositionFromTop = 4; // next image from the top
+      let startingPositionFromLeft = 450; // position from the left
+      let startingPositionFromTop = 10; // position from the top
+      let cardDecaySpeed = 0.2;
+      let cardSpot = 0;
+      let cardToAnimate = 12;
 
       const animate = () => {
         const drawCards = (context: CanvasRenderingContext2D) => {
           const draw = () => {
             const image = new Image();
             image.src = sprite;
-            cx += vx * 1;
-            cy += vy * 2;
-            vy += decay;
+            startingPositionFromLeft += nextImagePositionFromLetf * 1;
+            startingPositionFromTop += nextImagePositionFromTop * 2;
+            nextImagePositionFromTop += cardDecaySpeed;
 
-            if (cy >= canvasHeight - 175) {
-              cy = canvasHeight - 175;
-              vy = vy * -1 * 0.7 + (1.0 - Math.random() * 2.0); //(Math.random() *2)
-              if (vy > 0.1) vy = -1;
+            if (startingPositionFromTop >= canvasHeight - 175) {
+              startingPositionFromTop = canvasHeight - 175;
+              nextImagePositionFromTop =
+                nextImagePositionFromTop * -1 * 0.7 +
+                (1.0 - Math.random() * 2.0); //(Math.random() *2)
+              if (nextImagePositionFromTop > 0.1) nextImagePositionFromTop = -1;
             }
 
-            if (cx <= -130 || cx >= canvasWidth) {
-              spot++;
-              if (spot >= 4) {
-                spot = 0;
-                value--;
+            if (
+              startingPositionFromLeft <= -130 ||
+              startingPositionFromLeft >= canvasWidth
+            ) {
+              cardSpot++;
+              if (cardSpot >= 4) {
+                cardSpot = 0;
+                cardToAnimate--;
               }
-              decay = 0.3;
-              vx = 4 * (1 - Math.random() * 2);
-              if (vx > 0) vx += 1;
-              else vx -= 1;
-              vy = 4 * Math.random();
-              cx = 450 + spot * 80;
-              cy = 10;
+              cardDecaySpeed = 0.3;
+              nextImagePositionFromLetf = 4 * (1 - Math.random() * 2);
+              if (nextImagePositionFromLetf > 0) nextImagePositionFromLetf += 1;
+              else nextImagePositionFromLetf -= 1;
+              nextImagePositionFromTop = 4 * Math.random();
+              startingPositionFromLeft = 450 + cardSpot * 80;
+              startingPositionFromTop = 10;
             }
             image.onload = () => {
               context.drawImage(
                 image,
-                value * 71, //Sprite X
-                spot * 96, //Sprite Y
+                cardToAnimate * 71, //Sprite X
+                cardSpot * 96, //Sprite Y
                 71,
                 96,
-                Math.round(cx + 0.5), //on screen X
-                Math.round(cy + 0.5), //on screen Y
+                Math.round(startingPositionFromLeft + 0.5), //on screen X
+                Math.round(startingPositionFromTop + 0.5), //on screen Y
                 130,
                 175
               );
