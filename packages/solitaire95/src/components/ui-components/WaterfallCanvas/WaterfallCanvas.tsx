@@ -113,7 +113,7 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
               context.drawImage(
                 image,
                 cardToAnimate * 71, //Sprite X
-                cardSpot * 96, //Sprite Y
+                spriteSuiteOrder[foundationsOrder[cardSpot][0]] * 96, //Sprite Y
                 71,
                 96,
                 Math.round(startingPositionFromLeft + 0.5), //on screen X
