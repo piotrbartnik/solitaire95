@@ -79,8 +79,8 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
           const draw = () => {
             const image = new Image();
             image.src = sprite;
-            cx += vx;
-            cy += vy;
+            cx += vx * 1;
+            cy += vy * 2;
             vy += decay;
 
             if (cy >= canvasHeight - 175) {
