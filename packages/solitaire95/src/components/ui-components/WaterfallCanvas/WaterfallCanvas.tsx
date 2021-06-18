@@ -67,11 +67,12 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
       drawKings(context);
       drawStockRectangle(context);
+
       let cardSpot = 0;
-      let nextImagePositionFromLetf = -4; // next image position from the left
-      let nextImagePositionFromTop = 4; // next image from the top
-      let startingPositionFromLeft = foundationsOrder[cardSpot][1]; // position from the left
-      let startingPositionFromTop = 10; // position from the top
+      let nextImagePositionFromLetf = -4;
+      let nextImagePositionFromTop = 4;
+      let startingPositionFromLeft = foundationsOrder[cardSpot][1];
+      let startingPositionFromTop = 12;
       let cardDecaySpeed = 0.2;
       let cardToAnimate = 12;
 
@@ -88,7 +89,7 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
               startingPositionFromTop = canvasHeight - 175;
               nextImagePositionFromTop =
                 nextImagePositionFromTop * -1 * 0.7 +
-                (1.0 - Math.random() * 2.0); //(Math.random() *2)
+                (1.0 - Math.random() * 2.0);
               if (nextImagePositionFromTop > 0.1) nextImagePositionFromTop = -1;
             }
 
@@ -107,17 +108,18 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
               else nextImagePositionFromLetf -= 1;
               nextImagePositionFromTop = 4 * Math.random();
               startingPositionFromLeft = foundationsOrder[cardSpot][1];
-              startingPositionFromTop = 10;
+              startingPositionFromTop = 12;
             }
+            console.log(startingPositionFromTop);
             image.onload = () => {
               context.drawImage(
                 image,
-                cardToAnimate * 71, //Sprite X
-                spriteSuiteOrder[foundationsOrder[cardSpot][0]] * 96, //Sprite Y
+                cardToAnimate * 71,
+                spriteSuiteOrder[foundationsOrder[cardSpot][0]] * 96,
                 71,
                 96,
-                Math.round(startingPositionFromLeft + 0.5), //on screen X
-                Math.round(startingPositionFromTop + 0.5), //on screen Y
+                startingPositionFromLeft,
+                startingPositionFromTop,
                 130,
                 175
               );
