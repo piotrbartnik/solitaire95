@@ -1,4 +1,10 @@
-import React, { useState, createContext, useRef, useEffect } from "react";
+import React, {
+  useState,
+  createContext,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
@@ -13,6 +19,7 @@ import {
   WindowsState,
   Points,
   FoundationInitialState,
+  FoundationState,
 } from "../../../store/reducers/";
 import { TopBar, BottomBar } from "../../ui-components";
 import {
@@ -58,7 +65,8 @@ const MainPageInternal: React.FC<
     playSounds,
     score,
     aboutChildren,
-    // toggleDealWindow,
+    cardsOnFoundations,
+    toggleDealWindow,
     stopGame,
     addPointsOnEnd,
     setGameFinished,
@@ -83,13 +91,13 @@ const MainPageInternal: React.FC<
 
   const mainPageRef = useRef<HTMLDivElement>(null);
 
-  const cardsOnfoundationRef = mainPageRef.current?.querySelectorAll(
-    "[data-foundationnumber]"
-  );
+  const isGameEnded = useCallback(() => {
+    const cards = Object.values(cardsOnFoundations);
+    const testCard = cards.map((el: FoundationState) => el?.cards);
+    const allCards = testCard?.reduce((acc, val) => acc.concat(val), []);
 
-  useEffect(() => {
-    if (cardsOnfoundationRef?.length === 52) {
-      // toggleDealWindow(true, "dealAgainWindow");
+    if (allCards.length === 52) {
+      toggleDealWindow(true, "dealAgainWindow");
       stopGame();
       setGameFinished(true);
       setCanvasSize([
@@ -106,12 +114,15 @@ const MainPageInternal: React.FC<
       }
     }
   }, [
-    addPointsOnEnd,
-    cardsOnfoundationRef,
-    scoreTime,
-    setGameFinished,
+    cardsOnFoundations,
+    toggleDealWindow,
     stopGame,
+    addPointsOnEnd,
+    setGameFinished,
+    scoreTime,
   ]);
+
+  useEffect(() => isGameEnded(), [cardsOnFoundations, isGameEnded]);
 
   const dndProviderBackend = /Mobi|Android/i.test(navigator.userAgent)
     ? TouchBackend
