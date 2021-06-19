@@ -110,7 +110,6 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
               startingPositionFromLeft = foundationsOrder[cardSpot][1];
               startingPositionFromTop = 12;
             }
-            console.log(startingPositionFromTop);
             image.onload = () => {
               context.drawImage(
                 image,
@@ -127,7 +126,11 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
           };
           draw();
         };
-        window.requestAnimationFrame(animate);
+
+        const startAnimation = window.requestAnimationFrame(animate);
+        if (cardToAnimate === 0) {
+          window.cancelAnimationFrame(startAnimation);
+        }
         drawCards(context);
       };
       animate();
