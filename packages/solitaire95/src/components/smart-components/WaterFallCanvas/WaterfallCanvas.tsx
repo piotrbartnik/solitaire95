@@ -1,10 +1,16 @@
 import React, { useRef, useEffect } from "react";
+import { connect } from "react-redux";
+import { toggleWindow } from "../../../store/actions/";
 import sprite from "./cards-sprite.png";
 
 type WaterfallCanvasPropTypes = {
   canvasWidth: number;
   canvasHeight: number;
   foundationsOrder: [string, number][];
+};
+
+type WaterfallCanvasDispatchTypes = {
+  toggleDealWindow: (state: boolean, window: string) => void;
 };
 
 const spriteSuiteOrder = {
@@ -14,8 +20,11 @@ const spriteSuiteOrder = {
   diamonds: 3,
 };
 
-export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
-  const { canvasWidth, canvasHeight, foundationsOrder } = props;
+const WaterfallCanvasInternal: React.FC<
+  WaterfallCanvasDispatchTypes & WaterfallCanvasPropTypes
+> = (props) => {
+  const { canvasWidth, canvasHeight, foundationsOrder, toggleDealWindow } =
+    props;
 
   const canvasRef = useRef(null);
 
@@ -128,8 +137,9 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
         };
 
         const startAnimation = window.requestAnimationFrame(animate);
-        if (cardToAnimate === 0) {
+        if (cardToAnimate === -1) {
           window.cancelAnimationFrame(startAnimation);
+          toggleDealWindow(true, "dealAgainWindow");
         }
         drawCards(context);
       };
@@ -147,3 +157,20 @@ export const WaterfallCanvas: React.FC<WaterfallCanvasPropTypes> = (props) => {
     />
   );
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    toggleDealWindow: (windowState: boolean, windowToToggle: string) =>
+      dispatch(toggleWindow(windowState, windowToToggle)),
+  };
+};
+
+export const WaterfallCanvas = connect<
+  undefined,
+  WaterfallCanvasDispatchTypes,
+  WaterfallCanvasPropTypes
+>(
+  undefined,
+  mapDispatchToProps
+)(WaterfallCanvasInternal);

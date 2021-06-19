@@ -66,7 +66,6 @@ const MainPageInternal: React.FC<
     score,
     aboutChildren,
     cardsOnFoundations,
-    toggleDealWindow,
     stopGame,
     addPointsOnEnd,
     setGameFinished,
@@ -97,7 +96,6 @@ const MainPageInternal: React.FC<
     const allCards = testCard?.reduce((acc, val) => acc.concat(val), []);
 
     if (allCards.length === 52) {
-      toggleDealWindow(true, "dealAgainWindow");
       stopGame();
       setGameFinished(true);
       setCanvasSize([
@@ -115,7 +113,6 @@ const MainPageInternal: React.FC<
     }
   }, [
     cardsOnFoundations,
-    toggleDealWindow,
     stopGame,
     addPointsOnEnd,
     setGameFinished,
