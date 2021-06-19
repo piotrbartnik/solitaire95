@@ -5,7 +5,7 @@ import {
   CardsDistributionInitialState,
   GameState,
 } from "../../../store/reducers/";
-import { WaterfallCanvas } from "../../ui-components";
+import { WaterfallCanvas } from "../../smart-components";
 import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
 import { addCardToFoundation } from "../../../store/actions/";
 import { Foundation, Pile, CardStock } from "../../smart-components";

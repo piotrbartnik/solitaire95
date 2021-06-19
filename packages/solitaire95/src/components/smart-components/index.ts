@@ -9,6 +9,7 @@ import { DeckSelect } from "./DeckSelect/DeckSelect";
 import { AboutSolitaire } from "./AboutSolitaireWindow/AboutSolitaireWindow";
 import { Options } from "./OptionsWindow/OptionsWindow";
 import { DealAgain } from "./DealAgainWindow/DealAgain";
+import { WaterfallCanvas } from "./WaterFallCanvas/WaterfallCanvas";
 
 export {
   Timer,
@@ -22,4 +23,5 @@ export {
   AboutSolitaire,
   Options,
   DealAgain,
+  WaterfallCanvas,
 };
