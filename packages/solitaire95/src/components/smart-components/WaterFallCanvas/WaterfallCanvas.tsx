@@ -64,6 +64,11 @@ const WaterfallCanvasInternal: React.FC<
     };
   };
 
+  const cancelCardAnimation = (animation: number) => {
+    window.cancelAnimationFrame(animation);
+    toggleDealWindow(true, "dealAgainWindow");
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
 
@@ -138,8 +143,7 @@ const WaterfallCanvasInternal: React.FC<
 
         const startAnimation = window.requestAnimationFrame(animate);
         if (cardToAnimate === -1) {
-          window.cancelAnimationFrame(startAnimation);
-          toggleDealWindow(true, "dealAgainWindow");
+          cancelCardAnimation(startAnimation);
         }
         drawCards(context);
       };
