@@ -27,8 +27,33 @@ const WaterfallCanvasInternal: React.FC<
     props;
   const [contextState, setContext] = useState<CanvasRenderingContext2D>();
   const [startAnimationState, setStartAnimation] = useState<number>();
+  const [renderCanvas, setRenderCanvas] = useState(true);
 
   const canvasRef = useRef(null);
+
+  const cancelCardAnimation = (
+    animation: number,
+    context: CanvasRenderingContext2D
+  ) => {
+    window.cancelAnimationFrame(animation);
+    toggleDealWindow(true, "dealAgainWindow");
+    context?.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    setRenderCanvas(false);
+  };
+
+  useEffect(() => {
+    const cancelCanvasAnimationOnEsc = (e: KeyboardEvent) => {
+      e.key === "Escape" &&
+        cancelCardAnimation(
+          startAnimationState as number,
+          contextState as CanvasRenderingContext2D
+        );
+
+      window.removeEventListener("keydown", cancelCanvasAnimationOnEsc);
+    };
+    window.addEventListener("keydown", cancelCanvasAnimationOnEsc);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startAnimationState, contextState]);
 
   const drawStockRectangle = (context: CanvasRenderingContext2D) => {
     context.lineWidth = 2;
@@ -64,15 +89,6 @@ const WaterfallCanvasInternal: React.FC<
         );
       });
     };
-  };
-
-  const cancelCardAnimation = (
-    animation: number,
-    context: CanvasRenderingContext2D
-  ) => {
-    window.cancelAnimationFrame(animation);
-    toggleDealWindow(true, "dealAgainWindow");
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   };
 
   useEffect(() => {
@@ -159,7 +175,7 @@ const WaterfallCanvasInternal: React.FC<
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return (
+  return renderCanvas ? (
     <canvas
       ref={canvasRef}
       id="can"
@@ -173,6 +189,8 @@ const WaterfallCanvasInternal: React.FC<
         )
       }
     />
+  ) : (
+    <></>
   );
 };
 
