@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { toggleWindow } from "../../../store/actions/";
 import sprite from "./cards-sprite.png";
@@ -25,6 +25,8 @@ const WaterfallCanvasInternal: React.FC<
 > = (props) => {
   const { canvasWidth, canvasHeight, foundationsOrder, toggleDealWindow } =
     props;
+  const [contextState, setContext] = useState<CanvasRenderingContext2D>();
+  const [startAnimationState, setStartAnimation] = useState<number>();
 
   const canvasRef = useRef(null);
 
@@ -80,6 +82,7 @@ const WaterfallCanvasInternal: React.FC<
       const context = (canvas as HTMLCanvasElement).getContext(
         "2d"
       ) as CanvasRenderingContext2D;
+      setContext(context);
       context.imageSmoothingEnabled = false;
       context.fillStyle = "#20ac55";
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
@@ -146,6 +149,7 @@ const WaterfallCanvasInternal: React.FC<
         };
 
         const startAnimation = window.requestAnimationFrame(animate);
+        setStartAnimation(startAnimation);
         if (cardToAnimate === -1) {
           cancelCardAnimation(startAnimation, context);
         }
@@ -162,6 +166,12 @@ const WaterfallCanvasInternal: React.FC<
       width={canvasWidth}
       height={canvasHeight}
       style={{ imageRendering: "pixelated" }}
+      onClick={() =>
+        cancelCardAnimation(
+          startAnimationState as number,
+          contextState as CanvasRenderingContext2D
+        )
+      }
     />
   );
 };
