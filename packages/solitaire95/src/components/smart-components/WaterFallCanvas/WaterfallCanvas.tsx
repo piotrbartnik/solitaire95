@@ -95,7 +95,7 @@ const WaterfallCanvasInternal: React.FC<
     const canvas = canvasRef.current;
 
     if (canvas) {
-      const context = (canvas as HTMLCanvasElement).getContext(
+      const context = (canvas as HTMLCanvasElement)?.getContext(
         "2d"
       ) as CanvasRenderingContext2D;
       setContext(context);
