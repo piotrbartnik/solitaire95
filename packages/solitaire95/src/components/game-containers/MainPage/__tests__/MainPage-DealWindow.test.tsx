@@ -49,6 +49,7 @@ describe("render MainPage for Deal again window testing", () => {
       initialState
     );
     fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.click(container.querySelector("canvas"));
     expect(screen.getByText("Deal again?")).toBeVisible();
   });
   it("when no clicked cards are not dealt again", () => {
@@ -58,11 +59,12 @@ describe("render MainPage for Deal again window testing", () => {
     );
 
     fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.click(container.querySelector("canvas"));
     fireEvent.click(screen.getByText("No"));
 
     expect(
       container.querySelectorAll("div[data-foundationnumber]")
-    ).toHaveLength(52);
+    ).toHaveLength(0);
     expect(screen.queryByText("Deal again?")).toBeNull();
   });
   it("when x clicked cards are not dealt again", () => {
@@ -72,11 +74,12 @@ describe("render MainPage for Deal again window testing", () => {
     );
 
     fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.click(container.querySelector("canvas"));
     fireEvent.click(screen.getByRole("button", { name: "close window" }));
 
     expect(
       container.querySelectorAll("div[data-foundationnumber]")
-    ).toHaveLength(52);
+    ).toHaveLength(0);
 
     expect(screen.queryByText("Deal again?")).toBeNull();
   });
@@ -87,6 +90,10 @@ describe("render MainPage for Deal again window testing", () => {
     );
 
     fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.keyDown(container.querySelector("canvas"), {
+      key: "Escape",
+      code: "Escape",
+    });
     fireEvent.click(screen.getByText("Yes"));
 
     expect(

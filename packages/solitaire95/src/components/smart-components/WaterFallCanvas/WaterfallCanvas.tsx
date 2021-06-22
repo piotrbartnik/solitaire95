@@ -48,10 +48,11 @@ const WaterfallCanvasInternal: React.FC<
           startAnimationState as number,
           contextState as CanvasRenderingContext2D
         );
-
-      window.removeEventListener("keydown", cancelCanvasAnimationOnEsc);
     };
     window.addEventListener("keydown", cancelCanvasAnimationOnEsc);
+
+    return () =>
+      window.removeEventListener("keydown", cancelCanvasAnimationOnEsc);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startAnimationState, contextState]);
 
