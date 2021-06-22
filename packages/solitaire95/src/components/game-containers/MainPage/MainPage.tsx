@@ -66,7 +66,6 @@ const MainPageInternal: React.FC<
     score,
     aboutChildren,
     cardsOnFoundations,
-    toggleDealWindow,
     stopGame,
     addPointsOnEnd,
     setGameFinished,
@@ -87,6 +86,7 @@ const MainPageInternal: React.FC<
   const [gameVisible, setGameVisible] = useState<boolean>(false);
   const [helpVisible, setHelpVisible] = useState(false);
   const [bottomBarText, setBottomBarText] = useState("");
+  const [canvasSize, setCanvasSize] = useState<number[]>([]);
 
   const mainPageRef = useRef<HTMLDivElement>(null);
 
@@ -96,9 +96,16 @@ const MainPageInternal: React.FC<
     const allCards = testCard?.reduce((acc, val) => acc.concat(val), []);
 
     if (allCards.length === 52) {
-      toggleDealWindow(true, "dealAgainWindow");
       stopGame();
       setGameFinished(true);
+      setCanvasSize([
+        mainPageRef.current
+          ?.querySelector("#gameContainer")
+          ?.getBoundingClientRect().width as number,
+        mainPageRef.current
+          ?.querySelector("#gameContainer")
+          ?.getBoundingClientRect().height as number,
+      ]);
       if (scoreTime > 30) {
         const pointsToAddOnEnd = Math.round((20000 / scoreTime) * 35);
         addPointsOnEnd(pointsToAddOnEnd);
@@ -106,7 +113,6 @@ const MainPageInternal: React.FC<
     }
   }, [
     cardsOnFoundations,
-    toggleDealWindow,
     stopGame,
     addPointsOnEnd,
     setGameFinished,
@@ -162,7 +168,10 @@ const MainPageInternal: React.FC<
             setHelpVisible={setHelpVisible}
             setBottomBarText={setBottomBarText}
           />
-          <GameContainer />
+          <GameContainer
+            canvasHeight={canvasSize[1]}
+            canvasWidth={canvasSize[0]}
+          />
           <BottomBar text={bottomBarText} score={score} />
         </CardBackContext.Provider>
       </div>

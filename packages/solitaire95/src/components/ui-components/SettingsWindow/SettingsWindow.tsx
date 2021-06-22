@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useMemo,
+} from "react";
 import { useDrop, useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { Howl } from "howler";
@@ -104,23 +110,30 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     preview(getEmptyImage(), { captureDraggingState: true });
   });
 
-  const windowError = playSounds
-    ? new Howl({
-        src: [ding],
-        format: ["mp3"],
-      })
-    : undefined;
+  const windowError = useMemo(
+    () =>
+      playSounds
+        ? new Howl({
+            src: [ding],
+            format: ["mp3"],
+          })
+        : undefined,
+    [playSounds]
+  );
 
-  const playSoundOnClick = (el: React.MouseEvent) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const backDropdClass = [...(el.target as any).classList].filter((el) =>
-      el.match(/backdrop/)
-    );
+  const playSoundOnClick = useCallback(
+    (el: React.MouseEvent) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const backDropdClass = [...(el.target as any).classList].filter((el) =>
+        el.match(/backdrop/)
+      );
 
-    if (backDropdClass.length) {
-      windowError?.play();
-    }
-  };
+      if (backDropdClass.length) {
+        windowError?.play();
+      }
+    },
+    [windowError]
+  );
 
   return (
     <div
