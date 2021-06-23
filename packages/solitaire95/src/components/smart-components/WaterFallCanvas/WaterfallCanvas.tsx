@@ -79,12 +79,12 @@ const WaterfallCanvasInternal: React.FC<
       foundationsOrder.forEach((cardSuite) => {
         context.drawImage(
           image,
-          12 * 71, //Sprite X
-          spriteSuiteOrder[cardSuite[0]] * 96, //Sprite Y
+          12 * 71,
+          spriteSuiteOrder[cardSuite[0]] * 96,
           71,
           96,
-          cardSuite[1], //on screen X
-          12, //on screen Y
+          cardSuite[1],
+          12,
           130,
           175
         );
