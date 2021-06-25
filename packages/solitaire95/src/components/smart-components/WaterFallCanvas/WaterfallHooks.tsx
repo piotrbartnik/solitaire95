@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, MutableRefObject, Dispatch, SetStateAction } from "react";
 import sprite from "./cards-sprite.png";
 
 const spriteSuiteOrder = {
@@ -9,13 +9,16 @@ const spriteSuiteOrder = {
 };
 
 export const useRunWaterfallAnimation = (
-  canvasRef: any,
+  canvasRef: MutableRefObject<null>,
   foundationsOrder: [string, number][],
-  setContext: any,
+  setContext: Dispatch<SetStateAction<CanvasRenderingContext2D | undefined>>,
   canvasHeight: number,
   canvasWidth: number,
-  setStartAnimation: any,
-  cancelCardAnimation: any
+  setStartAnimation: Dispatch<SetStateAction<number | undefined>>,
+  cancelCardAnimation: (
+    animation: number,
+    context: CanvasRenderingContext2D
+  ) => void
 ): void => {
   const drawStockRectangle = (context: CanvasRenderingContext2D) => {
     context.lineWidth = 2;
