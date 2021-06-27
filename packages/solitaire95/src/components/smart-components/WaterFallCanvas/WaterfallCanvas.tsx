@@ -1,6 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
-import { useRunWaterfallAnimation } from "./WaterfallHooks";
+import {
+  useRunWaterfallAnimation,
+  useCancelCanvasAnimation,
+} from "./WaterfallHooks";
 import { toggleWindow } from "../../../store/actions/";
 
 type WaterfallCanvasPropTypes = {
@@ -34,20 +37,11 @@ const WaterfallCanvasInternal: React.FC<
     setRenderCanvas(false);
   };
 
-  useEffect(() => {
-    const cancelCanvasAnimationOnEsc = (e: KeyboardEvent) => {
-      e.key === "Escape" &&
-        cancelCardAnimation(
-          startAnimationState as number,
-          contextState as CanvasRenderingContext2D
-        );
-    };
-    window.addEventListener("keydown", cancelCanvasAnimationOnEsc);
-
-    return () =>
-      window.removeEventListener("keydown", cancelCanvasAnimationOnEsc);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startAnimationState, contextState]);
+  useCancelCanvasAnimation(
+    cancelCardAnimation,
+    startAnimationState,
+    contextState
+  );
 
   useRunWaterfallAnimation(
     canvasRef,

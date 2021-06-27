@@ -140,3 +140,24 @@ export const useRunWaterfallAnimation = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
+
+export const useCancelCanvasAnimation = (
+  cancelCardAnimation: any,
+  startAnimationState: any,
+  contextState: any
+): any => {
+  useEffect(() => {
+    const cancelCanvasAnimationOnEsc = (e: KeyboardEvent) => {
+      e.key === "Escape" &&
+        cancelCardAnimation(
+          startAnimationState as number,
+          contextState as CanvasRenderingContext2D
+        );
+    };
+    window.addEventListener("keydown", cancelCanvasAnimationOnEsc);
+
+    return () =>
+      window.removeEventListener("keydown", cancelCanvasAnimationOnEsc);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startAnimationState, contextState]);
+};
