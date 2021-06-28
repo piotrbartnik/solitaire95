@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import { connect } from "react-redux";
 import {
   useRunWaterfallAnimation,
@@ -27,15 +27,15 @@ const WaterfallCanvasInternal: React.FC<
 
   const canvasRef = useRef(null);
 
-  const cancelCardAnimation = (
-    animation: number,
-    context: CanvasRenderingContext2D
-  ) => {
-    window.cancelAnimationFrame(animation);
-    toggleDealWindow(true, "dealAgainWindow");
-    context?.clearRect(0, 0, context.canvas.width, context.canvas.height);
-    setRenderCanvas(false);
-  };
+  const cancelCardAnimation = useCallback(
+    (animation: number, context: CanvasRenderingContext2D) => {
+      window.cancelAnimationFrame(animation);
+      toggleDealWindow(true, "dealAgainWindow");
+      context?.clearRect(0, 0, context.canvas.width, context.canvas.height);
+      setRenderCanvas(false);
+    },
+    [toggleDealWindow]
+  );
 
   useCancelCanvasAnimation(
     cancelCardAnimation,
