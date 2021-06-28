@@ -142,10 +142,13 @@ export const useRunWaterfallAnimation = (
 };
 
 export const useCancelCanvasAnimation = (
-  cancelCardAnimation: any,
-  startAnimationState: any,
-  contextState: any
-): any => {
+  cancelCardAnimation: (
+    animation: number,
+    context: CanvasRenderingContext2D
+  ) => void,
+  startAnimationState: number | undefined,
+  contextState: CanvasRenderingContext2D | undefined
+): void => {
   useEffect(() => {
     const cancelCanvasAnimationOnEsc = (e: KeyboardEvent) => {
       e.key === "Escape" &&
