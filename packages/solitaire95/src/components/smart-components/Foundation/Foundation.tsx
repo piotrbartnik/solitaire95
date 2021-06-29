@@ -13,6 +13,7 @@ import {
   removeCardFromStock,
   startGame,
   countScore,
+  removeCardFromFoundation,
 } from "../../../store/actions/";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
@@ -35,6 +36,7 @@ export type FoundationDispatchTypes = {
   addPoints: (points: number) => void;
   removeCardFromStock: (card: cardConfigType[]) => void;
   startGame: () => void;
+  removeCardFromFoundation: (foundationNumber: string) => void;
 };
 
 export type FoundationPropTypes = {
@@ -56,6 +58,7 @@ const FoundationInternal: React.FC<
     addPoints,
     startGame,
     gameStarted,
+    removeCardFromFoundation,
   } = props;
 
   const { cardBackImage } = useContext(CardBackContext);
@@ -91,6 +94,7 @@ const FoundationInternal: React.FC<
       cardColor,
       cardOrder,
       pileNumber,
+      foundationNumber,
     } = dragObject;
 
     const cardConfig: cardConfigType = [
@@ -111,7 +115,7 @@ const FoundationInternal: React.FC<
     const foundationTargetId = foundationTarget.props.id;
 
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
-    addPoints(10);
+    !foundationNumber && addPoints(10);
     !gameStarted && startGame();
 
     if (typeof pileNumber === "number") {
@@ -122,6 +126,10 @@ const FoundationInternal: React.FC<
           (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
         )
       );
+    }
+
+    if (typeof foundationNumber === "string") {
+      removeCardFromFoundation(foundationNumber);
     }
   };
 
@@ -136,6 +144,7 @@ const FoundationInternal: React.FC<
       canDrop: !!monitor.canDrop(),
     }),
   });
+
   const foundationTarget = (
     <div
       className={styles.foundation}
@@ -195,6 +204,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(removeCardFromStock(card)),
     addPoints: (points: number) => dispatch(countScore(points)),
     startGame: () => dispatch(startGame()),
+    removeCardFromFoundation: (foundationNumber: string) =>
+      dispatch(removeCardFromFoundation(foundationNumber)),
   };
 };
 
