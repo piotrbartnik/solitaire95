@@ -11,6 +11,7 @@ import { addCardToFoundation } from "../../../store/actions/";
 import { Foundation, Pile, CardStock } from "../../smart-components";
 import { cardConfigType } from "../../../configs/cardTypes";
 import styles from "./GameContainer.module.scss";
+import { SettingsWindowDragLayer } from "../../ui-components/SettingsWindow/SettingsWindowDragLayer";
 
 type GameContainerPropTypes = {
   canvasWidth?: number;
@@ -152,6 +153,7 @@ const GameContainerInternal: React.FC<
           </>
         )}
       </div>
+      <SettingsWindowDragLayer size={["450px", "360px"]} />
     </div>
   );
 };
