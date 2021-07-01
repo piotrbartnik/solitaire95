@@ -41,18 +41,6 @@ export const SettingsWindowDragLayer: React.FC<SettingsWindowDragLayerPropTypes>
               }}
             ></div>
           );
-        case itemTypes.CARD:
-          return (
-            <div
-              style={{
-                width: "130px",
-                height: "175px",
-                border: "2px solid #000000",
-                borderRadius: "7px",
-                backgroundColor: "red",
-              }}
-            ></div>
-          );
         default:
           return null;
       }
