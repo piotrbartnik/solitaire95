@@ -20,7 +20,7 @@ export const CardDragLayer: React.FC = () => {
   const layerStyles: CSS.Properties = {
     position: "fixed",
     pointerEvents: "none",
-    zIndex: 1,
+    zIndex: 10000,
     top: 0,
     left: 0,
     width: "100%",
