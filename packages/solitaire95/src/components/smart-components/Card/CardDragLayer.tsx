@@ -1,10 +1,18 @@
 import React from "react";
 import CSS from "csstype";
 import { useDragLayer } from "react-dnd";
+import { connect } from "react-redux";
+import { CardsDistributionInitialState } from "../../../store/reducers/";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardFrontsImages } from "../../../static/cardsFronts";
+import { cardConfigType } from "../../../configs/cardTypes";
 
-export const CardDragLayer: React.FC = () => {
+type CardDragLayerStateTypes = {
+  cardsOnPiles: { [key: string]: cardConfigType[] };
+};
+
+const CardDragLayerInternal: React.FC<CardDragLayerStateTypes> = (props) => {
+  const { cardsOnPiles } = props;
   const { itemType, currentOffset, isDragging, item } = useDragLayer(
     (monitor) => ({
       itemType: monitor.getItemType(),
@@ -13,6 +21,8 @@ export const CardDragLayer: React.FC = () => {
       isDragging: monitor.isDragging(),
     })
   );
+
+  console.log(cardsOnPiles);
 
   const frontImage: string =
     cardFrontsImages[`${item?.cardFront}_${item?.cardSuite}`];
@@ -66,3 +76,15 @@ export const CardDragLayer: React.FC = () => {
     </div>
   );
 };
+
+const mapStateToProps = (state: {
+  cardDistribution: CardsDistributionInitialState;
+}) => {
+  return {
+    cardsOnPiles: state.cardDistribution.cardsOnPiles,
+  };
+};
+
+export const CardDragLayer = connect<CardDragLayerStateTypes>(mapStateToProps)(
+  CardDragLayerInternal
+);
