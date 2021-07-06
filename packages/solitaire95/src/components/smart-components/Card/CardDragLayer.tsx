@@ -22,10 +22,14 @@ const CardDragLayerInternal: React.FC<CardDragLayerStateTypes> = (props) => {
     })
   );
 
-  console.log(cardsOnPiles);
+  const draggedCard = `${item?.cardFront}_${item?.cardSuite}`;
+  const frontImage: string = cardFrontsImages[draggedCard];
 
-  const frontImage: string =
-    cardFrontsImages[`${item?.cardFront}_${item?.cardSuite}`];
+  const cardsToDrag = cardsOnPiles[item?.pileNumber]?.map(
+    (card) => `${card[0]}_${card[1]}`
+  );
+
+  console.log(cardsToDrag?.slice(cardsToDrag.indexOf(draggedCard)));
 
   const layerStyles: CSS.Properties = {
     position: "fixed",
