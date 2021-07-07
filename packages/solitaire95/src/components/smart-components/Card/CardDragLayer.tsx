@@ -25,12 +25,12 @@ const CardDragLayerInternal: React.FC<CardDragLayerStateTypes> = (props) => {
   const draggedCard = `${item?.cardFront}_${item?.cardSuite}`;
   const frontImage: string = cardFrontsImages[draggedCard];
 
-  const cardsToDragWhenOnPiles = cardsOnPiles[item?.pileNumber]?.map(
+  const cardFromPiles = cardsOnPiles[item?.pileNumber]?.map(
     (card) => `${card[0]}_${card[1]}`
   );
 
-  const cardFromPiles = cardsToDragWhenOnPiles?.slice(
-    cardsToDragWhenOnPiles.indexOf(draggedCard)
+  const cardsToDragWhenOnPiles = cardFromPiles?.slice(
+    cardFromPiles.indexOf(draggedCard)
   );
 
   const layerStyles: CSS.Properties = {
@@ -64,9 +64,11 @@ const CardDragLayerInternal: React.FC<CardDragLayerStateTypes> = (props) => {
   function renderItem() {
     switch (itemType) {
       case itemTypes.CARD:
-        return cardFromPiles ? (
+        return cardsToDragWhenOnPiles ? (
           <div style={{ position: "relative" }}>
-            {cardFromPiles?.map((card, index) => cardNode(card, index))}
+            {cardsToDragWhenOnPiles?.map((card, index) =>
+              cardNode(card, index)
+            )}
           </div>
         ) : (
           <>
