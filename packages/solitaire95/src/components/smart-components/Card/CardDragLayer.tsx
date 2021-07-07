@@ -25,11 +25,13 @@ const CardDragLayerInternal: React.FC<CardDragLayerStateTypes> = (props) => {
   const draggedCard = `${item?.cardFront}_${item?.cardSuite}`;
   const frontImage: string = cardFrontsImages[draggedCard];
 
-  const cardsToDrag = cardsOnPiles[item?.pileNumber]?.map(
+  const cardsToDragWhenOnPiles = cardsOnPiles[item?.pileNumber]?.map(
     (card) => `${card[0]}_${card[1]}`
   );
 
-  console.log(cardsToDrag?.slice(cardsToDrag.indexOf(draggedCard)));
+  const cardFromPiles = cardsToDragWhenOnPiles?.slice(
+    cardsToDragWhenOnPiles.indexOf(draggedCard)
+  );
 
   const layerStyles: CSS.Properties = {
     position: "fixed",
@@ -43,21 +45,43 @@ const CardDragLayerInternal: React.FC<CardDragLayerStateTypes> = (props) => {
     display: !currentOffset ? "none" : "block",
   };
 
+  const cardNode = (frontImageCard: string, cardIndex: number) => (
+    <div
+      style={{
+        width: "130px",
+        height: "175px",
+        border: "2px solid #000000",
+        borderRadius: "7px",
+        backgroundImage: `url(${cardFrontsImages[frontImageCard]})`,
+        backgroundColor: "white",
+        backgroundSize: "cover",
+        top: `${27 * cardIndex}px`,
+        position: "absolute",
+      }}
+    ></div>
+  );
+
   function renderItem() {
     switch (itemType) {
       case itemTypes.CARD:
-        return (
-          <div
-            style={{
-              width: "130px",
-              height: "175px",
-              border: "2px solid #000000",
-              borderRadius: "7px",
-              backgroundImage: `url(${frontImage})`,
-              backgroundColor: "white",
-              backgroundSize: "cover",
-            }}
-          ></div>
+        return cardFromPiles ? (
+          <div style={{ position: "relative" }}>
+            {cardFromPiles?.map((card, index) => cardNode(card, index))}
+          </div>
+        ) : (
+          <>
+            <div
+              style={{
+                width: "130px",
+                height: "175px",
+                border: "2px solid #000000",
+                borderRadius: "7px",
+                backgroundImage: `url(${frontImage})`,
+                backgroundColor: "white",
+                backgroundSize: "cover",
+              }}
+            ></div>
+          </>
         );
       default:
         return null;
