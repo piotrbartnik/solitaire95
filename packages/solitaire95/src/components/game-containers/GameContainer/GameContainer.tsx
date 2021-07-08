@@ -153,7 +153,7 @@ const GameContainerInternal: React.FC<
           </>
         )}
       </div>
-      <CardDragLayer />
+      <CardDragLayer pilesContainer={pilesContainer} />
     </div>
   );
 };

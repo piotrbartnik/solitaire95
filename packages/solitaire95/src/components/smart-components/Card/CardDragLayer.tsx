@@ -7,12 +7,18 @@ import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardConfigType } from "../../../configs/cardTypes";
 
+type CardDgarPropTypes = {
+  pilesContainer: any;
+};
+
 type CardDragLayerStateTypes = {
   cardsOnPiles: { [key: string]: cardConfigType[] };
 };
 
-const CardDragLayerInternal: React.FC<CardDragLayerStateTypes> = (props) => {
-  const { cardsOnPiles } = props;
+const CardDragLayerInternal: React.FC<
+  CardDragLayerStateTypes & CardDgarPropTypes
+> = (props) => {
+  const { cardsOnPiles, pilesContainer } = props;
   const { itemType, currentOffset, isDragging, item } = useDragLayer(
     (monitor) => ({
       itemType: monitor.getItemType(),
@@ -32,6 +38,30 @@ const CardDragLayerInternal: React.FC<CardDragLayerStateTypes> = (props) => {
   const cardsToDragWhenOnPiles = cardFromPiles?.slice(
     cardFromPiles.indexOf(draggedCard)
   );
+
+  const cardsAttributes = cardsToDragWhenOnPiles?.map((card) =>
+    card.split("_")
+  );
+
+  isDragging
+    ? cardsAttributes?.forEach(
+        (card) =>
+          (pilesContainer.current.querySelector(
+            `div[data-cardname="${card[0]}"][data-suite="${card[1]}"]`
+          ).parentNode.style.opacity = "0")
+      )
+    : cardFromPiles
+        ?.map((el) => el.split("_"))
+        ?.forEach(
+          (card) =>
+            (pilesContainer.current.querySelector(
+              `div[data-cardname="${card[0]}"][data-suite="${card[1]}"]`
+            ).parentNode.style.opacity = "1")
+        );
+
+  if (!isDragging) {
+    console.log(cardsOnPiles);
+  }
 
   const layerStyles: CSS.Properties = {
     position: "fixed",
@@ -58,6 +88,7 @@ const CardDragLayerInternal: React.FC<CardDragLayerStateTypes> = (props) => {
         top: `${27 * cardIndex}px`,
         position: "absolute",
       }}
+      key={cardIndex}
     ></div>
   );
 
@@ -115,6 +146,8 @@ const mapStateToProps = (state: {
   };
 };
 
-export const CardDragLayer = connect<CardDragLayerStateTypes>(mapStateToProps)(
-  CardDragLayerInternal
-);
+export const CardDragLayer = connect<
+  CardDragLayerStateTypes,
+  unknown,
+  CardDgarPropTypes
+>(mapStateToProps)(CardDragLayerInternal);
