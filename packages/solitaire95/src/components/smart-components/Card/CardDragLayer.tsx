@@ -43,24 +43,27 @@ const CardDragLayerInternal: React.FC<
     card.split("_")
   );
 
-  isDragging
-    ? cardsAttributes?.forEach(
-        (card) =>
-          (pilesContainer.current.querySelector(
-            `div[data-cardname="${card[0]}"][data-suite="${card[1]}"]`
-          ).parentNode.style.opacity = "0")
-      )
-    : cardFromPiles
-        ?.map((el) => el.split("_"))
-        ?.forEach(
-          (card) =>
-            (pilesContainer.current.querySelector(
-              `div[data-cardname="${card[0]}"][data-suite="${card[1]}"]`
-            ).parentNode.style.opacity = "1")
-        );
+  const draggedCardFromPileParent = (card: string[] | cardConfigType) =>
+    pilesContainer.current.querySelector(
+      `div[data-cardname="${card[0]}"][data-suite="${card[1]}"]`
+    )?.parentNode;
 
-  if (!isDragging) {
-    console.log(cardsOnPiles);
+  isDragging &&
+    cardsAttributes?.forEach((card) => {
+      if (draggedCardFromPileParent(card)) {
+        draggedCardFromPileParent(card).style.opacity = "0";
+      }
+    });
+
+  if (!isDragging && pilesContainer.current) {
+    const x = Object.keys(cardsOnPiles)
+      .map((pile) => cardsOnPiles[pile].filter((el) => el[2]))
+      .reduce((a, b) => a.concat(b), []);
+    x?.forEach((card) => {
+      if (draggedCardFromPileParent(card)) {
+        draggedCardFromPileParent(card).style.opacity = "1";
+      }
+    });
   }
 
   const layerStyles: CSS.Properties = {
