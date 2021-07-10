@@ -57,7 +57,7 @@ const GameContainerInternal: React.FC<
       </div>
     ));
 
-  const pilesContainer = useRef(null);
+  const pilesContainer = useRef<HTMLDivElement>(null);
 
   const distanceBtwPiles = useCountDistanceBetweenPiles(
     pilesContainer as MutableRefObject<null>

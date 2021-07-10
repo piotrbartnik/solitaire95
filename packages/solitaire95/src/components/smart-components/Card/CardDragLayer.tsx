@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject } from "react";
 import CSS from "csstype";
 import { useDragLayer } from "react-dnd";
 import { connect } from "react-redux";
@@ -8,7 +8,7 @@ import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardConfigType } from "../../../configs/cardTypes";
 
 type CardDgarPropTypes = {
-  pilesContainer: any;
+  pilesContainer: RefObject<HTMLDivElement>;
 };
 
 type CardDragLayerStateTypes = {
@@ -44,14 +44,14 @@ const CardDragLayerInternal: React.FC<
   );
 
   const draggedCardFromPileParent = (card: string[] | cardConfigType) =>
-    pilesContainer.current.querySelector(
+    (pilesContainer.current as HTMLDivElement).querySelector(
       `div[data-cardname="${card[0]}"][data-suite="${card[1]}"]`
     )?.parentNode;
 
   isDragging &&
     cardsAttributes?.forEach((card) => {
       if (draggedCardFromPileParent(card)) {
-        draggedCardFromPileParent(card).style.opacity = "0";
+        (draggedCardFromPileParent(card) as HTMLDivElement).style.opacity = "0";
       }
     });
 
@@ -61,7 +61,7 @@ const CardDragLayerInternal: React.FC<
       .reduce((a, b) => a.concat(b), []);
     x?.forEach((card) => {
       if (draggedCardFromPileParent(card)) {
-        draggedCardFromPileParent(card).style.opacity = "1";
+        (draggedCardFromPileParent(card) as HTMLDivElement).style.opacity = "1";
       }
     });
   }
