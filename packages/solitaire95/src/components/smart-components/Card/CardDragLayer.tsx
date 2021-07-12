@@ -57,10 +57,11 @@ const CardDragLayerInternal: React.FC<
     });
 
   if (!isDragging && pilesContainer.current) {
-    const x = Object.keys(cardsOnPiles)
+    const cardsToBeShownAgainOnPile = Object.keys(cardsOnPiles)
       .map((pile) => cardsOnPiles[pile].filter((el) => el[2]))
       .reduce((a, b) => a.concat(b), []);
-    x?.forEach((card) => {
+
+    cardsToBeShownAgainOnPile?.forEach((card) => {
       if (draggedCardFromPileParent(card)) {
         (draggedCardFromPileParent(card) as HTMLDivElement).style.opacity = "1";
       }
