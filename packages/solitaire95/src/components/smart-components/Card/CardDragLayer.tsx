@@ -19,6 +19,7 @@ const CardDragLayerInternal: React.FC<
   CardDragLayerStateTypes & CardDgarPropTypes
 > = (props) => {
   const { cardsOnPiles, pilesContainer } = props;
+
   const { itemType, currentOffset, isDragging, item } = useDragLayer(
     (monitor) => ({
       itemType: monitor.getItemType(),
@@ -123,10 +124,8 @@ const CardDragLayerInternal: React.FC<
         return null;
     }
   }
-  if (!isDragging) {
-    return null;
-  }
-  return (
+
+  return isDragging ? (
     <div style={layerStyles}>
       <div
         style={{
@@ -138,7 +137,7 @@ const CardDragLayerInternal: React.FC<
         {renderItem()}
       </div>
     </div>
-  );
+  ) : null;
 };
 
 const mapStateToProps = (state: {
