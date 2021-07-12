@@ -10,11 +10,11 @@
   font-size: 18px;
   letter-spacing: 1px;
   cursor: default;
+}
 
-  &:active {
-    background-color: #213faa;
-    color: #ffffff;
-  }
+.active {
+  background-color: #213faa;
+  color: #ffffff;
 }
 
 span::first-letter {

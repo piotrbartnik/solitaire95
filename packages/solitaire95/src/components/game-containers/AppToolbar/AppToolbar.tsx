@@ -118,6 +118,7 @@ const AppToolbarInternal: React.FC<
             }}
             buttonText={"Game"}
             id={"gameButton"}
+            active={gameVisible}
           />
           <ToolDropdown visible={gameVisible} buttonId={"gameButton"}>
             <>
@@ -229,6 +230,7 @@ const AppToolbarInternal: React.FC<
             }}
             buttonText={"Help"}
             id={"helpButton"}
+            active={helpVisible}
           />
           <ToolDropdown visible={helpVisible} buttonId={"helpButton"}>
             <>
