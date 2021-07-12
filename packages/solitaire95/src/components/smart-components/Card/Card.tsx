@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDrag } from "react-dnd";
+import { getEmptyImage } from "react-dnd-html5-backend";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardBackImages } from "../../../static/cardBacks";
@@ -40,7 +41,7 @@ export const Card: React.FC<CardPropTypes> = (props) => {
 
   const canDragCard = !isTurnedBack;
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag({
     item: {
       type: itemTypes.CARD,
       cardFront,
@@ -55,6 +56,10 @@ export const Card: React.FC<CardPropTypes> = (props) => {
       isDragging: !!monitor.isDragging(),
       item: monitor.getItem(),
     }),
+  });
+
+  useEffect(() => {
+    preview(getEmptyImage(), { captureDraggingState: true });
   });
 
   const frontImage: string = cardFrontsImages[`${cardFront}_${cardSuite}`];
