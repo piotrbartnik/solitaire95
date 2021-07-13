@@ -119,6 +119,12 @@ const AppToolbarInternal: React.FC<
             buttonText={"Game"}
             id={"gameButton"}
             active={gameVisible}
+            onMouseOver={() => {
+              if (helpVisible) {
+                setGameVisible(!gameVisible);
+                setHelpVisible(false);
+              }
+            }}
           />
           <ToolDropdown visible={gameVisible} buttonId={"gameButton"}>
             <>
@@ -231,6 +237,12 @@ const AppToolbarInternal: React.FC<
             buttonText={"Help"}
             id={"helpButton"}
             active={helpVisible}
+            onMouseOver={() => {
+              if (gameVisible) {
+                setHelpVisible(!helpVisible);
+                setGameVisible(false);
+              }
+            }}
           />
           <ToolDropdown visible={helpVisible} buttonId={"helpButton"}>
             <>
