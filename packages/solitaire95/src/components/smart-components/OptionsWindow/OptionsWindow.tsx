@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { toggleWindow } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
+import { Checkbox } from "../../ui-components/Checkbox/Checkbox";
 // import styles from "./OptionsWindow.module.scss";
 
 export type OptionsWindowStateTypes = {
@@ -36,7 +37,9 @@ const OptionsInternal: React.FC<
       visible={isWindowVisible as boolean}
       closeButtonAction={closeButtonActionCallback}
       width={"528px"}
-    ></SettingsWindow>
+    >
+      <Checkbox label="Outline dragging" id="outlineDragging" checked={false} />
+    </SettingsWindow>
   );
 };
 
