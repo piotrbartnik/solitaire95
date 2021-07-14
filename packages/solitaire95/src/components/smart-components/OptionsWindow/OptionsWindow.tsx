@@ -36,9 +36,7 @@ const OptionsInternal: React.FC<
       visible={isWindowVisible as boolean}
       closeButtonAction={closeButtonActionCallback}
       width={"528px"}
-    >
-      Options
-    </SettingsWindow>
+    ></SettingsWindow>
   );
 };
 
