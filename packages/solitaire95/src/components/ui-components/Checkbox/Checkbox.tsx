@@ -15,12 +15,15 @@ export const Checkbox: React.FC<CheckboxPropTypes> = (props) => {
 
   return (
     <div onClick={onClick} className={styles.checkbox}>
-      <input
-        type="checkbox"
-        id={id}
-        checked={isChecked}
-        onChange={() => setIsChecked(!isChecked)}
-      />
+      <div
+        className={[
+          styles.doubleBorder,
+          isChecked ? styles["doubleBorder__selected"] : null,
+        ].join(" ")}
+        onClick={() => setIsChecked(!isChecked)}
+      >
+        <input type="checkbox" id={id} checked={isChecked} />
+      </div>
       <label htmlFor={id}>{label}</label>
     </div>
   );
