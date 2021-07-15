@@ -24,6 +24,7 @@ export {
   finishGame,
   setUndoAction,
   UndoActionType,
+  setOutlineDragging,
 } from "./gameActions";
 export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";
 export { toggleWindow } from "./windowActions";

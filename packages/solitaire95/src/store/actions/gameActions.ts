@@ -46,3 +46,15 @@ export const setUndoAction = (
     actionToUndo,
   };
 };
+
+export const setOutlineDragging = (
+  outlineDragging: boolean
+): {
+  type: string;
+  outlineDragging: boolean;
+} => {
+  return {
+    type: actionTypes.OUTLINE_DRAGGING,
+    outlineDragging,
+  };
+};
