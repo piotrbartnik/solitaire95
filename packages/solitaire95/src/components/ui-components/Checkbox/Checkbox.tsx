@@ -5,7 +5,7 @@ type CheckboxPropTypes = {
   id: string;
   label: string;
   checked: boolean;
-  onClick?: () => void;
+  onClick?: any;
 };
 
 export const Checkbox: React.FC<CheckboxPropTypes> = (props) => {
