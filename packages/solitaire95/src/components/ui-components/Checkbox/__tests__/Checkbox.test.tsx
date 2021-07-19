@@ -1,35 +1,36 @@
-// import React from "react";
-// import { render, screen, fireEvent } from "@testing-library/react";
-// import { Button } from "../Button";
-// import { CloseButton } from "../CloseButton";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { Checkbox } from "../Checkbox";
 
-// describe("render Button", () => {
-//   it("and check if it has text on it rendered", () => {
-//     render(<Button text={"OK"} />);
-//     expect(screen.getByText("OK")).toBeVisible();
-//   });
-
-//   it("and it can be clicked", () => {
-//     const clickMock = jest.fn();
-//     render(<Button text={"OK"} onClick={clickMock} />);
-//     fireEvent.click(screen.getByText("OK"));
-
-//     expect(clickMock).toHaveBeenCalled();
-//   });
-// });
-
-// describe("render CloseButton", () => {
-//   it("and check if it has text on it rendered", () => {
-//     const { container } = render(<CloseButton />);
-//     expect(container.querySelector(".closeButton")).toBeVisible();
-//   });
-
-//   it("and it can be clicked", () => {
-//     const clickMock = jest.fn();
-//     const { container } = render(<CloseButton onClick={clickMock} />);
-//     fireEvent.click(container.querySelector(".closeButton") as Element);
-
-//     expect(clickMock).toHaveBeenCalled();
-//   });
-// });
-//
+describe("render checkbox", () => {
+  it("and check its functionality", () => {
+    const clickMock = jest.fn();
+    render(
+      <Checkbox
+        label={"Test checkbox"}
+        id={"testId"}
+        onClick={clickMock}
+        checked={false}
+      />
+    );
+    expect(
+      screen.getByRole("checkbox", { name: "Test checkbox" })
+    ).toBeVisible();
+    expect(
+      (
+        screen.getByRole("checkbox", {
+          name: "Test checkbox",
+        }) as HTMLInputElement
+      ).checked
+    ).toEqual(false);
+    fireEvent.click(screen.getByRole("checkbox", { name: "Test checkbox" }));
+    expect(clickMock).toHaveBeenCalled();
+    expect(
+      (
+        screen.getByRole("checkbox", {
+          name: "Test checkbox",
+        }) as HTMLInputElement
+      ).checked
+    ).toEqual(true);
+  });
+});
