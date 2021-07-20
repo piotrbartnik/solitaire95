@@ -8,6 +8,7 @@ import { Checkbox } from "../../ui-components/Checkbox/Checkbox";
 
 export type OptionsWindowStateTypes = {
   isWindowVisible?: boolean;
+  outlineDragging: boolean;
 };
 
 export type OptionsWindowDispatchTypes = {
@@ -18,8 +19,13 @@ export type OptionsWindowDispatchTypes = {
 const OptionsInternal: React.FC<
   OptionsWindowStateTypes & OptionsWindowDispatchTypes
 > = (props) => {
-  const { isWindowVisible, toggleOptionsWindow, setOutlineDragging } = props;
-  const [outlineDragging, setOutlineDraggingBool] = useState(false);
+  const {
+    isWindowVisible,
+    toggleOptionsWindow,
+    setOutlineDragging,
+    outlineDragging,
+  } = props;
+  const [isDragOutline, setDragOutline] = useState(outlineDragging);
 
   const okOnClick = () => {
     toggleOptionsWindow(false, "optionsWindow");
@@ -43,10 +49,10 @@ const OptionsInternal: React.FC<
       <Checkbox
         label="Outline dragging"
         id="outlineDragging"
-        checked={outlineDragging}
+        checked={isDragOutline}
         onClick={() => {
-          setOutlineDraggingBool(!outlineDragging);
-          setOutlineDragging(!outlineDragging);
+          setDragOutline(!isDragOutline);
+          setOutlineDragging(!isDragOutline);
         }}
       />
     </SettingsWindow>
