@@ -27,7 +27,9 @@ export const Checkbox: React.FC<CheckboxPropTypes> = (props) => {
       >
         <input type="checkbox" id={id} defaultChecked={isChecked} />
       </div>
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id} className={styles.label}>
+        {label}
+      </label>
     </div>
   );
 };
