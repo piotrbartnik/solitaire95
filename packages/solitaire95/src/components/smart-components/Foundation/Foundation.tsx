@@ -24,6 +24,7 @@ export type FoundationStateTypes = {
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: FoundationInitialState;
   gameStarted: boolean;
+  outlineDragging: boolean;
 };
 
 export type FoundationDispatchTypes = {
@@ -59,6 +60,7 @@ const FoundationInternal: React.FC<
     startGame,
     gameStarted,
     removeCardFromFoundation,
+    outlineDragging,
   } = props;
 
   const { cardBackImage } = useContext(CardBackContext);
@@ -145,17 +147,23 @@ const FoundationInternal: React.FC<
     }),
   });
 
+  type DraggingStyleType = { filter?: string; backgroundColor?: string };
+
+  const outlineStyling = (): DraggingStyleType => {
+    if (isOver && canDrop && outlineDragging) {
+      if (cardsOnFoundation?.length) {
+        return { filter: "invert(100%)" };
+      }
+      return { backgroundColor: "#ff00ff" };
+    }
+    return {};
+  };
+
   const foundationTarget = (
     <div
       className={styles.foundation}
       ref={drop}
-      style={
-        isOver && canDrop
-          ? { outline: "5px solid blue" }
-          : isOver
-          ? { outline: "5px solid red" }
-          : undefined
-      }
+      style={outlineStyling()}
       id={foundationId?.toString()}
     >
       {cardsOnFoundation?.length
@@ -187,6 +195,7 @@ const mapStateToProps = (state: {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
     gameStarted: state.gameState.gameStarted,
+    outlineDragging: state.gameState.outlineDragging,
   };
 };
 
