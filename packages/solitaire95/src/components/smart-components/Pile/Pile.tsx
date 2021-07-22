@@ -259,7 +259,16 @@ const PileInternal: React.FC<
   useSetCardsPositionFromTopOnPiles(ref as { current: HTMLDivElement });
 
   const pileTarget = (
-    <div className={styles.pile__container} ref={ref} id={`${pileIndex}`}>
+    <div
+      className={styles.pile__container}
+      ref={ref}
+      id={`${pileIndex}`}
+      style={
+        outlineDragging && canDrop && isOver && !cardsOnPile.length
+          ? { backgroundColor: "#ff00ff" }
+          : undefined
+      }
+    >
       {distributeCards(cardsOnPile)}
     </div>
   );
