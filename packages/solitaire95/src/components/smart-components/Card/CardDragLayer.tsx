@@ -7,8 +7,9 @@ import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardConfigType } from "../../../configs/cardTypes";
 
-type CardDgarPropTypes = {
+type CardDragPropTypes = {
   pilesContainer: RefObject<HTMLDivElement>;
+  outlineDragging: boolean;
 };
 
 type CardDragLayerStateTypes = {
@@ -16,9 +17,9 @@ type CardDragLayerStateTypes = {
 };
 
 const CardDragLayerInternal: React.FC<
-  CardDragLayerStateTypes & CardDgarPropTypes
+  CardDragLayerStateTypes & CardDragPropTypes
 > = (props) => {
-  const { cardsOnPiles, pilesContainer } = props;
+  const { cardsOnPiles, pilesContainer, outlineDragging } = props;
 
   const { itemType, currentOffset, isDragging, item } = useDragLayer(
     (monitor) => ({
@@ -28,6 +29,8 @@ const CardDragLayerInternal: React.FC<
       isDragging: monitor.isDragging(),
     })
   );
+
+  console.log(outlineDragging);
 
   const draggedCard = `${item?.cardFront}_${item?.cardSuite}`;
   const frontImage: string = cardFrontsImages[draggedCard];
@@ -152,5 +155,5 @@ const mapStateToProps = (state: {
 export const CardDragLayer = connect<
   CardDragLayerStateTypes,
   unknown,
-  CardDgarPropTypes
+  CardDragPropTypes
 >(mapStateToProps)(CardDragLayerInternal);

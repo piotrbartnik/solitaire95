@@ -26,6 +26,7 @@ type GameContainerStateTypes = {
   cardsOnPiles: { [key: string]: cardConfigType[] };
   cardsOnFoundations: FoundationInitialState;
   gameFinished: boolean;
+  outlineDragging: boolean;
 };
 
 type GameContainerDispatchTypes = {
@@ -48,6 +49,7 @@ const GameContainerInternal: React.FC<
     gameFinished,
     canvasWidth,
     canvasHeight,
+    outlineDragging,
   } = props;
 
   const piles = (config: { [key: string]: cardConfigType[] }) =>
@@ -153,7 +155,10 @@ const GameContainerInternal: React.FC<
           </>
         )}
       </div>
-      <CardDragLayer pilesContainer={pilesContainer} />
+      <CardDragLayer
+        pilesContainer={pilesContainer}
+        outlineDragging={outlineDragging}
+      />
     </div>
   );
 };
@@ -175,6 +180,7 @@ const mapStateToProps = (state: {
     cardsOnFoundations: state.cardsOnFoundation,
     cardsOnPiles: state.cardDistribution.cardsOnPiles,
     gameFinished: state.gameState.gameFinished,
+    outlineDragging: state.gameState.outlineDragging,
   };
 };
 
