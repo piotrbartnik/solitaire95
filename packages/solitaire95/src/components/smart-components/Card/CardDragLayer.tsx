@@ -1,4 +1,4 @@
-import React, { RefObject } from "react";
+import React, { RefObject, useMemo } from "react";
 import CSS from "csstype";
 import { useDragLayer } from "react-dnd";
 import { connect } from "react-redux";
@@ -32,19 +32,29 @@ const CardDragLayerInternal: React.FC<
 
   console.log(outlineDragging);
 
-  const draggedCard = `${item?.cardFront}_${item?.cardSuite}`;
-  const frontImage: string = cardFrontsImages[draggedCard];
+  const draggedCard = useMemo(
+    () => `${item?.cardFront}_${item?.cardSuite}`,
+    [item?.cardFront, item?.cardSuite]
+  );
 
-  const cardFromPiles = cardsOnPiles[item?.pileNumber]?.map(
-    (card) => `${card[0]}_${card[1]}`
+  const frontImage = useMemo(
+    () => cardFrontsImages[draggedCard],
+    [draggedCard]
+  );
+
+  const cardFromPiles = useMemo(
+    () =>
+      cardsOnPiles[item?.pileNumber]?.map((card) => `${card[0]}_${card[1]}`),
+    [cardsOnPiles, item?.pileNumber]
   );
 
   const cardsToDragWhenOnPiles = cardFromPiles?.slice(
     cardFromPiles.indexOf(draggedCard)
   );
 
-  const cardsAttributes = cardsToDragWhenOnPiles?.map((card) =>
-    card.split("_")
+  const cardsAttributes = useMemo(
+    () => cardsToDragWhenOnPiles?.map((card) => card.split("_")),
+    [cardsToDragWhenOnPiles]
   );
 
   const draggedCardFromPileParent = (card: string[] | cardConfigType) =>
