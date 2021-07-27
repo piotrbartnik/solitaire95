@@ -30,8 +30,6 @@ const CardDragLayerInternal: React.FC<
     })
   );
 
-  console.log(outlineDragging);
-
   const draggedCard = useMemo(
     () => `${item?.cardFront}_${item?.cardSuite}`,
     [item?.cardFront, item?.cardSuite]
@@ -109,6 +107,16 @@ const CardDragLayerInternal: React.FC<
       key={cardIndex}
     ></div>
   );
+
+  // const draggingCardOultine = (
+  //   <div
+  //     style={{
+  //       width: "130px",
+  //       height: "175px",
+  //       border: "2px dotted #3f3f3f",
+  //     }}
+  //   ></div>
+  // );
 
   function renderItem() {
     switch (itemType) {
