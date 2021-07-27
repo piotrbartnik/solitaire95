@@ -4,18 +4,21 @@ export interface GameState {
   gameStarted: boolean;
   gameFinished: boolean;
   actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
+  outlineDragging: boolean;
 }
 
 interface GameStateActionTypes {
   type: string;
   gameFinished: boolean;
   actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
+  outlineDragging: boolean;
 }
 
 const initialState: GameState = {
   gameStarted: false,
   gameFinished: false,
   actionToUndo: [],
+  outlineDragging: false,
 };
 
 export const gameState = (
@@ -31,6 +34,8 @@ export const gameState = (
       return { ...state, gameFinished: action.gameFinished };
     case "SET_UNDO_ACTION":
       return { ...state, actionToUndo: action.actionToUndo };
+    case "OUTLINE_DRAGGING":
+      return { ...state, outlineDragging: action.outlineDragging };
     default:
       return state;
   }

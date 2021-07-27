@@ -23,6 +23,7 @@ export const RESET_SCORE = "RESET_SCORE";
 export const START_GAME = "START_GAME";
 export const STOP_GAME = "STOP_GAME";
 export const FINISH_GAME = "FINISH_GAME";
+export const OUTLINE_DRAGGING = "OUTLINE_DRAGGING";
 // time actions
 export const SAVE_INITIAL_TIME = "SAVE_INITIAL_TIME";
 export const RESET_TIME = "RESET_TIME";

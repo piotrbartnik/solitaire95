@@ -13,6 +13,7 @@ import {
   removeCardFromStock,
   startGame,
   countScore,
+  removeCardFromFoundation,
 } from "../../../store/actions/";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
@@ -23,6 +24,7 @@ export type FoundationStateTypes = {
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: FoundationInitialState;
   gameStarted: boolean;
+  outlineDragging: boolean;
 };
 
 export type FoundationDispatchTypes = {
@@ -35,6 +37,7 @@ export type FoundationDispatchTypes = {
   addPoints: (points: number) => void;
   removeCardFromStock: (card: cardConfigType[]) => void;
   startGame: () => void;
+  removeCardFromFoundation: (foundationNumber: string) => void;
 };
 
 export type FoundationPropTypes = {
@@ -56,6 +59,8 @@ const FoundationInternal: React.FC<
     addPoints,
     startGame,
     gameStarted,
+    removeCardFromFoundation,
+    outlineDragging,
   } = props;
 
   const { cardBackImage } = useContext(CardBackContext);
@@ -91,6 +96,7 @@ const FoundationInternal: React.FC<
       cardColor,
       cardOrder,
       pileNumber,
+      foundationNumber,
     } = dragObject;
 
     const cardConfig: cardConfigType = [
@@ -111,7 +117,7 @@ const FoundationInternal: React.FC<
     const foundationTargetId = foundationTarget.props.id;
 
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
-    addPoints(10);
+    !foundationNumber && addPoints(10);
     !gameStarted && startGame();
 
     if (typeof pileNumber === "number") {
@@ -122,6 +128,10 @@ const FoundationInternal: React.FC<
           (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
         )
       );
+    }
+
+    if (typeof foundationNumber === "string") {
+      removeCardFromFoundation(foundationNumber);
     }
   };
 
@@ -136,17 +146,24 @@ const FoundationInternal: React.FC<
       canDrop: !!monitor.canDrop(),
     }),
   });
+
+  type DraggingStyleType = { filter?: string; backgroundColor?: string };
+
+  const outlineStyling = (): DraggingStyleType => {
+    if (isOver && canDrop && outlineDragging) {
+      if (cardsOnFoundation?.length) {
+        return { filter: "invert(100%)" };
+      }
+      return { backgroundColor: "#ff00ff" };
+    }
+    return {};
+  };
+
   const foundationTarget = (
     <div
       className={styles.foundation}
       ref={drop}
-      style={
-        isOver && canDrop
-          ? { outline: "5px solid blue" }
-          : isOver
-          ? { outline: "5px solid red" }
-          : undefined
-      }
+      style={outlineStyling()}
       id={foundationId?.toString()}
     >
       {cardsOnFoundation?.length
@@ -178,6 +195,7 @@ const mapStateToProps = (state: {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     cardsOnFoundations: state.cardsOnFoundation,
     gameStarted: state.gameState.gameStarted,
+    outlineDragging: state.gameState.outlineDragging,
   };
 };
 
@@ -195,6 +213,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(removeCardFromStock(card)),
     addPoints: (points: number) => dispatch(countScore(points)),
     startGame: () => dispatch(startGame()),
+    removeCardFromFoundation: (foundationNumber: string) =>
+      dispatch(removeCardFromFoundation(foundationNumber)),
   };
 };
 

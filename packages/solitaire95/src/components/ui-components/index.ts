@@ -7,6 +7,7 @@ import { Separator } from "./Separator/Separator";
 import { SettingsWindow } from "./SettingsWindow/SettingsWindow";
 import { Button } from "./Buttons/Button";
 import { CloseButton } from "./Buttons/CloseButton";
+import { Checkbox } from "./Checkbox/Checkbox";
 
 export {
   TopBar,
@@ -18,4 +19,5 @@ export {
   SettingsWindow,
   Button,
   CloseButton,
+  Checkbox,
 };

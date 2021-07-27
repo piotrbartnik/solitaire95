@@ -15,18 +15,13 @@ const persistedState = localStorage.getItem("solitaireState")
 delete persistedState?.toggleWindows;
 
 const middlewareEnhancer = applyMiddleware(undoActions);
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   rootReducer,
   persistedState,
-  // {},
-  compose(
-    middlewareEnhancer,
-    process.env.NODE_ENV === "development"
-      ? // @ts-ignore
-        window && (window as unknown).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
-      : (a: unknown) => a
-  )
+  composeEnhancers(middlewareEnhancer)
 );
 
 store.subscribe(() => {

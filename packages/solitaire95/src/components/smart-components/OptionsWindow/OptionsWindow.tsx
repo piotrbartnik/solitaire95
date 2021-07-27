@@ -1,22 +1,31 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { connect } from "react-redux";
-import { toggleWindow } from "../../../store/actions/";
-import { WindowsState } from "../../../store/reducers/";
+import { toggleWindow, setOutlineDragging } from "../../../store/actions/";
+import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
+import { Checkbox } from "../../ui-components/Checkbox/Checkbox";
 // import styles from "./OptionsWindow.module.scss";
 
 export type OptionsWindowStateTypes = {
   isWindowVisible?: boolean;
+  outlineDragging: boolean;
 };
 
 export type OptionsWindowDispatchTypes = {
   toggleOptionsWindow: (windowState: boolean, windowToToggle: string) => void;
+  setOutlineDragging: (outlineDragging: boolean) => void;
 };
 
 const OptionsInternal: React.FC<
   OptionsWindowStateTypes & OptionsWindowDispatchTypes
 > = (props) => {
-  const { isWindowVisible, toggleOptionsWindow } = props;
+  const {
+    isWindowVisible,
+    toggleOptionsWindow,
+    setOutlineDragging,
+    outlineDragging,
+  } = props;
+  const [isDragOutline, setDragOutline] = useState(outlineDragging);
 
   const okOnClick = () => {
     toggleOptionsWindow(false, "optionsWindow");
@@ -37,14 +46,26 @@ const OptionsInternal: React.FC<
       closeButtonAction={closeButtonActionCallback}
       width={"528px"}
     >
-      Options
+      <Checkbox
+        label="Outline dragging"
+        id="outlineDragging"
+        checked={isDragOutline}
+        onClick={() => {
+          setDragOutline(!isDragOutline);
+          setOutlineDragging(!isDragOutline);
+        }}
+      />
     </SettingsWindow>
   );
 };
 
-const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
+const mapStateToProps = (state: {
+  toggleWindows: WindowsState;
+  gameState: GameState;
+}) => {
   return {
     isWindowVisible: state.toggleWindows.optionsWindow,
+    outlineDragging: state.gameState.outlineDragging,
   };
 };
 
@@ -53,6 +74,8 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     toggleOptionsWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
+    setOutlineDragging: (isOutlined: boolean) =>
+      dispatch(setOutlineDragging(isOutlined)),
   };
 };
 

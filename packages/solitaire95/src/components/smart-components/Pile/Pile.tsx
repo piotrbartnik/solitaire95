@@ -30,6 +30,7 @@ type PileStateTypes = {
   cardsOnFoundations: FoundationInitialState;
   cardsOnPiles: { [key: string]: cardConfigType[] };
   gameStarted: boolean;
+  outlineDragging: boolean;
 };
 
 type PileDispatchTypes = {
@@ -72,6 +73,7 @@ const PileInternal: React.FC<
     turnCardOnPile,
     gameStarted,
     setUndoAction,
+    outlineDragging,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -226,6 +228,14 @@ const PileInternal: React.FC<
           className={styles[`pile__${index}`]}
           data-turnedback={shouldBeTurnedAfterDrag}
           key={`${index}${card[0]}${card[1]}${card[3]}${card[4]}`}
+          style={
+            outlineDragging &&
+            canDrop &&
+            isOver &&
+            index === cardsOnPile.length - 1
+              ? { filter: "invert(100%)" }
+              : undefined
+          }
         >
           <Card
             cardFront={card[0]}
@@ -252,14 +262,12 @@ const PileInternal: React.FC<
     <div
       className={styles.pile__container}
       ref={ref}
+      id={`${pileIndex}`}
       style={
-        canDrop && isOver
-          ? { border: "2px solid blue" }
-          : isOver
-          ? { border: "2px solid red" }
+        outlineDragging && canDrop && isOver && !cardsOnPile.length
+          ? { backgroundColor: "#ff00ff" }
           : undefined
       }
-      id={`${pileIndex}`}
     >
       {distributeCards(cardsOnPile)}
     </div>
@@ -278,6 +286,7 @@ const mapStateToProps = (state: {
     cardsOnFoundations: state.cardsOnFoundation,
     cardsOnPiles: state.cardDistribution.cardsOnPiles,
     gameStarted: state.gameState.gameStarted,
+    outlineDragging: state.gameState.outlineDragging,
   };
 };
 
