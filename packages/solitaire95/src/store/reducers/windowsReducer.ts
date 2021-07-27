@@ -14,7 +14,7 @@ interface WindowActionTypes {
 const initialState: WindowsState = {
   cardBackWindow: false,
   aboutWindow: false,
-  optionsWindow: true,
+  optionsWindow: false,
   dealAgainWindow: false,
 };
 
