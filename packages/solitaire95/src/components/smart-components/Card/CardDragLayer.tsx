@@ -108,40 +108,67 @@ const CardDragLayerInternal: React.FC<
     ></div>
   );
 
-  // const draggingCardOultine = (
-  //   <div
-  //     style={{
-  //       width: "130px",
-  //       height: "175px",
-  //       border: "2px dotted #3f3f3f",
-  //     }}
-  //   ></div>
-  // );
+  const draggingCardOultine = (cardIndex = 0) => (
+    <div
+      style={{
+        width: "130px",
+        height: "175px",
+        // border: "2px dotted #3f3f3f",
+        top: `${27 * cardIndex}px`,
+        position: "absolute",
+        // backgroundColor: "#ffffff99",
+      }}
+    ></div>
+  );
+
+  const rednerOutlinedCards = () =>
+    cardsToDragWhenOnPiles ? (
+      <div
+        style={{
+          position: "relative",
+          border: "2px dotted #3f3f3f",
+          // height: "80px",
+          display: "inline",
+          width: "130px",
+        }}
+      >
+        {cardsToDragWhenOnPiles?.map((card, index) =>
+          draggingCardOultine(index)
+        )}
+      </div>
+    ) : (
+      <>{draggingCardOultine()}</>
+    );
+
+  const renderUsualDragLayer = () =>
+    cardsToDragWhenOnPiles ? (
+      <div
+        style={{
+          position: "relative",
+        }}
+      >
+        {cardsToDragWhenOnPiles?.map((card, index) => cardNode(card, index))}
+      </div>
+    ) : (
+      <>
+        <div
+          style={{
+            width: "130px",
+            height: "175px",
+            border: "2px solid #000000",
+            borderRadius: "7px",
+            backgroundImage: `url(${frontImage})`,
+            backgroundColor: "white",
+            backgroundSize: "cover",
+          }}
+        ></div>
+      </>
+    );
 
   function renderItem() {
     switch (itemType) {
       case itemTypes.CARD:
-        return cardsToDragWhenOnPiles ? (
-          <div style={{ position: "relative" }}>
-            {cardsToDragWhenOnPiles?.map((card, index) =>
-              cardNode(card, index)
-            )}
-          </div>
-        ) : (
-          <>
-            <div
-              style={{
-                width: "130px",
-                height: "175px",
-                border: "2px solid #000000",
-                borderRadius: "7px",
-                backgroundImage: `url(${frontImage})`,
-                backgroundColor: "white",
-                backgroundSize: "cover",
-              }}
-            ></div>
-          </>
-        );
+        return outlineDragging ? rednerOutlinedCards() : renderUsualDragLayer();
       default:
         return null;
     }
