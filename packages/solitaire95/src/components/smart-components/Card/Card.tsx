@@ -85,7 +85,7 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
           ? outlineDragging
             ? undefined
             : { opacity: "0" }
-          : undefined
+          : { opacity: "1" }
       }
       data-front={!isTurnedBack}
       data-pilenumber={pileNumber}
