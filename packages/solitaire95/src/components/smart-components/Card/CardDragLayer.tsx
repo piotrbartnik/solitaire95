@@ -105,7 +105,7 @@ const CardDragLayerInternal: React.FC<
         position: "absolute",
       }}
       key={cardIndex}
-    ></div>
+    />
   );
 
   const draggingCardOultine = (cardIndex = 0) => (
@@ -113,12 +113,11 @@ const CardDragLayerInternal: React.FC<
       style={{
         width: "130px",
         height: "175px",
-        // border: "2px dotted #3f3f3f",
+        borderTop: "2px dotted #3f3f3f",
         top: `${27 * cardIndex}px`,
         position: "absolute",
-        // backgroundColor: "#ffffff99",
       }}
-    ></div>
+    />
   );
 
   const rednerOutlinedCards = () =>
@@ -126,10 +125,11 @@ const CardDragLayerInternal: React.FC<
       <div
         style={{
           position: "relative",
-          border: "2px dotted #3f3f3f",
-          // height: "80px",
-          display: "inline",
-          width: "130px",
+          borderBottom: "2px dotted #3f3f3f",
+          borderLeft: "2px dotted #3f3f3f",
+          borderRight: "2px dotted #3f3f3f",
+          height: `${(cardsToDragWhenOnPiles.length - 1) * 25 + 175}px`,
+          width: "135px",
         }}
       >
         {cardsToDragWhenOnPiles?.map((card, index) =>
@@ -137,7 +137,14 @@ const CardDragLayerInternal: React.FC<
         )}
       </div>
     ) : (
-      <>{draggingCardOultine()}</>
+      <div
+        style={{
+          width: "130px",
+          height: "175px",
+          border: "2px dotted #3f3f3f",
+          position: "absolute",
+        }}
+      />
     );
 
   const renderUsualDragLayer = () =>
@@ -150,19 +157,17 @@ const CardDragLayerInternal: React.FC<
         {cardsToDragWhenOnPiles?.map((card, index) => cardNode(card, index))}
       </div>
     ) : (
-      <>
-        <div
-          style={{
-            width: "130px",
-            height: "175px",
-            border: "2px solid #000000",
-            borderRadius: "7px",
-            backgroundImage: `url(${frontImage})`,
-            backgroundColor: "white",
-            backgroundSize: "cover",
-          }}
-        ></div>
-      </>
+      <div
+        style={{
+          width: "130px",
+          height: "175px",
+          border: "2px solid #000000",
+          borderRadius: "7px",
+          backgroundImage: `url(${frontImage})`,
+          backgroundColor: "white",
+          backgroundSize: "cover",
+        }}
+      />
     );
 
   function renderItem() {
