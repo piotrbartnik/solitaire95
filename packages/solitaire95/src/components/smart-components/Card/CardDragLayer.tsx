@@ -38,9 +38,8 @@ const CardDragLayerInternal: React.FC<
       (document.querySelector("#gameContainer") as HTMLDivElement).scrollLeft +=
         currentOffset?.x;
     } else {
-      (
-        document.querySelector("#gameContainer") as HTMLDivElement
-      ).scrollLeft += 15;
+      (document.querySelector("#gameContainer") as HTMLDivElement).scrollLeft +=
+        currentOffset?.x + 130 - window.innerWidth;
     }
   }
 
