@@ -135,6 +135,18 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     [windowError]
   );
 
+  let maxWindowWidth = width || "450px";
+
+  useEffect(() => {
+    if (window.innerWidth < parseInt(width as string)) {
+      setWindowPosition([0, 0]);
+    }
+  }, [width]);
+
+  if (window.innerWidth < parseInt(width as string)) {
+    maxWindowWidth = `${window.innerWidth - 20}px`;
+  }
+
   return (
     <div
       className={styles.backdrop}
@@ -149,21 +161,39 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           height: height || "360px",
           top: `${windowPosition[0]}px`,
           left: `${windowPosition[1]}px`,
+          maxWidth: maxWindowWidth,
         }}
       >
-        <div className={styles.settingsWindow__inner}>
-          <TopBar title={windowTitle} dragRef={drag}>
-            <CloseButton onClick={closeButtonAction} />
-          </TopBar>
-          {children}
-          <div className={styles.buttonContainer}>
-            {buttons?.map((button, index) => (
-              <Button text={button.text} onClick={button.onClick} key={index} />
-            ))}
+        <TopBar title={windowTitle} dragRef={drag}>
+          <CloseButton onClick={closeButtonAction} />
+        </TopBar>
+        <div
+          style={{
+            height: "calc(100% - 30px)",
+            top: `${windowPosition[0]}px`,
+            left: `${windowPosition[1]}px`,
+            overflow: "auto",
+            maxWidth: maxWindowWidth,
+          }}
+        >
+          <div
+            className={styles.settingsWindow__inner}
+            style={{ width: `${parseInt(width as string) - 4}px` || "450px" }}
+          >
+            {children}
+            <div className={styles.buttonContainer}>
+              {buttons?.map((button, index) => (
+                <Button
+                  text={button.text}
+                  onClick={button.onClick}
+                  key={index}
+                />
+              ))}
+            </div>
           </div>
         </div>
-        <SettingsWindowDragLayer size={[width || "450px", height || "360px"]} />
       </div>
+      <SettingsWindowDragLayer size={[width || "450px", height || "360px"]} />
     </div>
   );
 };
