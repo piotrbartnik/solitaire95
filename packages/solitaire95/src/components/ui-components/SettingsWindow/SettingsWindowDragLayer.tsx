@@ -5,11 +5,12 @@ import { itemTypes } from "../../../configs/dragndropConfig";
 
 type SettingsWindowDragLayerPropTypes = {
   size: string[];
+  maxWindowWidth: number;
 };
 
 export const SettingsWindowDragLayer: React.FC<SettingsWindowDragLayerPropTypes> =
   (props) => {
-    const { size } = props;
+    const { size, maxWindowWidth } = props;
 
     const { itemType, currentOffset, isDragging } = useDragLayer((monitor) => ({
       itemType: monitor.getItemType(),
@@ -38,6 +39,7 @@ export const SettingsWindowDragLayer: React.FC<SettingsWindowDragLayerPropTypes>
                 width: size[0],
                 height: size[1],
                 border: "2px dotted #3f3f3f",
+                maxWidth: `${maxWindowWidth}px`,
               }}
             ></div>
           );

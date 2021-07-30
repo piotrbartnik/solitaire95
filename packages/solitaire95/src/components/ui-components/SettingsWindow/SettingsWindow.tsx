@@ -133,7 +133,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     [windowError]
   );
 
-  let maxWindowWidth = width || "450px";
+  let maxWindowWidth = width || 450;
 
   useEffect(() => {
     if (window.innerWidth < (width as number)) {
@@ -142,7 +142,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
   }, [width]);
 
   if (window.innerWidth < (width as number)) {
-    maxWindowWidth = `${window.innerWidth - 20}px`;
+    maxWindowWidth = window.innerWidth - 20;
   }
 
   return (
@@ -155,11 +155,11 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
       <div
         className={styles.settingsWindow}
         style={{
-          width: `${width}px` || "450px",
-          height: `${height}px` || "360px",
+          width: width ? `${width}px` : "450px",
+          height: height ? `${height}px` : "360px",
           top: `${windowPosition[0]}px`,
           left: `${windowPosition[1]}px`,
-          maxWidth: maxWindowWidth,
+          maxWidth: `${maxWindowWidth}px`,
         }}
       >
         <TopBar title={windowTitle} dragRef={drag}>
@@ -171,7 +171,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
             top: `${windowPosition[0]}px`,
             left: `${windowPosition[1]}px`,
             overflow: "auto",
-            maxWidth: maxWindowWidth,
+            maxWidth: `${maxWindowWidth}px`,
           }}
         >
           <div
@@ -192,7 +192,11 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
         </div>
       </div>
       <SettingsWindowDragLayer
-        size={[`${width}px` || "450px", `${height}px` || "360px"]}
+        size={[
+          width ? `${width}px` : "450px",
+          height ? `${height}px` : "360px",
+        ]}
+        maxWindowWidth={maxWindowWidth}
       />
     </div>
   );
