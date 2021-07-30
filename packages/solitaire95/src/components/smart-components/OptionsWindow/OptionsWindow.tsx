@@ -44,7 +44,7 @@ const OptionsInternal: React.FC<
       ]}
       visible={isWindowVisible as boolean}
       closeButtonAction={closeButtonActionCallback}
-      width={"528px"}
+      width={528}
     >
       <Checkbox
         label="Outline dragging"

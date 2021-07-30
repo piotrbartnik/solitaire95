@@ -19,8 +19,8 @@ type SettingWindowPropTypes = {
   children?: React.ReactNode;
   windowTitle: string;
   visible: boolean;
-  width?: string;
-  height?: string;
+  width?: number;
+  height?: number;
   buttons?: { text: string; onClick: () => void }[];
   closeButtonAction?: () => void;
   positionOnWindow?: number[];
@@ -51,15 +51,13 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
       const delta = monitor.getDifferenceFromInitialOffset();
 
       const calculateWindowPosition = (
-        sizeAxis: string,
-        defaultAxisSize: string,
+        sizeAxis: number,
+        defaultAxisSize: number,
         windowPositon: number,
         differenceInPosition: number,
         windowAxis: string
       ): number => {
-        const parsedWindowSize = sizeAxis
-          ? parseInt(sizeAxis as string)
-          : parseInt(defaultAxisSize);
+        const parsedWindowSize = sizeAxis ? sizeAxis : defaultAxisSize;
 
         const maxPosibleAxisPosition =
           windowPositon + differenceInPosition + parsedWindowSize;
@@ -74,15 +72,15 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
 
       setWindowPosition([
         calculateWindowPosition(
-          height as string,
-          "360px",
+          height as number,
+          360,
           windowPosition[0],
           delta?.y as number,
           "innerHeight"
         ),
         calculateWindowPosition(
-          width as string,
-          "450px",
+          width as number,
+          450,
           windowPosition[1],
           delta?.x as number,
           "innerWidth"
@@ -138,12 +136,12 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
   let maxWindowWidth = width || "450px";
 
   useEffect(() => {
-    if (window.innerWidth < parseInt(width as string)) {
+    if (window.innerWidth < (width as number)) {
       setWindowPosition([0, 0]);
     }
   }, [width]);
 
-  if (window.innerWidth < parseInt(width as string)) {
+  if (window.innerWidth < (width as number)) {
     maxWindowWidth = `${window.innerWidth - 20}px`;
   }
 
@@ -157,8 +155,8 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
       <div
         className={styles.settingsWindow}
         style={{
-          width: width || "450px",
-          height: height || "360px",
+          width: `${width}px` || "450px",
+          height: `${height}px` || "360px",
           top: `${windowPosition[0]}px`,
           left: `${windowPosition[1]}px`,
           maxWidth: maxWindowWidth,
@@ -178,7 +176,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
         >
           <div
             className={styles.settingsWindow__inner}
-            style={{ width: `${parseInt(width as string) - 4}px` || "450px" }}
+            style={{ width: `${(width as number) - 4}px` || "450px" }}
           >
             {children}
             <div className={styles.buttonContainer}>
@@ -193,7 +191,9 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           </div>
         </div>
       </div>
-      <SettingsWindowDragLayer size={[width || "450px", height || "360px"]} />
+      <SettingsWindowDragLayer
+        size={[`${width}px` || "450px", `${height}px` || "360px"]}
+      />
     </div>
   );
 };
