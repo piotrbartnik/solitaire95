@@ -42,6 +42,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     positionOnWindow?.[0] || 100,
     positionOnWindow?.[1] || 100,
   ]);
+  const [maxWindowWidth, setMaxWindowWidth] = useState(width || 450);
 
   const { playSounds } = useContext(CardBackContext);
 
@@ -133,17 +134,16 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     [windowError]
   );
 
-  let maxWindowWidth = width || 450;
-
   useEffect(() => {
-    if (window.innerWidth < (width as number)) {
-      setWindowPosition([0, 0]);
+    const gameContainerWidth = document
+      .querySelector("#gameContainer")
+      ?.getBoundingClientRect().width as number;
+
+    if (gameContainerWidth < (width as number)) {
+      setWindowPosition([80, 0]);
+      setMaxWindowWidth(gameContainerWidth - 20);
     }
   }, [width]);
-
-  if (window.innerWidth < (width as number)) {
-    maxWindowWidth = window.innerWidth - 20;
-  }
 
   return (
     <div
