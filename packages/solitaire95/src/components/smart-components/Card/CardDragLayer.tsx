@@ -47,14 +47,13 @@ const CardDragLayerInternal: React.FC<
     currentOffset &&
     (currentOffset.y < 0 || window.innerHeight < currentOffset?.y + 160)
   ) {
-    // if (currentOffset?.x < 0) {
-    //   (document.querySelector("#gameContainer") as HTMLDivElement).scrollLeft +=
-    //     currentOffset?.x;
-    // } else {
-    //   (document.querySelector("#gameContainer") as HTMLDivElement).scrollLeft +=
-    //     currentOffset?.x + 130 - window.innerWidth;
-    // }
-    console.log("should scroll");
+    if (currentOffset.y < 0) {
+      (document.querySelector("#gameContainer") as HTMLDivElement).scrollTop +=
+        currentOffset?.y;
+    } else {
+      (document.querySelector("#gameContainer") as HTMLDivElement).scrollTop +=
+        currentOffset?.y + 175 - window.innerHeight;
+    }
   }
 
   const draggedCard = useMemo(
