@@ -30,30 +30,28 @@ const CardDragLayerInternal: React.FC<
     })
   );
 
-  if (
-    currentOffset &&
-    (currentOffset.x < 0 || window.innerWidth < currentOffset?.x + 115)
-  ) {
-    if (currentOffset?.x < 0) {
-      (document.querySelector("#gameContainer") as HTMLDivElement).scrollLeft +=
-        currentOffset?.x;
-    } else {
-      (document.querySelector("#gameContainer") as HTMLDivElement).scrollLeft +=
-        currentOffset?.x + 130 - window.innerWidth;
+  const scrollResolver = (
+    offsetAxis: number,
+    windowAxis: number,
+    axisAdditionalLength: number,
+    scrollDirection: string
+  ): void => {
+    if (offsetAxis < 0 || windowAxis < offsetAxis + axisAdditionalLength) {
+      if (offsetAxis < 0) {
+        (document.querySelector("#gameContainer") as HTMLDivElement)[
+          scrollDirection
+        ] += offsetAxis;
+      } else {
+        (document.querySelector("#gameContainer") as HTMLDivElement)[
+          scrollDirection
+        ] += offsetAxis + axisAdditionalLength + 15 - windowAxis;
+      }
     }
-  }
+  };
 
-  if (
-    currentOffset &&
-    (currentOffset.y < 0 || window.innerHeight < currentOffset?.y + 160)
-  ) {
-    if (currentOffset.y < 0) {
-      (document.querySelector("#gameContainer") as HTMLDivElement).scrollTop +=
-        currentOffset?.y;
-    } else {
-      (document.querySelector("#gameContainer") as HTMLDivElement).scrollTop +=
-        currentOffset?.y + 175 - window.innerHeight;
-    }
+  if (currentOffset) {
+    scrollResolver(currentOffset.x, window.innerWidth, 115, "scrollLeft");
+    scrollResolver(currentOffset.y, window.innerHeight, 160, "scrollTop");
   }
 
   const draggedCard = useMemo(
