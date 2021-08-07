@@ -1,11 +1,11 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import { dndWrapper } from "../../../../helpers/testHelpers";
+import { fireEvent } from "@testing-library/react";
+import { reduxRtlWrapper, dndWrapper } from "../../../../helpers/testHelpers";
 import { Card } from "../Card";
 
 describe("renders Card", () => {
   it("and check if card back is rendered", () => {
-    const { container } = render(
+    const { container } = reduxRtlWrapper(
       dndWrapper(
         <Card
           isTurnedBack
@@ -22,7 +22,7 @@ describe("renders Card", () => {
   });
 
   it("and check if card front is rendered", () => {
-    const { container } = render(
+    const { container } = reduxRtlWrapper(
       dndWrapper(
         <Card
           isTurnedBack={false}
@@ -41,7 +41,7 @@ describe("renders Card", () => {
   it("and cards makes action on double click", () => {
     const handleDoubleClick = jest.fn();
 
-    const { container } = render(
+    const { container } = reduxRtlWrapper(
       dndWrapper(
         <Card
           isTurnedBack={false}
