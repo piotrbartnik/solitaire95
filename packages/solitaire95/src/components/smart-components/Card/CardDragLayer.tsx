@@ -1,4 +1,4 @@
-import React, { RefObject } from "react";
+import React, { RefObject, useMemo } from "react";
 import CSS from "csstype";
 import { useDragLayer } from "react-dnd";
 import { connect } from "react-redux";
@@ -30,21 +30,53 @@ const CardDragLayerInternal: React.FC<
     })
   );
 
-  console.log(outlineDragging);
+  const scrollResolver = (
+    offsetAxis: number,
+    windowAxis: number,
+    axisAdditionalLength: number,
+    scrollDirection: string
+  ): void => {
+    if (offsetAxis < 0 || windowAxis < offsetAxis + axisAdditionalLength) {
+      if (offsetAxis < 0) {
+        (document.querySelector("#gameContainer") as HTMLDivElement)[
+          scrollDirection
+        ] += offsetAxis;
+      } else {
+        (document.querySelector("#gameContainer") as HTMLDivElement)[
+          scrollDirection
+        ] += offsetAxis + axisAdditionalLength + 15 - windowAxis;
+      }
+    }
+  };
 
-  const draggedCard = `${item?.cardFront}_${item?.cardSuite}`;
-  const frontImage: string = cardFrontsImages[draggedCard];
+  if (currentOffset) {
+    scrollResolver(currentOffset.x, window.innerWidth, 115, "scrollLeft");
+    scrollResolver(currentOffset.y, window.innerHeight, 160, "scrollTop");
+  }
 
-  const cardFromPiles = cardsOnPiles[item?.pileNumber]?.map(
-    (card) => `${card[0]}_${card[1]}`
+  const draggedCard = useMemo(
+    () => `${item?.cardFront}_${item?.cardSuite}`,
+    [item?.cardFront, item?.cardSuite]
+  );
+
+  const frontImage = useMemo(
+    () => cardFrontsImages[draggedCard],
+    [draggedCard]
+  );
+
+  const cardFromPiles = useMemo(
+    () =>
+      cardsOnPiles[item?.pileNumber]?.map((card) => `${card[0]}_${card[1]}`),
+    [cardsOnPiles, item?.pileNumber]
   );
 
   const cardsToDragWhenOnPiles = cardFromPiles?.slice(
     cardFromPiles.indexOf(draggedCard)
   );
 
-  const cardsAttributes = cardsToDragWhenOnPiles?.map((card) =>
-    card.split("_")
+  const cardsAttributes = useMemo(
+    () => cardsToDragWhenOnPiles?.map((card) => card.split("_")),
+    [cardsToDragWhenOnPiles]
   );
 
   const draggedCardFromPileParent = (card: string[] | cardConfigType) =>
@@ -53,13 +85,14 @@ const CardDragLayerInternal: React.FC<
     )?.parentNode;
 
   isDragging &&
+    !outlineDragging &&
     cardsAttributes?.forEach((card) => {
       if (draggedCardFromPileParent(card)) {
         (draggedCardFromPileParent(card) as HTMLDivElement).style.opacity = "0";
       }
     });
 
-  if (!isDragging && pilesContainer.current) {
+  if (!isDragging && pilesContainer.current && !outlineDragging) {
     const cardsToBeShownAgainOnPile = Object.keys(cardsOnPiles)
       .map((pile) => cardsOnPiles[pile].filter((el) => el[2]))
       .reduce((a, b) => a.concat(b), []);
@@ -97,33 +130,75 @@ const CardDragLayerInternal: React.FC<
         position: "absolute",
       }}
       key={cardIndex}
-    ></div>
+    />
   );
+
+  const draggingCardOultine = (cardIndex = 0) => (
+    <div
+      style={{
+        width: "130px",
+        height: "175px",
+        borderTop: "2px dotted #3f3f3f",
+        top: `${27 * cardIndex}px`,
+        position: "absolute",
+      }}
+    />
+  );
+
+  const rednerOutlinedCards = () =>
+    cardsToDragWhenOnPiles ? (
+      <div
+        style={{
+          position: "relative",
+          borderBottom: "2px dotted #3f3f3f",
+          borderLeft: "2px dotted #3f3f3f",
+          borderRight: "2px dotted #3f3f3f",
+          height: `${(cardsToDragWhenOnPiles.length - 1) * 25 + 175}px`,
+          width: "135px",
+        }}
+      >
+        {cardsToDragWhenOnPiles?.map((card, index) =>
+          draggingCardOultine(index)
+        )}
+      </div>
+    ) : (
+      <div
+        style={{
+          width: "130px",
+          height: "175px",
+          border: "2px dotted #3f3f3f",
+          position: "absolute",
+        }}
+      />
+    );
+
+  const renderUsualDragLayer = () =>
+    cardsToDragWhenOnPiles ? (
+      <div
+        style={{
+          position: "relative",
+        }}
+      >
+        {cardsToDragWhenOnPiles?.map((card, index) => cardNode(card, index))}
+      </div>
+    ) : (
+      <div
+        style={{
+          width: "130px",
+          height: "175px",
+          border: "2px solid #000000",
+          borderRadius: "7px",
+          backgroundImage: `url(${frontImage})`,
+          backgroundColor: "white",
+          backgroundSize: "cover",
+        }}
+      />
+    );
 
   function renderItem() {
     switch (itemType) {
       case itemTypes.CARD:
-        return cardsToDragWhenOnPiles ? (
-          <div style={{ position: "relative" }}>
-            {cardsToDragWhenOnPiles?.map((card, index) =>
-              cardNode(card, index)
-            )}
-          </div>
-        ) : (
-          <>
-            <div
-              style={{
-                width: "130px",
-                height: "175px",
-                border: "2px solid #000000",
-                borderRadius: "7px",
-                backgroundImage: `url(${frontImage})`,
-                backgroundColor: "white",
-                backgroundSize: "cover",
-              }}
-            ></div>
-          </>
-        );
+        return outlineDragging ? rednerOutlinedCards() : renderUsualDragLayer();
       default:
         return null;
     }

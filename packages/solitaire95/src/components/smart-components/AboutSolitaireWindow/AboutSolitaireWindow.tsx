@@ -43,7 +43,7 @@ const AboutSolitaireInternal: React.FC<
       buttons={[{ text: "OK", onClick: okOnClick }]}
       visible={isWindowVisible as boolean}
       closeButtonAction={closeButtonActionCallback}
-      width={"528px"}
+      width={528}
     >
       <div className={styles.container}>
         <img src={appIco} className={styles.gameIcon} />

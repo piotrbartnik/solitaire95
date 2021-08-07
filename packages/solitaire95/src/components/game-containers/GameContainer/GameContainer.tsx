@@ -125,8 +125,8 @@ const GameContainerInternal: React.FC<
     : [];
 
   return (
-    <div className={styles.gameUIBorder}>
-      <div className={styles.gameContainer} id="gameContainer">
+    <div className={styles.gameUIBorder} id="gameContainer">
+      <div className={styles.gameContainer}>
         {gameFinished ? (
           <WaterfallCanvas
             canvasWidth={canvasWidth as number}

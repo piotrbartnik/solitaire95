@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { GameState } from "../../../store/reducers/";
 import { useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardBackImages } from "../../../static/cardBacks";
 import styles from "./Card.module.scss";
+
+type CardStateTypes = {
+  outlineDragging: boolean;
+};
 
 type CardPropTypes = {
   cardFront: string;
@@ -24,7 +30,9 @@ type CardPropTypes = {
   positionOnPile?: number;
 };
 
-export const Card: React.FC<CardPropTypes> = (props) => {
+export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
+  props
+) => {
   const {
     cardFront,
     cardBack,
@@ -37,6 +45,7 @@ export const Card: React.FC<CardPropTypes> = (props) => {
     cardOrder,
     onClick,
     positionOnPile,
+    outlineDragging,
   } = props;
 
   const canDragCard = !isTurnedBack;
@@ -71,7 +80,13 @@ export const Card: React.FC<CardPropTypes> = (props) => {
       onClick={onClick}
       onDoubleClick={!isTurnedBack ? onDoubleClick : undefined}
       ref={drag}
-      style={isDragging ? { opacity: "0" } : undefined}
+      style={
+        isDragging
+          ? outlineDragging
+            ? undefined
+            : { opacity: "0" }
+          : { opacity: "1" }
+      }
       data-front={!isTurnedBack}
       data-pilenumber={pileNumber}
       data-positiononpile={positionOnPile}
@@ -97,3 +112,13 @@ export const Card: React.FC<CardPropTypes> = (props) => {
     </div>
   );
 };
+
+const mapStateToProps = (state: { gameState: GameState }) => {
+  return {
+    outlineDragging: state.gameState.outlineDragging,
+  };
+};
+
+export const Card = connect<CardStateTypes, unknown, CardPropTypes>(
+  mapStateToProps
+)(CardInternal);
