@@ -75,8 +75,8 @@ const DealAgainInternal: React.FC<
         },
       ]}
       visible={isWindowVisible}
-      width={250}
-      height={150}
+      width={255}
+      height={155}
       positionOnWindow={[
         dealWindowPositionY / 2 - 75,
         dealWindowPositionX / 2 - 125,
