@@ -58,7 +58,8 @@ const WaterfallCanvasInternal: React.FC<
       ref={canvasRef}
       id="can"
       width={canvasWidth}
-      height={canvasHeight}
+      // -1 to properly show game container bottom border
+      height={canvasHeight - 1}
       style={{ imageRendering: "pixelated" }}
       onClick={() =>
         cancelCardAnimation(
