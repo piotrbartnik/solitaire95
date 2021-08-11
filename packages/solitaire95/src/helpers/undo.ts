@@ -25,6 +25,8 @@ export const undoActions: Middleware = (store) => (next) => (action) => {
         undoState[0] = "FROM_FOUNDATION_TO_PILES";
         undoState[2] = previousState.cardDistribution.cardsOnPiles;
         store.dispatch(setUndoAction(undoState));
+      } else if (undoState[0] === "ADD_CARD_TO_PILE") {
+        break;
       } else {
         actionToUndo = [
           action.type,
