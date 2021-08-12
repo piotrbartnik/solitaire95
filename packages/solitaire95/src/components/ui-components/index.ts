@@ -8,6 +8,7 @@ import { SettingsWindow } from "./SettingsWindow/SettingsWindow";
 import { Button } from "./Buttons/Button";
 import { CloseButton } from "./Buttons/CloseButton";
 import { Checkbox } from "./Checkbox/Checkbox";
+import { RadioBox } from "./RadioBox/RadioBox";
 
 export {
   TopBar,
@@ -20,4 +21,5 @@ export {
   Button,
   CloseButton,
   Checkbox,
+  RadioBox,
 };

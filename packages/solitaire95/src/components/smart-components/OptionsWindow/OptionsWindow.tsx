@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { toggleWindow, setOutlineDragging } from "../../../store/actions/";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
-import { Checkbox } from "../../ui-components/Checkbox/Checkbox";
+import { Checkbox, RadioBox } from "../../ui-components/";
 // import styles from "./OptionsWindow.module.scss";
 
 export type OptionsWindowStateTypes = {
@@ -46,6 +46,9 @@ const OptionsInternal: React.FC<
       closeButtonAction={closeButtonActionCallback}
       width={528}
     >
+      <RadioBox width={240} heigth={120} title="Scoring">
+        Test
+      </RadioBox>
       <Checkbox
         label="Outline dragging"
         id="outlineDragging"
