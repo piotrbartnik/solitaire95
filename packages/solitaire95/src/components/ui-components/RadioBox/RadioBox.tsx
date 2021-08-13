@@ -16,8 +16,10 @@ export const RadioBox: React.FC<RadioBoxPropTypes> = (props) => {
       className={styles.outerBox}
       style={{ width: `${width}px`, height: `${heigth}px` }}
     >
-      <span>{title}</span>
-      <div>{children}</div>
+      <span className={styles.title}>{title}</span>
+      <div className={styles.innerBox}>
+        <div>{children}</div>
+      </div>
     </div>
   );
 };
