@@ -47,7 +47,9 @@ const OptionsInternal: React.FC<
       width={528}
     >
       <RadioBox width={240} heigth={120} title="Scoring">
-        <Radiobutton id="radio1" label="Standard" />
+        <Radiobutton id="radio1" label="Standard" name="scoring" />
+        <Radiobutton id="radio2" label="Vegas" name="scoring" />
+        <Radiobutton id="radio3" label="None" name="scoring" />
       </RadioBox>
       <Checkbox
         label="Outline dragging"

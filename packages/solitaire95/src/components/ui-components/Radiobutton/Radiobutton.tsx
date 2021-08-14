@@ -4,14 +4,15 @@ import React from "react";
 type RadiobuttonPropTypes = {
   id: string;
   label: string;
+  name: string;
 };
 
 export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
-  const { id, label } = props;
+  const { id, label, name } = props;
 
   return (
     <>
-      <input type="radio" id={id} />
+      <input type="radio" id={id} name={name} />
       <label htmlFor={id}>{label}</label>
     </>
   );
