@@ -4,7 +4,7 @@ import { toggleWindow, setOutlineDragging } from "../../../store/actions/";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
 import { Checkbox, RadioBox, Radiobutton } from "../../ui-components/";
-// import styles from "./OptionsWindow.module.scss";
+import styles from "./OptionsWindow.module.scss";
 
 export type OptionsWindowStateTypes = {
   isWindowVisible?: boolean;
@@ -47,9 +47,11 @@ const OptionsInternal: React.FC<
       width={528}
     >
       <RadioBox width={240} heigth={120} title="Scoring">
-        <Radiobutton id="radio1" label="Standard" name="scoring" />
-        <Radiobutton id="radio2" label="Vegas" name="scoring" />
-        <Radiobutton id="radio3" label="None" name="scoring" />
+        <div className={styles.scoringRadio}>
+          <Radiobutton id="radio1" label="Standard" name="scoring" />
+          <Radiobutton id="radio2" label="Vegas" name="scoring" />
+          <Radiobutton id="radio3" label="None" name="scoring" />
+        </div>
       </RadioBox>
       <Checkbox
         label="Outline dragging"
