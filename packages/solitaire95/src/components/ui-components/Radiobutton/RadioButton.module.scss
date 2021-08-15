@@ -28,5 +28,15 @@ input[type="radio"] {
     border-left: 2px solid #000;
     border-radius: 100%;
     background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__circle {
+    width: 6px;
+    height: 6px;
+    background-color: #000;
+    border-radius: 100%;
   }
 }

@@ -26,6 +26,7 @@ const OptionsInternal: React.FC<
     outlineDragging,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
+  const [scoringType, setScoringType] = useState("Standard");
 
   const okOnClick = () => {
     toggleOptionsWindow(false, "optionsWindow");
@@ -48,9 +49,27 @@ const OptionsInternal: React.FC<
     >
       <RadioBox width={240} heigth={120} title="Scoring">
         <div className={styles.scoringRadio}>
-          <Radiobutton id="radio1" label="Standard" name="scoring" />
-          <Radiobutton id="radio2" label="Vegas" name="scoring" />
-          <Radiobutton id="radio3" label="None" name="scoring" />
+          <Radiobutton
+            id="radio1"
+            label="Standard"
+            name="scoring"
+            onClick={() => setScoringType("Standard")}
+            currentValue={scoringType}
+          />
+          <Radiobutton
+            id="radio2"
+            label="Vegas"
+            name="scoring"
+            onClick={() => setScoringType("Vegas")}
+            currentValue={scoringType}
+          />
+          <Radiobutton
+            id="radio3"
+            label="None"
+            name="scoring"
+            onClick={() => setScoringType("None")}
+            currentValue={scoringType}
+          />
         </div>
       </RadioBox>
       <Checkbox
