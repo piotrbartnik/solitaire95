@@ -36,6 +36,8 @@ const OptionsInternal: React.FC<
     [toggleOptionsWindow]
   );
 
+  const scoringRadioButtonsTypes = ["Standard", "Vegas", "None"];
+
   return (
     <SettingsWindow
       windowTitle={"Options"}
@@ -49,21 +51,14 @@ const OptionsInternal: React.FC<
     >
       <RadioBox width={240} heigth={120} title="Scoring">
         <div className={styles.scoringRadio}>
-          <Radiobutton
-            label="Standard"
-            onClick={() => setScoringType("Standard")}
-            currentValue={scoringType}
-          />
-          <Radiobutton
-            label="Vegas"
-            onClick={() => setScoringType("Vegas")}
-            currentValue={scoringType}
-          />
-          <Radiobutton
-            label="None"
-            onClick={() => setScoringType("None")}
-            currentValue={scoringType}
-          />
+          {scoringRadioButtonsTypes.map((radioType) => (
+            <Radiobutton
+              label={radioType}
+              onClick={() => setScoringType(radioType)}
+              currentValue={scoringType}
+              key={radioType}
+            />
+          ))}
         </div>
       </RadioBox>
       <Checkbox
