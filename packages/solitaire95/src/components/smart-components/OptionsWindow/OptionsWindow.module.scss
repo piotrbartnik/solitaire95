@@ -1,4 +1,10 @@
-.scoringRadio {
-  display: flex;
-  flex-direction: column;
+.radioWrapper {
+  &__outer {
+    display: flex;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+  }
 }

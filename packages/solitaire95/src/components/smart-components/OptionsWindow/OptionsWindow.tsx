@@ -27,6 +27,7 @@ const OptionsInternal: React.FC<
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
+  const [drawType, setDrawType] = useState("Draw one");
 
   const okOnClick = () => {
     toggleOptionsWindow(false, "optionsWindow");
@@ -36,6 +37,7 @@ const OptionsInternal: React.FC<
     [toggleOptionsWindow]
   );
 
+  const drawRadioButtonsTypes = ["Draw one", "Draw three"];
   const scoringRadioButtonsTypes = ["Standard", "Vegas", "None"];
 
   return (
@@ -49,18 +51,32 @@ const OptionsInternal: React.FC<
       closeButtonAction={closeButtonActionCallback}
       width={528}
     >
-      <RadioBox width={240} heigth={120} title="Scoring">
-        <div className={styles.scoringRadio}>
-          {scoringRadioButtonsTypes.map((radioType) => (
-            <Radiobutton
-              label={radioType}
-              onClick={() => setScoringType(radioType)}
-              currentValue={scoringType}
-              key={radioType}
-            />
-          ))}
-        </div>
-      </RadioBox>
+      <div className={styles.radioWrapper__outer}>
+        <RadioBox width={240} heigth={120} title="Draw">
+          <div className={styles.radioWrapper__inner}>
+            {drawRadioButtonsTypes.map((radioType) => (
+              <Radiobutton
+                label={radioType}
+                onClick={() => setDrawType(radioType)}
+                currentValue={drawType}
+                key={radioType}
+              />
+            ))}
+          </div>
+        </RadioBox>
+        <RadioBox width={240} heigth={120} title="Scoring">
+          <div className={styles.radioWrapper__inner}>
+            {scoringRadioButtonsTypes.map((radioType) => (
+              <Radiobutton
+                label={radioType}
+                onClick={() => setScoringType(radioType)}
+                currentValue={scoringType}
+                key={radioType}
+              />
+            ))}
+          </div>
+        </RadioBox>
+      </div>
       <Checkbox
         label="Outline dragging"
         id="outlineDragging"
