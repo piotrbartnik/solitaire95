@@ -1,11 +1,9 @@
 .radioWrapper {
-  padding-bottom: 10px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-}
-
-input[type="radio"] {
-  display: none;
+  cursor: default;
+  width: min-content;
 }
 
 .customRadio {

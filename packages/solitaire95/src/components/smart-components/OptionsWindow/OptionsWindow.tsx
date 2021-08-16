@@ -52,21 +52,18 @@ const OptionsInternal: React.FC<
           <Radiobutton
             id="radio1"
             label="Standard"
-            name="scoring"
             onClick={() => setScoringType("Standard")}
             currentValue={scoringType}
           />
           <Radiobutton
             id="radio2"
             label="Vegas"
-            name="scoring"
             onClick={() => setScoringType("Vegas")}
             currentValue={scoringType}
           />
           <Radiobutton
             id="radio3"
             label="None"
-            name="scoring"
             onClick={() => setScoringType("None")}
             currentValue={scoringType}
           />

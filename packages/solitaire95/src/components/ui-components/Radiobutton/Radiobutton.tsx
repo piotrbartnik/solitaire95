@@ -4,13 +4,12 @@ import styles from "./RadioButton.module.scss";
 type RadiobuttonPropTypes = {
   id: string;
   label: string;
-  name: string;
   onClick: () => void;
   currentValue: string;
 };
 
 export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
-  const { id, label, name, onClick, currentValue } = props;
+  const { id, label, onClick, currentValue } = props;
 
   const [isChecked, setIsChecked] = useState(currentValue === label);
 
@@ -19,7 +18,7 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
   }, [currentValue, label]);
 
   return (
-    <div className={styles.radioWrapper} onClick={onClick}>
+    <div className={styles.radioWrapper} onClick={onClick} id={id} role="radio">
       <div className={styles.customRadio__outer}>
         <div className={styles.customRadio__inner}>
           <div
@@ -28,8 +27,7 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
           />
         </div>
       </div>
-      <input type="radio" id={id} name={name} defaultChecked={isChecked} />
-      <label htmlFor={id}>{label}</label>
+      <span>{label}</span>
     </div>
   );
 };
