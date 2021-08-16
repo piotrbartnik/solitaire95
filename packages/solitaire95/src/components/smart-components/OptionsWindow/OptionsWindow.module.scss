@@ -1,6 +1,8 @@
 .radioWrapper {
   &__outer {
     display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
   }
 
   &__inner {
