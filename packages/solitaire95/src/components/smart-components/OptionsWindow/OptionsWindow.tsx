@@ -50,6 +50,7 @@ const OptionsInternal: React.FC<
       visible={isWindowVisible as boolean}
       closeButtonAction={closeButtonActionCallback}
       width={528}
+      height={330}
     >
       <div className={styles.radioWrapper__outer}>
         <RadioBox width={240} heigth={120} title="Draw">
