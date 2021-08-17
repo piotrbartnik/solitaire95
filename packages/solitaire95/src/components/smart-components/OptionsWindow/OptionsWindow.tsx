@@ -84,7 +84,7 @@ const OptionsInternal: React.FC<
           id="timedGame"
           checked={false}
           onClick={() => {
-            console.log("statusBar");
+            console.log("timedGame");
           }}
         />
         <Checkbox
@@ -111,6 +111,7 @@ const OptionsInternal: React.FC<
           onClick={() => {
             console.log("keepScore");
           }}
+          disabled
         />
       </div>
     </SettingsWindow>
