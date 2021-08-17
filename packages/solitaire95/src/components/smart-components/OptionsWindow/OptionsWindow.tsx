@@ -77,15 +77,41 @@ const OptionsInternal: React.FC<
           </div>
         </RadioBox>
       </div>
-      <Checkbox
-        label="Outline dragging"
-        id="outlineDragging"
-        checked={isDragOutline}
-        onClick={() => {
-          setDragOutline(!isDragOutline);
-          setOutlineDragging(!isDragOutline);
-        }}
-      />
+      <div className={styles.checkboxWrapper}>
+        <Checkbox
+          label="Timed game"
+          id="timedGame"
+          checked={false}
+          onClick={() => {
+            console.log("statusBar");
+          }}
+        />
+        <Checkbox
+          label="Outline dragging"
+          id="outlineDragging"
+          checked={isDragOutline}
+          onClick={() => {
+            setDragOutline(!isDragOutline);
+            setOutlineDragging(!isDragOutline);
+          }}
+        />
+        <Checkbox
+          label="Status bar"
+          id="statusBar"
+          checked={false}
+          onClick={() => {
+            console.log("statusBar");
+          }}
+        />
+        <Checkbox
+          label="Keep score"
+          id="keepScore"
+          checked={false}
+          onClick={() => {
+            console.log("keepScore");
+          }}
+        />
+      </div>
     </SettingsWindow>
   );
 };
