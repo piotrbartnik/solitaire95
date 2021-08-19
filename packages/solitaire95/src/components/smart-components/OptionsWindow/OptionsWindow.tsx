@@ -9,6 +9,7 @@ import styles from "./OptionsWindow.module.scss";
 export type OptionsWindowStateTypes = {
   isWindowVisible?: boolean;
   outlineDragging: boolean;
+  bottomBarVisible: boolean;
 };
 
 export type OptionsWindowDispatchTypes = {
@@ -24,6 +25,7 @@ const OptionsInternal: React.FC<
     toggleOptionsWindow,
     setOutlineDragging,
     outlineDragging,
+    bottomBarVisible,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
@@ -99,7 +101,7 @@ const OptionsInternal: React.FC<
         <Checkbox
           label="Status bar"
           id="statusBar"
-          checked={false}
+          checked={bottomBarVisible}
           onClick={() => {
             console.log("statusBar");
           }}
@@ -125,6 +127,7 @@ const mapStateToProps = (state: {
   return {
     isWindowVisible: state.toggleWindows.optionsWindow,
     outlineDragging: state.gameState.outlineDragging,
+    bottomBarVisible: state.gameState.bottomBarVisible,
   };
 };
 
