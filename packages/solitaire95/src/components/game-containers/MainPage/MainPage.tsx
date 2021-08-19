@@ -172,7 +172,11 @@ const MainPageInternal: React.FC<
             canvasHeight={canvasSize[1]}
             canvasWidth={canvasSize[0]}
           />
-          <BottomBar text={bottomBarText} score={score} />
+          <BottomBar
+            text={bottomBarText}
+            score={score}
+            bottomBarVisible={true}
+          />
         </CardBackContext.Provider>
       </div>
     </DndProvider>
