@@ -58,3 +58,15 @@ export const setOutlineDragging = (
     outlineDragging,
   };
 };
+
+export const toggleBottomBar = (
+  bottomBarVisible: boolean
+): {
+  type: string;
+  bottomBarVisible: boolean;
+} => {
+  return {
+    type: actionTypes.TOGGLE_BOTTOMBAR,
+    bottomBarVisible,
+  };
+};
