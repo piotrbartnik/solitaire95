@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { connect } from "react-redux";
-import { toggleWindow, setOutlineDragging } from "../../../store/actions/";
+import {
+  toggleWindow,
+  setOutlineDragging,
+  toggleBottomBar,
+} from "../../../store/actions/";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
 import { Checkbox, RadioBox, Radiobutton } from "../../ui-components/";
@@ -15,6 +19,7 @@ export type OptionsWindowStateTypes = {
 export type OptionsWindowDispatchTypes = {
   toggleOptionsWindow: (windowState: boolean, windowToToggle: string) => void;
   setOutlineDragging: (outlineDragging: boolean) => void;
+  toggleBottomBar: (bottomBarVisible: boolean) => void;
 };
 
 const OptionsInternal: React.FC<
@@ -26,6 +31,7 @@ const OptionsInternal: React.FC<
     setOutlineDragging,
     outlineDragging,
     bottomBarVisible,
+    toggleBottomBar,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
@@ -103,7 +109,7 @@ const OptionsInternal: React.FC<
           id="statusBar"
           checked={bottomBarVisible}
           onClick={() => {
-            console.log("statusBar");
+            toggleBottomBar(!bottomBarVisible);
           }}
         />
         <Checkbox
@@ -138,6 +144,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(toggleWindow(windowState, windowToToggle)),
     setOutlineDragging: (isOutlined: boolean) =>
       dispatch(setOutlineDragging(isOutlined)),
+    toggleBottomBar: (bottomBarVisible: boolean) =>
+      dispatch(toggleBottomBar(bottomBarVisible)),
   };
 };
 
