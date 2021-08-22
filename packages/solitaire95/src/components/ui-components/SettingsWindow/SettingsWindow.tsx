@@ -161,6 +161,8 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           left: `${windowPosition[1]}px`,
           maxWidth: `${maxWindowWidth}px`,
         }}
+        role="dialog"
+        aria-label={windowTitle}
       >
         <TopBar title={windowTitle} dragRef={drag}>
           <CloseButton onClick={closeButtonAction} />

@@ -14,6 +14,6 @@ describe("render MainPage for Options window testing", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openOptionsWindow();
 
-    expect(screen.getByText("Options")).toBeVisible();
+    expect(screen.getByRole("dialog", { name: "Options" })).toBeVisible();
   });
 });
