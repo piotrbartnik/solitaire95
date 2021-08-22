@@ -38,7 +38,7 @@ const initialState = {
       cards: spades,
     },
   },
-  gameState: { gameStarted: true },
+  gameState: { gameStarted: true, bottomBarVisible: true },
   timeCounter: { scoreTime: 500 },
 };
 
