@@ -14,7 +14,9 @@ describe("render MainPage for DeckSelect window testing", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 
-    expect(screen.getByText("Select Card Back")).toBeVisible();
+    expect(
+      screen.getByRole("dialog", { name: "Select Card Back" })
+    ).toBeVisible();
   });
   it("when dropdown Game -> Deck clicked Select Card Back window is visible and on Cancel click it is closed", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
