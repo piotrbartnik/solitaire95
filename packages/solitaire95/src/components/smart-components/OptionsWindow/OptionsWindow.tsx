@@ -4,6 +4,7 @@ import {
   toggleWindow,
   setOutlineDragging,
   toggleBottomBar,
+  toggleTimer,
 } from "../../../store/actions/";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
@@ -14,12 +15,14 @@ export type OptionsWindowStateTypes = {
   isWindowVisible?: boolean;
   outlineDragging: boolean;
   bottomBarVisible: boolean;
+  timerVisible: boolean;
 };
 
 export type OptionsWindowDispatchTypes = {
   toggleOptionsWindow: (windowState: boolean, windowToToggle: string) => void;
   setOutlineDragging: (outlineDragging: boolean) => void;
   toggleBottomBar: (bottomBarVisible: boolean) => void;
+  toggleTimer: (timerVisible: boolean) => void;
 };
 
 const OptionsInternal: React.FC<
@@ -32,6 +35,8 @@ const OptionsInternal: React.FC<
     outlineDragging,
     bottomBarVisible,
     toggleBottomBar,
+    timerVisible,
+    toggleTimer,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
@@ -92,7 +97,7 @@ const OptionsInternal: React.FC<
           id="timedGame"
           checked={false}
           onClick={() => {
-            console.log("timedGame");
+            toggleTimer(!timerVisible);
           }}
         />
         <Checkbox
@@ -134,6 +139,7 @@ const mapStateToProps = (state: {
     isWindowVisible: state.toggleWindows.optionsWindow,
     outlineDragging: state.gameState.outlineDragging,
     bottomBarVisible: state.gameState.bottomBarVisible,
+    timerVisible: state.gameState.timerVisible,
   };
 };
 
@@ -146,6 +152,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(setOutlineDragging(isOutlined)),
     toggleBottomBar: (bottomBarVisible: boolean) =>
       dispatch(toggleBottomBar(bottomBarVisible)),
+    toggleTimer: (timerVisible: boolean) => dispatch(toggleTimer(timerVisible)),
   };
 };
 

@@ -52,6 +52,7 @@ type MainPageStateTypes = {
   cardsOnFoundations: FoundationInitialState;
   scoreTime: number;
   bottomBarVisible: boolean;
+  timerVisible: boolean;
 };
 
 type MainPagePropTypes = {
@@ -73,6 +74,7 @@ const MainPageInternal: React.FC<
     setGameFinished,
     scoreTime,
     bottomBarVisible,
+    timerVisible,
   } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -179,6 +181,7 @@ const MainPageInternal: React.FC<
             text={bottomBarText}
             score={score}
             bottomBarVisible={bottomBarVisible}
+            timerVisible={timerVisible}
           />
         </CardBackContext.Provider>
       </div>
@@ -210,6 +213,7 @@ const mapStateToProps = (state: {
     cardsOnFoundations: state.cardsOnFoundation,
     scoreTime: state.timeCounter.scoreTime,
     bottomBarVisible: state.gameState.bottomBarVisible,
+    timerVisible: state.gameState.timerVisible,
   };
 };
 
