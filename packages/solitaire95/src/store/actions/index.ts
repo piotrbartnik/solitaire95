@@ -26,6 +26,7 @@ export {
   UndoActionType,
   setOutlineDragging,
   toggleBottomBar,
+  toggleTimer,
 } from "./gameActions";
 export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";
 export { toggleWindow } from "./windowActions";

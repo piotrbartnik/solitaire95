@@ -70,3 +70,15 @@ export const toggleBottomBar = (
     bottomBarVisible,
   };
 };
+
+export const toggleTimer = (
+  timerVisible: boolean
+): {
+  type: string;
+  timerVisible: boolean;
+} => {
+  return {
+    type: actionTypes.TOGGLE_TIMER,
+    timerVisible,
+  };
+};
