@@ -41,9 +41,12 @@ const OptionsInternal: React.FC<
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
   const [drawType, setDrawType] = useState("Draw one");
+  const [bottomBarVisibleState, setBottomBarVisibleState] =
+    useState(bottomBarVisible);
 
   const okOnClick = () => {
     toggleOptionsWindow(false, "optionsWindow");
+    toggleBottomBar(bottomBarVisibleState);
   };
   const closeButtonActionCallback = useCallback(
     () => toggleOptionsWindow(false, "optionsWindow"),
@@ -114,7 +117,7 @@ const OptionsInternal: React.FC<
           id="statusBar"
           checked={bottomBarVisible}
           onClick={() => {
-            toggleBottomBar(!bottomBarVisible);
+            setBottomBarVisibleState(!bottomBarVisible);
           }}
         />
         <Checkbox
