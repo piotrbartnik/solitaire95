@@ -16,4 +16,28 @@ describe("render MainPage for Options window testing", () => {
 
     expect(screen.getByRole("dialog", { name: "Options" })).toBeVisible();
   });
+  it("when hide bottom bar checkbox is toggled bottom bar is turned on/off", () => {
+    reduxRtlWrapper(dndWrapper(<MainPage />));
+    openOptionsWindow();
+
+    expect(screen.getByText("Score: 0")).toBeVisible();
+    expect(screen.getByText("Time: 0")).toBeVisible();
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Status bar" }));
+
+    expect(screen.queryByText("Score: 0")).toBeNull();
+    expect(screen.queryByText("Time: 0")).toBeNull();
+  });
+  it("when timed checkbox is clicked timer is turned off", () => {
+    reduxRtlWrapper(dndWrapper(<MainPage />));
+    openOptionsWindow();
+
+    expect(screen.getByText("Score: 0")).toBeVisible();
+    expect(screen.getByText("Time: 0")).toBeVisible();
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Timed game" }));
+
+    expect(screen.getByText("Score: 0")).toBeVisible();
+    expect(screen.queryByText("Time: 0")).toBeNull();
+  });
 });
