@@ -44,14 +44,19 @@ const OptionsInternal: React.FC<
   const [bottomBarVisibleState, setBottomBarVisibleState] =
     useState(bottomBarVisible);
 
-  const okOnClick = () => {
+  const onOkClick = useCallback(() => {
     toggleOptionsWindow(false, "optionsWindow");
     toggleBottomBar(bottomBarVisibleState);
-  };
-  const closeButtonActionCallback = useCallback(
+  }, [bottomBarVisibleState, toggleBottomBar, toggleOptionsWindow]);
+
+  const closeButtonAction = useCallback(
     () => toggleOptionsWindow(false, "optionsWindow"),
     [toggleOptionsWindow]
   );
+
+  const cancelButtonAction = useCallback(() => {
+    toggleOptionsWindow(false, "optionsWindow");
+  }, [toggleOptionsWindow]);
 
   const drawRadioButtonsTypes = ["Draw one", "Draw three"];
   const scoringRadioButtonsTypes = ["Standard", "Vegas", "None"];
@@ -60,11 +65,11 @@ const OptionsInternal: React.FC<
     <SettingsWindow
       windowTitle={"Options"}
       buttons={[
-        { text: "OK", onClick: okOnClick },
-        { text: "Cancel", onClick: okOnClick },
+        { text: "OK", onClick: onOkClick },
+        { text: "Cancel", onClick: cancelButtonAction },
       ]}
       visible={isWindowVisible as boolean}
-      closeButtonAction={closeButtonActionCallback}
+      closeButtonAction={closeButtonAction}
       width={528}
       height={330}
     >
