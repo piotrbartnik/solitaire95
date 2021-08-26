@@ -5,6 +5,7 @@ import {
   setOutlineDragging,
   toggleBottomBar,
   toggleTimer,
+  dealCards,
 } from "../../../store/actions/";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
@@ -23,6 +24,7 @@ export type OptionsWindowDispatchTypes = {
   setOutlineDragging: (outlineDragging: boolean) => void;
   toggleBottomBar: (bottomBarVisible: boolean) => void;
   toggleTimer: (timerVisible: boolean) => void;
+  dealCards: () => void;
 };
 
 const OptionsInternal: React.FC<
@@ -37,17 +39,31 @@ const OptionsInternal: React.FC<
     toggleBottomBar,
     timerVisible,
     toggleTimer,
+    dealCards,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
   const [drawType, setDrawType] = useState("Draw one");
   const [bottomBarVisibleState, setBottomBarVisibleState] =
     useState(bottomBarVisible);
+  const [timerVisibleState, setTimerVisibleSrate] = useState(timerVisible);
 
   const onOkClick = useCallback(() => {
     toggleOptionsWindow(false, "optionsWindow");
     toggleBottomBar(bottomBarVisibleState);
-  }, [bottomBarVisibleState, toggleBottomBar, toggleOptionsWindow]);
+    if (timerVisibleState !== timerVisible) {
+      toggleTimer(timerVisibleState);
+      dealCards();
+    }
+  }, [
+    bottomBarVisibleState,
+    dealCards,
+    timerVisible,
+    timerVisibleState,
+    toggleBottomBar,
+    toggleOptionsWindow,
+    toggleTimer,
+  ]);
 
   const closeButtonAction = useCallback(
     () => toggleOptionsWindow(false, "optionsWindow"),
@@ -103,9 +119,9 @@ const OptionsInternal: React.FC<
         <Checkbox
           label="Timed game"
           id="timedGame"
-          checked={false}
+          checked={timerVisible}
           onClick={() => {
-            toggleTimer(!timerVisible);
+            setTimerVisibleSrate(!timerVisible);
           }}
         />
         <Checkbox
@@ -154,6 +170,7 @@ const mapStateToProps = (state: {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
+    dealCards: () => dispatch(dealCards()),
     toggleOptionsWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
     setOutlineDragging: (isOutlined: boolean) =>
