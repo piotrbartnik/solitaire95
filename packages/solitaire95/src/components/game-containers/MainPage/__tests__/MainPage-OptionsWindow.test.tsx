@@ -29,6 +29,19 @@ describe("render MainPage for Options window testing", () => {
     expect(screen.queryByText("Score: 0")).toBeNull();
     expect(screen.queryByText("Time: 0")).toBeNull();
   });
+  it("when hide bottom bar checkbox is toggled and cancel is clicked  bottom bar is not turned off", () => {
+    reduxRtlWrapper(dndWrapper(<MainPage />));
+    openOptionsWindow();
+
+    expect(screen.getByText("Score: 0")).toBeVisible();
+    expect(screen.getByText("Time: 0")).toBeVisible();
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Status bar" }));
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+
+    expect(screen.getByText("Score: 0")).toBeVisible();
+    expect(screen.getByText("Time: 0")).toBeVisible();
+  });
   it("when timed checkbox is clicked timer is turned off", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openOptionsWindow();
@@ -41,5 +54,18 @@ describe("render MainPage for Options window testing", () => {
 
     expect(screen.getByText("Score: 0")).toBeVisible();
     expect(screen.queryByText("Time: 0")).toBeNull();
+  });
+  it("when timed checkbox and cancel is clicked timer is not turned off", () => {
+    reduxRtlWrapper(dndWrapper(<MainPage />));
+    openOptionsWindow();
+
+    expect(screen.getByText("Score: 0")).toBeVisible();
+    expect(screen.getByText("Time: 0")).toBeVisible();
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Timed game" }));
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+
+    expect(screen.getByText("Score: 0")).toBeVisible();
+    expect(screen.getByText("Time: 0")).toBeVisible();
   });
 });
