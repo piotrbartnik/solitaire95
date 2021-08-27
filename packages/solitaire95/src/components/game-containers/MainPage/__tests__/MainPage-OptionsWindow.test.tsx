@@ -24,6 +24,7 @@ describe("render MainPage for Options window testing", () => {
     expect(screen.getByText("Time: 0")).toBeVisible();
 
     fireEvent.click(screen.getByRole("checkbox", { name: "Status bar" }));
+    fireEvent.click(screen.getByRole("button", { name: "OK" }));
 
     expect(screen.queryByText("Score: 0")).toBeNull();
     expect(screen.queryByText("Time: 0")).toBeNull();
@@ -36,6 +37,7 @@ describe("render MainPage for Options window testing", () => {
     expect(screen.getByText("Time: 0")).toBeVisible();
 
     fireEvent.click(screen.getByRole("checkbox", { name: "Timed game" }));
+    fireEvent.click(screen.getByRole("button", { name: "OK" }));
 
     expect(screen.getByText("Score: 0")).toBeVisible();
     expect(screen.queryByText("Time: 0")).toBeNull();
