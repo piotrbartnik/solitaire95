@@ -68,4 +68,25 @@ describe("render MainPage for Options window testing", () => {
     expect(screen.getByText("Score: 0")).toBeVisible();
     expect(screen.getByText("Time: 0")).toBeVisible();
   });
+  it("when time turned off cards are dealt again", () => {
+    const initialState = {
+      cardDistribution: {
+        cardsOnStock: [["ace", "clubs", undefined, "black", 1]],
+        cardsFromStock: [],
+        cardsOnPiles: {},
+      },
+    };
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      initialState
+    );
+    openOptionsWindow();
+
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Timed game" }));
+    fireEvent.click(screen.getByRole("button", { name: "OK" }));
+
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(7);
+  });
 });
