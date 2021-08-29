@@ -1,5 +1,6 @@
 .checkbox {
-  margin: 20px;
+  margin: 10px 0;
+  width: 235px;
 }
 
 input[type="checkbox"] {
@@ -26,6 +27,9 @@ input[type="checkbox"]:after {
   border-left: 2px solid #000;
   padding-left: 6px;
   z-index: 10;
+}
+input[type="checkbox"].disabled:after {
+  background-color: #c0c0c0;
 }
 
 .doubleBorder {
@@ -61,4 +65,9 @@ input[type="checkbox"]:after {
   &:active {
     border: 1px dotted #000;
   }
+}
+
+.disabled {
+  // background-color: #808080;
+  color: #808080;
 }

@@ -1,0 +1,39 @@
+.radioWrapper {
+  display: flex;
+  align-items: center;
+  cursor: default;
+  width: fit-content;
+}
+
+.customRadio {
+  &__outer {
+    width: 20px;
+    height: 20px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-top: 2px solid #868a8e;
+    border-left: 2px solid #868a8e;
+    border-radius: 100%;
+    margin-right: 5px;
+  }
+  &__inner {
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid #c3c7cb;
+    border-right: 2px solid #c3c7cb;
+    border-top: 2px solid #000;
+    border-left: 2px solid #000;
+    border-radius: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__circle {
+    width: 6px;
+    height: 6px;
+    background-color: #000;
+    border-radius: 100%;
+  }
+}

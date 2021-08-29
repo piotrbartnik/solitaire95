@@ -10,22 +10,22 @@ describe("render BottomBar", () => {
   });
 
   it("and check if bottom bar text is rendered", () => {
-    reduxRtlWrapper(dndWrapper(<BottomBar text={"Test"} />));
+    reduxRtlWrapper(dndWrapper(<BottomBar text={"Test"} bottomBarVisible />));
     expect(screen.getByText("Test")).toBeVisible();
   });
 
   it("and check if score is rendered", () => {
-    reduxRtlWrapper(dndWrapper(<BottomBar />));
+    reduxRtlWrapper(dndWrapper(<BottomBar bottomBarVisible />));
     expect(screen.getByText("Score:")).toBeVisible();
   });
 
   it("and if score is passed it is rendered", () => {
-    reduxRtlWrapper(dndWrapper(<BottomBar score={11} />));
+    reduxRtlWrapper(dndWrapper(<BottomBar score={11} bottomBarVisible />));
     expect(screen.getByText("Score: 11")).toBeVisible();
   });
 
   it("and check if time is rendered", () => {
-    reduxRtlWrapper(dndWrapper(<BottomBar />));
+    reduxRtlWrapper(dndWrapper(<BottomBar bottomBarVisible timerVisible />));
     expect(screen.getByText("Time: 0")).toBeVisible();
   });
 });

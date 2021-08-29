@@ -5,6 +5,8 @@ export interface GameState {
   gameFinished: boolean;
   actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
   outlineDragging: boolean;
+  bottomBarVisible: boolean;
+  timerVisible: boolean;
 }
 
 interface GameStateActionTypes {
@@ -12,6 +14,8 @@ interface GameStateActionTypes {
   gameFinished: boolean;
   actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
   outlineDragging: boolean;
+  bottomBarVisible: boolean;
+  timerVisible: boolean;
 }
 
 const initialState: GameState = {
@@ -19,6 +23,8 @@ const initialState: GameState = {
   gameFinished: false,
   actionToUndo: [],
   outlineDragging: false,
+  bottomBarVisible: true,
+  timerVisible: true,
 };
 
 export const gameState = (
@@ -36,6 +42,10 @@ export const gameState = (
       return { ...state, actionToUndo: action.actionToUndo };
     case "OUTLINE_DRAGGING":
       return { ...state, outlineDragging: action.outlineDragging };
+    case "TOGGLE_BOTTOMBAR":
+      return { ...state, bottomBarVisible: action.bottomBarVisible };
+    case "TOGGLE_TIMER":
+      return { ...state, timerVisible: action.timerVisible };
     default:
       return state;
   }

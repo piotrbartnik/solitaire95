@@ -21,7 +21,7 @@ export const SettingsWindowDragLayer: React.FC<SettingsWindowDragLayerPropTypes>
     const layerStyles: CSS.Properties = {
       position: "fixed",
       pointerEvents: "none",
-      zIndex: 1,
+      zIndex: 99999,
       top: 0,
       left: 0,
       width: "100%",

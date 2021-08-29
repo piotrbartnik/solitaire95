@@ -58,3 +58,27 @@ export const setOutlineDragging = (
     outlineDragging,
   };
 };
+
+export const toggleBottomBar = (
+  bottomBarVisible: boolean
+): {
+  type: string;
+  bottomBarVisible: boolean;
+} => {
+  return {
+    type: actionTypes.TOGGLE_BOTTOMBAR,
+    bottomBarVisible,
+  };
+};
+
+export const toggleTimer = (
+  timerVisible: boolean
+): {
+  type: string;
+  timerVisible: boolean;
+} => {
+  return {
+    type: actionTypes.TOGGLE_TIMER,
+    timerVisible,
+  };
+};

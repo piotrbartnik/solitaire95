@@ -20,6 +20,7 @@ import {
   Points,
   FoundationInitialState,
   FoundationState,
+  GameState,
 } from "../../../store/reducers/";
 import { TopBar, BottomBar } from "../../ui-components";
 import {
@@ -50,6 +51,8 @@ type MainPageStateTypes = {
   score?: number;
   cardsOnFoundations: FoundationInitialState;
   scoreTime: number;
+  bottomBarVisible: boolean;
+  timerVisible: boolean;
 };
 
 type MainPagePropTypes = {
@@ -70,6 +73,8 @@ const MainPageInternal: React.FC<
     addPointsOnEnd,
     setGameFinished,
     scoreTime,
+    bottomBarVisible,
+    timerVisible,
   } = props;
   const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
@@ -172,7 +177,12 @@ const MainPageInternal: React.FC<
             canvasHeight={canvasSize[1]}
             canvasWidth={canvasSize[0]}
           />
-          <BottomBar text={bottomBarText} score={score} />
+          <BottomBar
+            text={bottomBarText}
+            score={score}
+            bottomBarVisible={bottomBarVisible}
+            timerVisible={timerVisible}
+          />
         </CardBackContext.Provider>
       </div>
     </DndProvider>
@@ -195,12 +205,15 @@ const mapStateToProps = (state: {
   countScore: Points;
   cardsOnFoundation: FoundationInitialState;
   timeCounter: { scoreTime: number };
+  gameState: GameState;
 }) => {
   return {
     isWindowVisible: state.toggleWindows,
     score: state.countScore.points,
     cardsOnFoundations: state.cardsOnFoundation,
     scoreTime: state.timeCounter.scoreTime,
+    bottomBarVisible: state.gameState.bottomBarVisible,
+    timerVisible: state.gameState.timerVisible,
   };
 };
 
