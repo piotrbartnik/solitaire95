@@ -25,7 +25,7 @@ describe("render BottomBar", () => {
   });
 
   it("and check if time is rendered", () => {
-    reduxRtlWrapper(dndWrapper(<BottomBar bottomBarVisible />));
+    reduxRtlWrapper(dndWrapper(<BottomBar bottomBarVisible timerVisible />));
     expect(screen.getByText("Time: 0")).toBeVisible();
   });
 });
