@@ -26,6 +26,7 @@ export const FINISH_GAME = "FINISH_GAME";
 export const OUTLINE_DRAGGING = "OUTLINE_DRAGGING";
 export const TOGGLE_BOTTOMBAR = "TOGGLE_BOTTOMBAR";
 export const TOGGLE_TIMER = "TOGGLE_TIMER";
+export const TOGGLE_DRAW_TYPE = "TOGGLE_DRAW_TYPE";
 // time actions
 export const SAVE_INITIAL_TIME = "SAVE_INITIAL_TIME";
 export const RESET_TIME = "RESET_TIME";

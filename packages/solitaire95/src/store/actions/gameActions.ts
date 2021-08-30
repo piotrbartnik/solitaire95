@@ -82,3 +82,12 @@ export const toggleTimer = (
     timerVisible,
   };
 };
+
+export const toggledrawType = (
+  drawType: string
+): { type: string; drawType: string } => {
+  return {
+    type: actionTypes.TOGGLE_DRAW_TYPE,
+    drawType,
+  };
+};
