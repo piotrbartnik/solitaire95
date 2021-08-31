@@ -6,6 +6,7 @@ import {
   toggleBottomBar,
   toggleTimer,
   dealCards,
+  toggledrawType,
 } from "../../../store/actions/";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
@@ -17,6 +18,7 @@ export type OptionsWindowStateTypes = {
   outlineDragging: boolean;
   bottomBarVisible: boolean;
   timerVisible: boolean;
+  drawType: string;
 };
 
 export type OptionsWindowDispatchTypes = {
@@ -25,6 +27,7 @@ export type OptionsWindowDispatchTypes = {
   toggleBottomBar: (bottomBarVisible: boolean) => void;
   toggleTimer: (timerVisible: boolean) => void;
   dealCards: () => void;
+  toggledrawType: (drawType: string) => void;
 };
 
 const OptionsInternal: React.FC<
@@ -40,10 +43,11 @@ const OptionsInternal: React.FC<
     timerVisible,
     toggleTimer,
     dealCards,
+    toggledrawType,
+    drawType,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
-  const [drawType, setDrawType] = useState("drawOne");
   const [bottomBarVisibleState, setBottomBarVisibleState] =
     useState(bottomBarVisible);
   const [timerVisibleState, setTimerVisibleSrate] = useState(timerVisible);
@@ -98,9 +102,9 @@ const OptionsInternal: React.FC<
             {Object.values(drawRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
                 label={radioType}
-                onClick={() =>
-                  setDrawType(Object.keys(drawRadioButtonsTypes)[index])
-                }
+                onClick={() => {
+                  toggledrawType(Object.keys(drawRadioButtonsTypes)[index]);
+                }}
                 currentValue={drawRadioButtonsTypes[drawType]}
                 key={radioType}
               />
@@ -169,6 +173,7 @@ const mapStateToProps = (state: {
     outlineDragging: state.gameState.outlineDragging,
     bottomBarVisible: state.gameState.bottomBarVisible,
     timerVisible: state.gameState.timerVisible,
+    drawType: state.gameState.drawType,
   };
 };
 
@@ -183,6 +188,7 @@ const mapDispatchToProps = (dispatch: any) => {
     toggleBottomBar: (bottomBarVisible: boolean) =>
       dispatch(toggleBottomBar(bottomBarVisible)),
     toggleTimer: (timerVisible: boolean) => dispatch(toggleTimer(timerVisible)),
+    toggledrawType: (drawType: string) => dispatch(toggledrawType(drawType)),
   };
 };
 
