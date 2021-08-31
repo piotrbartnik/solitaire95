@@ -43,7 +43,7 @@ const OptionsInternal: React.FC<
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
-  const [drawType, setDrawType] = useState("Draw one");
+  const [drawType, setDrawType] = useState("drawOne");
   const [bottomBarVisibleState, setBottomBarVisibleState] =
     useState(bottomBarVisible);
   const [timerVisibleState, setTimerVisibleSrate] = useState(timerVisible);
@@ -74,7 +74,10 @@ const OptionsInternal: React.FC<
     toggleOptionsWindow(false, "optionsWindow");
   }, [toggleOptionsWindow]);
 
-  const drawRadioButtonsTypes = ["Draw one", "Draw three"];
+  const drawRadioButtonsTypes = {
+    drawOne: "Draw one",
+    drawThree: "Draw three",
+  };
   const scoringRadioButtonsTypes = ["Standard", "Vegas", "None"];
 
   return (
@@ -92,11 +95,13 @@ const OptionsInternal: React.FC<
       <div className={styles.radioWrapper__outer}>
         <RadioBox width={240} heigth={120} title="Draw">
           <div className={styles.radioWrapper__inner}>
-            {drawRadioButtonsTypes.map((radioType) => (
+            {Object.values(drawRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
                 label={radioType}
-                onClick={() => setDrawType(radioType)}
-                currentValue={drawType}
+                onClick={() =>
+                  setDrawType(Object.keys(drawRadioButtonsTypes)[index])
+                }
+                currentValue={drawRadioButtonsTypes[drawType]}
                 key={radioType}
               />
             ))}
