@@ -27,6 +27,7 @@ export type CardStockStateTypes = {
   cardsOnFoundations: FoundationInitialState;
   stockCounter: StockCount;
   gameStarted: boolean;
+  drawType: string;
 };
 
 export type CardStockDispatchTypes = {
@@ -67,6 +68,7 @@ const CardStockInternal: React.FC<
     addToStockCounter,
     stockCounter,
     gameStarted,
+    drawType,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -138,24 +140,28 @@ const CardStockInternal: React.FC<
         </div>
       </div>
       <div className={styles.cardsOnTable}>
-        {cardsFromStock?.map((card, index) => (
-          <div
-            className={[styles.card, styles[`card_${index}`]].join(" ")}
-            id={`${index}`}
-            key={`${index}${card}cardsOnTable`}
-          >
-            <Card
-              cardFront={card[0]}
-              cardSuite={card[1]}
-              cardColor={card[3]}
-              cardOrder={card[4]}
-              cardBack={cardBackImage}
-              isTurnedBack={false}
-              onDoubleClick={moveToFoundationCallback}
-              key={`${index}${card}`}
-            />
-          </div>
-        ))}
+        {drawType === "drawOne" ? (
+          cardsFromStock?.map((card, index) => (
+            <div
+              className={[styles.card, styles[`card_${index}`]].join(" ")}
+              id={`${index}`}
+              key={`${index}${card}cardsOnTable`}
+            >
+              <Card
+                cardFront={card[0]}
+                cardSuite={card[1]}
+                cardColor={card[3]}
+                cardOrder={card[4]}
+                cardBack={cardBackImage}
+                isTurnedBack={false}
+                onDoubleClick={moveToFoundationCallback}
+                key={`${index}${card}`}
+              />
+            </div>
+          ))
+        ) : (
+          <span>Draw three</span>
+        )}
       </div>
     </div>
   );
@@ -173,6 +179,7 @@ const mapStateToProps = (state: {
     cardsOnFoundations: state.cardsOnFoundation,
     stockCounter: state.stockCounter,
     gameStarted: state.gameState.gameStarted,
+    drawType: state.gameState.drawType,
   };
 };
 
