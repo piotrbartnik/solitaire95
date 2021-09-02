@@ -11,7 +11,7 @@ export interface CardDistributionActionTypes {
   cardsOnPiles: { [key: string]: cardConfigType[] };
   cardsForStock: cardConfigType[];
   cardsOnStock: cardConfigType[];
-  cardToAddToTable: cardConfigType;
+  cardToAddToTable: cardConfigType[] | cardConfigType;
   reverseStock: cardConfigType[];
   removeCardFromStock: cardConfigType[];
   removeCardFromPile: number;
@@ -42,9 +42,22 @@ export const cardDistribution = (
         cardsOnPiles: action.cardsOnPiles,
       };
     case "TAKE_ONE_FROM_STOCK":
+      // eslint-disable-next-line no-case-declarations
+      let cardsForTable: cardConfigType[] = [];
+      if (typeof action.cardToAddToTable[0] !== "string") {
+        cardsForTable = [
+          ...state.cardsFromStock,
+          ...(action.cardToAddToTable as cardConfigType[]),
+        ];
+      } else {
+        cardsForTable = [
+          ...state.cardsFromStock,
+          action.cardToAddToTable as cardConfigType,
+        ];
+      }
       return {
         ...state,
-        cardsFromStock: [...state.cardsFromStock, action.cardToAddToTable],
+        cardsFromStock: cardsForTable,
         cardsOnStock: action.cardsOnStock,
       };
     case "REVERSE_STOCK":
@@ -75,9 +88,8 @@ export const cardDistribution = (
         ...state,
         cardsOnPiles: {
           ...state.cardsOnPiles,
-          [action.addCardToPile]: state.cardsOnPiles[
-            action.addCardToPile
-          ].concat(cardAdded),
+          [action.addCardToPile]:
+            state.cardsOnPiles[action.addCardToPile].concat(cardAdded),
         },
       };
     case "TURN_CARD_ON_PILE":

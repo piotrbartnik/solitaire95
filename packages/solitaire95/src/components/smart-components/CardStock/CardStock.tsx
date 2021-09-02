@@ -73,8 +73,15 @@ const CardStockInternal: React.FC<
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
-      const cardsOnStockCopy = cardsOnStock.slice();
-      const cardToPush = cardsOnStockCopy.pop();
+      const cardsOnStockCopy =
+        drawType === "drawOne"
+          ? cardsOnStock.slice()
+          : cardsOnStock.slice(0, cardsOnStock.length - 3);
+      const cardToPush =
+        drawType === "drawOne"
+          ? cardsOnStockCopy.pop()
+          : cardsOnStock.slice(cardsOnStock.length - 3);
+
       takeOneFromStock(cardsOnStockCopy, cardToPush as cardConfigType);
       !gameStarted && startGame();
     } else {
