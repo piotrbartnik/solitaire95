@@ -147,28 +147,46 @@ const CardStockInternal: React.FC<
         </div>
       </div>
       <div className={styles.cardsOnTable}>
-        {drawType === "drawOne" ? (
-          cardsFromStock?.map((card, index) => (
-            <div
-              className={[styles.card, styles[`card_${index}`]].join(" ")}
-              id={`${index}`}
-              key={`${index}${card}cardsOnTable`}
-            >
-              <Card
-                cardFront={card[0]}
-                cardSuite={card[1]}
-                cardColor={card[3]}
-                cardOrder={card[4]}
-                cardBack={cardBackImage}
-                isTurnedBack={false}
-                onDoubleClick={moveToFoundationCallback}
-                key={`${index}${card}`}
-              />
-            </div>
-          ))
-        ) : (
-          <span>Draw three</span>
-        )}
+        {drawType === "drawOne"
+          ? cardsFromStock?.map((card, index) => (
+              <div
+                className={[styles.card, styles[`card_${index}`]].join(" ")}
+                id={`${index}`}
+                key={`${index}${card}cardsOnTable`}
+              >
+                <Card
+                  cardFront={card[0]}
+                  cardSuite={card[1]}
+                  cardColor={card[3]}
+                  cardOrder={card[4]}
+                  cardBack={cardBackImage}
+                  isTurnedBack={false}
+                  onDoubleClick={moveToFoundationCallback}
+                  key={`${index}${card}`}
+                />
+              </div>
+            ))
+          : cardsFromStock
+              .slice(cardsFromStock.length - 3)
+              .map((card, index) => (
+                <div
+                  className={[styles.card, styles[`card_${index}`]].join(" ")}
+                  id={`${index}`}
+                  key={`${index}${card}cardsOnTable`}
+                  style={{ left: `${27 * index}px` }}
+                >
+                  <Card
+                    cardFront={card[0]}
+                    cardSuite={card[1]}
+                    cardColor={card[3]}
+                    cardOrder={card[4]}
+                    cardBack={cardBackImage}
+                    isTurnedBack={false}
+                    onDoubleClick={moveToFoundationCallback}
+                    key={`${index}${card}`}
+                  />
+                </div>
+              ))}
       </div>
     </div>
   );
