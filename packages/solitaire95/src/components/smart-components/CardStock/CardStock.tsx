@@ -86,8 +86,14 @@ const CardStockInternal: React.FC<
       !gameStarted && startGame();
     } else {
       addToStockCounter();
+      const reversedThreeCards = [];
+      if (drawType === "drawThree") {
+        for (let i = 0; i < cardsFromStock.length; i += 3) {
+          reversedThreeCards.unshift(...cardsFromStock.slice(i, i + 3));
+        }
+      }
       const reversedStock =
-        drawType === "drawOne" ? cardsFromStock.reverse() : [];
+        drawType === "drawOne" ? cardsFromStock.reverse() : reversedThreeCards;
       reverseStock(reversedStock);
       if (stockCounter.stockRevolutions >= 1) {
         addPoints(-100);
