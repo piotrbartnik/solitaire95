@@ -28,6 +28,7 @@ type CardPropTypes = {
   canBeTurned?: boolean;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   positionOnPile?: number;
+  canBeDragged?: boolean;
 };
 
 export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
@@ -46,9 +47,8 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
     onClick,
     positionOnPile,
     outlineDragging,
+    canBeDragged,
   } = props;
-
-  const canDragCard = !isTurnedBack;
 
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
@@ -60,7 +60,7 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
       cardOrder,
       foundationNumber,
     },
-    canDrag: canDragCard,
+    canDrag: canBeDragged,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       item: monitor.getItem(),
