@@ -176,6 +176,7 @@ const CardStockInternal: React.FC<
             ))
           : cardsFromStock
               .slice(cardsFromStock.length - 3)
+              .reverse()
               .map((card, index) => (
                 <div
                   className={[styles.card, styles[`card_${index}`]].join(" ")}
