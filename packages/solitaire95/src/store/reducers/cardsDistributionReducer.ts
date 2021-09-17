@@ -42,22 +42,21 @@ export const cardDistribution = (
         cardsOnPiles: action.cardsOnPiles,
       };
     case "TAKE_ONE_FROM_STOCK":
-      // eslint-disable-next-line no-case-declarations
-      let cardsForTable: cardConfigType[] = [];
-      if (typeof action.cardToAddToTable[0] !== "string") {
-        cardsForTable = [
-          ...state.cardsFromStock,
-          ...(action.cardToAddToTable as cardConfigType[]),
-        ];
-      } else {
-        cardsForTable = [
-          ...state.cardsFromStock,
-          action.cardToAddToTable as cardConfigType,
-        ];
-      }
       return {
         ...state,
-        cardsFromStock: cardsForTable,
+        cardsFromStock: [
+          ...state.cardsFromStock,
+          action.cardToAddToTable as cardConfigType,
+        ],
+        cardsOnStock: action.cardsOnStock,
+      };
+    case "TAKE_THREE_FROM_STOCK":
+      return {
+        ...state,
+        cardsFromStock: [
+          ...state.cardsFromStock,
+          ...(action.cardToAddToTable as cardConfigType[]),
+        ],
         cardsOnStock: action.cardsOnStock,
       };
     case "REVERSE_STOCK":

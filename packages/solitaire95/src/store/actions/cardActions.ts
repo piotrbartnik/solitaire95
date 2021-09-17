@@ -59,6 +59,21 @@ export const takeOneFromStock = (
   };
 };
 
+export const takeThreeFromStock = (
+  cardsOnStock: cardConfigType[],
+  cardToAddToTable: cardConfigType[]
+): {
+  type: string;
+  cardsOnStock: cardConfigType[];
+  cardToAddToTable: cardConfigType[];
+} => {
+  return {
+    type: actionTypes.TAKE_THREE_FROM_STOCK,
+    cardsOnStock,
+    cardToAddToTable,
+  };
+};
+
 export const reverseStock = (
   payload: cardConfigType[]
 ): {

@@ -1,6 +1,7 @@
 // card actions
 export const DEAL_CARDS = "DEAL_CARDS";
 export const TAKE_ONE_FROM_STOCK = "TAKE_ONE_FROM_STOCK";
+export const TAKE_THREE_FROM_STOCK = "TAKE_THREE_FROM_STOCK";
 export const REVERSE_STOCK = "REVERSE_STOCK";
 export const REMOVE_CARD_FROM_STOCK = "REMOVE_CARD_FROM_STOCK";
 export const ADD_CARD_TO_PILE = "ADD_CARD_TO_PILE";

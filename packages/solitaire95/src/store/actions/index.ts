@@ -1,6 +1,7 @@
 export {
   dealCards,
   takeOneFromStock,
+  takeThreeFromStock,
   reverseStock,
   addCardToFoundation,
   removeCardFromStock,

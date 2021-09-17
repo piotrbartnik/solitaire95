@@ -9,6 +9,7 @@ import {
   countScore,
   startGame,
   stockTurnCounter,
+  takeThreeFromStock,
 } from "../../../store/actions";
 import {
   CardsDistributionInitialState,
@@ -35,6 +36,10 @@ export type CardStockDispatchTypes = {
     cardsOnStock: cardConfigType[],
     cardToAddToTable: cardConfigType
   ) => void;
+  takeThreeFromStock: (
+    cardsOnStock: cardConfigType[],
+    cardToAddToTable: cardConfigType[]
+  ) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
   removeCardFromStock: (card: cardConfigType[]) => void;
   addCardToFoundation: (
@@ -58,6 +63,7 @@ const CardStockInternal: React.FC<
     cardsOnStock,
     cardsFromStock,
     takeOneFromStock,
+    takeThreeFromStock,
     reverseStock,
     removeCardFromStock,
     cardsOnFoundations,
@@ -73,28 +79,39 @@ const CardStockInternal: React.FC<
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
-      const cardsOnStockCopy =
-        drawType === "drawOne"
-          ? cardsOnStock.slice()
-          : cardsOnStock.slice(0, cardsOnStock.length - 3);
-      const cardToPush =
-        drawType === "drawOne"
-          ? cardsOnStockCopy.pop()
-          : cardsOnStock.slice(cardsOnStock.length - 3);
+      const cardsOnStockCopy = cardsOnStock.slice(0, cardsOnStock.length - 3);
+      const cardToPush = cardsOnStockCopy.pop();
 
       takeOneFromStock(cardsOnStockCopy, cardToPush as cardConfigType);
+      !gameStarted && startGame();
+    } else {
+      addToStockCounter();
+
+      const reversedStock = cardsFromStock.reverse();
+      reverseStock(reversedStock);
+      if (stockCounter.stockRevolutions >= 1) {
+        addPoints(-100);
+      }
+    }
+  };
+
+  const moveThreeFromTheTop = () => {
+    if (cardsOnStock?.length) {
+      const cardsOnStockCopy = cardsOnStock.slice(0, cardsOnStock.length - 3);
+      const cardToPush = cardsOnStock.slice(cardsOnStock.length - 3);
+
+      takeThreeFromStock(cardsOnStockCopy, cardToPush as cardConfigType[]);
       !gameStarted && startGame();
     } else {
       addToStockCounter();
       const reversedThreeCards = [];
       if (drawType === "drawThree") {
         for (let i = 0; i < cardsFromStock.length; i += 3) {
+          console.log(i);
           reversedThreeCards.unshift(...cardsFromStock.slice(i, i + 3));
         }
       }
-      const reversedStock =
-        drawType === "drawOne" ? cardsFromStock.reverse() : reversedThreeCards;
-      reverseStock(reversedStock);
+      reverseStock(reversedThreeCards);
       if (stockCounter.stockRevolutions >= 1) {
         addPoints(-100);
       }
@@ -123,11 +140,42 @@ const CardStockInternal: React.FC<
     ]
   );
 
+  const threeCardsOnCardStock = () => {
+    return cardsFromStock
+      .slice(cardsFromStock.length - 3)
+      .reverse()
+      .map((card, index) => (
+        <div
+          className={[styles.card, styles[`card_${index}`]].join(" ")}
+          id={`${index}`}
+          key={`${index}${card}cardsOnTable`}
+          style={{ left: `${27 * index}px` }}
+        >
+          <Card
+            cardFront={card[0]}
+            cardSuite={card[1]}
+            cardColor={card[3]}
+            cardOrder={card[4]}
+            cardBack={cardBackImage}
+            isTurnedBack={false}
+            onDoubleClick={moveToFoundationCallback}
+            key={`${index}${card}`}
+            canBeDragged={
+              index ===
+              cardsFromStock.slice(cardsFromStock.length - 3).length - 1
+            }
+          />
+        </div>
+      ));
+  };
+
   return (
     <div className={styles.cardStock__container}>
       <div
         className={styles.cardStock}
-        onClick={moveFirstFromTheTop}
+        onClick={
+          drawType === "drawOne" ? moveFirstFromTheTop : moveThreeFromTheTop
+        }
         style={{ marginRight: `${distanceBtwPiles}px` }}
       >
         <div className={styles.cardStock__cardHolder}>
@@ -174,32 +222,7 @@ const CardStockInternal: React.FC<
                 />
               </div>
             ))
-          : cardsFromStock
-              .slice(cardsFromStock.length - 3)
-              .reverse()
-              .map((card, index) => (
-                <div
-                  className={[styles.card, styles[`card_${index}`]].join(" ")}
-                  id={`${index}`}
-                  key={`${index}${card}cardsOnTable`}
-                  style={{ left: `${27 * index}px` }}
-                >
-                  <Card
-                    cardFront={card[0]}
-                    cardSuite={card[1]}
-                    cardColor={card[3]}
-                    cardOrder={card[4]}
-                    cardBack={cardBackImage}
-                    isTurnedBack={false}
-                    onDoubleClick={moveToFoundationCallback}
-                    key={`${index}${card}`}
-                    canBeDragged={
-                      index ===
-                      cardsFromStock.slice(cardsFromStock.length - 3).length - 1
-                    }
-                  />
-                </div>
-              ))}
+          : threeCardsOnCardStock()}
       </div>
     </div>
   );
@@ -228,6 +251,10 @@ const mapDispatchToProps = (dispatch: any) => {
       cardsOnStock: cardConfigType[],
       cardToAddToTable: cardConfigType
     ) => dispatch(takeOneFromStock(cardsOnStock, cardToAddToTable)),
+    takeThreeFromStock: (
+      cardsOnStock: cardConfigType[],
+      cardToAddToTable: cardConfigType[]
+    ) => dispatch(takeThreeFromStock(cardsOnStock, cardToAddToTable)),
     reverseStock: (payload: cardConfigType[]) =>
       dispatch(reverseStock(payload)),
     removeCardFromStock: (payload: cardConfigType[]) =>
