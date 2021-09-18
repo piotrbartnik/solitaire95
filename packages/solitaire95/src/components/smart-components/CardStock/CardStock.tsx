@@ -77,6 +77,27 @@ const CardStockInternal: React.FC<
     drawType,
   } = props;
 
+  const moveFromStock = (cardsAmount: number): void => {
+    if (cardsOnStock?.length) {
+      const cardsOnStockCopy =
+        cardsAmount === 1
+          ? cardsOnStock.slice(0, cardsOnStock.length - 3)
+          : cardsOnStock.slice(0, cardsOnStock.length - 3);
+      const cardToPush = cardsOnStockCopy.pop();
+
+      takeOneFromStock(cardsOnStockCopy, cardToPush as cardConfigType);
+      !gameStarted && startGame();
+    } else {
+      addToStockCounter();
+
+      const reversedStock = cardsFromStock.reverse();
+      reverseStock(reversedStock);
+      if (stockCounter.stockRevolutions >= 1) {
+        addPoints(-100);
+      }
+    }
+  };
+
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
       const cardsOnStockCopy = cardsOnStock.slice(0, cardsOnStock.length - 3);
