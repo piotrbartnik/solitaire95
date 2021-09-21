@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useState } from "react";
 import { connect } from "react-redux";
 import { CardBackContext } from "../../game-containers";
 import {
@@ -77,6 +77,8 @@ const CardStockInternal: React.FC<
     drawType,
   } = props;
 
+  const [threeCards, setThreeCards] = useState<cardConfigType[]>([]);
+
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
       const cardsOnStockCopy = cardsOnStock.slice(0, cardsOnStock.length - 3);
@@ -98,11 +100,16 @@ const CardStockInternal: React.FC<
   const moveThreeFromTheTop = () => {
     if (cardsOnStock?.length) {
       const cardsOnStockCopy = cardsOnStock.slice(0, cardsOnStock.length - 3);
-      const cardToPush = cardsOnStock.slice(cardsOnStock.length - 3);
+      const amountOfCardsToBePushedToTable =
+        cardsOnStock.length >= 3 ? cardsOnStock.length - 3 : 0;
+      const cardToPush = cardsOnStock.slice(amountOfCardsToBePushedToTable);
+
+      setThreeCards(cardToPush);
 
       takeThreeFromStock(cardsOnStockCopy, cardToPush as cardConfigType[]);
       !gameStarted && startGame();
     } else {
+      setThreeCards([]);
       addToStockCounter();
       const reversedThreeCards = [];
       for (let i = 0; i < cardsFromStock.length; i += 3) {
@@ -138,32 +145,28 @@ const CardStockInternal: React.FC<
   );
 
   const threeCardsOnCardStock = () => {
-    return cardsFromStock
-      .slice(cardsFromStock.length - 3)
-      .reverse()
-      .map((card, index) => (
-        <div
-          className={[styles.card, styles[`card_${index}`]].join(" ")}
-          id={`${index}`}
-          key={`${index}${card}cardsOnTable`}
-          style={{ left: `${27 * index}px` }}
-        >
-          <Card
-            cardFront={card[0]}
-            cardSuite={card[1]}
-            cardColor={card[3]}
-            cardOrder={card[4]}
-            cardBack={cardBackImage}
-            isTurnedBack={false}
-            onDoubleClick={moveToFoundationCallback}
-            key={`${index}${card}`}
-            canBeDragged={
-              index ===
-              cardsFromStock.slice(cardsFromStock.length - 3).length - 1
-            }
-          />
-        </div>
-      ));
+    return threeCards.reverse().map((card, index) => (
+      <div
+        className={[styles.card, styles[`card_${index}`]].join(" ")}
+        id={`${index}`}
+        key={`${index}${card}cardsOnTable`}
+        style={{ left: `${27 * index}px` }}
+      >
+        <Card
+          cardFront={card[0]}
+          cardSuite={card[1]}
+          cardColor={card[3]}
+          cardOrder={card[4]}
+          cardBack={cardBackImage}
+          isTurnedBack={false}
+          onDoubleClick={moveToFoundationCallback}
+          key={`${index}${card}`}
+          canBeDragged={
+            index === cardsFromStock.slice(cardsFromStock.length - 3).length - 1
+          }
+        />
+      </div>
+    ));
   };
 
   return (
