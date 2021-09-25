@@ -25,5 +25,7 @@ module.exports = {
     "@typescript-eslint/ban-ts-comment": "off",
     "react/prop-types": "off",
     "@typescript-eslint/no-var-requires": 0,
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
   },
 };

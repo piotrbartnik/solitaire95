@@ -81,7 +81,7 @@ const CardStockInternal: React.FC<
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
-      const cardsOnStockCopy = cardsOnStock.slice(0, cardsOnStock.length - 3);
+      const cardsOnStockCopy = cardsOnStock.slice();
       const cardToPush = cardsOnStockCopy.pop();
 
       takeOneFromStock(cardsOnStockCopy, cardToPush as cardConfigType);
@@ -99,9 +99,12 @@ const CardStockInternal: React.FC<
 
   const moveThreeFromTheTop = () => {
     if (cardsOnStock?.length) {
-      const cardsOnStockCopy = cardsOnStock.slice(0, cardsOnStock.length - 3);
+      const cardsOnStockCopy =
+        cardsOnStock.length >= 3
+          ? cardsOnStock.slice(0, cardsOnStock.length - 3)
+          : [];
       const amountOfCardsToBePushedToTable =
-        cardsOnStock.length >= 3 ? cardsOnStock.length - 3 : 0;
+        cardsOnStock.length > 3 ? cardsOnStock.length - 3 : 0;
       const cardToPush = cardsOnStock.slice(amountOfCardsToBePushedToTable);
 
       setThreeCards(cardToPush);
