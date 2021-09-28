@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useState } from "react";
+import React, { useContext, useCallback } from "react";
 import { connect } from "react-redux";
 import { CardBackContext } from "../../game-containers";
 import {
@@ -77,8 +77,6 @@ const CardStockInternal: React.FC<
     drawType,
   } = props;
 
-  const [threeCards, setThreeCards] = useState<cardConfigType[]>([]);
-
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
       const cardsOnStockCopy = cardsOnStock.slice();
@@ -107,12 +105,9 @@ const CardStockInternal: React.FC<
         cardsOnStock.length > 3 ? cardsOnStock.length - 3 : 0;
       const cardToPush = cardsOnStock.slice(amountOfCardsToBePushedToTable);
 
-      setThreeCards(cardToPush);
-
       takeThreeFromStock(cardsOnStockCopy, cardToPush as cardConfigType[]);
       !gameStarted && startGame();
     } else {
-      setThreeCards([]);
       addToStockCounter();
       const reversedThreeCards = [];
       for (let i = 0; i < cardsFromStock.length; i += 3) {
@@ -148,7 +143,7 @@ const CardStockInternal: React.FC<
   );
 
   const threeCardsOnCardStock = () => {
-    return threeCards.reverse().map((card, index) => (
+    return cardsFromStock.reverse().map((card, index) => (
       <div
         className={[styles.card, styles[`card_${index}`]].join(" ")}
         id={`${index}`}
