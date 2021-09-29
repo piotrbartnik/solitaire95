@@ -69,6 +69,7 @@ export const cardDistribution = (
         ...state,
         cardsOnStock: action.reverseStock,
         cardsFromStock: [],
+        threeCardsOnTable: [],
       };
     case "REMOVE_CARD_FROM_STOCK":
       return {

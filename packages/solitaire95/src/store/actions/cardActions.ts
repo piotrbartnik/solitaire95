@@ -78,14 +78,14 @@ export const takeThreeFromStock = (
 };
 
 export const reverseStock = (
-  payload: cardConfigType[]
+  reversedCardsForStock: cardConfigType[]
 ): {
   type: string;
   reverseStock: cardConfigType[];
 } => {
   return {
     type: actionTypes.REVERSE_STOCK,
-    reverseStock: payload,
+    reverseStock: reversedCardsForStock,
   };
 };
 
