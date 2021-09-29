@@ -4,6 +4,7 @@ export interface CardsDistributionInitialState {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
+  threeCardsOnTable: cardConfigType[];
 }
 
 export interface CardDistributionActionTypes {
@@ -22,11 +23,13 @@ export interface CardDistributionActionTypes {
   cardsFromStockUndo: cardConfigType[];
   pilesState: { [key: string]: cardConfigType[] };
   cardsFromStockState: cardConfigType[];
+  threeCardsOnTable: cardConfigType[];
 }
 
 const initialState: CardsDistributionInitialState = {
   cardsOnStock: [],
   cardsFromStock: [],
+  threeCardsOnTable: [],
   cardsOnPiles: {},
 };
 
@@ -39,6 +42,7 @@ export const cardDistribution = (
       return {
         cardsOnStock: action.cardsForStock,
         cardsFromStock: [],
+        threeCardsOnTable: [],
         cardsOnPiles: action.cardsOnPiles,
       };
     case "TAKE_ONE_FROM_STOCK":
@@ -57,6 +61,7 @@ export const cardDistribution = (
           ...state.cardsFromStock,
           ...(action.cardToAddToTable as cardConfigType[]),
         ],
+        threeCardsOnTable: [...(action.threeCardsOnTable as cardConfigType[])],
         cardsOnStock: action.cardsOnStock,
       };
     case "REVERSE_STOCK":

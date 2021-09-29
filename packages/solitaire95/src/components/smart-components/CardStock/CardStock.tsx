@@ -29,6 +29,7 @@ export type CardStockStateTypes = {
   stockCounter: StockCount;
   gameStarted: boolean;
   drawType: string;
+  threeCardsOnTable: cardConfigType[];
 };
 
 export type CardStockDispatchTypes = {
@@ -38,7 +39,8 @@ export type CardStockDispatchTypes = {
   ) => void;
   takeThreeFromStock: (
     cardsOnStock: cardConfigType[],
-    cardToAddToTable: cardConfigType[]
+    cardToAddToTable: cardConfigType[],
+    threeCardsOnTable: cardConfigType[]
   ) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
   removeCardFromStock: (card: cardConfigType[]) => void;
@@ -75,6 +77,7 @@ const CardStockInternal: React.FC<
     stockCounter,
     gameStarted,
     drawType,
+    threeCardsOnTable,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -105,7 +108,11 @@ const CardStockInternal: React.FC<
         cardsOnStock.length > 3 ? cardsOnStock.length - 3 : 0;
       const cardToPush = cardsOnStock.slice(amountOfCardsToBePushedToTable);
 
-      takeThreeFromStock(cardsOnStockCopy, cardToPush as cardConfigType[]);
+      takeThreeFromStock(
+        cardsOnStockCopy,
+        cardToPush as cardConfigType[],
+        cardToPush
+      );
       !gameStarted && startGame();
     } else {
       addToStockCounter();
@@ -143,7 +150,7 @@ const CardStockInternal: React.FC<
   );
 
   const threeCardsOnCardStock = () => {
-    return cardsFromStock.reverse().map((card, index) => (
+    return threeCardsOnTable.reverse().map((card, index) => (
       <div
         className={[styles.card, styles[`card_${index}`]].join(" ")}
         id={`${index}`}
@@ -235,6 +242,7 @@ const mapStateToProps = (state: {
   return {
     cardsOnStock: state.cardDistribution.cardsOnStock,
     cardsFromStock: state.cardDistribution.cardsFromStock,
+    threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
     cardsOnFoundations: state.cardsOnFoundation,
     stockCounter: state.stockCounter,
     gameStarted: state.gameState.gameStarted,
@@ -251,8 +259,12 @@ const mapDispatchToProps = (dispatch: any) => {
     ) => dispatch(takeOneFromStock(cardsOnStock, cardToAddToTable)),
     takeThreeFromStock: (
       cardsOnStock: cardConfigType[],
-      cardToAddToTable: cardConfigType[]
-    ) => dispatch(takeThreeFromStock(cardsOnStock, cardToAddToTable)),
+      cardToAddToTable: cardConfigType[],
+      threeCardsOnTable: cardConfigType[]
+    ) =>
+      dispatch(
+        takeThreeFromStock(cardsOnStock, cardToAddToTable, threeCardsOnTable)
+      ),
     reverseStock: (payload: cardConfigType[]) =>
       dispatch(reverseStock(payload)),
     removeCardFromStock: (payload: cardConfigType[]) =>

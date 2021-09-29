@@ -61,16 +61,19 @@ export const takeOneFromStock = (
 
 export const takeThreeFromStock = (
   cardsOnStock: cardConfigType[],
-  cardToAddToTable: cardConfigType[]
+  cardToAddToTable: cardConfigType[],
+  threeCardsOnTable: cardConfigType[]
 ): {
   type: string;
   cardsOnStock: cardConfigType[];
   cardToAddToTable: cardConfigType[];
+  threeCardsOnTable: cardConfigType[];
 } => {
   return {
     type: actionTypes.TAKE_THREE_FROM_STOCK,
     cardsOnStock,
     cardToAddToTable,
+    threeCardsOnTable,
   };
 };
 
