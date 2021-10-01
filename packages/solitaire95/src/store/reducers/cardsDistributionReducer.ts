@@ -24,6 +24,7 @@ export interface CardDistributionActionTypes {
   pilesState: { [key: string]: cardConfigType[] };
   cardsFromStockState: cardConfigType[];
   threeCardsOnTable: cardConfigType[];
+  threeCardsOnStockFiltered: cardConfigType[];
 }
 
 const initialState: CardsDistributionInitialState = {
@@ -75,6 +76,7 @@ export const cardDistribution = (
       return {
         ...state,
         cardsFromStock: action.removeCardFromStock,
+        threeCardsOnTable: action.threeCardsOnStockFiltered,
       };
     case "REMOVE_CARD_FROM_PILE":
       return {

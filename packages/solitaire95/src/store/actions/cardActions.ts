@@ -112,11 +112,17 @@ export const addCardToFoundation = (
 };
 
 export const removeCardFromStock = (
-  payload: cardConfigType[]
-): { type: string; removeCardFromStock: cardConfigType[] } => {
+  filteredCardsOnStock: cardConfigType[],
+  threeCardsOnStockFiltered?: cardConfigType[]
+): {
+  type: string;
+  removeCardFromStock: cardConfigType[];
+  threeCardsOnStockFiltered?: cardConfigType[];
+} => {
   return {
     type: actionTypes.REMOVE_CARD_FROM_STOCK,
-    removeCardFromStock: payload,
+    removeCardFromStock: filteredCardsOnStock,
+    threeCardsOnStockFiltered: threeCardsOnStockFiltered,
   };
 };
 

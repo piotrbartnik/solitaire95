@@ -150,7 +150,7 @@ const CardStockInternal: React.FC<
   );
 
   const threeCardsOnCardStock = () => {
-    return threeCardsOnTable.reverse().map((card, index) => (
+    return threeCardsOnTable?.reverse().map((card, index) => (
       <div
         className={[styles.card, styles[`card_${index}`]].join(" ")}
         id={`${index}`}
