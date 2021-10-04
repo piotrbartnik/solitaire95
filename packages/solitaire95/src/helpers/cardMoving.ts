@@ -9,12 +9,16 @@ export const moveToFoundation = (
     foundationNumber: string,
     foundationSuite?: string
   ) => void,
-  removeFromCallback: (card: cardConfigType[] | string | undefined) => void,
+  removeFromCallback: (
+    card: cardConfigType[] | string | undefined,
+    threeCardsOnStockFiltered?: cardConfigType[]
+  ) => void,
   pileOrStock: boolean,
   addPoints: (points: number) => void,
   cardsFromStock?: cardConfigType[],
   startGame?: () => void,
-  gameStarted?: boolean
+  gameStarted?: boolean,
+  threeCardsOnTable?: cardConfigType[]
 ): void => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { dataset } = event.target as any;
@@ -38,6 +42,9 @@ export const moveToFoundation = (
         : removeFromCallback(
             (cardsFromStock as cardConfigType[]).filter(
               (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
+            ),
+            threeCardsOnTable?.filter(
+              (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
             )
           );
     }
@@ -60,6 +67,9 @@ export const moveToFoundation = (
             ? removeFromCallback(pilenumber)
             : removeFromCallback(
                 (cardsFromStock as cardConfigType[]).filter(
+                  (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
+                ),
+                threeCardsOnTable?.filter(
                   (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
                 )
               );
