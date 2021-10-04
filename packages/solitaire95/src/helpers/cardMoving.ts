@@ -13,12 +13,12 @@ export const moveToFoundation = (
     card: cardConfigType[] | string | undefined,
     threeCardsOnStockFiltered?: cardConfigType[]
   ) => void,
-  pileOrStock: boolean,
+  isPile: boolean,
   addPoints: (points: number) => void,
-  cardsFromStock?: cardConfigType[],
+  oneCardFromStock?: cardConfigType[],
   startGame?: () => void,
   gameStarted?: boolean,
-  threeCardsOnTable?: cardConfigType[]
+  threeCardsFromStock?: cardConfigType[]
 ): void => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { dataset } = event.target as any;
@@ -37,13 +37,13 @@ export const moveToFoundation = (
       addToFoundationCallback(cardConfig, foundationToPopulate[0], suite);
       addPoints(10);
       !gameStarted && startGame && startGame();
-      pileOrStock
+      isPile
         ? removeFromCallback(pilenumber)
         : removeFromCallback(
-            (cardsFromStock as cardConfigType[]).filter(
+            oneCardFromStock?.filter(
               (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
             ),
-            threeCardsOnTable?.filter(
+            threeCardsFromStock?.filter(
               (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
             )
           );
@@ -63,13 +63,13 @@ export const moveToFoundation = (
           addToFoundationCallback(cardConfig, foundation);
           addPoints(10);
           !gameStarted && startGame && startGame();
-          pileOrStock
+          isPile
             ? removeFromCallback(pilenumber)
             : removeFromCallback(
-                (cardsFromStock as cardConfigType[]).filter(
+                oneCardFromStock?.filter(
                   (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
                 ),
-                threeCardsOnTable?.filter(
+                threeCardsFromStock?.filter(
                   (card) => `${card[0]}_${card[1]}` !== `${cardname}_${suite}`
                 )
               );
