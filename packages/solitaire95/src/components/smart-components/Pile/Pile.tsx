@@ -38,7 +38,7 @@ type PileDispatchTypes = {
   removeCardFromPile: (pile: string) => void;
   addCardToPile: (pileNumber: string, cardToPile: cardConfigType) => void;
   removeCardFromStock: (
-    cards: cardConfigType[],
+    filteredCardsOnStock: cardConfigType[],
     threeCardsOnStockFiltered?: cardConfigType[]
   ) => void;
   addCardToFoundation: (
@@ -307,10 +307,12 @@ const mapDispatchToProps = (dispatch: any) => {
     addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
       dispatch(addCardToPile(pileNumber, cardToPile)),
     removeCardFromStock: (
-      cards: cardConfigType[],
+      filteredCardsOnStock: cardConfigType[],
       threeCardsOnStockFiltered: cardConfigType[]
     ) => {
-      dispatch(removeCardFromStock(cards, threeCardsOnStockFiltered));
+      dispatch(
+        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
+      );
     },
     addCardToFoundation: (
       card: cardConfigType,

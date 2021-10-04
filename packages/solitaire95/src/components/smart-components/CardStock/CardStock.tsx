@@ -44,7 +44,7 @@ export type CardStockDispatchTypes = {
   ) => void;
   reverseStock: (cardsFromStock: cardConfigType[]) => void;
   removeCardFromStock: (
-    card: cardConfigType[],
+    filteredCardsOnStock: cardConfigType[],
     threeCardsOnStockFiltered: cardConfigType[]
   ) => void;
   addCardToFoundation: (
@@ -275,9 +275,12 @@ const mapDispatchToProps = (dispatch: any) => {
     reverseStock: (payload: cardConfigType[]) =>
       dispatch(reverseStock(payload)),
     removeCardFromStock: (
-      payload: cardConfigType[],
+      filteredCardsOnStock: cardConfigType[],
       threeCardsOnStockFiltered: cardConfigType[]
-    ) => dispatch(removeCardFromStock(payload, threeCardsOnStockFiltered)),
+    ) =>
+      dispatch(
+        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
+      ),
     addCardToFoundation: (
       card: cardConfigType,
       foundationNumber: string,

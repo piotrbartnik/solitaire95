@@ -37,7 +37,7 @@ export type FoundationDispatchTypes = {
   removeCardFromPile: (pileNumber: string) => void;
   addPoints: (points: number) => void;
   removeCardFromStock: (
-    card: cardConfigType[],
+    filteredCardsOnStock: cardConfigType[],
     threeCardsOnStockFiltered: cardConfigType[]
   ) => void;
   startGame: () => void;
@@ -219,9 +219,12 @@ const mapDispatchToProps = (dispatch: any) => {
     removeCardFromPile: (pileNumber: string) =>
       dispatch(removeCardFromPile(pileNumber)),
     removeCardFromStock: (
-      card: cardConfigType[],
+      filteredCardsOnStock: cardConfigType[],
       threeCardsOnStockFiltered: cardConfigType[]
-    ) => dispatch(removeCardFromStock(card, threeCardsOnStockFiltered)),
+    ) =>
+      dispatch(
+        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
+      ),
     addPoints: (points: number) => dispatch(countScore(points)),
     startGame: () => dispatch(startGame()),
     removeCardFromFoundation: (foundationNumber: string) =>

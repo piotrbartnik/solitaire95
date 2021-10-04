@@ -116,12 +116,12 @@ export const removeCardFromStock = (
   threeCardsOnStockFiltered?: cardConfigType[]
 ): {
   type: string;
-  removeCardFromStock: cardConfigType[];
+  filteredCardsOnStock: cardConfigType[];
   threeCardsOnStockFiltered?: cardConfigType[];
 } => {
   return {
     type: actionTypes.REMOVE_CARD_FROM_STOCK,
-    removeCardFromStock: filteredCardsOnStock,
+    filteredCardsOnStock: filteredCardsOnStock,
     threeCardsOnStockFiltered: threeCardsOnStockFiltered,
   };
 };

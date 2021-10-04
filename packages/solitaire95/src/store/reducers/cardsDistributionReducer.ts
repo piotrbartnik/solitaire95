@@ -14,7 +14,7 @@ export interface CardDistributionActionTypes {
   cardsOnStock: cardConfigType[];
   cardToAddToTable: cardConfigType[] | cardConfigType;
   reverseStock: cardConfigType[];
-  removeCardFromStock: cardConfigType[];
+  filteredCardsOnStock: cardConfigType[];
   removeCardFromPile: number;
   cardToPile: cardConfigType;
   addCardToPile: number;
@@ -75,7 +75,7 @@ export const cardDistribution = (
     case "REMOVE_CARD_FROM_STOCK":
       return {
         ...state,
-        cardsFromStock: action.removeCardFromStock,
+        cardsFromStock: action.filteredCardsOnStock,
         threeCardsOnTable: action.threeCardsOnStockFiltered,
       };
     case "REMOVE_CARD_FROM_PILE":

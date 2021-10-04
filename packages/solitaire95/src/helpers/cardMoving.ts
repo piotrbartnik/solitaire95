@@ -10,7 +10,7 @@ export const moveToFoundation = (
     foundationSuite?: string
   ) => void,
   removeFromCallback: (
-    card: cardConfigType[] | string | undefined,
+    filteredCardsOnStock?: cardConfigType[] | string,
     threeCardsOnStockFiltered?: cardConfigType[]
   ) => void,
   isPile: boolean,
