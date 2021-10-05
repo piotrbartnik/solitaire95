@@ -171,11 +171,13 @@ const CardStockInternal: React.FC<
           cardOrder={card[4]}
           cardBack={cardBackImage}
           isTurnedBack={false}
-          onDoubleClick={moveToFoundationCallback}
-          key={`${index}${card}`}
-          canBeDragged={
-            index === cardsFromStock.slice(cardsFromStock.length - 3).length - 1
+          onDoubleClick={
+            index === threeCardsOnTable.length - 1
+              ? moveToFoundationCallback
+              : undefined
           }
+          key={`${index}${card}`}
+          canBeDragged={index === threeCardsOnTable.length - 1}
         />
       </div>
     ));
