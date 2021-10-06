@@ -191,6 +191,22 @@ export const undoTakeOneFromStock = (
   };
 };
 
+export const undoThreeCardsFromStock = (
+  cardsOnStockUndo: cardConfigType[],
+  threeCardsFromStockUndo: cardConfigType[]
+): {
+  type: string;
+  cardsOnStockUndo: cardConfigType[];
+  threeCardsFromStockUndo: cardConfigType[];
+} => {
+  console.log("fired");
+  return {
+    type: actionTypes.UNDO_TAKE_THREE_FROM_STOCK,
+    cardsOnStockUndo,
+    threeCardsFromStockUndo,
+  };
+};
+
 export const undoRemoveCardFromPile = (pilesState: {
   [key: string]: cardConfigType[];
 }): {

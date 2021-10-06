@@ -18,6 +18,7 @@ export {
   undoMoveFromStockToFoundation,
   undoMoveFromPileToFoundation,
   undoMoveFromFoundationToPiles,
+  undoThreeCardsFromStock,
 } from "./cardActions";
 export {
   startGame,

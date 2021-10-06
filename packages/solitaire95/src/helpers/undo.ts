@@ -16,6 +16,14 @@ export const undoActions: Middleware = (store) => (next) => (action) => {
       ];
       store.dispatch(setUndoAction(actionToUndo));
       break;
+    case "TAKE_THREE_FROM_STOCK":
+      actionToUndo = [
+        action.type,
+        previousState.cardDistribution.cardsOnStock,
+        previousState.cardDistribution.threeCardsOnTable,
+      ];
+      store.dispatch(setUndoAction(actionToUndo));
+      break;
     case "REMOVE_CARD_FROM_FOUNDATION":
       actionToUndo = [action.type, previousState.cardsOnFoundation, []];
       store.dispatch(setUndoAction(actionToUndo));

@@ -17,6 +17,7 @@ import {
   undoMoveFromPileToFoundation,
   undoMoveFromFoundationToPiles,
   UndoActionType,
+  undoThreeCardsFromStock,
 } from "../../../store/actions/";
 import {
   ToolBar,
@@ -39,6 +40,10 @@ type AppToolbarDispatchTypes = {
   setGameFinished: (gameState: boolean) => void;
   resetStateSavedTimers: () => void;
   undoTakeOneFromStock: (
+    cardsOnStockUndo: cardConfigType[],
+    cardsFromStockUndo: cardConfigType[]
+  ) => void;
+  undoThreeCardsFromStock: (
     cardsOnStockUndo: cardConfigType[],
     cardsFromStockUndo: cardConfigType[]
   ) => void;
@@ -105,6 +110,7 @@ const AppToolbarInternal: React.FC<
     undoMoveFromStockToFoundation,
     undoMoveFromPileToFoundation,
     undoMoveFromFoundationToPiles,
+    undoThreeCardsFromStock,
   } = props;
 
   return (
@@ -163,6 +169,12 @@ const AppToolbarInternal: React.FC<
                         actionToUndo[1] as {
                           [key: string]: cardConfigType[];
                         }
+                      );
+                    }
+                    if (actionToUndo[0] === "TAKE_THREE_FROM_STOCK") {
+                      undoThreeCardsFromStock(
+                        actionToUndo[1] as cardConfigType[],
+                        actionToUndo[2] as cardConfigType[]
                       );
                     }
                     if (actionToUndo[0] === "FROM_STOCK_TO_PILE") {
@@ -295,6 +307,11 @@ const mapDispatchToProps = (dispatch: any) => {
       cardsOnStockUndo: cardConfigType[],
       cardsFromStockUndo: cardConfigType[]
     ) => dispatch(undoTakeOneFromStock(cardsOnStockUndo, cardsFromStockUndo)),
+    undoThreeCardsFromStock: (
+      cardsOnStockUndo: cardConfigType[],
+      cardsFromStockUndo: cardConfigType[]
+    ) =>
+      dispatch(undoThreeCardsFromStock(cardsOnStockUndo, cardsFromStockUndo)),
     setUndoAction: (clearUndoActions: []) =>
       dispatch(setUndoAction(clearUndoActions)),
     undoRemoveCardFromPile: (pilesState: { [key: string]: cardConfigType[] }) =>
