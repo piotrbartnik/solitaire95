@@ -45,6 +45,7 @@ type AppToolbarDispatchTypes = {
   ) => void;
   undoThreeCardsFromStock: (
     cardsOnStockUndo: cardConfigType[],
+    threeCardsFromStockUndo: cardConfigType[],
     cardsFromStockUndo: cardConfigType[]
   ) => void;
   setUndoAction: (clearUndoActions: []) => void;
@@ -174,7 +175,8 @@ const AppToolbarInternal: React.FC<
                     if (actionToUndo[0] === "TAKE_THREE_FROM_STOCK") {
                       undoThreeCardsFromStock(
                         actionToUndo[1] as cardConfigType[],
-                        actionToUndo[2] as cardConfigType[]
+                        actionToUndo[2] as cardConfigType[],
+                        actionToUndo[3] as cardConfigType[]
                       );
                     }
                     if (actionToUndo[0] === "FROM_STOCK_TO_PILE") {
@@ -309,9 +311,16 @@ const mapDispatchToProps = (dispatch: any) => {
     ) => dispatch(undoTakeOneFromStock(cardsOnStockUndo, cardsFromStockUndo)),
     undoThreeCardsFromStock: (
       cardsOnStockUndo: cardConfigType[],
+      threeCardsFromStockUndo: cardConfigType[],
       cardsFromStockUndo: cardConfigType[]
     ) =>
-      dispatch(undoThreeCardsFromStock(cardsOnStockUndo, cardsFromStockUndo)),
+      dispatch(
+        undoThreeCardsFromStock(
+          cardsOnStockUndo,
+          threeCardsFromStockUndo,
+          cardsFromStockUndo
+        )
+      ),
     setUndoAction: (clearUndoActions: []) =>
       dispatch(setUndoAction(clearUndoActions)),
     undoRemoveCardFromPile: (pilesState: { [key: string]: cardConfigType[] }) =>

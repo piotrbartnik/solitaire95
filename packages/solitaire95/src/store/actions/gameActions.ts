@@ -31,7 +31,8 @@ export type UndoActionType =
         | { [key: string]: FoundationState }
         | { [key: string]: cardConfigType[] }
       ),
-      cardConfigType[] | { [key: string]: cardConfigType[] }
+      cardConfigType[] | { [key: string]: cardConfigType[] },
+      cardConfigType[]?
     ]
   | [];
 

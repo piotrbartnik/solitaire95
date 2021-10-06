@@ -193,17 +193,19 @@ export const undoTakeOneFromStock = (
 
 export const undoThreeCardsFromStock = (
   cardsOnStockUndo: cardConfigType[],
-  threeCardsFromStockUndo: cardConfigType[]
+  threeCardsFromStockUndo: cardConfigType[],
+  cardsFromStockUndo: cardConfigType[]
 ): {
   type: string;
   cardsOnStockUndo: cardConfigType[];
   threeCardsFromStockUndo: cardConfigType[];
+  cardsFromStockUndo: cardConfigType[];
 } => {
-  console.log("fired");
   return {
     type: actionTypes.UNDO_TAKE_THREE_FROM_STOCK,
     cardsOnStockUndo,
     threeCardsFromStockUndo,
+    cardsFromStockUndo,
   };
 };
 

@@ -21,6 +21,7 @@ export const undoActions: Middleware = (store) => (next) => (action) => {
         action.type,
         previousState.cardDistribution.cardsOnStock,
         previousState.cardDistribution.threeCardsOnTable,
+        previousState.cardDistribution.cardsFromStock,
       ];
       store.dispatch(setUndoAction(actionToUndo));
       break;
