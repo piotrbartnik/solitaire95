@@ -149,6 +149,7 @@ export const cardDistribution = (
       return {
         ...state,
         cardsFromStock: action.cardsFromStockState,
+        threeCardsOnTable: action.threeCardsFromStockUndo,
       };
     case "UNDO_MOVE_FROM_PILE_TO_FOUNDATION":
       return {

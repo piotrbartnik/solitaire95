@@ -52,7 +52,12 @@ export const undoActions: Middleware = (store) => (next) => (action) => {
       if (undoState[0] === "ADD_CARD_TO_PILE") {
         undoState[0] = "FROM_STOCK_TO_PILE";
       }
-      undoState[2] = previousState.cardDistribution.cardsFromStock;
+      if (previousState.gameState.drawType === "drawOne") {
+        undoState[2] = previousState.cardDistribution.cardsFromStock;
+      } else {
+        undoState[2] = previousState.cardDistribution.cardsFromStock;
+        undoState[3] = previousState.cardDistribution.threeCardsOnTable;
+      }
       store.dispatch(setUndoAction(undoState));
       break;
     case "REMOVE_CARD_FROM_PILE":
