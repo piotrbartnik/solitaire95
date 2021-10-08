@@ -54,7 +54,8 @@ type AppToolbarDispatchTypes = {
   }) => void;
   undoMoveFromStockToPiles: (
     pilesState: { [key: string]: cardConfigType[] },
-    cardsFromStockState: cardConfigType[]
+    cardsFromStockState: cardConfigType[],
+    threeCardsFromStock?: cardConfigType[]
   ) => void;
   substractScorePoints: (pointsToSubstract: number) => void;
   undoMoveFromStockToFoundation: (
@@ -186,7 +187,8 @@ const AppToolbarInternal: React.FC<
                         actionToUndo[1] as {
                           [key: string]: cardConfigType[];
                         },
-                        actionToUndo[2] as cardConfigType[]
+                        actionToUndo[2] as cardConfigType[],
+                        actionToUndo[3] as cardConfigType[]
                       );
                     }
                     if (actionToUndo[0] === "FROM_STOCK_TO_FOUNDATION") {
@@ -329,8 +331,16 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(undoRemoveCardFromPile(pilesState)),
     undoMoveFromStockToPiles: (
       pilesState: { [key: string]: cardConfigType[] },
-      cardsFromStockState: cardConfigType[]
-    ) => dispatch(undoMoveFromStockToPiles(pilesState, cardsFromStockState)),
+      cardsFromStockState: cardConfigType[],
+      threeCardsFromStock?: cardConfigType[]
+    ) =>
+      dispatch(
+        undoMoveFromStockToPiles(
+          pilesState,
+          cardsFromStockState,
+          threeCardsFromStock
+        )
+      ),
     substractScorePoints: (pointsToSubstract: number) =>
       dispatch(countScore(pointsToSubstract)),
     undoMoveFromStockToFoundation: (
