@@ -51,6 +51,7 @@ const OptionsInternal: React.FC<
   const [bottomBarVisibleState, setBottomBarVisibleState] =
     useState(bottomBarVisible);
   const [timerVisibleState, setTimerVisibleSrate] = useState(timerVisible);
+  const [toggleDrawTypeState, setToggleDrawTypeState] = useState(drawType);
 
   const onOkClick = useCallback(() => {
     toggleOptionsWindow(false, "optionsWindow");
@@ -59,14 +60,21 @@ const OptionsInternal: React.FC<
       toggleTimer(timerVisibleState);
       dealCards();
     }
+    if (toggleDrawTypeState !== drawType) {
+      toggledrawType(toggleDrawTypeState);
+      dealCards();
+    }
   }, [
-    bottomBarVisibleState,
-    dealCards,
-    timerVisible,
-    timerVisibleState,
-    toggleBottomBar,
     toggleOptionsWindow,
+    toggleBottomBar,
+    bottomBarVisibleState,
+    timerVisibleState,
+    timerVisible,
+    toggleDrawTypeState,
+    drawType,
     toggleTimer,
+    dealCards,
+    toggledrawType,
   ]);
 
   const closeButtonAction = useCallback(
@@ -103,9 +111,11 @@ const OptionsInternal: React.FC<
               <Radiobutton
                 label={radioType}
                 onClick={() => {
-                  toggledrawType(Object.keys(drawRadioButtonsTypes)[index]);
+                  setToggleDrawTypeState(
+                    Object.keys(drawRadioButtonsTypes)[index]
+                  );
                 }}
-                currentValue={drawRadioButtonsTypes[drawType]}
+                currentValue={drawRadioButtonsTypes[toggleDrawTypeState]}
                 key={radioType}
               />
             ))}
