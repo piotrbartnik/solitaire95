@@ -7,6 +7,7 @@ import {
   toggleTimer,
   dealCards,
   toggledrawType,
+  resetScore,
 } from "../../../store/actions/";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
@@ -28,6 +29,7 @@ export type OptionsWindowDispatchTypes = {
   toggleTimer: (timerVisible: boolean) => void;
   dealCards: () => void;
   toggledrawType: (drawType: string) => void;
+  resetScore: () => void;
 };
 
 const OptionsInternal: React.FC<
@@ -45,6 +47,7 @@ const OptionsInternal: React.FC<
     dealCards,
     toggledrawType,
     drawType,
+    resetScore,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
@@ -59,10 +62,12 @@ const OptionsInternal: React.FC<
     if (timerVisibleState !== timerVisible) {
       toggleTimer(timerVisibleState);
       dealCards();
+      resetScore();
     }
     if (toggleDrawTypeState !== drawType) {
       toggledrawType(toggleDrawTypeState);
       dealCards();
+      resetScore();
     }
   }, [
     toggleOptionsWindow,
@@ -75,6 +80,7 @@ const OptionsInternal: React.FC<
     toggleTimer,
     dealCards,
     toggledrawType,
+    resetScore,
   ]);
 
   const closeButtonAction = useCallback(
@@ -199,6 +205,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(toggleBottomBar(bottomBarVisible)),
     toggleTimer: (timerVisible: boolean) => dispatch(toggleTimer(timerVisible)),
     toggledrawType: (drawType: string) => dispatch(toggledrawType(drawType)),
+    resetScore: () => dispatch(resetScore()),
   };
 };
 
