@@ -5,14 +5,13 @@ import {
   setOutlineDragging,
   toggleBottomBar,
   toggleTimer,
-  dealCards,
   toggledrawType,
-  resetScore,
 } from "../../../store/actions/";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
 import { Checkbox, RadioBox, Radiobutton } from "../../ui-components/";
 import styles from "./OptionsWindow.module.scss";
+import { dealCardsAllSteps } from "../../../helpers/dealCardsAllSteps";
 
 export type OptionsWindowStateTypes = {
   isWindowVisible?: boolean;
@@ -27,9 +26,8 @@ export type OptionsWindowDispatchTypes = {
   setOutlineDragging: (outlineDragging: boolean) => void;
   toggleBottomBar: (bottomBarVisible: boolean) => void;
   toggleTimer: (timerVisible: boolean) => void;
-  dealCards: () => void;
   toggledrawType: (drawType: string) => void;
-  resetScore: () => void;
+  dealCardsAllSteps: () => void;
 };
 
 const OptionsInternal: React.FC<
@@ -44,10 +42,9 @@ const OptionsInternal: React.FC<
     toggleBottomBar,
     timerVisible,
     toggleTimer,
-    dealCards,
     toggledrawType,
     drawType,
-    resetScore,
+    dealCardsAllSteps,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [scoringType, setScoringType] = useState("Standard");
@@ -61,13 +58,11 @@ const OptionsInternal: React.FC<
     toggleBottomBar(bottomBarVisibleState);
     if (timerVisibleState !== timerVisible) {
       toggleTimer(timerVisibleState);
-      dealCards();
-      resetScore();
+      dealCardsAllSteps();
     }
     if (toggleDrawTypeState !== drawType) {
       toggledrawType(toggleDrawTypeState);
-      dealCards();
-      resetScore();
+      dealCardsAllSteps();
     }
   }, [
     toggleOptionsWindow,
@@ -78,9 +73,8 @@ const OptionsInternal: React.FC<
     toggleDrawTypeState,
     drawType,
     toggleTimer,
-    dealCards,
+    dealCardsAllSteps,
     toggledrawType,
-    resetScore,
   ]);
 
   const closeButtonAction = useCallback(
@@ -196,7 +190,7 @@ const mapStateToProps = (state: {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    dealCards: () => dispatch(dealCards()),
+    dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
     toggleOptionsWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
     setOutlineDragging: (isOutlined: boolean) =>
@@ -205,7 +199,6 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(toggleBottomBar(bottomBarVisible)),
     toggleTimer: (timerVisible: boolean) => dispatch(toggleTimer(timerVisible)),
     toggledrawType: (drawType: string) => dispatch(toggledrawType(drawType)),
-    resetScore: () => dispatch(resetScore()),
   };
 };
 

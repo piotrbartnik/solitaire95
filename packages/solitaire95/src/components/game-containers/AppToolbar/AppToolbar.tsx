@@ -1,13 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  dealCards,
-  resetScore,
-  stopGame,
   toggleWindow,
-  resetStockCounter,
   finishGame,
-  resetTime,
   undoTakeOneFromStock,
   setUndoAction,
   undoRemoveCardFromPile,
@@ -28,17 +23,13 @@ import {
 import { GameState, FoundationState } from "../../../store/reducers";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { ToolDropdown } from "../../smart-components";
+import { dealCardsAllSteps } from "../../../helpers/dealCardsAllSteps";
 import styles from "./AppToolbar.module.scss";
 
 type AppToolbarDispatchTypes = {
-  dealCards: () => void;
   toggleCardBackWindow: (windowState: boolean, windowToToggle: string) => void;
-  resetScore: () => void;
-  stopGame: () => void;
   toggleAboutWindow: (windowState: boolean, windowToToggle: string) => void;
-  resetStockCounter: () => void;
   setGameFinished: (gameState: boolean) => void;
-  resetStateSavedTimers: () => void;
   undoTakeOneFromStock: (
     cardsOnStockUndo: cardConfigType[],
     cardsFromStockUndo: cardConfigType[]
@@ -73,6 +64,7 @@ type AppToolbarDispatchTypes = {
     foundationState: { [key: string]: FoundationState },
     pilesState: { [key: string]: cardConfigType[] }
   ) => void;
+  dealCardsAllSteps: () => void;
 };
 
 type AppToolbarStateTypes = {
@@ -91,19 +83,14 @@ const AppToolbarInternal: React.FC<
   AppToolbarDispatchTypes & AppToolbarPropTypes & AppToolbarStateTypes
 > = (props) => {
   const {
-    dealCards,
     toggleCardBackWindow,
     gameVisible,
     helpVisible,
     setGameVisible,
     setHelpVisible,
     setBottomBarText,
-    resetScore,
-    stopGame,
     toggleAboutWindow,
-    resetStockCounter,
     setGameFinished,
-    resetStateSavedTimers,
     undoTakeOneFromStock,
     actionToUndo,
     setUndoAction,
@@ -114,6 +101,7 @@ const AppToolbarInternal: React.FC<
     undoMoveFromPileToFoundation,
     undoMoveFromFoundationToPiles,
     undoThreeCardsFromStock,
+    dealCardsAllSteps,
   } = props;
 
   return (
@@ -139,14 +127,10 @@ const AppToolbarInternal: React.FC<
             <>
               <ToolButton
                 onClick={() => {
-                  dealCards();
-                  resetScore();
-                  resetStockCounter();
-                  stopGame();
                   setGameVisible(!gameVisible);
                   setHelpVisible(false);
                   setGameFinished(false);
-                  resetStateSavedTimers();
+                  dealCardsAllSteps();
                 }}
                 onMouseOver={() => setBottomBarText("Deal a new game")}
                 onMouseLeave={() => setBottomBarText("")}
@@ -299,16 +283,11 @@ const mapStateToProps = (state: { gameState: GameState }) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    dealCards: () => dispatch(dealCards()),
-    resetScore: () => dispatch(resetScore()),
-    resetStockCounter: () => dispatch(resetStockCounter()),
-    stopGame: () => dispatch(stopGame()),
     toggleCardBackWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
     toggleAboutWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
     setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
-    resetStateSavedTimers: () => dispatch(resetTime()),
     undoTakeOneFromStock: (
       cardsOnStockUndo: cardConfigType[],
       cardsFromStockUndo: cardConfigType[]
@@ -365,6 +344,7 @@ const mapDispatchToProps = (dispatch: any) => {
       foundationState: { [key: string]: FoundationState },
       pilesState: { [key: string]: cardConfigType[] }
     ) => dispatch(undoMoveFromFoundationToPiles(foundationState, pilesState)),
+    dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
   };
 };
 
