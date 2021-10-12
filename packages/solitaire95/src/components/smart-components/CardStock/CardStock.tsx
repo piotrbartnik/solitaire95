@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import { CardBackContext } from "../../game-containers";
 import {
@@ -155,6 +155,23 @@ const CardStockInternal: React.FC<
       threeCardsOnTable,
     ]
   );
+
+  useEffect(() => {
+    if (!threeCardsOnTable?.length && cardsFromStock?.length) {
+      const takeThreeFromCardsOnTable = cardsFromStock.slice(
+        cardsFromStock.length - 3
+      );
+      const cardsFromStockWithTakenThree = cardsFromStock.slice(
+        0,
+        cardsFromStock.length - 3
+      );
+      takeThreeFromStock(
+        cardsOnStock,
+        cardsFromStockWithTakenThree,
+        takeThreeFromCardsOnTable
+      );
+    }
+  }, [threeCardsOnTable, cardsFromStock, takeThreeFromStock, cardsOnStock]);
 
   const threeCardsOnCardStock = () => {
     return threeCardsOnTable?.reverse().map((card, index) => (
