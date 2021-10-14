@@ -161,15 +161,8 @@ const CardStockInternal: React.FC<
       const takeThreeFromCardsOnTable = cardsFromStock.slice(
         cardsFromStock.length - 3
       );
-      const cardsFromStockWithTakenThree = cardsFromStock.slice(
-        0,
-        cardsFromStock.length - 3
-      );
-      takeThreeFromStock(
-        cardsOnStock,
-        cardsFromStockWithTakenThree,
-        takeThreeFromCardsOnTable
-      );
+
+      takeThreeFromStock(cardsOnStock, [], takeThreeFromCardsOnTable);
     }
   }, [threeCardsOnTable, cardsFromStock, takeThreeFromStock, cardsOnStock]);
 
