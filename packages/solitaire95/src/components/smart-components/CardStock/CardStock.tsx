@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect } from "react";
+import React, { useContext, useCallback } from "react";
 import { connect } from "react-redux";
 import { CardBackContext } from "../../game-containers";
 import {
@@ -21,6 +21,7 @@ import { Card } from "..";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import styles from "./CardStock.module.scss";
+import { useGetThreeFromCardsOnStock } from "./CardStock.hooks";
 
 export type CardStockStateTypes = {
   cardsOnStock: cardConfigType[];
@@ -156,15 +157,12 @@ const CardStockInternal: React.FC<
     ]
   );
 
-  useEffect(() => {
-    if (!threeCardsOnTable?.length && cardsFromStock?.length) {
-      const takeThreeFromCardsOnTable = cardsFromStock.slice(
-        cardsFromStock.length - 3
-      );
-
-      takeThreeFromStock(cardsOnStock, [], takeThreeFromCardsOnTable);
-    }
-  }, [threeCardsOnTable, cardsFromStock, takeThreeFromStock, cardsOnStock]);
+  useGetThreeFromCardsOnStock(
+    threeCardsOnTable,
+    cardsFromStock,
+    takeThreeFromStock,
+    cardsOnStock
+  );
 
   const threeCardsOnCardStock = () => {
     return threeCardsOnTable?.reverse().map((card, index) => (
