@@ -164,31 +164,48 @@ const CardStockInternal: React.FC<
     cardsOnStock
   );
 
+  let threeCardRightShift = 0;
+
+  if (cardsFromStock.length > 9 && cardsFromStock.length <= 18) {
+    threeCardRightShift = 4;
+  } else if (cardsFromStock.length > 18) {
+    threeCardRightShift = 8;
+  } else {
+    threeCardRightShift = 0;
+  }
+
   const threeCardsOnCardStock = () => {
-    return threeCardsOnTable?.reverse().map((card, index) => (
-      <div
-        className={[styles.card, styles[`card_${index}`]].join(" ")}
-        id={`${index}`}
-        key={`${index}${card}cardsOnTable`}
-        style={{ left: `${27 * index}px` }}
-      >
-        <Card
-          cardFront={card[0]}
-          cardSuite={card[1]}
-          cardColor={card[3]}
-          cardOrder={card[4]}
-          cardBack={cardBackImage}
-          isTurnedBack={false}
-          onDoubleClick={
-            index === threeCardsOnTable.length - 1
-              ? moveToFoundationCallback
-              : undefined
-          }
-          key={`${index}${card}`}
-          canBeDragged={index === threeCardsOnTable.length - 1}
-        />
+    return (
+      <div className={styles.threeCardShifter}>
+        {threeCardsOnTable?.reverse().map((card, index) => (
+          <div
+            className={[styles.card, styles[`card_${index}`]].join(" ")}
+            id={`${index}`}
+            key={`${index}${card}cardsOnTable`}
+            style={{
+              left: `${27 * index + threeCardRightShift}px`,
+              top: `${0 + threeCardRightShift / 2}px`,
+            }}
+          >
+            <Card
+              cardFront={card[0]}
+              cardSuite={card[1]}
+              cardColor={card[3]}
+              cardOrder={card[4]}
+              cardBack={cardBackImage}
+              isTurnedBack={false}
+              onDoubleClick={
+                index === threeCardsOnTable.length - 1
+                  ? moveToFoundationCallback
+                  : undefined
+              }
+              key={`${index}${card}`}
+              canBeDragged={index === threeCardsOnTable.length - 1}
+            />
+          </div>
+        ))}
       </div>
-    ));
+    );
   };
 
   return (
