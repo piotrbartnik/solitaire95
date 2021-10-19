@@ -8,6 +8,25 @@ export const undoActions: Middleware = (store) => (next) => (action) => {
   const undoState = store.getState().gameState.actionToUndo;
 
   switch (action.type) {
+    case "REVERSE_STOCK":
+      if (previousState.gameState.drawType === "drawOne") {
+        actionToUndo = [
+          action.type,
+          previousState.cardDistribution.cardsOnStock,
+          previousState.cardDistribution.threeCardsOnTable,
+          previousState.cardDistribution.cardsFromStock.reverse(),
+        ];
+      }
+      if (previousState.gameState.drawType === "drawThree") {
+        actionToUndo = [
+          action.type,
+          previousState.cardDistribution.cardsOnStock,
+          previousState.cardDistribution.threeCardsOnTable,
+          previousState.cardDistribution.cardsFromStock,
+        ];
+      }
+      store.dispatch(setUndoAction(actionToUndo));
+      break;
     case "TAKE_ONE_FROM_STOCK":
       actionToUndo = [
         action.type,

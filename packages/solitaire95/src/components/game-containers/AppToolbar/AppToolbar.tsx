@@ -165,6 +165,13 @@ const AppToolbarInternal: React.FC<
                         actionToUndo[3] as cardConfigType[]
                       );
                     }
+                    if (actionToUndo[0] === "REVERSE_STOCK") {
+                      undoThreeCardsFromStock(
+                        actionToUndo[1] as cardConfigType[],
+                        actionToUndo[2] as cardConfigType[],
+                        actionToUndo[3] as cardConfigType[]
+                      );
+                    }
                     if (actionToUndo[0] === "FROM_STOCK_TO_PILE") {
                       substractScorePoints(-5);
                       undoMoveFromStockToPiles(
