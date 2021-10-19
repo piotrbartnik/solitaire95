@@ -18,6 +18,12 @@ describe("render MainPage with custom state for cards on stock", () => {
         cardsOnStock: clubsCards,
         cardsFromStock: [],
         cardsOnPiles: {},
+        threeCardsOnTable: [],
+      },
+      gameState: {
+        drawType: "drawOne",
+        timerVisible: true,
+        bottomBarVisible: true,
       },
     };
   });
@@ -87,6 +93,12 @@ describe("render MainPage with custom state for cards on stock", () => {
         cardsOnStock: fourAcesCards.slice(),
         cardsFromStock: [],
         cardsOnPiles: {},
+        threeCardsOnTable: [],
+      },
+      gameState: {
+        drawType: "drawOne",
+        timerVisible: true,
+        bottomBarVisible: true,
       },
     };
     const { container } = reduxRtlWrapper(
@@ -116,8 +128,14 @@ describe("render MainPage with custom state for cards on stock", () => {
       cardsOnStock: [["ace", "clubs", undefined, "black", 1]],
       cardsFromStock: [],
       cardsOnPiles: {},
+      threeCardsOnTable: [],
     },
     countScore: { points: 150 },
+    gameState: {
+      drawType: "drawOne",
+      timerVisible: true,
+      bottomBarVisible: true,
+    },
   };
   it("after second and more stok count 100 points is substracted from score", () => {
     const { container } = reduxRtlWrapper(
