@@ -175,8 +175,18 @@ const CardStockInternal: React.FC<
   }
 
   const threeCardsOnCardStock = () => {
-    return (
-      <div className={styles.threeCardShifter}>
+    return cardsFromStock.length ? (
+      <>
+        <div className={styles.threeCardShifter}></div>
+        <div
+          className={styles.threeCardShifter}
+          style={{
+            left: "4px",
+            top: "2px",
+            position: "absolute",
+            display: cardsFromStock.length > 18 ? "block" : "none",
+          }}
+        ></div>
         {threeCardsOnTable?.reverse().map((card, index) => (
           <div
             className={[styles.card, styles[`card_${index}`]].join(" ")}
@@ -204,8 +214,8 @@ const CardStockInternal: React.FC<
             />
           </div>
         ))}
-      </div>
-    );
+      </>
+    ) : null;
   };
 
   return (
