@@ -59,15 +59,33 @@ export const takeOneFromStock = (
   };
 };
 
+export const takeThreeFromStock = (
+  cardsOnStock: cardConfigType[],
+  cardToAddToTable: cardConfigType[],
+  threeCardsOnTable: cardConfigType[]
+): {
+  type: string;
+  cardsOnStock: cardConfigType[];
+  cardToAddToTable: cardConfigType[];
+  threeCardsOnTable: cardConfigType[];
+} => {
+  return {
+    type: actionTypes.TAKE_THREE_FROM_STOCK,
+    cardsOnStock,
+    cardToAddToTable,
+    threeCardsOnTable,
+  };
+};
+
 export const reverseStock = (
-  payload: cardConfigType[]
+  reversedCardsForStock: cardConfigType[]
 ): {
   type: string;
   reverseStock: cardConfigType[];
 } => {
   return {
     type: actionTypes.REVERSE_STOCK,
-    reverseStock: payload,
+    reverseStock: reversedCardsForStock,
   };
 };
 
@@ -94,11 +112,17 @@ export const addCardToFoundation = (
 };
 
 export const removeCardFromStock = (
-  payload: cardConfigType[]
-): { type: string; removeCardFromStock: cardConfigType[] } => {
+  filteredCardsOnStock: cardConfigType[],
+  threeCardsOnStockFiltered?: cardConfigType[]
+): {
+  type: string;
+  filteredCardsOnStock: cardConfigType[];
+  threeCardsOnStockFiltered?: cardConfigType[];
+} => {
   return {
     type: actionTypes.REMOVE_CARD_FROM_STOCK,
-    removeCardFromStock: payload,
+    filteredCardsOnStock: filteredCardsOnStock,
+    threeCardsOnStockFiltered: threeCardsOnStockFiltered,
   };
 };
 
@@ -167,6 +191,24 @@ export const undoTakeOneFromStock = (
   };
 };
 
+export const undoThreeCardsFromStock = (
+  cardsOnStockUndo: cardConfigType[],
+  threeCardsFromStockUndo: cardConfigType[],
+  cardsFromStockUndo: cardConfigType[]
+): {
+  type: string;
+  cardsOnStockUndo: cardConfigType[];
+  threeCardsFromStockUndo: cardConfigType[];
+  cardsFromStockUndo: cardConfigType[];
+} => {
+  return {
+    type: actionTypes.UNDO_TAKE_THREE_FROM_STOCK,
+    cardsOnStockUndo,
+    threeCardsFromStockUndo,
+    cardsFromStockUndo,
+  };
+};
+
 export const undoRemoveCardFromPile = (pilesState: {
   [key: string]: cardConfigType[];
 }): {
@@ -183,34 +225,40 @@ export const undoMoveFromStockToPiles = (
   pilesState: {
     [key: string]: cardConfigType[];
   },
-  cardsFromStockState: cardConfigType[]
+  cardsFromStockState: cardConfigType[],
+  threeCardsFromStockUndo?: cardConfigType[]
 ): {
   type: string;
   pilesState: { [key: string]: cardConfigType[] };
   cardsFromStockState: cardConfigType[];
+  threeCardsFromStockUndo?: cardConfigType[];
 } => {
   return {
     type: actionTypes.UNDO_MOVE_FROM_STOCK_TO_PILE,
     pilesState,
     cardsFromStockState,
+    threeCardsFromStockUndo,
   };
 };
 export const undoMoveFromStockToFoundation = (
   foundationState: { [key: string]: FoundationState },
   cardsFromStockState: {
     [key: string]: cardConfigType[];
-  }
+  },
+  threeCardsFromStockUndo?: cardConfigType[]
 ): {
   type: string;
   foundationState: { [key: string]: FoundationState };
   cardsFromStockState: {
     [key: string]: cardConfigType[];
   };
+  threeCardsFromStockUndo?: cardConfigType[];
 } => {
   return {
     type: actionTypes.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION,
     foundationState,
     cardsFromStockState,
+    threeCardsFromStockUndo,
   };
 };
 export const undoMoveFromPileToFoundation = (

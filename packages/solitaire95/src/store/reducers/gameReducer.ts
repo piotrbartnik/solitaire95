@@ -7,6 +7,7 @@ export interface GameState {
   outlineDragging: boolean;
   bottomBarVisible: boolean;
   timerVisible: boolean;
+  drawType: string;
 }
 
 interface GameStateActionTypes {
@@ -16,6 +17,7 @@ interface GameStateActionTypes {
   outlineDragging: boolean;
   bottomBarVisible: boolean;
   timerVisible: boolean;
+  drawType: string;
 }
 
 const initialState: GameState = {
@@ -25,6 +27,7 @@ const initialState: GameState = {
   outlineDragging: false,
   bottomBarVisible: true,
   timerVisible: true,
+  drawType: "oneCard",
 };
 
 export const gameState = (
@@ -46,6 +49,8 @@ export const gameState = (
       return { ...state, bottomBarVisible: action.bottomBarVisible };
     case "TOGGLE_TIMER":
       return { ...state, timerVisible: action.timerVisible };
+    case "TOGGLE_DRAW_TYPE":
+      return { ...state, drawType: action.drawType };
     default:
       return state;
   }

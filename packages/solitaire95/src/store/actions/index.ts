@@ -1,6 +1,7 @@
 export {
   dealCards,
   takeOneFromStock,
+  takeThreeFromStock,
   reverseStock,
   addCardToFoundation,
   removeCardFromStock,
@@ -17,6 +18,7 @@ export {
   undoMoveFromStockToFoundation,
   undoMoveFromPileToFoundation,
   undoMoveFromFoundationToPiles,
+  undoThreeCardsFromStock,
 } from "./cardActions";
 export {
   startGame,
@@ -27,6 +29,7 @@ export {
   setOutlineDragging,
   toggleBottomBar,
   toggleTimer,
+  toggledrawType,
 } from "./gameActions";
 export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";
 export { toggleWindow } from "./windowActions";

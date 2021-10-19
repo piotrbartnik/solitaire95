@@ -25,6 +25,7 @@ export type FoundationStateTypes = {
   cardsOnFoundations: FoundationInitialState;
   gameStarted: boolean;
   outlineDragging: boolean;
+  threeCardsOnTable: cardConfigType[];
 };
 
 export type FoundationDispatchTypes = {
@@ -35,7 +36,10 @@ export type FoundationDispatchTypes = {
   ) => void;
   removeCardFromPile: (pileNumber: string) => void;
   addPoints: (points: number) => void;
-  removeCardFromStock: (card: cardConfigType[]) => void;
+  removeCardFromStock: (
+    filteredCardsOnStock: cardConfigType[],
+    threeCardsOnStockFiltered: cardConfigType[]
+  ) => void;
   startGame: () => void;
   removeCardFromFoundation: (foundationNumber: string) => void;
 };
@@ -61,6 +65,7 @@ const FoundationInternal: React.FC<
     gameStarted,
     removeCardFromFoundation,
     outlineDragging,
+    threeCardsOnTable,
   } = props;
 
   const { cardBackImage } = useContext(CardBackContext);
@@ -125,6 +130,9 @@ const FoundationInternal: React.FC<
     } else {
       removeCardFromStock(
         cardsFromStock.filter(
+          (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
+        ),
+        threeCardsOnTable?.filter(
           (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
         )
       );
@@ -196,6 +204,7 @@ const mapStateToProps = (state: {
     cardsOnFoundations: state.cardsOnFoundation,
     gameStarted: state.gameState.gameStarted,
     outlineDragging: state.gameState.outlineDragging,
+    threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
   };
 };
 
@@ -209,8 +218,13 @@ const mapDispatchToProps = (dispatch: any) => {
     ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
     removeCardFromPile: (pileNumber: string) =>
       dispatch(removeCardFromPile(pileNumber)),
-    removeCardFromStock: (card: cardConfigType[]) =>
-      dispatch(removeCardFromStock(card)),
+    removeCardFromStock: (
+      filteredCardsOnStock: cardConfigType[],
+      threeCardsOnStockFiltered: cardConfigType[]
+    ) =>
+      dispatch(
+        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
+      ),
     addPoints: (points: number) => dispatch(countScore(points)),
     startGame: () => dispatch(startGame()),
     removeCardFromFoundation: (foundationNumber: string) =>

@@ -31,12 +31,16 @@ type PileStateTypes = {
   cardsOnPiles: { [key: string]: cardConfigType[] };
   gameStarted: boolean;
   outlineDragging: boolean;
+  threeCardsOnTable: cardConfigType[];
 };
 
 type PileDispatchTypes = {
   removeCardFromPile: (pile: string) => void;
   addCardToPile: (pileNumber: string, cardToPile: cardConfigType) => void;
-  removeCardFromStock: (cards: cardConfigType[]) => void;
+  removeCardFromStock: (
+    filteredCardsOnStock: cardConfigType[],
+    threeCardsOnStockFiltered?: cardConfigType[]
+  ) => void;
   addCardToFoundation: (
     card: cardConfigType,
     foundationNumber: string,
@@ -74,6 +78,7 @@ const PileInternal: React.FC<
     gameStarted,
     setUndoAction,
     outlineDragging,
+    threeCardsOnTable,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -134,6 +139,9 @@ const PileInternal: React.FC<
       addCardToPile((ref.current as HTMLDivElement).id, cardToPile);
       removeCardFromStock(
         cardsFromStock?.filter(
+          (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
+        ),
+        threeCardsOnTable?.filter(
           (card) => `${card[0]}_${card[1]}` !== `${cardFront}_${cardSuite}`
         )
       );
@@ -287,6 +295,7 @@ const mapStateToProps = (state: {
     cardsOnPiles: state.cardDistribution.cardsOnPiles,
     gameStarted: state.gameState.gameStarted,
     outlineDragging: state.gameState.outlineDragging,
+    threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
   };
 };
 
@@ -297,8 +306,13 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(removeCardFromPile(pileNumber)),
     addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
       dispatch(addCardToPile(pileNumber, cardToPile)),
-    removeCardFromStock: (cards: cardConfigType[]) => {
-      dispatch(removeCardFromStock(cards));
+    removeCardFromStock: (
+      filteredCardsOnStock: cardConfigType[],
+      threeCardsOnStockFiltered: cardConfigType[]
+    ) => {
+      dispatch(
+        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
+      );
     },
     addCardToFoundation: (
       card: cardConfigType,

@@ -4,6 +4,7 @@ export interface CardsDistributionInitialState {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
+  threeCardsOnTable: cardConfigType[];
 }
 
 export interface CardDistributionActionTypes {
@@ -11,22 +12,26 @@ export interface CardDistributionActionTypes {
   cardsOnPiles: { [key: string]: cardConfigType[] };
   cardsForStock: cardConfigType[];
   cardsOnStock: cardConfigType[];
-  cardToAddToTable: cardConfigType;
+  cardToAddToTable: cardConfigType[] | cardConfigType;
   reverseStock: cardConfigType[];
-  removeCardFromStock: cardConfigType[];
+  filteredCardsOnStock: cardConfigType[];
   removeCardFromPile: number;
   cardToPile: cardConfigType;
   addCardToPile: number;
   cardToTurn: number;
   cardsOnStockUndo: cardConfigType[];
   cardsFromStockUndo: cardConfigType[];
+  threeCardsFromStockUndo: cardConfigType[];
   pilesState: { [key: string]: cardConfigType[] };
   cardsFromStockState: cardConfigType[];
+  threeCardsOnTable: cardConfigType[];
+  threeCardsOnStockFiltered: cardConfigType[];
 }
 
 const initialState: CardsDistributionInitialState = {
   cardsOnStock: [],
   cardsFromStock: [],
+  threeCardsOnTable: [],
   cardsOnPiles: {},
 };
 
@@ -39,12 +44,26 @@ export const cardDistribution = (
       return {
         cardsOnStock: action.cardsForStock,
         cardsFromStock: [],
+        threeCardsOnTable: [],
         cardsOnPiles: action.cardsOnPiles,
       };
     case "TAKE_ONE_FROM_STOCK":
       return {
         ...state,
-        cardsFromStock: [...state.cardsFromStock, action.cardToAddToTable],
+        cardsFromStock: [
+          ...state.cardsFromStock,
+          action.cardToAddToTable as cardConfigType,
+        ],
+        cardsOnStock: action.cardsOnStock,
+      };
+    case "TAKE_THREE_FROM_STOCK":
+      return {
+        ...state,
+        cardsFromStock: [
+          ...state.cardsFromStock,
+          ...(action.cardToAddToTable as cardConfigType[]),
+        ],
+        threeCardsOnTable: [...(action.threeCardsOnTable as cardConfigType[])],
         cardsOnStock: action.cardsOnStock,
       };
     case "REVERSE_STOCK":
@@ -52,11 +71,13 @@ export const cardDistribution = (
         ...state,
         cardsOnStock: action.reverseStock,
         cardsFromStock: [],
+        threeCardsOnTable: [],
       };
     case "REMOVE_CARD_FROM_STOCK":
       return {
         ...state,
-        cardsFromStock: action.removeCardFromStock,
+        cardsFromStock: action.filteredCardsOnStock,
+        threeCardsOnTable: action.threeCardsOnStockFiltered,
       };
     case "REMOVE_CARD_FROM_PILE":
       return {
@@ -75,9 +96,8 @@ export const cardDistribution = (
         ...state,
         cardsOnPiles: {
           ...state.cardsOnPiles,
-          [action.addCardToPile]: state.cardsOnPiles[
-            action.addCardToPile
-          ].concat(cardAdded),
+          [action.addCardToPile]:
+            state.cardsOnPiles[action.addCardToPile].concat(cardAdded),
         },
       };
     case "TURN_CARD_ON_PILE":
@@ -107,6 +127,13 @@ export const cardDistribution = (
         cardsOnStock: action.cardsOnStockUndo,
         cardsFromStock: action.cardsFromStockUndo,
       };
+    case "UNDO_TAKE_THREE_FROM_STOCK":
+      return {
+        ...state,
+        cardsOnStock: action.cardsOnStockUndo,
+        threeCardsOnTable: action.threeCardsFromStockUndo,
+        cardsFromStock: action.cardsFromStockUndo,
+      };
     case "UNDO_REMOVE_FROM_PILE":
       return {
         ...state,
@@ -117,11 +144,13 @@ export const cardDistribution = (
         ...state,
         cardsOnPiles: { ...action.pilesState },
         cardsFromStock: action.cardsFromStockState,
+        threeCardsOnTable: action.threeCardsFromStockUndo,
       };
     case "UNDO_MOVE_FROM_STOCK_TO_FOUNDATION":
       return {
         ...state,
         cardsFromStock: action.cardsFromStockState,
+        threeCardsOnTable: action.threeCardsFromStockUndo,
       };
     case "UNDO_MOVE_FROM_PILE_TO_FOUNDATION":
       return {

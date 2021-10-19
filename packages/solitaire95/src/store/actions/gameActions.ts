@@ -31,7 +31,8 @@ export type UndoActionType =
         | { [key: string]: FoundationState }
         | { [key: string]: cardConfigType[] }
       ),
-      cardConfigType[] | { [key: string]: cardConfigType[] }
+      cardConfigType[] | { [key: string]: cardConfigType[] },
+      cardConfigType[]?
     ]
   | [];
 
@@ -80,5 +81,14 @@ export const toggleTimer = (
   return {
     type: actionTypes.TOGGLE_TIMER,
     timerVisible,
+  };
+};
+
+export const toggledrawType = (
+  drawType: string
+): { type: string; drawType: string } => {
+  return {
+    type: actionTypes.TOGGLE_DRAW_TYPE,
+    drawType,
   };
 };
