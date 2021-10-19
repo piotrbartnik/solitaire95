@@ -245,6 +245,7 @@ const CardStockInternal: React.FC<
                     cardOrder={card[4]}
                     cardBack={cardBackImage}
                     isTurnedBack={true}
+                    canBeDragged={false}
                   />
                 </div>
               ))
