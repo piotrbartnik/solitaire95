@@ -19,6 +19,7 @@ const initialState = {
     cardsOnStock: [],
     cardsFromStock: lastKingToMove,
     cardsOnPiles: {},
+    threeCardsOnTable: [],
   },
   cardsOnFoundation: {
     cardsOnFirstFoundation: {
@@ -38,7 +39,12 @@ const initialState = {
       cards: spades,
     },
   },
-  gameState: { gameStarted: true, bottomBarVisible: true, timerVisible: true },
+  gameState: {
+    gameStarted: true,
+    bottomBarVisible: true,
+    timerVisible: true,
+    drawType: "drawOne",
+  },
   timeCounter: { scoreTime: 500 },
 };
 

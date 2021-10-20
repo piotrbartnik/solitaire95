@@ -9,15 +9,27 @@ export const useGetThreeFromCardsOnStock = (
     cardToAddToTable: cardConfigType[],
     threeCardsOnTable: cardConfigType[]
   ) => void,
-  cardsOnStock: cardConfigType[]
+  cardsOnStock: cardConfigType[],
+  gameType: string
 ): void => {
   useEffect(() => {
-    if (!threeCardsOnTable?.length && cardsFromStock?.length) {
+    if (
+      !threeCardsOnTable?.length &&
+      cardsFromStock?.length &&
+      gameType === "drawThree"
+    ) {
       const takeThreeFromCardsOnTable = cardsFromStock.slice(
         cardsFromStock.length - 3
       );
+      console.log("dupson");
 
       takeThreeFromStock(cardsOnStock, [], takeThreeFromCardsOnTable);
     }
-  }, [threeCardsOnTable, cardsFromStock, takeThreeFromStock, cardsOnStock]);
+  }, [
+    threeCardsOnTable,
+    cardsFromStock,
+    takeThreeFromStock,
+    cardsOnStock,
+    gameType,
+  ]);
 };

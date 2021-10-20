@@ -13,8 +13,9 @@ const store = mockStore({
   cardDistribution: {
     cardsOnStock: testAceCardStock,
     cardsFromStock: testAceCardStock,
+    threeCardsOnTable: [],
   },
-  gameState: { gameStarted: false },
+  gameState: { gameStarted: false, drawType: "drawOne" },
   cardsOnFoundation: {
     cardsOnFirstFoundation: { foundationSuite: undefined, cards: [] },
     cardsOnSecondFoundation: { foundationSuite: undefined, cards: [] },
@@ -29,7 +30,7 @@ describe("renders CardStock", () => {
     expect(container.querySelectorAll(".cardBack")).toHaveLength(24);
   });
 
-  it.skip("and when card clicked it is turned front and added to cards on table", () => {
+  it("and when card clicked it is turned front and added to cards on table", () => {
     const { container } = reduxRtlWrapper(dndWrapper(<CardStock />));
     fireEvent.click(container.querySelector(".card") as Element);
     expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
@@ -47,7 +48,7 @@ describe("renders CardStock", () => {
       expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
     });
 
-    it.skip("with ace and it is moved to foundations on doubleclick", () => {
+    it("with ace and it is moved to foundations on doubleclick", () => {
       const { container } = reduxRtlWrapper(
         dndWrapper(
           <Provider store={store}>

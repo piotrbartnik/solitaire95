@@ -161,7 +161,8 @@ const CardStockInternal: React.FC<
     threeCardsOnTable,
     cardsFromStock,
     takeThreeFromStock,
-    cardsOnStock
+    cardsOnStock,
+    drawType
   );
 
   let threeCardRightShift = 0;

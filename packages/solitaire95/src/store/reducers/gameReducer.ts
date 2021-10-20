@@ -7,7 +7,7 @@ export interface GameState {
   outlineDragging: boolean;
   bottomBarVisible: boolean;
   timerVisible: boolean;
-  drawType: string;
+  drawType: "drawOne" | "drawThree";
 }
 
 interface GameStateActionTypes {
@@ -17,7 +17,7 @@ interface GameStateActionTypes {
   outlineDragging: boolean;
   bottomBarVisible: boolean;
   timerVisible: boolean;
-  drawType: string;
+  drawType: "drawOne" | "drawThree";
 }
 
 const initialState: GameState = {
@@ -27,7 +27,7 @@ const initialState: GameState = {
   outlineDragging: false,
   bottomBarVisible: true,
   timerVisible: true,
-  drawType: "oneCard",
+  drawType: "drawOne",
 };
 
 export const gameState = (
