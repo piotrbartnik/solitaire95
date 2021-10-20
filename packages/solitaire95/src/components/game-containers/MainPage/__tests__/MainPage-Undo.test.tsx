@@ -22,7 +22,9 @@ describe("render MainPage with custom state for undo testing", () => {
       cardsOnStock: [["ace", "clubs", undefined, "black", 1]],
       cardsFromStock: [],
       cardsOnPiles: {},
+      threeCardsOnTable: [],
     },
+    gameState: { drawType: "drawOne" },
   };
   const fromPileToFoundation = {
     cardDistribution: {
