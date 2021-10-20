@@ -175,49 +175,51 @@ const CardStockInternal: React.FC<
     threeCardRightShift = 0;
   }
 
-  const threeCardsOnCardStock = () => {
-    return cardsFromStock.length ? (
-      <>
-        <div className={styles.threeCardShifter}></div>
+  const threeCardsArray = threeCardsOnTable?.reverse();
+
+  console.log(threeCardsArray);
+
+  const threeCardsOnCardStock = cardsFromStock.length ? (
+    <>
+      <div className={styles.threeCardShifter}></div>
+      <div
+        className={styles.threeCardShifter}
+        style={{
+          left: "4px",
+          top: "2px",
+          position: "absolute",
+          display: cardsFromStock.length > 18 ? "block" : "none",
+        }}
+      ></div>
+      {threeCardsArray?.map((card, index) => (
         <div
-          className={styles.threeCardShifter}
+          className={[styles.card, styles[`card_${index}`]].join(" ")}
+          id={`${index}`}
+          key={`${index}${card}cardsOnTable`}
           style={{
-            left: "4px",
-            top: "2px",
-            position: "absolute",
-            display: cardsFromStock.length > 18 ? "block" : "none",
+            left: `${27 * index + threeCardRightShift}px`,
+            top: `${0 + threeCardRightShift / 2}px`,
           }}
-        ></div>
-        {threeCardsOnTable?.reverse().map((card, index) => (
-          <div
-            className={[styles.card, styles[`card_${index}`]].join(" ")}
-            id={`${index}`}
-            key={`${index}${card}cardsOnTable`}
-            style={{
-              left: `${27 * index + threeCardRightShift}px`,
-              top: `${0 + threeCardRightShift / 2}px`,
-            }}
-          >
-            <Card
-              cardFront={card[0]}
-              cardSuite={card[1]}
-              cardColor={card[3]}
-              cardOrder={card[4]}
-              cardBack={cardBackImage}
-              isTurnedBack={false}
-              onDoubleClick={
-                index === threeCardsOnTable.length - 1
-                  ? moveToFoundationCallback
-                  : undefined
-              }
-              key={`${index}${card}`}
-              canBeDragged={index === threeCardsOnTable.length - 1}
-            />
-          </div>
-        ))}
-      </>
-    ) : null;
-  };
+        >
+          <Card
+            cardFront={card[0]}
+            cardSuite={card[1]}
+            cardColor={card[3]}
+            cardOrder={card[4]}
+            cardBack={cardBackImage}
+            isTurnedBack={false}
+            onDoubleClick={
+              index === threeCardsOnTable.length - 1
+                ? moveToFoundationCallback
+                : undefined
+            }
+            key={`${index}${card}`}
+            canBeDragged={index === threeCardsOnTable.length - 1}
+          />
+        </div>
+      ))}
+    </>
+  ) : null;
 
   return (
     <div className={styles.cardStock__container}>
@@ -273,7 +275,7 @@ const CardStockInternal: React.FC<
                 />
               </div>
             ))
-          : threeCardsOnCardStock()}
+          : threeCardsOnCardStock}
       </div>
     </div>
   );
