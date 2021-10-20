@@ -94,7 +94,7 @@ const CardStockInternal: React.FC<
     } else {
       addToStockCounter();
 
-      const reversedStock = cardsFromStock.reverse();
+      const reversedStock = cardsFromStock.slice().reverse();
       reverseStock(reversedStock);
       if (stockCounter.stockRevolutions >= 1) {
         addPoints(-100);
@@ -175,9 +175,7 @@ const CardStockInternal: React.FC<
     threeCardRightShift = 0;
   }
 
-  const threeCardsArray = threeCardsOnTable?.reverse();
-
-  console.log(threeCardsArray);
+  const threeCardsArray = threeCardsOnTable?.slice().reverse();
 
   const threeCardsOnCardStock = cardsFromStock.length ? (
     <>
