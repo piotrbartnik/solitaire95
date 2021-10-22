@@ -64,14 +64,7 @@ describe("renders CardStock", () => {
   //   it.only("with 1 card turned back on it", () => {
   //     const { container, debug } = reduxRtlWrapper(
   //       dndWrapper(
-  //         <Provider
-  //           store={mockStore({
-  //             ...store,
-  //             gameState: { drawType: "drawThree" },
-  //           })}
-  //         >
   //           <CardStock />
-  //         </Provider>
   //       )
   //     );
   //     expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
