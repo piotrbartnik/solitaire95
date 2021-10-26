@@ -12,8 +12,8 @@ const testAceCardStock = [["ace", "clubs", undefined, "black", 1]];
 const store = {
   cardDistribution: {
     cardsOnStock: testAceCardStock,
-    cardsFromStock: [],
-    threeCardsOnTable: [["xyz"]],
+    cardsFromStock: testAceCardStock,
+    threeCardsOnTable: [],
   },
   gameState: { gameStarted: false, drawType: "drawOne" },
   cardsOnFoundation: {
@@ -57,30 +57,6 @@ describe("renders CardStock", () => {
         )
       );
       fireEvent.dblClick(container.querySelector(".cardFront") as Element);
-      expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
-    });
-  });
-  describe("with 3 cards draw", () => {
-    console.log({
-      ...store,
-      gameState: { drawType: "drawThree" },
-    });
-    it.only("with 1 card turned back on it", () => {
-      const { container, debug } = reduxRtlWrapper(
-        dndWrapper(
-          <Provider
-            store={mockStore({
-              ...store,
-              gameState: { drawType: "drawThree" },
-            })}
-          >
-            <CardStock />
-          </Provider>
-        )
-      );
-      expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
-      fireEvent.click(container.querySelector(".cardBack") as Element);
-      debug();
       expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
     });
   });
