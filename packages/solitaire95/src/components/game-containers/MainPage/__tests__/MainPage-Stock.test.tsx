@@ -6,6 +6,10 @@ import { dndWrapper, reduxRtlWrapper } from "../../../../helpers/testHelpers";
 import { MainPage } from "../MainPage";
 
 // jest.useFakeTimers();
+const clickUndo = () => {
+  fireEvent.click(screen.getByRole("button", { name: "Game" }));
+  fireEvent.click(screen.getByRole("button", { name: "Undo" }));
+};
 
 describe("render MainPage with custom state for cards on stock", () => {
   let clubsCards;
@@ -62,5 +66,22 @@ describe("render MainPage with custom state for cards on stock", () => {
     expect(
       container.querySelector(".foundation")?.querySelectorAll(".card")
     ).toHaveLength(1);
+  });
+  it("thre cards can be undone", () => {
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      initialState
+    );
+
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(10);
+
+    clickUndo();
+
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(13);
   });
 });
