@@ -84,4 +84,38 @@ describe("render MainPage with custom state for cards on stock", () => {
     expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
     expect(container.querySelectorAll(".cardBack")).toHaveLength(13);
   });
+  it("and when ace added to foundation it can be undo back to stock and score is substracted", () => {
+    const { container } = reduxRtlWrapper(dndWrapper(<MainPage />), {
+      ...initialState,
+      cardDistribution: {
+        cardsOnStock: [
+          ["ace", "spades", null, "red", "0"],
+          ["ace", "hearts", null, "red", "0"],
+          ["ace", "hearts", null, "red", "0"],
+        ],
+        cardsFromStock: [],
+        cardsOnPiles: {},
+        threeCardsOnTable: [],
+      },
+    });
+
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+
+    fireEvent.doubleClick(
+      container.querySelector("div[data-suite='spades']") as Element
+    );
+    expect(
+      container.querySelector(".foundation")?.querySelectorAll(".card")
+    ).toHaveLength(1);
+    expect(screen.getByText("Score: 10")).toBeVisible();
+    clickUndo();
+    expect(
+      container.querySelector(".foundation")?.querySelector(".card")
+    ).toBeFalsy();
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(screen.getByText("Score: 0")).toBeVisible();
+  });
 });
