@@ -21,7 +21,6 @@ export const useGetThreeFromCardsOnStock = (
       const takeThreeFromCardsOnTable = cardsFromStock.slice(
         cardsFromStock.length - 3
       );
-      console.log("dupson");
 
       takeThreeFromStock(cardsOnStock, [], takeThreeFromCardsOnTable);
     }

@@ -9,7 +9,7 @@ const mockStore = configureStore([]);
 
 const testAceCardStock = [["ace", "clubs", undefined, "black", 1]];
 
-const store = mockStore({
+const store = {
   cardDistribution: {
     cardsOnStock: testAceCardStock,
     cardsFromStock: testAceCardStock,
@@ -22,7 +22,7 @@ const store = mockStore({
     cardsOnThirdFoundation: { foundationSuite: undefined, cards: [] },
     cardsOnFourthFoundation: { foundationSuite: undefined, cards: [] },
   },
-});
+};
 
 describe("renders CardStock", () => {
   it("with 24 cards turned back on it", () => {
@@ -40,7 +40,7 @@ describe("renders CardStock", () => {
     it("with 1 card turned back on it", () => {
       const { container } = reduxRtlWrapper(
         dndWrapper(
-          <Provider store={store}>
+          <Provider store={mockStore(store)}>
             <CardStock />
           </Provider>
         )
@@ -51,7 +51,7 @@ describe("renders CardStock", () => {
     it("with ace and it is moved to foundations on doubleclick", () => {
       const { container } = reduxRtlWrapper(
         dndWrapper(
-          <Provider store={store}>
+          <Provider store={mockStore(store)}>
             <CardStock />
           </Provider>
         )
