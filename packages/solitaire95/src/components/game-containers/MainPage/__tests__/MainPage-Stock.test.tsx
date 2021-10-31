@@ -10,6 +10,7 @@ const clickUndo = () => {
 };
 
 const clubsCards = createCards.filter((card) => card[1] === "clubs").reverse();
+const fullCardsStock = createCards.slice(0, 24);
 
 const initialState = {
   cardDistribution: {
@@ -33,6 +34,16 @@ const initialStateWitcAces = {
       ["ace", "hearts", null, "red", "0"],
       ["ace", "hearts", null, "red", "0"],
     ],
+    cardsFromStock: [],
+    cardsOnPiles: {},
+    threeCardsOnTable: [],
+  },
+};
+
+const fullCardsStockState = {
+  ...initialState,
+  cardDistribution: {
+    cardsOnStock: fullCardsStock,
     cardsFromStock: [],
     cardsOnPiles: {},
     threeCardsOnTable: [],
@@ -109,5 +120,57 @@ describe("render MainPage with custom state for cards on stock", () => {
     ).toBeFalsy();
     expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
     expect(screen.getByText("Score: 0")).toBeVisible();
+  });
+  it("proper cards actions are made on subsequent stock clicks", () => {
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      fullCardsStockState
+    );
+
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(21);
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(18);
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(15);
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(12);
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(9);
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(6);
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(3);
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(24);
   });
 });
