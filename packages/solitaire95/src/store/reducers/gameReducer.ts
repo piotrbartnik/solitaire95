@@ -8,6 +8,7 @@ export interface GameState {
   bottomBarVisible: boolean;
   timerVisible: boolean;
   drawType: "drawOne" | "drawThree";
+  cardDeck: string;
 }
 
 interface GameStateActionTypes {
@@ -18,6 +19,7 @@ interface GameStateActionTypes {
   bottomBarVisible: boolean;
   timerVisible: boolean;
   drawType: "drawOne" | "drawThree";
+  cardDeck: string;
 }
 
 const initialState: GameState = {
@@ -28,6 +30,7 @@ const initialState: GameState = {
   bottomBarVisible: true,
   timerVisible: true,
   drawType: "drawOne",
+  cardDeck: "acorns",
 };
 
 export const gameState = (
@@ -51,6 +54,8 @@ export const gameState = (
       return { ...state, timerVisible: action.timerVisible };
     case "TOGGLE_DRAW_TYPE":
       return { ...state, drawType: action.drawType };
+    case "SET_CARD_DECK":
+      return { ...state, cardDeck: action.cardDeck };
     default:
       return state;
   }

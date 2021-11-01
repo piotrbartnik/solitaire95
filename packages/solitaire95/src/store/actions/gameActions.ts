@@ -92,3 +92,12 @@ export const toggledrawType = (
     drawType,
   };
 };
+
+export const setCardDeck = (
+  cardDeck: string
+): { type: string; cardDeck: string } => {
+  return {
+    type: actionTypes.SET_CARD_DECK,
+    cardDeck,
+  };
+};
