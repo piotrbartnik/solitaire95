@@ -9,7 +9,7 @@ import { useDrop, useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { Howl } from "howler";
 import ding from "../../../static/misc/ding.mp3";
-import { CardBackContext } from "../../game-containers";
+import { SoundContext } from "../../game-containers";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { TopBar, Button, CloseButton } from "../index";
 import { SettingsWindowDragLayer } from "./SettingsWindowDragLayer";
@@ -44,7 +44,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
   ]);
   const [maxWindowWidth, setMaxWindowWidth] = useState(width || 450);
 
-  const { playSounds } = useContext(CardBackContext);
+  const { playSounds } = useContext(SoundContext);
 
   const [, drop] = useDrop({
     accept: itemTypes.WINDOW,

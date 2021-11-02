@@ -33,9 +33,13 @@ import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
 
-export const CardBackContext = createContext({
+export const SoundContext = createContext({
   playSounds: true,
 });
+
+type SoundContextType = {
+  playSounds: boolean;
+};
 
 type MainPageDispatchTypes = {
   toggleDealWindow: (state: boolean, window: string) => void;
@@ -53,8 +57,7 @@ type MainPageStateTypes = {
   timerVisible: boolean;
 };
 
-type MainPagePropTypes = {
-  playSounds?: boolean;
+type MainPagePropTypes = Partial<SoundContextType> & {
   aboutChildren?: JSX.Element;
 };
 
@@ -74,9 +77,8 @@ const MainPageInternal: React.FC<
     bottomBarVisible,
     timerVisible,
   } = props;
-  const value: {
-    playSounds: boolean;
-  } = {
+
+  const soundContextValue: SoundContextType = {
     playSounds: playSounds || false,
   };
 
@@ -144,7 +146,7 @@ const MainPageInternal: React.FC<
           }
         }}
       >
-        <CardBackContext.Provider value={value}>
+        <SoundContext.Provider value={soundContextValue}>
           {isWindowVisible?.cardBackWindow && <DeckSelect />}
           {isWindowVisible?.aboutWindow && (
             <AboutSolitaire aboutChildren={aboutChildren} />
@@ -175,7 +177,7 @@ const MainPageInternal: React.FC<
             bottomBarVisible={bottomBarVisible}
             timerVisible={timerVisible}
           />
-        </CardBackContext.Provider>
+        </SoundContext.Provider>
       </div>
     </DndProvider>
   );
