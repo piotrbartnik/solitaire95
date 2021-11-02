@@ -1,4 +1,4 @@
-import React, { useRef, useContext, MouseEvent, useCallback } from "react";
+import React, { useRef, MouseEvent, useCallback } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
@@ -17,7 +17,6 @@ import {
   turnCardOnPile,
   setUndoAction,
 } from "../../../store/actions/";
-import { CardBackContext } from "../../game-containers";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
@@ -32,6 +31,7 @@ type PileStateTypes = {
   gameStarted: boolean;
   outlineDragging: boolean;
   threeCardsOnTable: cardConfigType[];
+  cardBackImage: string;
 };
 
 type PileDispatchTypes = {
@@ -79,10 +79,10 @@ const PileInternal: React.FC<
     setUndoAction,
     outlineDragging,
     threeCardsOnTable,
+    cardBackImage,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
-  const { cardBackImage } = useContext(CardBackContext);
 
   const dropCardOnPile = (dragObject: {
     cardFront: string;
@@ -296,6 +296,7 @@ const mapStateToProps = (state: {
     gameStarted: state.gameState.gameStarted,
     outlineDragging: state.gameState.outlineDragging,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
+    cardBackImage: state.gameState.cardDeck,
   };
 };
 

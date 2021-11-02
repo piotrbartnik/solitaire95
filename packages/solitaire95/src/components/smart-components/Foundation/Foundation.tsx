@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
-import { CardBackContext } from "../../game-containers";
 import {
   CardsDistributionInitialState,
   FoundationInitialState,
@@ -26,6 +25,7 @@ export type FoundationStateTypes = {
   gameStarted: boolean;
   outlineDragging: boolean;
   threeCardsOnTable: cardConfigType[];
+  cardBackImage: string;
 };
 
 export type FoundationDispatchTypes = {
@@ -66,9 +66,8 @@ const FoundationInternal: React.FC<
     removeCardFromFoundation,
     outlineDragging,
     threeCardsOnTable,
+    cardBackImage,
   } = props;
-
-  const { cardBackImage } = useContext(CardBackContext);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const canBeDroppedOnFoundation = (card: any) => {
@@ -205,6 +204,7 @@ const mapStateToProps = (state: {
     gameStarted: state.gameState.gameStarted,
     outlineDragging: state.gameState.outlineDragging,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
+    cardBackImage: state.gameState.cardDeck,
   };
 };
 

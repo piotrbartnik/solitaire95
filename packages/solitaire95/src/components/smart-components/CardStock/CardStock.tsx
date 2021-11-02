@@ -1,6 +1,5 @@
-import React, { useContext, useCallback } from "react";
+import React, { useCallback } from "react";
 import { connect } from "react-redux";
-import { CardBackContext } from "../../game-containers";
 import {
   takeOneFromStock,
   reverseStock,
@@ -31,6 +30,7 @@ export type CardStockStateTypes = {
   gameStarted: boolean;
   drawType: string;
   threeCardsOnTable: cardConfigType[];
+  cardBackImage: string;
 };
 
 export type CardStockDispatchTypes = {
@@ -82,6 +82,7 @@ const CardStockInternal: React.FC<
     gameStarted,
     drawType,
     threeCardsOnTable,
+    cardBackImage,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -130,8 +131,6 @@ const CardStockInternal: React.FC<
       }
     }
   };
-
-  const { cardBackImage } = useContext(CardBackContext);
 
   const moveToFoundationCallback = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
@@ -293,6 +292,7 @@ const mapStateToProps = (state: {
     stockCounter: state.stockCounter,
     gameStarted: state.gameState.gameStarted,
     drawType: state.gameState.drawType,
+    cardBackImage: state.gameState.cardDeck,
   };
 };
 

@@ -34,8 +34,6 @@ import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
 
 export const CardBackContext = createContext({
-  cardBackImage: "acorns",
-  setCardBackImage: (cardBackName: string) => cardBackName,
   playSounds: true,
 });
 
@@ -76,15 +74,9 @@ const MainPageInternal: React.FC<
     bottomBarVisible,
     timerVisible,
   } = props;
-  const [cardBackImage, setCardBackImage] = useState("acorns");
   const value: {
-    cardBackImage: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setCardBackImage: any;
     playSounds: boolean;
   } = {
-    cardBackImage,
-    setCardBackImage,
     playSounds: playSounds || false,
   };
 

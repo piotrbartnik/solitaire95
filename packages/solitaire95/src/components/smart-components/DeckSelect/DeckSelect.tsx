@@ -1,28 +1,29 @@
-import React, { useContext, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { connect } from "react-redux";
-import { toggleWindow } from "../../../store/actions/";
-import { WindowsState } from "../../../store/reducers/";
-import { CardBackContext } from "../../game-containers";
+import { toggleWindow, setCardDeck } from "../../../store/actions/";
+import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
 import { cardBackImages } from "../../../static/cardBacks";
 import styles from "./DeckSelect.module.scss";
 
 export type DeckSelectStateTypes = {
   isWindowVisible?: boolean;
+  cardBackImage: string;
 };
 export type DeckSelectDispatchTypes = {
   toggleCardBackWindow: (windowState: boolean, windowToToggle: string) => void;
+  setCardDeck: (cardDeck: string) => void;
 };
 
 const DeckSelectInternal: React.FC<
   DeckSelectStateTypes & DeckSelectDispatchTypes
 > = (props) => {
-  const { isWindowVisible, toggleCardBackWindow } = props;
+  const { isWindowVisible, toggleCardBackWindow, cardBackImage, setCardDeck } =
+    props;
   const [selectedCardBack, setSelectedCardBack] = useState<string>("");
-  const { cardBackImage, setCardBackImage } = useContext(CardBackContext);
 
   const okOnClick = () => {
-    selectedCardBack ? setCardBackImage(selectedCardBack) : undefined;
+    selectedCardBack ? setCardDeck(selectedCardBack) : undefined;
     toggleCardBackWindow(false, "cardBackWindow");
   };
 
@@ -61,7 +62,7 @@ const DeckSelectInternal: React.FC<
               style={{ backgroundImage: `url(${cardBackImages[cardBack]})` }}
               onClick={() => setSelectedCardBack(cardBack)}
               onDoubleClick={() => {
-                setCardBackImage(cardBack);
+                setCardDeck(cardBack);
                 toggleCardBackWindow(false, "cardBackWindow");
               }}
             />
@@ -72,9 +73,13 @@ const DeckSelectInternal: React.FC<
   );
 };
 
-const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
+const mapStateToProps = (state: {
+  toggleWindows: WindowsState;
+  gameState: GameState;
+}) => {
   return {
     isWindowVisible: state.toggleWindows.cardBackWindow,
+    cardBackImage: state.gameState.cardDeck,
   };
 };
 
@@ -83,6 +88,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     toggleCardBackWindow: (windowState: boolean, windowToToggle: string) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
+    setCardDeck: (cardBack: string) => dispatch(setCardDeck(cardBack)),
   };
 };
 
