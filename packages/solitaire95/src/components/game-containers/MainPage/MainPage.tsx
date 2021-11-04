@@ -87,6 +87,19 @@ const MainPageInternal: React.FC<
   const [bottomBarText, setBottomBarText] = useState("");
   const [canvasSize, setCanvasSize] = useState<number[]>([]);
 
+  const setBottomBarTextCallback = useCallback(
+    (text) => setBottomBarText(text),
+    []
+  );
+  const setGameVisibleCallback = useCallback(
+    (gameVisible) => setGameVisible(gameVisible),
+    []
+  );
+  const setHelpVisibleCallback = useCallback(
+    (helpVisible) => setHelpVisible(helpVisible),
+    []
+  );
+
   const mainPageRef = useRef<HTMLDivElement>(null);
 
   const isGameEnded = useCallback(() => {
@@ -162,10 +175,10 @@ const MainPageInternal: React.FC<
           />
           <AppToolbar
             gameVisible={gameVisible}
-            setGameVisible={setGameVisible}
             helpVisible={helpVisible}
-            setHelpVisible={setHelpVisible}
-            setBottomBarText={setBottomBarText}
+            setGameVisible={setGameVisibleCallback}
+            setHelpVisible={setHelpVisibleCallback}
+            setBottomBarText={setBottomBarTextCallback}
           />
           <GameContainer
             canvasHeight={canvasSize[1]}
