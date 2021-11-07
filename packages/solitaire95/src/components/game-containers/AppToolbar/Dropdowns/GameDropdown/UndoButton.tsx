@@ -22,6 +22,39 @@ type UndoButtonStateTypes = {
 
 type UndoButtonDispatchTypes = {
   substractScorePoints: (pointsToSubstract: number) => void;
+  undoTakeOneFromStock: (
+    cardsOnStockUndo: cardConfigType[],
+    cardsFromStockUndo: cardConfigType[]
+  ) => void;
+  undoThreeCardsFromStock: (
+    cardsOnStockUndo: cardConfigType[],
+    threeCardsFromStockUndo: cardConfigType[],
+    cardsFromStockUndo: cardConfigType[]
+  ) => void;
+  setUndoAction: (clearUndoActions: []) => void;
+  undoRemoveCardFromPile: (pilesState: {
+    [key: string]: cardConfigType[];
+  }) => void;
+  undoMoveFromStockToPiles: (
+    pilesState: { [key: string]: cardConfigType[] },
+    cardsFromStockState: cardConfigType[],
+    threeCardsFromStock?: cardConfigType[]
+  ) => void;
+  undoMoveFromStockToFoundation: (
+    foundationState: { [key: string]: FoundationState },
+    cardsFromStockState: {
+      [key: string]: cardConfigType[];
+    },
+    threeCardsFromStock?: cardConfigType[]
+  ) => void;
+  undoMoveFromPileToFoundation: (
+    foundationState: { [key: string]: FoundationState },
+    pilesState: { [key: string]: cardConfigType[] }
+  ) => void;
+  undoMoveFromFoundationToPiles: (
+    foundationState: { [key: string]: FoundationState },
+    pilesState: { [key: string]: cardConfigType[] }
+  ) => void;
 };
 
 type UndoButtonPropTypes = {
@@ -37,7 +70,15 @@ export const UndoButtonInternal: React.FC<
   actionToUndo,
   setGameVisible,
   gameVisible,
+  undoTakeOneFromStock,
+  setUndoAction,
+  undoRemoveCardFromPile,
+  undoMoveFromStockToPiles,
   substractScorePoints,
+  undoMoveFromStockToFoundation,
+  undoMoveFromPileToFoundation,
+  undoMoveFromFoundationToPiles,
+  undoThreeCardsFromStock,
 }) => {
   return (
     <ToolButton
@@ -124,8 +165,62 @@ const mapStateToProps = (state: { gameState: GameState }) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
   return {
+    undoTakeOneFromStock: (
+      cardsOnStockUndo: cardConfigType[],
+      cardsFromStockUndo: cardConfigType[]
+    ) => dispatch(undoTakeOneFromStock(cardsOnStockUndo, cardsFromStockUndo)),
+    undoThreeCardsFromStock: (
+      cardsOnStockUndo: cardConfigType[],
+      threeCardsFromStockUndo: cardConfigType[],
+      cardsFromStockUndo: cardConfigType[]
+    ) =>
+      dispatch(
+        undoThreeCardsFromStock(
+          cardsOnStockUndo,
+          threeCardsFromStockUndo,
+          cardsFromStockUndo
+        )
+      ),
+    setUndoAction: (clearUndoActions: []) =>
+      dispatch(setUndoAction(clearUndoActions)),
+    undoRemoveCardFromPile: (pilesState: { [key: string]: cardConfigType[] }) =>
+      dispatch(undoRemoveCardFromPile(pilesState)),
+    undoMoveFromStockToPiles: (
+      pilesState: { [key: string]: cardConfigType[] },
+      cardsFromStockState: cardConfigType[],
+      threeCardsFromStock?: cardConfigType[]
+    ) =>
+      dispatch(
+        undoMoveFromStockToPiles(
+          pilesState,
+          cardsFromStockState,
+          threeCardsFromStock
+        )
+      ),
     substractScorePoints: (pointsToSubstract: number) =>
       dispatch(countScore(pointsToSubstract)),
+    undoMoveFromStockToFoundation: (
+      foundationState: { [key: string]: FoundationState },
+      cardsFromStockState: {
+        [key: string]: cardConfigType[];
+      },
+      threeCardsFromStock?: cardConfigType[]
+    ) =>
+      dispatch(
+        undoMoveFromStockToFoundation(
+          foundationState,
+          cardsFromStockState,
+          threeCardsFromStock
+        )
+      ),
+    undoMoveFromPileToFoundation: (
+      foundationState: { [key: string]: FoundationState },
+      pilesState: { [key: string]: cardConfigType[] }
+    ) => dispatch(undoMoveFromPileToFoundation(foundationState, pilesState)),
+    undoMoveFromFoundationToPiles: (
+      foundationState: { [key: string]: FoundationState },
+      pilesState: { [key: string]: cardConfigType[] }
+    ) => dispatch(undoMoveFromFoundationToPiles(foundationState, pilesState)),
   };
 };
 
