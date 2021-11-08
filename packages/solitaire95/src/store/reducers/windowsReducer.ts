@@ -1,15 +1,11 @@
-export interface WindowsState {
+import { ToggleWindowReducerType, ACTION_TYPES } from "../actions";
+
+export type WindowsState = {
   cardBackWindow: boolean;
   aboutWindow: boolean;
   optionsWindow: boolean;
   dealAgainWindow: boolean;
-}
-
-interface WindowActionTypes {
-  type: string;
-  windowState: boolean;
-  windowToToggle: string;
-}
+};
 
 const initialState: WindowsState = {
   cardBackWindow: false,
@@ -20,10 +16,10 @@ const initialState: WindowsState = {
 
 export const toggleWindows = (
   state = initialState,
-  action: WindowActionTypes
+  action: ToggleWindowReducerType
 ): WindowsState => {
   switch (action.type) {
-    case "TOGGLE_WINDOW":
+    case ACTION_TYPES.TOGGLE_WINDOW:
       return { ...state, [action.windowToToggle]: action.windowState };
     default:
       return state;
