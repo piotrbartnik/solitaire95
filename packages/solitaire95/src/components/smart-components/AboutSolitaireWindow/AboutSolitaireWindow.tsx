@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import { Separator } from "../../ui-components";
 import appIco from "../../../static/appIco.png";
-import { toggleWindow } from "../../../store/actions/";
+import { toggleWindow, ToggleWindowType } from "../../../store/actions/";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
 import { useTimeSinceGameOpened } from "./AboutSolitaireWindowHooks";
@@ -15,8 +15,9 @@ export type AboutSolitaireWindowProps = {
 export type AboutSolitaireStateTypes = {
   isWindowVisible?: boolean;
 };
+
 export type AboutSolitaireDispatchTypes = {
-  toggleAboutWindow: (windowState: boolean, windowToToggle: string) => void;
+  toggleAboutWindow: ToggleWindowType;
 };
 
 const AboutSolitaireInternal: React.FC<
@@ -61,18 +62,13 @@ const AboutSolitaireInternal: React.FC<
   );
 };
 
-const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
-  return {
-    isWindowVisible: state.toggleWindows.aboutWindow,
-  };
-};
+const mapStateToProps = (state: { toggleWindows: WindowsState }) => ({
+  isWindowVisible: state.toggleWindows.aboutWindow,
+});
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    toggleAboutWindow: (windowState: boolean, windowToToggle: string) =>
-      dispatch(toggleWindow(windowState, windowToToggle)),
-  };
+const mapDispatchToProps: AboutSolitaireDispatchTypes = {
+  toggleAboutWindow: (windowState, windowToToggle) =>
+    toggleWindow(windowState, windowToToggle),
 };
 
 export const AboutSolitaire = connect<

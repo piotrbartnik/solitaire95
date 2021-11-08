@@ -33,5 +33,5 @@ export {
   setCardDeck,
 } from "./gameActions";
 export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";
-export { toggleWindow } from "./windowActions";
+export { toggleWindow, ToggleWindowType } from "./windowActions";
 export { saveTime, resetTime, saveScoreTime } from "./timeActions";
