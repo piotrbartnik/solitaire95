@@ -35,3 +35,4 @@ export {
 export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";
 export { toggleWindow, ToggleWindowType } from "./windowActions";
 export { saveTime, resetTime, saveScoreTime } from "./timeActions";
+export { ACTION_TYPES } from "./actionTypes";
