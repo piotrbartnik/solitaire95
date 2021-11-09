@@ -1,28 +1,13 @@
-import * as actionTypes from "./actionTypes";
+import { ACTION_TYPES } from "./actionTypes";
 import { cardConfigType } from "../../configs/cardTypes";
 import { FoundationState } from "../reducers";
 
-export const startGame = (): { type: string } => {
-  return {
-    type: actionTypes.START_GAME,
-  };
+export type StartGameType = () => { type: ACTION_TYPES.START_GAME };
+export type StopGameType = () => { type: ACTION_TYPES.STOP_GAME };
+export type FinishGameType = (gameFinished: boolean) => {
+  type: ACTION_TYPES.FINISH_GAME;
+  gameFinished: boolean;
 };
-
-export const stopGame = (): { type: string } => {
-  return {
-    type: actionTypes.STOP_GAME,
-  };
-};
-
-export const finishGame = (
-  gameFinished: boolean
-): { type: string; gameFinished: boolean } => {
-  return {
-    type: actionTypes.FINISH_GAME,
-    gameFinished,
-  };
-};
-
 export type UndoActionType =
   | [
       string,
@@ -35,69 +20,88 @@ export type UndoActionType =
       cardConfigType[]?
     ]
   | [];
-
-export const setUndoAction = (
-  actionToUndo: UndoActionType
-): {
-  type: string;
+export type SetUndoActionType = (actionToUndo: UndoActionType) => {
+  type: ACTION_TYPES.SET_UNDO_ACTION;
   actionToUndo: UndoActionType;
-} => {
+};
+export type SetOutlineDraggingType = (outlineDragging: boolean) => {
+  type: ACTION_TYPES.OUTLINE_DRAGGING;
+  outlineDragging: boolean;
+};
+export type ToggleBottomBarType = (bottomBarVisible: boolean) => {
+  type: ACTION_TYPES.TOGGLE_BOTTOMBAR;
+  bottomBarVisible: boolean;
+};
+export type ToggleTimerType = (timerVisible: boolean) => {
+  type: ACTION_TYPES.TOGGLE_TIMER;
+  timerVisible: boolean;
+};
+export type ToggleDrawTypeType = (drawType: string) => {
+  type: ACTION_TYPES.TOGGLE_DRAW_TYPE;
+  drawType: string;
+};
+export type SetCardDeckType = (cardDeck: string) => {
+  type: ACTION_TYPES.SET_CARD_DECK;
+  cardDeck: string;
+};
+
+export const startGame: StartGameType = () => {
   return {
-    type: actionTypes.SET_UNDO_ACTION,
+    type: ACTION_TYPES.START_GAME,
+  };
+};
+
+export const stopGame: StopGameType = () => {
+  return {
+    type: ACTION_TYPES.STOP_GAME,
+  };
+};
+
+export const finishGame: FinishGameType = (gameFinished) => {
+  return {
+    type: ACTION_TYPES.FINISH_GAME,
+    gameFinished,
+  };
+};
+
+export const setUndoAction: SetUndoActionType = (actionToUndo) => {
+  return {
+    type: ACTION_TYPES.SET_UNDO_ACTION,
     actionToUndo,
   };
 };
 
-export const setOutlineDragging = (
-  outlineDragging: boolean
-): {
-  type: string;
-  outlineDragging: boolean;
-} => {
+export const setOutlineDragging: SetOutlineDraggingType = (outlineDragging) => {
   return {
-    type: actionTypes.OUTLINE_DRAGGING,
+    type: ACTION_TYPES.OUTLINE_DRAGGING,
     outlineDragging,
   };
 };
 
-export const toggleBottomBar = (
-  bottomBarVisible: boolean
-): {
-  type: string;
-  bottomBarVisible: boolean;
-} => {
+export const toggleBottomBar: ToggleBottomBarType = (bottomBarVisible) => {
   return {
-    type: actionTypes.TOGGLE_BOTTOMBAR,
+    type: ACTION_TYPES.TOGGLE_BOTTOMBAR,
     bottomBarVisible,
   };
 };
 
-export const toggleTimer = (
-  timerVisible: boolean
-): {
-  type: string;
-  timerVisible: boolean;
-} => {
+export const toggleTimer: ToggleTimerType = (timerVisible) => {
   return {
-    type: actionTypes.TOGGLE_TIMER,
+    type: ACTION_TYPES.TOGGLE_TIMER,
     timerVisible,
   };
 };
 
-export const toggledrawType = (
-  drawType: string
-): { type: string; drawType: string } => {
+export const toggledrawType: ToggleDrawTypeType = (drawType) => {
   return {
-    type: actionTypes.TOGGLE_DRAW_TYPE,
+    type: ACTION_TYPES.TOGGLE_DRAW_TYPE,
     drawType,
   };
 };
 
-export const setCardDeck = (
-  cardDeck: string
-): { type: string; cardDeck: string } => {
+export const setCardDeck: SetCardDeckType = (cardDeck) => {
   return {
-    type: actionTypes.SET_CARD_DECK,
+    type: ACTION_TYPES.SET_CARD_DECK,
     cardDeck,
   };
 };
