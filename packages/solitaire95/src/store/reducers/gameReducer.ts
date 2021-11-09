@@ -1,9 +1,21 @@
-import { cardConfigType } from "../../configs/cardTypes";
+import {
+  StartGameTypeReducer,
+  StopGameTypeReducer,
+  FinishGameTypeReducer,
+  SetUndoActionTypeReducer,
+  SetOutlineDraggingTypeReducer,
+  ToggleBottomBarTypeReducer,
+  ToggleTimerTypeReducer,
+  ToggleDrawTypeReducer,
+  SetCardDeckTypeReducer,
+  UndoActionType,
+  ACTION_TYPES,
+} from "../actions";
 
 export interface GameState {
   gameStarted: boolean;
   gameFinished: boolean;
-  actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
+  actionToUndo: UndoActionType;
   outlineDragging: boolean;
   bottomBarVisible: boolean;
   timerVisible: boolean;
@@ -11,16 +23,16 @@ export interface GameState {
   cardDeck: string;
 }
 
-interface GameStateActionTypes {
-  type: string;
-  gameFinished: boolean;
-  actionToUndo: [string, cardConfigType[], cardConfigType[]] | [];
-  outlineDragging: boolean;
-  bottomBarVisible: boolean;
-  timerVisible: boolean;
-  drawType: "drawOne" | "drawThree";
-  cardDeck: string;
-}
+type GameStateActionTypes =
+  | StartGameTypeReducer
+  | StopGameTypeReducer
+  | FinishGameTypeReducer
+  | SetUndoActionTypeReducer
+  | SetOutlineDraggingTypeReducer
+  | ToggleBottomBarTypeReducer
+  | ToggleTimerTypeReducer
+  | ToggleDrawTypeReducer
+  | SetCardDeckTypeReducer;
 
 const initialState: GameState = {
   gameStarted: false,
@@ -38,23 +50,23 @@ export const gameState = (
   action: GameStateActionTypes
 ): GameState => {
   switch (action.type) {
-    case "START_GAME":
+    case ACTION_TYPES.START_GAME:
       return { ...state, gameStarted: true };
-    case "STOP_GAME":
+    case ACTION_TYPES.STOP_GAME:
       return { ...state, gameStarted: false };
-    case "FINISH_GAME":
+    case ACTION_TYPES.FINISH_GAME:
       return { ...state, gameFinished: action.gameFinished };
-    case "SET_UNDO_ACTION":
+    case ACTION_TYPES.SET_UNDO_ACTION:
       return { ...state, actionToUndo: action.actionToUndo };
-    case "OUTLINE_DRAGGING":
+    case ACTION_TYPES.OUTLINE_DRAGGING:
       return { ...state, outlineDragging: action.outlineDragging };
-    case "TOGGLE_BOTTOMBAR":
+    case ACTION_TYPES.TOGGLE_BOTTOMBAR:
       return { ...state, bottomBarVisible: action.bottomBarVisible };
-    case "TOGGLE_TIMER":
+    case ACTION_TYPES.TOGGLE_TIMER:
       return { ...state, timerVisible: action.timerVisible };
-    case "TOGGLE_DRAW_TYPE":
+    case ACTION_TYPES.TOGGLE_DRAW_TYPE:
       return { ...state, drawType: action.drawType };
-    case "SET_CARD_DECK":
+    case ACTION_TYPES.SET_CARD_DECK:
       return { ...state, cardDeck: action.cardDeck };
     default:
       return state;

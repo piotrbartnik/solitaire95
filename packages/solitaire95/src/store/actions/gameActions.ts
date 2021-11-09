@@ -2,12 +2,18 @@ import { ACTION_TYPES } from "./actionTypes";
 import { cardConfigType } from "../../configs/cardTypes";
 import { FoundationState } from "../reducers";
 
-export type StartGameType = () => { type: ACTION_TYPES.START_GAME };
-export type StopGameType = () => { type: ACTION_TYPES.STOP_GAME };
-export type FinishGameType = (gameFinished: boolean) => {
+export type StartGameTypeReducer = { type: ACTION_TYPES.START_GAME };
+export type StartGameType = () => StartGameTypeReducer;
+
+export type StopGameTypeReducer = { type: ACTION_TYPES.STOP_GAME };
+export type StopGameType = () => StopGameTypeReducer;
+
+export type FinishGameTypeReducer = {
   type: ACTION_TYPES.FINISH_GAME;
   gameFinished: boolean;
 };
+export type FinishGameType = (gameFinished: boolean) => FinishGameTypeReducer;
+
 export type UndoActionType =
   | [
       string,
@@ -20,30 +26,50 @@ export type UndoActionType =
       cardConfigType[]?
     ]
   | [];
-export type SetUndoActionType = (actionToUndo: UndoActionType) => {
+
+export type SetUndoActionTypeReducer = {
   type: ACTION_TYPES.SET_UNDO_ACTION;
   actionToUndo: UndoActionType;
 };
-export type SetOutlineDraggingType = (outlineDragging: boolean) => {
+export type SetUndoActionType = (
+  actionToUndo: UndoActionType
+) => SetUndoActionTypeReducer;
+
+export type SetOutlineDraggingTypeReducer = {
   type: ACTION_TYPES.OUTLINE_DRAGGING;
   outlineDragging: boolean;
 };
-export type ToggleBottomBarType = (bottomBarVisible: boolean) => {
+export type SetOutlineDraggingType = (
+  outlineDragging: boolean
+) => SetOutlineDraggingTypeReducer;
+
+export type ToggleBottomBarTypeReducer = {
   type: ACTION_TYPES.TOGGLE_BOTTOMBAR;
   bottomBarVisible: boolean;
 };
-export type ToggleTimerType = (timerVisible: boolean) => {
+export type ToggleBottomBarType = (
+  bottomBarVisible: boolean
+) => ToggleBottomBarTypeReducer;
+
+export type ToggleTimerTypeReducer = {
   type: ACTION_TYPES.TOGGLE_TIMER;
   timerVisible: boolean;
 };
-export type ToggleDrawTypeType = (drawType: string) => {
+export type ToggleTimerType = (timerVisible: boolean) => ToggleTimerTypeReducer;
+
+export type ToggleDrawTypeReducer = {
   type: ACTION_TYPES.TOGGLE_DRAW_TYPE;
-  drawType: string;
+  drawType: "drawOne" | "drawThree";
 };
-export type SetCardDeckType = (cardDeck: string) => {
+export type ToggleDrawType = (
+  drawType: "drawOne" | "drawThree"
+) => ToggleDrawTypeReducer;
+
+export type SetCardDeckTypeReducer = {
   type: ACTION_TYPES.SET_CARD_DECK;
   cardDeck: string;
 };
+export type SetCardDeckType = (cardDeck: string) => SetCardDeckTypeReducer;
 
 export const startGame: StartGameType = () => {
   return {
@@ -92,7 +118,7 @@ export const toggleTimer: ToggleTimerType = (timerVisible) => {
   };
 };
 
-export const toggledrawType: ToggleDrawTypeType = (drawType) => {
+export const toggledrawType: ToggleDrawType = (drawType) => {
   return {
     type: ACTION_TYPES.TOGGLE_DRAW_TYPE,
     drawType,
