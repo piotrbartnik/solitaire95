@@ -85,3 +85,25 @@ export enum ACTION_TYPES {
   UNDO_MOVE_FROM_PILE_TO_FOUNDATION = "UNDO_MOVE_FROM_PILE_TO_FOUNDATION",
   UNDO_MOVE_FROM_FOUNDATION_TO_PILE = "UNDO_MOVE_FROM_FOUNDATION_TO_PILE",
 }
+
+export type {
+  StartGameType,
+  StopGameType,
+  FinishGameType,
+  SetUndoActionType,
+  SetOutlineDraggingType,
+  ToggleBottomBarType,
+  ToggleTimerType,
+  ToggleDrawType,
+  SetCardDeckType,
+  StartGameTypeReducer,
+  StopGameTypeReducer,
+  FinishGameTypeReducer,
+  SetUndoActionTypeReducer,
+  SetOutlineDraggingTypeReducer,
+  ToggleBottomBarTypeReducer,
+  ToggleTimerTypeReducer,
+  ToggleDrawTypeReducer,
+  SetCardDeckTypeReducer,
+  UndoActionType,
+} from "./gameActionTypes";

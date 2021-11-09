@@ -10,7 +10,7 @@ import {
   SetCardDeckTypeReducer,
   UndoActionType,
   ACTION_TYPES,
-} from "../actions";
+} from "../actions/actionTypes";
 
 export interface GameState {
   gameStarted: boolean;
