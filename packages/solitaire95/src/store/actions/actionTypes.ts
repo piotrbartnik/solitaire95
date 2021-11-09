@@ -107,3 +107,8 @@ export type {
   SetCardDeckTypeReducer,
   UndoActionType,
 } from "./gameActionTypes";
+
+export type {
+  ToggleWindowReducerType,
+  ToggleWindowType,
+} from "./windowActions";

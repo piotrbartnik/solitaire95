@@ -1,4 +1,4 @@
-import { ToggleWindowReducerType, ACTION_TYPES } from "../actions";
+import { ToggleWindowReducerType, ACTION_TYPES } from "../actions/actionTypes";
 
 export type WindowsState = {
   cardBackWindow: boolean;

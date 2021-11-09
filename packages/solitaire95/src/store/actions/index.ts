@@ -36,7 +36,3 @@ export { toggleWindow } from "./windowActions";
 export { saveTime, resetTime, saveScoreTime } from "./timeActions";
 
 export { ACTION_TYPES } from "./actionTypes";
-export type {
-  ToggleWindowReducerType,
-  ToggleWindowType,
-} from "./windowActions";
