@@ -1,20 +1,22 @@
-import * as actionTypes from "./actionTypes";
+import { ACTION_TYPES } from "./actionTypes";
 
-export interface ResetScoreTypes {
-  type: string;
-}
+export type CountScoreTypeReducer = {
+  type: ACTION_TYPES.COUNT_SCORE;
+  countScore: number;
+};
+export type CountScoreType = (points: number) => CountScoreTypeReducer;
 
-export const countScore = (
-  points: number
-): { type: string; countScore: number } => {
+export const countScore: CountScoreType = (points) => {
   return {
-    type: actionTypes.COUNT_SCORE,
+    type: ACTION_TYPES.COUNT_SCORE,
     countScore: points,
   };
 };
 
-export const resetScore = (): ResetScoreTypes => {
+export type ResetScoreTypeReducer = { type: ACTION_TYPES.RESET_SCORE };
+
+export const resetScore = (): ResetScoreTypeReducer => {
   return {
-    type: actionTypes.RESET_SCORE,
+    type: ACTION_TYPES.RESET_SCORE,
   };
 };

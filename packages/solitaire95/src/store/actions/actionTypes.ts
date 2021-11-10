@@ -120,3 +120,9 @@ export type {
   SaveScoreTimeType,
   TimeActionTypeReducer,
 } from "./timeActionTypes";
+
+export type {
+  CountScoreTypeReducer,
+  CountScoreType,
+  ResetScoreTypeReducer,
+} from "./scoreActions";
