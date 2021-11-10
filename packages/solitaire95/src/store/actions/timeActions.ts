@@ -1,29 +1,26 @@
-import * as actionTypes from "./actionTypes";
+import {
+  ACTION_TYPES,
+  SaveTimeType,
+  SaveScoreTimeType,
+  TimeActionTypeReducer,
+} from "./actionTypes";
 
-export interface TimeActionTypes {
-  type: string;
-}
-
-export interface SaveTimeTypes extends TimeActionTypes {
-  timeToSave: number;
-}
-
-export const saveTime = (timeToSave: number): SaveTimeTypes => {
+export const saveTime: SaveTimeType = (timeToSave) => {
   return {
-    type: actionTypes.SAVE_INITIAL_TIME,
+    type: ACTION_TYPES.SAVE_INITIAL_TIME,
     timeToSave: timeToSave,
   };
 };
 
-export const saveScoreTime = (timeToSave: number): SaveTimeTypes => {
+export const saveScoreTime: SaveScoreTimeType = (timeToSave) => {
   return {
-    type: actionTypes.SAVE_SCORE_TIME,
+    type: ACTION_TYPES.SAVE_SCORE_TIME,
     timeToSave: timeToSave,
   };
 };
 
-export const resetTime = (): TimeActionTypes => {
+export const resetTime = (): TimeActionTypeReducer => {
   return {
-    type: actionTypes.RESET_TIME,
+    type: ACTION_TYPES.RESET_TIME,
   };
 };

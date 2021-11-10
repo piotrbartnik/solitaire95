@@ -112,3 +112,11 @@ export type {
   ToggleWindowReducerType,
   ToggleWindowType,
 } from "./windowActions";
+
+export type {
+  SaveTimeTypeReducer,
+  SaveTimeType,
+  SaveScoreTimeTypeReducer,
+  SaveScoreTimeType,
+  TimeActionTypeReducer,
+} from "./timeActionTypes";
