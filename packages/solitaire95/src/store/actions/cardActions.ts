@@ -1,12 +1,35 @@
 import * as actionTypes from "./actionTypes";
+import { ACTION_TYPES } from "./actionTypes";
 import { createCards, cardConfigType } from "../../configs/cardTypes";
 import { FoundationState } from "../reducers/foundationReducer";
 
-export interface CardDealTypes {
-  type: string;
+export type CardDealTypeReducer = {
+  type: ACTION_TYPES.DEAL_CARDS;
   cardsForStock: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
-}
+};
+
+export type TakeOneFromStockTypeReducer = {
+  type: ACTION_TYPES.TAKE_ONE_FROM_STOCK;
+  cardsOnStock: cardConfigType[];
+  cardToAddToTable: cardConfigType;
+};
+export type TakeOneFromStockType = (
+  cardsOnStock: cardConfigType[],
+  cardToAddToTable: cardConfigType
+) => TakeOneFromStockTypeReducer;
+
+export type TakeThreeFromStockTypeReducer = {
+  type: ACTION_TYPES.TAKE_THREE_FROM_STOCK;
+  cardsOnStock: cardConfigType[];
+  cardToAddToTable: cardConfigType[];
+  threeCardsOnTable: cardConfigType[];
+};
+export type TakeThreeFromStockType = (
+  cardsOnStock: cardConfigType[],
+  cardToAddToTable: cardConfigType[],
+  threeCardsOnTable: cardConfigType[]
+) => TakeThreeFromStockTypeReducer;
 
 const mixCardsForGame = (cards: cardConfigType[]): cardConfigType[][] => {
   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
@@ -33,44 +56,35 @@ const orderPiles = (
   return cardsOnPiles;
 };
 
-export const dealCards = (): CardDealTypes => {
+export const dealCards = (): CardDealTypeReducer => {
   const [cardsForStock, cardsForPiles] = mixCardsForGame(
     createCards as cardConfigType[]
   );
   return {
-    type: actionTypes.DEAL_CARDS,
+    type: ACTION_TYPES.DEAL_CARDS,
     cardsForStock: cardsForStock,
     cardsOnPiles: orderPiles(cardsForPiles as cardConfigType[]),
   };
 };
 
-export const takeOneFromStock = (
-  cardsOnStock: cardConfigType[],
-  cardToAddToTable: cardConfigType
-): {
-  type: string;
-  cardsOnStock: cardConfigType[];
-  cardToAddToTable: cardConfigType;
-} => {
+export const takeOneFromStock: TakeOneFromStockType = (
+  cardsOnStock,
+  cardToAddToTable
+) => {
   return {
-    type: actionTypes.TAKE_ONE_FROM_STOCK,
+    type: ACTION_TYPES.TAKE_ONE_FROM_STOCK,
     cardsOnStock,
     cardToAddToTable,
   };
 };
 
-export const takeThreeFromStock = (
-  cardsOnStock: cardConfigType[],
-  cardToAddToTable: cardConfigType[],
-  threeCardsOnTable: cardConfigType[]
-): {
-  type: string;
-  cardsOnStock: cardConfigType[];
-  cardToAddToTable: cardConfigType[];
-  threeCardsOnTable: cardConfigType[];
-} => {
+export const takeThreeFromStock: TakeThreeFromStockType = (
+  cardsOnStock,
+  cardToAddToTable,
+  threeCardsOnTable
+) => {
   return {
-    type: actionTypes.TAKE_THREE_FROM_STOCK,
+    type: ACTION_TYPES.TAKE_THREE_FROM_STOCK,
     cardsOnStock,
     cardToAddToTable,
     threeCardsOnTable,
