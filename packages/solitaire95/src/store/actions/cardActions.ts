@@ -1,4 +1,3 @@
-import * as actionTypes from "./actionTypes";
 import { ACTION_TYPES } from "./actionTypes";
 import { createCards, cardConfigType } from "../../configs/cardTypes";
 import { FoundationState } from "../reducers/foundationReducer";
@@ -30,6 +29,161 @@ export type TakeThreeFromStockType = (
   cardToAddToTable: cardConfigType[],
   threeCardsOnTable: cardConfigType[]
 ) => TakeThreeFromStockTypeReducer;
+
+export type ReverseStockTypeReducer = {
+  type: ACTION_TYPES.REVERSE_STOCK;
+  reverseStock: cardConfigType[];
+};
+export type ReverseStockType = (
+  reversedCardsForStock: cardConfigType[]
+) => ReverseStockTypeReducer;
+
+export type AddCardToFoundationTypeReducer = {
+  type:
+    | ACTION_TYPES.ADD_CARD_TO_FIRST_FOUNDATION
+    | ACTION_TYPES.ADD_CARD_TO_SECOND_FOUNDATION
+    | ACTION_TYPES.ADD_CARD_TO_THIRD_FOUNDATION
+    | ACTION_TYPES.ADD_CARD_TO_FOURTH_FOUNDATION;
+  addFoundationColor: string | undefined;
+  addCardToFoundation: cardConfigType;
+};
+export type AddCardToFoundationType = (
+  card: cardConfigType,
+  foundationNumber: string,
+  foundationSuite?: string
+) => AddCardToFoundationTypeReducer;
+
+export type RemoveCardFromStockTypeReducer = {
+  type: ACTION_TYPES.REMOVE_CARD_FROM_STOCK;
+  filteredCardsOnStock: cardConfigType[];
+  threeCardsOnStockFiltered?: cardConfigType[];
+};
+export type RemoveCardFromStockType = (
+  filteredCardsOnStock: cardConfigType[],
+  threeCardsOnStockFiltered?: cardConfigType[]
+) => RemoveCardFromStockTypeReducer;
+
+export type RemoveCardFromPileTypeReducer = {
+  type: ACTION_TYPES.REMOVE_CARD_FROM_PILE;
+  removeCardFromPile: string;
+};
+export type RemoveCardFromPileType = (
+  pileNumber: string
+) => RemoveCardFromPileTypeReducer;
+
+export type AddCardToPileTypeReducer = {
+  type: ACTION_TYPES.ADD_CARD_TO_PILE;
+  addCardToPile: string;
+  cardToPile: cardConfigType;
+};
+export type AddCardToPileType = (
+  pileNumber: string,
+  card: cardConfigType
+) => AddCardToPileTypeReducer;
+
+export type RemoveCardFromFoundationTypeReducer = {
+  type: ACTION_TYPES.REMOVE_CARD_FROM_FOUNDATION;
+  removeCardFromFoundation: string;
+};
+export type RemoveCardFromFoundationType = (
+  foundationNumber: string
+) => RemoveCardFromFoundationTypeReducer;
+
+export type TurnCardOnPileTypeReducer = {
+  type: ACTION_TYPES.TURN_CARD_ON_PILE;
+  cardToTurn: number;
+};
+export type TurnCardOnPileType = (
+  cardToTurn: number
+) => TurnCardOnPileTypeReducer;
+
+export type StockTurnCounterTypeReducer = {
+  type: ACTION_TYPES.STOCK_TURN_COUNTER;
+};
+
+export type ResetStockCounterTypeReducer = {
+  type: ACTION_TYPES.RESET_STOCK_COUNTER;
+};
+
+export type UndoTakeOneFromStockTypeReducer = {
+  type: ACTION_TYPES.UNDO_TAKE_ONE_FROM_STOCK;
+  cardsOnStockUndo: cardConfigType[];
+  cardsFromStockUndo: cardConfigType[];
+};
+export type UndoTakeOneFromStockType = (
+  cardsOnStockUndo: cardConfigType[],
+  cardsFromStockUndo: cardConfigType[]
+) => UndoTakeOneFromStockTypeReducer;
+
+export type UndoThreeCardsFromStockTypeReducer = {
+  type: ACTION_TYPES.UNDO_TAKE_THREE_FROM_STOCK;
+  cardsOnStockUndo: cardConfigType[];
+  threeCardsFromStockUndo: cardConfigType[];
+  cardsFromStockUndo: cardConfigType[];
+};
+export type UndoThreeCardsFromStockType = (
+  cardsOnStockUndo: cardConfigType[],
+  threeCardsFromStockUndo: cardConfigType[],
+  cardsFromStockUndo: cardConfigType[]
+) => UndoThreeCardsFromStockTypeReducer;
+
+export type UndoRemoveCardFromPileTypeReducer = {
+  type: ACTION_TYPES.UNDO_REMOVE_FROM_PILE;
+  pilesState: { [key: string]: cardConfigType[] };
+};
+export type UndoRemoveCardFromPileType = (pilesState: {
+  [key: string]: cardConfigType[];
+}) => UndoRemoveCardFromPileTypeReducer;
+
+export type UndoMoveFromStockToPilesTypeReducer = {
+  type: ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_PILE;
+  pilesState: { [key: string]: cardConfigType[] };
+  cardsFromStockState: cardConfigType[];
+  threeCardsFromStockUndo?: cardConfigType[];
+};
+export type UndoMoveFromStockToPilesType = (
+  pilesState: {
+    [key: string]: cardConfigType[];
+  },
+  cardsFromStockState: cardConfigType[],
+  threeCardsFromStockUndo?: cardConfigType[]
+) => UndoMoveFromStockToPilesTypeReducer;
+
+export type UndoMoveFromStockToFoundationTypeReducer = {
+  type: ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION;
+  foundationState: { [key: string]: FoundationState };
+  cardsFromStockState: {
+    [key: string]: cardConfigType[];
+  };
+  threeCardsFromStockUndo?: cardConfigType[];
+};
+export type UndoMoveFromStockToFoundationType = (
+  foundationState: { [key: string]: FoundationState },
+  cardsFromStockState: {
+    [key: string]: cardConfigType[];
+  },
+  threeCardsFromStockUndo?: cardConfigType[]
+) => UndoMoveFromStockToFoundationTypeReducer;
+
+export type UndoMoveFromPileToFoundationTypeReducer = {
+  type: ACTION_TYPES.UNDO_MOVE_FROM_PILE_TO_FOUNDATION;
+  foundationState: { [key: string]: FoundationState };
+  pilesState: { [key: string]: cardConfigType[] };
+};
+export type UndoMoveFromPileToFoundationType = (
+  foundationState: { [key: string]: FoundationState },
+  pilesState: { [key: string]: cardConfigType[] }
+) => UndoMoveFromPileToFoundationTypeReducer;
+
+export type UndoMoveFromFoundationToPilesTypeReducer = {
+  type: ACTION_TYPES.UNDO_MOVE_FROM_FOUNDATION_TO_PILE;
+  foundationState: { [key: string]: FoundationState };
+  pilesState: { [key: string]: cardConfigType[] };
+};
+export type UndoMoveFromFoundationToPilesType = (
+  foundationState: { [key: string]: FoundationState },
+  pilesState: { [key: string]: cardConfigType[] }
+) => UndoMoveFromFoundationToPilesTypeReducer;
 
 const mixCardsForGame = (cards: cardConfigType[]): cardConfigType[][] => {
   const randomizeCardInput = cards.sort(() => Math.random() - 0.5);
@@ -91,32 +245,23 @@ export const takeThreeFromStock: TakeThreeFromStockType = (
   };
 };
 
-export const reverseStock = (
-  reversedCardsForStock: cardConfigType[]
-): {
-  type: string;
-  reverseStock: cardConfigType[];
-} => {
+export const reverseStock: ReverseStockType = (reversedCardsForStock) => {
   return {
-    type: actionTypes.REVERSE_STOCK,
+    type: ACTION_TYPES.REVERSE_STOCK,
     reverseStock: reversedCardsForStock,
   };
 };
 
-export const addCardToFoundation = (
-  card: cardConfigType,
-  foundationNumber: string,
-  foundationSuite?: string
-): {
-  type: string;
-  addFoundationColor: string | undefined;
-  addCardToFoundation: cardConfigType;
-} => {
-  const castFoundationNumber: { [char: string]: string } = {
-    cardsOnFirstFoundation: actionTypes.ADD_CARD_TO_FIRST_FOUNDATION,
-    cardsOnSecondFoundation: actionTypes.ADD_CARD_TO_SECOND_FOUNDATION,
-    cardsOnThirdFoundation: actionTypes.ADD_CARD_TO_THIRD_FOUNDATION,
-    cardsOnFourthFoundation: actionTypes.ADD_CARD_TO_FOURTH_FOUNDATION,
+export const addCardToFoundation: AddCardToFoundationType = (
+  card,
+  foundationNumber,
+  foundationSuite?
+) => {
+  const castFoundationNumber = {
+    cardsOnFirstFoundation: ACTION_TYPES.ADD_CARD_TO_FIRST_FOUNDATION,
+    cardsOnSecondFoundation: ACTION_TYPES.ADD_CARD_TO_SECOND_FOUNDATION,
+    cardsOnThirdFoundation: ACTION_TYPES.ADD_CARD_TO_THIRD_FOUNDATION,
+    cardsOnFourthFoundation: ACTION_TYPES.ADD_CARD_TO_FOURTH_FOUNDATION,
   };
   return {
     type: castFoundationNumber[foundationNumber],
@@ -125,181 +270,135 @@ export const addCardToFoundation = (
   };
 };
 
-export const removeCardFromStock = (
-  filteredCardsOnStock: cardConfigType[],
-  threeCardsOnStockFiltered?: cardConfigType[]
-): {
-  type: string;
-  filteredCardsOnStock: cardConfigType[];
-  threeCardsOnStockFiltered?: cardConfigType[];
-} => {
+export const removeCardFromStock: RemoveCardFromStockType = (
+  filteredCardsOnStock,
+  threeCardsOnStockFiltered?
+) => {
   return {
-    type: actionTypes.REMOVE_CARD_FROM_STOCK,
+    type: ACTION_TYPES.REMOVE_CARD_FROM_STOCK,
     filteredCardsOnStock: filteredCardsOnStock,
     threeCardsOnStockFiltered: threeCardsOnStockFiltered,
   };
 };
 
-export const removeCardFromPile = (
-  pileNumber: string
-): { type: string; removeCardFromPile: string } => {
+export const removeCardFromPile: RemoveCardFromPileType = (pileNumber) => {
   return {
-    type: actionTypes.REMOVE_CARD_FROM_PILE,
+    type: ACTION_TYPES.REMOVE_CARD_FROM_PILE,
     removeCardFromPile: pileNumber,
   };
 };
 
-export const addCardToPile = (
-  pileNumber: string,
-  card: cardConfigType
-): { type: string; addCardToPile: string; cardToPile: cardConfigType } => {
+export const addCardToPile: AddCardToPileType = (pileNumber, card) => {
   return {
-    type: actionTypes.ADD_CARD_TO_PILE,
+    type: ACTION_TYPES.ADD_CARD_TO_PILE,
     addCardToPile: pileNumber,
     cardToPile: card,
   };
 };
 
-export const removeCardFromFoundation = (
-  foundationNumber: string
-): { type: string; removeCardFromFoundation: string } => {
+export const removeCardFromFoundation: RemoveCardFromFoundationType = (
+  foundationNumber
+) => {
   return {
-    type: actionTypes.REMOVE_CARD_FROM_FOUNDATION,
+    type: ACTION_TYPES.REMOVE_CARD_FROM_FOUNDATION,
     removeCardFromFoundation: foundationNumber,
   };
 };
 
-export const turnCardOnPile = (
-  cardToTurn: number
-): { type: string; cardToTurn: number } => {
+export const turnCardOnPile: TurnCardOnPileType = (cardToTurn) => {
   return {
-    type: actionTypes.TURN_CARD_ON_PILE,
+    type: ACTION_TYPES.TURN_CARD_ON_PILE,
     cardToTurn,
   };
 };
 
-export const stockTurnCounter = (): { type: string } => {
+export const stockTurnCounter = (): StockTurnCounterTypeReducer => {
   return {
-    type: actionTypes.STOCK_TURN_COUNTER,
+    type: ACTION_TYPES.STOCK_TURN_COUNTER,
   };
 };
 
-export const resetStockCounter = (): { type: string } => {
+export const resetStockCounter = (): ResetStockCounterTypeReducer => {
   return {
-    type: actionTypes.RESET_STOCK_COUNTER,
+    type: ACTION_TYPES.RESET_STOCK_COUNTER,
   };
 };
 
-export const undoTakeOneFromStock = (
-  cardsOnStockUndo: cardConfigType[],
-  cardsFromStockUndo: cardConfigType[]
-): {
-  type: string;
-  cardsOnStockUndo: cardConfigType[];
-  cardsFromStockUndo: cardConfigType[];
-} => {
+export const undoTakeOneFromStock: UndoTakeOneFromStockType = (
+  cardsOnStockUndo,
+  cardsFromStockUndo
+) => {
   return {
-    type: actionTypes.UNDO_TAKE_ONE_FROM_STOCK,
+    type: ACTION_TYPES.UNDO_TAKE_ONE_FROM_STOCK,
     cardsOnStockUndo,
     cardsFromStockUndo,
   };
 };
 
-export const undoThreeCardsFromStock = (
-  cardsOnStockUndo: cardConfigType[],
-  threeCardsFromStockUndo: cardConfigType[],
-  cardsFromStockUndo: cardConfigType[]
-): {
-  type: string;
-  cardsOnStockUndo: cardConfigType[];
-  threeCardsFromStockUndo: cardConfigType[];
-  cardsFromStockUndo: cardConfigType[];
-} => {
+export const undoThreeCardsFromStock: UndoThreeCardsFromStockType = (
+  cardsOnStockUndo,
+  threeCardsFromStockUndo,
+  cardsFromStockUndo
+) => {
   return {
-    type: actionTypes.UNDO_TAKE_THREE_FROM_STOCK,
+    type: ACTION_TYPES.UNDO_TAKE_THREE_FROM_STOCK,
     cardsOnStockUndo,
     threeCardsFromStockUndo,
     cardsFromStockUndo,
   };
 };
 
-export const undoRemoveCardFromPile = (pilesState: {
-  [key: string]: cardConfigType[];
-}): {
-  type: string;
-  pilesState: { [key: string]: cardConfigType[] };
-} => {
+export const undoRemoveCardFromPile: UndoRemoveCardFromPileType = (
+  pilesState
+) => {
   return {
-    type: actionTypes.UNDO_REMOVE_FROM_PILE,
+    type: ACTION_TYPES.UNDO_REMOVE_FROM_PILE,
     pilesState,
   };
 };
 
-export const undoMoveFromStockToPiles = (
-  pilesState: {
-    [key: string]: cardConfigType[];
-  },
-  cardsFromStockState: cardConfigType[],
-  threeCardsFromStockUndo?: cardConfigType[]
-): {
-  type: string;
-  pilesState: { [key: string]: cardConfigType[] };
-  cardsFromStockState: cardConfigType[];
-  threeCardsFromStockUndo?: cardConfigType[];
-} => {
+export const undoMoveFromStockToPiles: UndoMoveFromStockToPilesType = (
+  pilesState,
+  cardsFromStockState,
+  threeCardsFromStockUndo?
+) => {
   return {
-    type: actionTypes.UNDO_MOVE_FROM_STOCK_TO_PILE,
+    type: ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_PILE,
     pilesState,
     cardsFromStockState,
     threeCardsFromStockUndo,
   };
 };
-export const undoMoveFromStockToFoundation = (
-  foundationState: { [key: string]: FoundationState },
-  cardsFromStockState: {
-    [key: string]: cardConfigType[];
-  },
-  threeCardsFromStockUndo?: cardConfigType[]
-): {
-  type: string;
-  foundationState: { [key: string]: FoundationState };
-  cardsFromStockState: {
-    [key: string]: cardConfigType[];
+export const undoMoveFromStockToFoundation: UndoMoveFromStockToFoundationType =
+  (
+    foundationState: { [key: string]: FoundationState },
+    cardsFromStockState: {
+      [key: string]: cardConfigType[];
+    },
+    threeCardsFromStockUndo?: cardConfigType[]
+  ) => {
+    return {
+      type: ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION,
+      foundationState,
+      cardsFromStockState,
+      threeCardsFromStockUndo,
+    };
   };
-  threeCardsFromStockUndo?: cardConfigType[];
-} => {
+export const undoMoveFromPileToFoundation: UndoMoveFromPileToFoundationType = (
+  foundationState,
+  pilesState
+) => {
   return {
-    type: actionTypes.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION,
-    foundationState,
-    cardsFromStockState,
-    threeCardsFromStockUndo,
-  };
-};
-export const undoMoveFromPileToFoundation = (
-  foundationState: { [key: string]: FoundationState },
-  pilesState: { [key: string]: cardConfigType[] }
-): {
-  type: string;
-  foundationState: { [key: string]: FoundationState };
-  pilesState: { [key: string]: cardConfigType[] };
-} => {
-  return {
-    type: actionTypes.UNDO_MOVE_FROM_PILE_TO_FOUNDATION,
+    type: ACTION_TYPES.UNDO_MOVE_FROM_PILE_TO_FOUNDATION,
     foundationState,
     pilesState,
   };
 };
-export const undoMoveFromFoundationToPiles = (
-  foundationState: { [key: string]: FoundationState },
-  pilesState: { [key: string]: cardConfigType[] }
-): {
-  type: string;
-  foundationState: { [key: string]: FoundationState };
-  pilesState: { [key: string]: cardConfigType[] };
-} => {
-  return {
-    type: actionTypes.UNDO_MOVE_FROM_FOUNDATION_TO_PILE,
-    foundationState,
-    pilesState,
+export const undoMoveFromFoundationToPiles: UndoMoveFromFoundationToPilesType =
+  (foundationState, pilesState) => {
+    return {
+      type: ACTION_TYPES.UNDO_MOVE_FROM_FOUNDATION_TO_PILE,
+      foundationState,
+      pilesState,
+    };
   };
-};
