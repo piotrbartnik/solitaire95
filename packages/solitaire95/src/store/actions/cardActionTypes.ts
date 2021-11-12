@@ -152,16 +152,12 @@ export type UndoMoveFromStockToPilesType = (
 export type UndoMoveFromStockToFoundationTypeReducer = {
   type: ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION;
   foundationState: { [key: string]: FoundationState };
-  cardsFromStockState: {
-    [key: string]: cardConfigType[];
-  };
+  cardsFromStockState: cardConfigType[];
   threeCardsFromStockUndo?: cardConfigType[];
 };
 export type UndoMoveFromStockToFoundationType = (
   foundationState: { [key: string]: FoundationState },
-  cardsFromStockState: {
-    [key: string]: cardConfigType[];
-  },
+  cardsFromStockState: cardConfigType[],
   threeCardsFromStockUndo?: cardConfigType[]
 ) => UndoMoveFromStockToFoundationTypeReducer;
 
