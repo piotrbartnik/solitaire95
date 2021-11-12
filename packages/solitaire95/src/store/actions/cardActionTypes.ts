@@ -56,11 +56,11 @@ export type AddCardToFoundationType = (
 export type RemoveCardFromStockTypeReducer = {
   type: ACTION_TYPES.REMOVE_CARD_FROM_STOCK;
   filteredCardsOnStock: cardConfigType[];
-  threeCardsOnStockFiltered?: cardConfigType[];
+  threeCardsOnStockFiltered: cardConfigType[];
 };
 export type RemoveCardFromStockType = (
   filteredCardsOnStock: cardConfigType[],
-  threeCardsOnStockFiltered?: cardConfigType[]
+  threeCardsOnStockFiltered: cardConfigType[]
 ) => RemoveCardFromStockTypeReducer;
 
 export type RemoveCardFromPileTypeReducer = {
@@ -101,6 +101,8 @@ export type StockTurnCounterTypeReducer = {
   type: ACTION_TYPES.STOCK_TURN_COUNTER;
 };
 
+export type StockTurnCounterType = () => StockTurnCounterTypeReducer;
+
 export type ResetStockCounterTypeReducer = {
   type: ACTION_TYPES.RESET_STOCK_COUNTER;
 };
@@ -139,26 +141,26 @@ export type UndoMoveFromStockToPilesTypeReducer = {
   type: ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_PILE;
   pilesState: { [key: string]: cardConfigType[] };
   cardsFromStockState: cardConfigType[];
-  threeCardsFromStockUndo?: cardConfigType[];
+  threeCardsFromStockUndo: cardConfigType[];
 };
 export type UndoMoveFromStockToPilesType = (
   pilesState: {
     [key: string]: cardConfigType[];
   },
   cardsFromStockState: cardConfigType[],
-  threeCardsFromStockUndo?: cardConfigType[]
+  threeCardsFromStockUndo: cardConfigType[]
 ) => UndoMoveFromStockToPilesTypeReducer;
 
 export type UndoMoveFromStockToFoundationTypeReducer = {
   type: ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION;
   foundationState: { [key: string]: FoundationState };
   cardsFromStockState: cardConfigType[];
-  threeCardsFromStockUndo?: cardConfigType[];
+  threeCardsFromStockUndo: cardConfigType[];
 };
 export type UndoMoveFromStockToFoundationType = (
   foundationState: { [key: string]: FoundationState },
   cardsFromStockState: cardConfigType[],
-  threeCardsFromStockUndo?: cardConfigType[]
+  threeCardsFromStockUndo: cardConfigType[]
 ) => UndoMoveFromStockToFoundationTypeReducer;
 
 export type UndoMoveFromPileToFoundationTypeReducer = {

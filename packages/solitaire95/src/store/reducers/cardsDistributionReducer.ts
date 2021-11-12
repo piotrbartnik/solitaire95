@@ -26,7 +26,7 @@ export interface CardsDistributionInitialState {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   cardsOnPiles: { [key: string]: cardConfigType[] };
-  threeCardsOnTable?: cardConfigType[];
+  threeCardsOnTable: cardConfigType[];
 }
 
 export type CardDistributionActionTypes =

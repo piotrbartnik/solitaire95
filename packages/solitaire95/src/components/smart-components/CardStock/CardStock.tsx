@@ -11,6 +11,16 @@ import {
   takeThreeFromStock,
 } from "../../../store/actions";
 import {
+  TakeOneFromStockType,
+  TakeThreeFromStockType,
+  ReverseStockType,
+  RemoveCardFromStockType,
+  AddCardToFoundationType,
+  CountScoreType,
+  StartGameType,
+  StockTurnCounterType,
+} from "../../../store/actions/actionTypes";
+import {
   CardsDistributionInitialState,
   FoundationInitialState,
   StockCount,
@@ -34,28 +44,14 @@ export type CardStockStateTypes = {
 };
 
 export type CardStockDispatchTypes = {
-  takeOneFromStock: (
-    cardsOnStock: cardConfigType[],
-    cardToAddToTable: cardConfigType
-  ) => void;
-  takeThreeFromStock: (
-    cardsOnStock: cardConfigType[],
-    cardToAddToTable: cardConfigType[],
-    threeCardsOnTable: cardConfigType[]
-  ) => void;
-  reverseStock: (cardsFromStock: cardConfigType[]) => void;
-  removeCardFromStock: (
-    filteredCardsOnStock: cardConfigType[],
-    threeCardsOnStockFiltered: cardConfigType[]
-  ) => void;
-  addCardToFoundation: (
-    card: cardConfigType,
-    foundationNumber: string,
-    foundationSuite: string
-  ) => void;
-  addPoints: (points: number) => void;
-  startGame: () => void;
-  addToStockCounter: () => void;
+  takeOneFromStock: TakeOneFromStockType;
+  takeThreeFromStock: TakeThreeFromStockType;
+  reverseStock: ReverseStockType;
+  removeCardFromStock: RemoveCardFromStockType;
+  addCardToFoundation: AddCardToFoundationType;
+  addPoints: CountScoreType;
+  startGame: StartGameType;
+  addToStockCounter: StockTurnCounterType;
 };
 
 export type CardStockPropTypes = {
@@ -296,39 +292,15 @@ const mapStateToProps = (state: {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    takeOneFromStock: (
-      cardsOnStock: cardConfigType[],
-      cardToAddToTable: cardConfigType
-    ) => dispatch(takeOneFromStock(cardsOnStock, cardToAddToTable)),
-    takeThreeFromStock: (
-      cardsOnStock: cardConfigType[],
-      cardToAddToTable: cardConfigType[],
-      threeCardsOnTable: cardConfigType[]
-    ) =>
-      dispatch(
-        takeThreeFromStock(cardsOnStock, cardToAddToTable, threeCardsOnTable)
-      ),
-    reverseStock: (payload: cardConfigType[]) =>
-      dispatch(reverseStock(payload)),
-    removeCardFromStock: (
-      filteredCardsOnStock: cardConfigType[],
-      threeCardsOnStockFiltered: cardConfigType[]
-    ) =>
-      dispatch(
-        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
-      ),
-    addCardToFoundation: (
-      card: cardConfigType,
-      foundationNumber: string,
-      foundationSuite: string
-    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
-    addPoints: (payload: number) => dispatch(countScore(payload)),
-    startGame: () => dispatch(startGame()),
-    addToStockCounter: () => dispatch(stockTurnCounter()),
-  };
+const mapDispatchToProps = {
+  takeOneFromStock: takeOneFromStock,
+  takeThreeFromStock: takeThreeFromStock,
+  reverseStock: reverseStock,
+  removeCardFromStock: removeCardFromStock,
+  addCardToFoundation: addCardToFoundation,
+  addPoints: countScore,
+  startGame: startGame,
+  addToStockCounter: stockTurnCounter,
 };
 
 export const CardStock = connect<

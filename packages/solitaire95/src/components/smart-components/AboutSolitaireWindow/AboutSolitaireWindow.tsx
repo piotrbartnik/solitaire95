@@ -68,8 +68,7 @@ const mapStateToProps = (state: { toggleWindows: WindowsState }) => ({
 });
 
 const mapDispatchToProps: AboutSolitaireDispatchTypes = {
-  toggleAboutWindow: (windowState, windowToToggle) =>
-    toggleWindow(windowState, windowToToggle),
+  toggleAboutWindow: toggleWindow,
 };
 
 export const AboutSolitaire = connect<

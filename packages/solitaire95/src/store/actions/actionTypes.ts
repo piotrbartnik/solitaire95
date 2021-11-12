@@ -99,6 +99,7 @@ export {
   RemoveCardFromFoundationType,
   TurnCardOnPileTypeReducer,
   TurnCardOnPileType,
+  StockTurnCounterType,
   StockTurnCounterTypeReducer,
   ResetStockCounterTypeReducer,
   UndoTakeOneFromStockTypeReducer,
