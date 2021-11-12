@@ -8,7 +8,6 @@ export {
   removeCardFromPile,
   addCardToPile,
   removeCardFromFoundation,
-  CardDealTypes,
   turnCardOnPile,
   stockTurnCounter,
   resetStockCounter,
@@ -31,7 +30,7 @@ export {
   toggledrawType,
   setCardDeck,
 } from "./gameActions";
-export { countScore, resetScore, ResetScoreTypes } from "./scoreActions";
+export { countScore, resetScore } from "./scoreActions";
 export { toggleWindow } from "./windowActions";
 export { saveTime, resetTime, saveScoreTime } from "./timeActions";
 
