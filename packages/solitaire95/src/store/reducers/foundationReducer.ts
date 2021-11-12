@@ -1,17 +1,31 @@
 import { cardConfigType } from "../../configs/cardTypes";
+import {
+  ACTION_TYPES,
+  UndoMoveFromStockToFoundationTypeReducer,
+  UndoMoveFromPileToFoundationTypeReducer,
+  UndoMoveFromFoundationToPilesTypeReducer,
+  AddCardToFoundationTypeReducer,
+  RemoveCardFromStockTypeReducer,
+  RemoveCardFromPileTypeReducer,
+  AddCardToPileTypeReducer,
+  RemoveCardFromFoundationTypeReducer,
+  CardDealTypeReducer,
+} from "../actions/actionTypes";
 export interface FoundationState {
   foundationSuite: string | undefined;
   cards: cardConfigType[];
 }
 
-export interface CardsOnFoundationActionReturnActionTypes {
-  type: string;
-  addFoundationColor: string;
-  addCardToFoundation: cardConfigType;
-  removeCardFromFoundation: number;
-  foundationState: { [key: string]: FoundationState };
-}
-
+export type CardsOnFoundationActionReturnActionTypes =
+  | UndoMoveFromStockToFoundationTypeReducer
+  | UndoMoveFromPileToFoundationTypeReducer
+  | UndoMoveFromFoundationToPilesTypeReducer
+  | AddCardToFoundationTypeReducer
+  | RemoveCardFromStockTypeReducer
+  | RemoveCardFromPileTypeReducer
+  | AddCardToPileTypeReducer
+  | RemoveCardFromFoundationTypeReducer
+  | CardDealTypeReducer;
 export interface FoundationInitialState {
   [key: string]: FoundationState;
 }
@@ -25,7 +39,7 @@ const initialState: FoundationInitialState = {
 
 const immutableCardsArray = (
   state: FoundationInitialState,
-  action: CardsOnFoundationActionReturnActionTypes,
+  action: AddCardToFoundationTypeReducer,
   foundation: string
 ) => {
   const cardsArray = state[foundation].cards?.slice();
@@ -35,7 +49,7 @@ const immutableCardsArray = (
 
 const cardsOnFoundationActionReturn = (
   state: FoundationInitialState,
-  action: CardsOnFoundationActionReturnActionTypes,
+  action: AddCardToFoundationTypeReducer,
   foundation: string
 ): {
   [key: string]: FoundationState;
@@ -64,37 +78,36 @@ export const cardsOnFoundation = (
   [key: string]: FoundationState;
 } => {
   switch (action.type) {
-    case "DEAL_CARDS":
+    case ACTION_TYPES.DEAL_CARDS:
       return initialState;
-    case "ADD_CARD_TO_FIRST_FOUNDATION":
+    case ACTION_TYPES.ADD_CARD_TO_FIRST_FOUNDATION:
       return cardsOnFoundationActionReturn(
         state,
         action,
         "cardsOnFirstFoundation"
       );
-    case "ADD_CARD_TO_SECOND_FOUNDATION":
+    case ACTION_TYPES.ADD_CARD_TO_SECOND_FOUNDATION:
       return cardsOnFoundationActionReturn(
         state,
         action,
         "cardsOnSecondFoundation"
       );
-    case "ADD_CARD_TO_THIRD_FOUNDATION":
+    case ACTION_TYPES.ADD_CARD_TO_THIRD_FOUNDATION:
       return cardsOnFoundationActionReturn(
         state,
         action,
         "cardsOnThirdFoundation"
       );
-    case "ADD_CARD_TO_FOURTH_FOUNDATION":
+    case ACTION_TYPES.ADD_CARD_TO_FOURTH_FOUNDATION:
       return cardsOnFoundationActionReturn(
         state,
         action,
         "cardsOnFourthFoundation"
       );
-    case "REMOVE_CARD_FROM_FOUNDATION":
+    case ACTION_TYPES.REMOVE_CARD_FROM_FOUNDATION:
       // eslint-disable-next-line no-case-declarations
-      const cardsOnFoundation = state[
-        foundations[action.removeCardFromFoundation]
-      ].cards.slice();
+      const cardsOnFoundation =
+        state[foundations[action.removeCardFromFoundation]].cards.slice();
       cardsOnFoundation?.pop();
       return {
         ...state,
@@ -106,15 +119,15 @@ export const cardsOnFoundation = (
             : undefined,
         },
       };
-    case "UNDO_MOVE_FROM_STOCK_TO_FOUNDATION":
+    case ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION:
       return {
         ...action.foundationState,
       };
-    case "UNDO_MOVE_FROM_PILE_TO_FOUNDATION":
+    case ACTION_TYPES.UNDO_MOVE_FROM_PILE_TO_FOUNDATION:
       return {
         ...action.foundationState,
       };
-    case "UNDO_MOVE_FROM_FOUNDATION_TO_PILE":
+    case ACTION_TYPES.UNDO_MOVE_FROM_FOUNDATION_TO_PILE:
       return {
         ...action.foundationState,
       };

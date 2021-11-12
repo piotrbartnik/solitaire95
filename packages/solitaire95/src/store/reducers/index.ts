@@ -7,7 +7,7 @@ import { gameState } from "./gameReducer";
 import { stockCounter } from "./stockCounterReducer";
 import { timeCounter } from "./timeReducer";
 
-export { FoundationInitialState, FoundationState } from "./foundationReducer";
+export { FoundationState } from "./foundationReducer";
 export { CardsDistributionInitialState } from "./cardsDistributionReducer";
 export { WindowsState } from "./windowsReducer";
 export { Points } from "./scoreReducer";

@@ -88,7 +88,6 @@ export const UndoButtonInternal: React.FC<
       disabled={!actionToUndo?.length}
       onClick={() => {
         setGameVisible(!gameVisible);
-        console.log(actionToUndo);
         if (actionToUndo.length) {
           if (actionToUndo[0] === "TAKE_ONE_FROM_STOCK") {
             undoTakeOneFromStock(
