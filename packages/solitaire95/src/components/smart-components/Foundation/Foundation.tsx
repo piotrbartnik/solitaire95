@@ -14,6 +14,14 @@ import {
   countScore,
   removeCardFromFoundation,
 } from "../../../store/actions/";
+import {
+  AddCardToFoundationType,
+  RemoveCardFromPileType,
+  CountScoreType,
+  RemoveCardFromStockType,
+  StartGameType,
+  RemoveCardFromFoundationType,
+} from "../../../store/actions/actionTypes";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
@@ -29,19 +37,12 @@ export type FoundationStateTypes = {
 };
 
 export type FoundationDispatchTypes = {
-  addCardToFoundation: (
-    card: cardConfigType,
-    foundationNumber: string,
-    foundationSuite: string
-  ) => void;
-  removeCardFromPile: (pileNumber: string) => void;
-  addPoints: (points: number) => void;
-  removeCardFromStock: (
-    filteredCardsOnStock: cardConfigType[],
-    threeCardsOnStockFiltered: cardConfigType[]
-  ) => void;
-  startGame: () => void;
-  removeCardFromFoundation: (foundationNumber: string) => void;
+  addCardToFoundation: AddCardToFoundationType;
+  removeCardFromPile: RemoveCardFromPileType;
+  addPoints: CountScoreType;
+  removeCardFromStock: RemoveCardFromStockType;
+  startGame: StartGameType;
+  removeCardFromFoundation: RemoveCardFromFoundationType;
 };
 
 export type FoundationPropTypes = {
@@ -208,28 +209,13 @@ const mapStateToProps = (state: {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    addCardToFoundation: (
-      card: cardConfigType,
-      foundationNumber: string,
-      foundationSuite: string
-    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
-    removeCardFromPile: (pileNumber: string) =>
-      dispatch(removeCardFromPile(pileNumber)),
-    removeCardFromStock: (
-      filteredCardsOnStock: cardConfigType[],
-      threeCardsOnStockFiltered: cardConfigType[]
-    ) =>
-      dispatch(
-        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
-      ),
-    addPoints: (points: number) => dispatch(countScore(points)),
-    startGame: () => dispatch(startGame()),
-    removeCardFromFoundation: (foundationNumber: string) =>
-      dispatch(removeCardFromFoundation(foundationNumber)),
-  };
+const mapDispatchToProps = {
+  addCardToFoundation: addCardToFoundation,
+  removeCardFromPile: removeCardFromPile,
+  removeCardFromStock: removeCardFromStock,
+  addPoints: countScore,
+  startGame: startGame,
+  removeCardFromFoundation: removeCardFromFoundation,
 };
 
 export const Foundation = connect<
