@@ -17,6 +17,17 @@ import {
   turnCardOnPile,
   setUndoAction,
 } from "../../../store/actions/";
+import {
+  RemoveCardFromPileType,
+  AddCardToPileType,
+  RemoveCardFromStockType,
+  AddCardToFoundationType,
+  RemoveCardFromFoundationType,
+  CountScoreType,
+  StartGameType,
+  TurnCardOnPileType,
+  SetUndoActionType,
+} from "../../../store/actions/actionTypes";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
@@ -35,22 +46,15 @@ type PileStateTypes = {
 };
 
 type PileDispatchTypes = {
-  removeCardFromPile: (pile: string) => void;
-  addCardToPile: (pileNumber: string, cardToPile: cardConfigType) => void;
-  removeCardFromStock: (
-    filteredCardsOnStock: cardConfigType[],
-    threeCardsOnStockFiltered?: cardConfigType[]
-  ) => void;
-  addCardToFoundation: (
-    card: cardConfigType,
-    foundationNumber: string,
-    foundationSuite: string
-  ) => void;
-  removeCardFromFoundation: (foundationNumber: string) => void;
-  addPoints: (points: number) => void;
-  startGame: () => void;
-  turnCardOnPile: (cardToTurn: number) => void;
-  setUndoAction: (clearUndoActions: []) => void;
+  removeCardFromPile: RemoveCardFromPileType;
+  addCardToPile: AddCardToPileType;
+  removeCardFromStock: RemoveCardFromStockType;
+  addCardToFoundation: AddCardToFoundationType;
+  removeCardFromFoundation: RemoveCardFromFoundationType;
+  addPoints: CountScoreType;
+  startGame: StartGameType;
+  turnCardOnPile: TurnCardOnPileType;
+  setUndoAction: SetUndoActionType;
 };
 
 type PilePropTypes = {
@@ -300,37 +304,16 @@ const mapStateToProps = (state: {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    removeCardFromPile: (pileNumber: string) =>
-      dispatch(removeCardFromPile(pileNumber)),
-    addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
-      dispatch(addCardToPile(pileNumber, cardToPile)),
-    removeCardFromStock: (
-      filteredCardsOnStock: cardConfigType[],
-      threeCardsOnStockFiltered: cardConfigType[]
-    ) => {
-      dispatch(
-        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
-      );
-    },
-    addCardToFoundation: (
-      card: cardConfigType,
-      foundationNumber: string,
-      foundationSuite: string
-    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
-    removeCardFromFoundation: (foundationNumber: string) =>
-      dispatch(removeCardFromFoundation(foundationNumber)),
-    addPoints: (payload: number) => {
-      dispatch(countScore(payload));
-    },
-    startGame: () => dispatch(startGame()),
-    turnCardOnPile: (cardToTurn: number) =>
-      dispatch(turnCardOnPile(cardToTurn)),
-    setUndoAction: (clearUndoActions: []) =>
-      dispatch(setUndoAction(clearUndoActions)),
-  };
+const mapDispatchToProps = {
+  removeCardFromPile: removeCardFromPile,
+  addCardToPile: addCardToPile,
+  removeCardFromStock: removeCardFromStock,
+  addCardToFoundation: addCardToFoundation,
+  removeCardFromFoundation: removeCardFromFoundation,
+  addPoints: countScore,
+  startGame: startGame,
+  turnCardOnPile: turnCardOnPile,
+  setUndoAction: setUndoAction,
 };
 
 export const Pile = connect<PileStateTypes, PileDispatchTypes, PilePropTypes>(
