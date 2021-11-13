@@ -7,7 +7,7 @@ import {
   ToolButton,
   Separator,
 } from "../../ui-components";
-import { ToolDropdown } from "../../smart-components";
+import { ToolDropdown } from "../../ui-components";
 import styles from "./AppToolbar.module.scss";
 import { GameDropdown } from "./Dropdowns/GameDropdown/GameDropdown";
 

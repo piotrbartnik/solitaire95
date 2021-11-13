@@ -10,6 +10,7 @@ import { CloseButton } from "./Buttons/CloseButton";
 import { Checkbox } from "./Checkbox/Checkbox";
 import { RadioBox } from "./RadioBox/RadioBox";
 import { Radiobutton } from "./Radiobutton/Radiobutton";
+export { ToolDropdown } from "./ToolDropdown/ToolDropdown";
 
 export {
   TopBar,
