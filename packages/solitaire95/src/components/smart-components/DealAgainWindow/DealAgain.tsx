@@ -5,6 +5,7 @@ import { toggleWindow, finishGame } from "../../../store/actions/";
 import {
   ToggleWindowType,
   FinishGameType,
+  WindowTypes,
 } from "../../../store/actions/actionTypes";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
@@ -79,7 +80,7 @@ const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
-  toggleDealWindow: (windowState: boolean, windowToToggle: string) =>
+  toggleDealWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
     dispatch(toggleWindow(windowState, windowToToggle)),
   setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
 });

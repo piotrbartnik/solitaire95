@@ -63,6 +63,7 @@ export type {
 export type {
   ToggleWindowReducerType,
   ToggleWindowType,
+  WindowTypes,
 } from "./windowActions";
 
 export type {

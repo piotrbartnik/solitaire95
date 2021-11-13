@@ -1,10 +1,11 @@
-import { ToggleWindowReducerType, ACTION_TYPES } from "../actions/actionTypes";
+import {
+  ToggleWindowReducerType,
+  ACTION_TYPES,
+  WindowTypes,
+} from "../actions/actionTypes";
 
 export type WindowsState = {
-  cardBackWindow: boolean;
-  aboutWindow: boolean;
-  optionsWindow: boolean;
-  dealAgainWindow: boolean;
+  [key in WindowTypes]: boolean;
 };
 
 const initialState: WindowsState = {
