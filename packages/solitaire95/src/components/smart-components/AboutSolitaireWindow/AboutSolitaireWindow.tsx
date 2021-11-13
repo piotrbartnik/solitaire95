@@ -67,7 +67,7 @@ const mapStateToProps = (state: { toggleWindows: WindowsState }) => ({
   isWindowVisible: state.toggleWindows.aboutWindow,
 });
 
-const mapDispatchToProps: AboutSolitaireDispatchTypes = {
+const mapDispatchToProps = {
   toggleAboutWindow: toggleWindow,
 };
 
