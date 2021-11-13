@@ -57,13 +57,12 @@ export type ToggleTimerTypeReducer = {
 };
 export type ToggleTimerType = (timerVisible: boolean) => ToggleTimerTypeReducer;
 
+export type DrawType = "drawOne" | "drawThree";
 export type ToggleDrawTypeReducer = {
   type: ACTION_TYPES.TOGGLE_DRAW_TYPE;
-  drawType: "drawOne" | "drawThree";
+  drawType: DrawType;
 };
-export type ToggleDrawType = (
-  drawType: "drawOne" | "drawThree"
-) => ToggleDrawTypeReducer;
+export type ToggleDrawType = (drawType: DrawType) => ToggleDrawTypeReducer;
 
 export type SetCardDeckTypeReducer = {
   type: ACTION_TYPES.SET_CARD_DECK;

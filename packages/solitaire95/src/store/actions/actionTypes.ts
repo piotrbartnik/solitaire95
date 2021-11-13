@@ -58,6 +58,7 @@ export type {
   ToggleDrawTypeReducer,
   SetCardDeckTypeReducer,
   UndoActionType,
+  DrawType,
 } from "./gameActionTypes";
 
 export type {
