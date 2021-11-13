@@ -1,5 +1,6 @@
 import React from "react";
-import { Timer, Score } from "../../smart-components";
+import { Timer } from "../../smart-components";
+import { Score } from "../../ui-components";
 import styles from "./BottomBar.module.scss";
 
 type BottomBarPropTypes = {

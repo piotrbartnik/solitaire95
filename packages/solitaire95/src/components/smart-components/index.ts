@@ -1,5 +1,4 @@
 import { Timer } from "./Timer/Timer";
-import { Score } from "./Score/Score";
 import { Card } from "./Card/Card";
 import { Foundation } from "./Foundation/Foundation";
 import { CardStock } from "./CardStock/CardStock";
@@ -12,7 +11,6 @@ import { WaterfallCanvas } from "./WaterFallCanvas/WaterfallCanvas";
 
 export {
   Timer,
-  Score,
   Card,
   Foundation,
   CardStock,

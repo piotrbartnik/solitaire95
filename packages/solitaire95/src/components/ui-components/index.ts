@@ -11,6 +11,7 @@ import { Checkbox } from "./Checkbox/Checkbox";
 import { RadioBox } from "./RadioBox/RadioBox";
 import { Radiobutton } from "./Radiobutton/Radiobutton";
 export { ToolDropdown } from "./ToolDropdown/ToolDropdown";
+export { Score } from "./Score/Score";
 
 export {
   TopBar,
