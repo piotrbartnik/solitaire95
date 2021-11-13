@@ -1,23 +1,10 @@
-import { Timer } from "./Timer/Timer";
-import { Card } from "./Card/Card";
-import { Foundation } from "./Foundation/Foundation";
-import { CardStock } from "./CardStock/CardStock";
-import { Pile } from "./Pile/Pile";
-import { DeckSelect } from "./DeckSelect/DeckSelect";
-import { AboutSolitaire } from "./AboutSolitaireWindow/AboutSolitaireWindow";
-import { Options } from "./OptionsWindow/OptionsWindow";
-import { DealAgain } from "./DealAgainWindow/DealAgain";
-import { WaterfallCanvas } from "./WaterFallCanvas/WaterfallCanvas";
-
-export {
-  Timer,
-  Card,
-  Foundation,
-  CardStock,
-  Pile,
-  DeckSelect,
-  AboutSolitaire,
-  Options,
-  DealAgain,
-  WaterfallCanvas,
-};
+export { Timer } from "./Timer/Timer";
+export { Card } from "./Card/Card";
+export { Foundation } from "./Foundation/Foundation";
+export { CardStock } from "./CardStock/CardStock";
+export { Pile } from "./Pile/Pile";
+export { DeckSelect } from "./DeckSelect/DeckSelect";
+export { AboutSolitaire } from "./AboutSolitaireWindow/AboutSolitaireWindow";
+export { Options } from "./OptionsWindow/OptionsWindow";
+export { DealAgain } from "./DealAgainWindow/DealAgain";
+export { WaterfallCanvas } from "./WaterFallCanvas/WaterfallCanvas";
