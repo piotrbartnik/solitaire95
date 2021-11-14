@@ -22,6 +22,7 @@ import {
   UndoMoveFromPileToFoundationType,
   UndoMoveFromFoundationToPilesType,
   UndoActionType,
+  UNDO_TYPES,
 } from "../../../../../store/actions/actionTypes";
 import { FoundationState, GameState } from "../../../../../store/reducers";
 import { cardConfigType } from "../../../../../configs/cardTypes";
@@ -75,34 +76,34 @@ export const UndoButtonInternal: React.FC<
       onClick={() => {
         setGameVisible(!gameVisible);
         if (actionToUndo.length) {
-          if (actionToUndo[0] === "TAKE_ONE_FROM_STOCK") {
+          if (actionToUndo[0] === UNDO_TYPES.TAKE_ONE_FROM_STOCK) {
             undoTakeOneFromStock(
               actionToUndo[1] as cardConfigType[],
               actionToUndo[2] as cardConfigType[]
             );
           }
-          if (actionToUndo[0] === "ADD_CARD_TO_PILE") {
+          if (actionToUndo[0] === UNDO_TYPES.ADD_CARD_TO_PILE) {
             undoRemoveCardFromPile(
               actionToUndo[1] as {
                 [key: string]: cardConfigType[];
               }
             );
           }
-          if (actionToUndo[0] === "TAKE_THREE_FROM_STOCK") {
+          if (actionToUndo[0] === UNDO_TYPES.TAKE_THREE_FROM_STOCK) {
             undoThreeCardsFromStock(
               actionToUndo[1] as cardConfigType[],
               actionToUndo[2] as cardConfigType[],
               actionToUndo[3] as cardConfigType[]
             );
           }
-          if (actionToUndo[0] === "REVERSE_STOCK") {
+          if (actionToUndo[0] === UNDO_TYPES.REVERSE_STOCK) {
             undoThreeCardsFromStock(
               actionToUndo[1] as cardConfigType[],
               actionToUndo[2] as cardConfigType[],
               actionToUndo[3] as cardConfigType[]
             );
           }
-          if (actionToUndo[0] === "FROM_STOCK_TO_PILE") {
+          if (actionToUndo[0] === UNDO_TYPES.FROM_STOCK_TO_PILE) {
             substractScorePoints(-5);
             undoMoveFromStockToPiles(
               actionToUndo[1] as {
@@ -112,7 +113,7 @@ export const UndoButtonInternal: React.FC<
               actionToUndo[3] as cardConfigType[]
             );
           }
-          if (actionToUndo[0] === "FROM_STOCK_TO_FOUNDATION") {
+          if (actionToUndo[0] === UNDO_TYPES.FROM_STOCK_TO_FOUNDATION) {
             substractScorePoints(-10);
             undoMoveFromStockToFoundation(
               actionToUndo[1] as { [key: string]: FoundationState },
@@ -120,14 +121,14 @@ export const UndoButtonInternal: React.FC<
               actionToUndo[3] as cardConfigType[]
             );
           }
-          if (actionToUndo[0] === "FROM_PILE_TO_FOUNDATION") {
+          if (actionToUndo[0] === UNDO_TYPES.FROM_PILE_TO_FOUNDATION) {
             substractScorePoints(-10);
             undoMoveFromPileToFoundation(
               actionToUndo[1] as { [key: string]: FoundationState },
               actionToUndo[2] as { [key: string]: cardConfigType[] }
             );
           }
-          if (actionToUndo[0] === "FROM_FOUNDATION_TO_PILES") {
+          if (actionToUndo[0] === UNDO_TYPES.FROM_FOUNDATION_TO_PILES) {
             substractScorePoints(10);
             undoMoveFromFoundationToPiles(
               actionToUndo[1] as { [key: string]: FoundationState },

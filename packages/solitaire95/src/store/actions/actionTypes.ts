@@ -61,6 +61,8 @@ export type {
   DrawType,
 } from "./gameActionTypes";
 
+export { UNDO_TYPES } from "./gameActionTypes";
+
 export type {
   ToggleWindowReducerType,
   ToggleWindowType,
