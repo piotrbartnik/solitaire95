@@ -1,5 +1,6 @@
 import { Middleware } from "redux";
-import { setUndoAction, UndoActionType } from "../store/actions/";
+import { UndoActionType } from "../store/actions/actionTypes";
+import { setUndoAction } from "../store/actions";
 
 export const undoActions: Middleware = (store) => (next) => (action) => {
   const previousState = store.getState();

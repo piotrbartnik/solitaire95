@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toggleWindow } from "../../../store/actions/";
+import { ToggleWindowType } from "../../../store/actions/actionTypes";
 import {
   ToolBar,
   TopbarButton,
@@ -12,7 +13,7 @@ import styles from "./AppToolbar.module.scss";
 import { GameDropdown } from "./Dropdowns/GameDropdown/GameDropdown";
 
 type AppToolbarDispatchTypes = {
-  toggleAboutWindow: (windowState: boolean, windowToToggle: string) => void;
+  toggleAboutWindow: ToggleWindowType;
 };
 
 type AppToolbarPropTypes = {
@@ -107,12 +108,8 @@ const AppToolbarInternal: React.FC<
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    toggleAboutWindow: (windowState: boolean, windowToToggle: string) =>
-      dispatch(toggleWindow(windowState, windowToToggle)),
-  };
+const mapDispatchToProps = {
+  toggleAboutWindow: toggleWindow,
 };
 
 export const AppToolbar = connect<

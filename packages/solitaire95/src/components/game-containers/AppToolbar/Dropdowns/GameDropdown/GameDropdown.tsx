@@ -5,14 +5,21 @@ import {
   finishGame,
   countScore,
 } from "../../../../../store/actions/";
+import {
+  ToggleWindowType,
+  CountScoreType,
+  FinishGameType,
+  WindowTypes,
+} from "../../../../../store/actions/actionTypes";
 import { ToolButton, Separator } from "../../../../ui-components";
 import { dealCardsAllSteps } from "../../../../../helpers/dealCardsAllSteps";
 import { UndoButton } from "./UndoButton";
+import { Dispatch } from "redux";
 
 type GameDropdownDispatchTypes = {
-  toggleCardBackWindow: (windowState: boolean, windowToToggle: string) => void;
-  substractScorePoints: (pointsToSubstract: number) => void;
-  setGameFinished: (gameState: boolean) => void;
+  toggleCardBackWindow: ToggleWindowType;
+  substractScorePoints: CountScoreType;
+  setGameFinished: FinishGameType;
   dealCardsAllSteps: () => void;
 };
 
@@ -82,10 +89,9 @@ export const GameDropdownInternal: React.FC<
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    toggleCardBackWindow: (windowState: boolean, windowToToggle: string) =>
+    toggleCardBackWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
     substractScorePoints: (pointsToSubstract: number) =>
       dispatch(countScore(pointsToSubstract)),
