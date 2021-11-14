@@ -24,11 +24,12 @@ export enum UNDO_TYPES {
   FROM_STOCK_TO_PILE = "FROM_STOCK_TO_PILE",
   FROM_PILE_TO_FOUNDATION = "FROM_PILE_TO_FOUNDATION",
   ADD_CARD_TO_PILE = "ADD_CARD_TO_PILE",
+  ADD_CARD_TO_FOUNDATION = "ADD_CARD_TO_FOUNDATION",
 }
 
 export type UndoActionType =
   | [
-      string,
+      UNDO_TYPES,
       (
         | cardConfigType[]
         | { [key: string]: FoundationState }

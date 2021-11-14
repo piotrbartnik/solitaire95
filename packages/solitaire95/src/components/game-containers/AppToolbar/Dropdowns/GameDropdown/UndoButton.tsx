@@ -76,11 +76,12 @@ export const UndoButtonInternal: React.FC<
       onClick={() => {
         setGameVisible(!gameVisible);
         if (actionToUndo.length) {
-          if (actionToUndo[0] === UNDO_TYPES.TAKE_ONE_FROM_STOCK) {
-            undoTakeOneFromStock(
-              actionToUndo[1] as cardConfigType[],
-              actionToUndo[2] as cardConfigType[]
-            );
+          switch (actionToUndo[0]) {
+            case UNDO_TYPES.TAKE_ONE_FROM_STOCK:
+              undoTakeOneFromStock(
+                actionToUndo[1] as cardConfigType[],
+                actionToUndo[2] as cardConfigType[]
+              );
           }
           if (actionToUndo[0] === UNDO_TYPES.ADD_CARD_TO_PILE) {
             undoRemoveCardFromPile(
