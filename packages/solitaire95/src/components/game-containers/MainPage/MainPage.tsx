@@ -16,6 +16,12 @@ import {
   finishGame,
 } from "../../../store/actions/";
 import {
+  ToggleWindowType,
+  StopGameType,
+  FinishGameType,
+  CountScoreType,
+} from "../../../store/actions/actionTypes";
+import {
   WindowsState,
   Points,
   FoundationInitialState,
@@ -42,10 +48,10 @@ type SoundContextType = {
 };
 
 type MainPageDispatchTypes = {
-  toggleDealWindow: (state: boolean, window: string) => void;
-  stopGame: () => void;
-  addPointsOnEnd: (pointsToAdd: number) => void;
-  setGameFinished: (gameState: boolean) => void;
+  toggleDealWindow: ToggleWindowType;
+  stopGame: StopGameType;
+  addPointsOnEnd: CountScoreType;
+  setGameFinished: FinishGameType;
 };
 
 type MainPageStateTypes = {
@@ -196,15 +202,11 @@ const MainPageInternal: React.FC<
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    toggleDealWindow: (windowState: boolean, windowToToggle: string) =>
-      dispatch(toggleWindow(windowState, windowToToggle)),
-    stopGame: () => dispatch(stopGame()),
-    addPointsOnEnd: (pointsToAdd: number) => dispatch(countScore(pointsToAdd)),
-    setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
-  };
+const mapDispatchToProps = {
+  toggleDealWindow: toggleWindow,
+  stopGame,
+  addPointsOnEnd: countScore,
+  setGameFinished: finishGame,
 };
 
 const mapStateToProps = (state: {
