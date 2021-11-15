@@ -1,20 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
-import { toggleWindow } from "../../../store/actions/";
-import { ToggleWindowType } from "../../../store/actions/actionTypes";
-import {
-  ToolBar,
-  TopbarButton,
-  ToolButton,
-  Separator,
-} from "../../ui-components";
+import { ToolBar, TopbarButton } from "../../ui-components";
 import { ToolDropdown } from "../../ui-components";
 import styles from "./AppToolbar.module.scss";
 import { GameDropdown } from "./Dropdowns/GameDropdown/GameDropdown";
-
-type AppToolbarDispatchTypes = {
-  toggleAboutWindow: ToggleWindowType;
-};
+import { HelpDropdown } from "./Dropdowns/HelpDropdown/HelpDropdown";
 
 type AppToolbarPropTypes = {
   gameVisible: boolean;
@@ -24,16 +13,13 @@ type AppToolbarPropTypes = {
   setBottomBarText: (text: string) => void;
 };
 
-const AppToolbarInternal: React.FC<
-  AppToolbarDispatchTypes & AppToolbarPropTypes
-> = (props) => {
+export const AppToolbar: React.VFC<AppToolbarPropTypes> = (props) => {
   const {
     gameVisible,
     helpVisible,
     setGameVisible,
     setHelpVisible,
     setBottomBarText,
-    toggleAboutWindow,
   } = props;
 
   return (
@@ -81,42 +67,13 @@ const AppToolbarInternal: React.FC<
             }}
           />
           <ToolDropdown visible={helpVisible} buttonId={"helpButton"}>
-            <>
-              <ToolButton
-                onMouseOver={() =>
-                  setBottomBarText("Index of Solitaire help topics")
-                }
-                onMouseLeave={() => setBottomBarText("")}
-                text="Help Topics"
-                disabled
-              />
-              <Separator />
-              <ToolButton
-                onMouseOver={() => setBottomBarText("About Solitaire")}
-                onMouseLeave={() => setBottomBarText("")}
-                onClick={() => {
-                  toggleAboutWindow(true, "aboutWindow");
-                  setHelpVisible(false);
-                }}
-                text="About"
-              />
-            </>
+            <HelpDropdown
+              setHelpVisible={setHelpVisible}
+              setBottomBarText={setBottomBarText}
+            />
           </ToolDropdown>
         </div>
       </div>
     </ToolBar>
   );
 };
-
-const mapDispatchToProps = {
-  toggleAboutWindow: toggleWindow,
-};
-
-export const AppToolbar = connect<
-  undefined,
-  AppToolbarDispatchTypes,
-  AppToolbarPropTypes
->(
-  undefined,
-  mapDispatchToProps
-)(AppToolbarInternal);
