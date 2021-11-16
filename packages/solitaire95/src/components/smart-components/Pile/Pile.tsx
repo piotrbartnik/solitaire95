@@ -1,4 +1,4 @@
-import React, { useRef, useContext, MouseEvent, useCallback } from "react";
+import React, { useRef, MouseEvent, useCallback } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
@@ -17,7 +17,17 @@ import {
   turnCardOnPile,
   setUndoAction,
 } from "../../../store/actions/";
-import { CardBackContext } from "../../game-containers";
+import {
+  RemoveCardFromPileType,
+  AddCardToPileType,
+  RemoveCardFromStockType,
+  AddCardToFoundationType,
+  RemoveCardFromFoundationType,
+  CountScoreType,
+  StartGameType,
+  TurnCardOnPileType,
+  SetUndoActionType,
+} from "../../../store/actions/actionTypes";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
@@ -32,25 +42,19 @@ type PileStateTypes = {
   gameStarted: boolean;
   outlineDragging: boolean;
   threeCardsOnTable: cardConfigType[];
+  cardBackImage: string;
 };
 
 type PileDispatchTypes = {
-  removeCardFromPile: (pile: string) => void;
-  addCardToPile: (pileNumber: string, cardToPile: cardConfigType) => void;
-  removeCardFromStock: (
-    filteredCardsOnStock: cardConfigType[],
-    threeCardsOnStockFiltered?: cardConfigType[]
-  ) => void;
-  addCardToFoundation: (
-    card: cardConfigType,
-    foundationNumber: string,
-    foundationSuite: string
-  ) => void;
-  removeCardFromFoundation: (foundationNumber: string) => void;
-  addPoints: (points: number) => void;
-  startGame: () => void;
-  turnCardOnPile: (cardToTurn: number) => void;
-  setUndoAction: (clearUndoActions: []) => void;
+  removeCardFromPile: RemoveCardFromPileType;
+  addCardToPile: AddCardToPileType;
+  removeCardFromStock: RemoveCardFromStockType;
+  addCardToFoundation: AddCardToFoundationType;
+  removeCardFromFoundation: RemoveCardFromFoundationType;
+  addPoints: CountScoreType;
+  startGame: StartGameType;
+  turnCardOnPile: TurnCardOnPileType;
+  setUndoAction: SetUndoActionType;
 };
 
 type PilePropTypes = {
@@ -79,10 +83,10 @@ const PileInternal: React.FC<
     setUndoAction,
     outlineDragging,
     threeCardsOnTable,
+    cardBackImage,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
-  const { cardBackImage } = useContext(CardBackContext);
 
   const dropCardOnPile = (dragObject: {
     cardFront: string;
@@ -296,40 +300,20 @@ const mapStateToProps = (state: {
     gameStarted: state.gameState.gameStarted,
     outlineDragging: state.gameState.outlineDragging,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
+    cardBackImage: state.gameState.cardDeck,
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    removeCardFromPile: (pileNumber: string) =>
-      dispatch(removeCardFromPile(pileNumber)),
-    addCardToPile: (pileNumber: string, cardToPile: cardConfigType) =>
-      dispatch(addCardToPile(pileNumber, cardToPile)),
-    removeCardFromStock: (
-      filteredCardsOnStock: cardConfigType[],
-      threeCardsOnStockFiltered: cardConfigType[]
-    ) => {
-      dispatch(
-        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
-      );
-    },
-    addCardToFoundation: (
-      card: cardConfigType,
-      foundationNumber: string,
-      foundationSuite: string
-    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
-    removeCardFromFoundation: (foundationNumber: string) =>
-      dispatch(removeCardFromFoundation(foundationNumber)),
-    addPoints: (payload: number) => {
-      dispatch(countScore(payload));
-    },
-    startGame: () => dispatch(startGame()),
-    turnCardOnPile: (cardToTurn: number) =>
-      dispatch(turnCardOnPile(cardToTurn)),
-    setUndoAction: (clearUndoActions: []) =>
-      dispatch(setUndoAction(clearUndoActions)),
-  };
+const mapDispatchToProps = {
+  removeCardFromPile: removeCardFromPile,
+  addCardToPile: addCardToPile,
+  removeCardFromStock: removeCardFromStock,
+  addCardToFoundation: addCardToFoundation,
+  removeCardFromFoundation: removeCardFromFoundation,
+  addPoints: countScore,
+  startGame: startGame,
+  turnCardOnPile: turnCardOnPile,
+  setUndoAction: setUndoAction,
 };
 
 export const Pile = connect<PileStateTypes, PileDispatchTypes, PilePropTypes>(

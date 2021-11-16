@@ -16,6 +16,12 @@ import {
   finishGame,
 } from "../../../store/actions/";
 import {
+  ToggleWindowType,
+  StopGameType,
+  FinishGameType,
+  CountScoreType,
+} from "../../../store/actions/actionTypes";
+import {
   WindowsState,
   Points,
   FoundationInitialState,
@@ -33,17 +39,19 @@ import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
 
-export const CardBackContext = createContext({
-  cardBackImage: "acorns",
-  setCardBackImage: (cardBackName: string) => cardBackName,
+export const SoundContext = createContext({
   playSounds: true,
 });
 
+type SoundContextType = {
+  playSounds: boolean;
+};
+
 type MainPageDispatchTypes = {
-  toggleDealWindow: (state: boolean, window: string) => void;
-  stopGame: () => void;
-  addPointsOnEnd: (pointsToAdd: number) => void;
-  setGameFinished: (gameState: boolean) => void;
+  toggleDealWindow: ToggleWindowType;
+  stopGame: StopGameType;
+  addPointsOnEnd: CountScoreType;
+  setGameFinished: FinishGameType;
 };
 
 type MainPageStateTypes = {
@@ -55,8 +63,7 @@ type MainPageStateTypes = {
   timerVisible: boolean;
 };
 
-type MainPagePropTypes = {
-  playSounds?: boolean;
+type MainPagePropTypes = Partial<SoundContextType> & {
   aboutChildren?: JSX.Element;
 };
 
@@ -76,15 +83,8 @@ const MainPageInternal: React.FC<
     bottomBarVisible,
     timerVisible,
   } = props;
-  const [cardBackImage, setCardBackImage] = useState("acorns");
-  const value: {
-    cardBackImage: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setCardBackImage: any;
-    playSounds: boolean;
-  } = {
-    cardBackImage,
-    setCardBackImage,
+
+  const soundContextValue: SoundContextType = {
     playSounds: playSounds || false,
   };
 
@@ -92,6 +92,19 @@ const MainPageInternal: React.FC<
   const [helpVisible, setHelpVisible] = useState(false);
   const [bottomBarText, setBottomBarText] = useState("");
   const [canvasSize, setCanvasSize] = useState<number[]>([]);
+
+  const setBottomBarTextCallback = useCallback(
+    (text) => setBottomBarText(text),
+    []
+  );
+  const setGameVisibleCallback = useCallback(
+    (gameVisible) => setGameVisible(gameVisible),
+    []
+  );
+  const setHelpVisibleCallback = useCallback(
+    (helpVisible) => setHelpVisible(helpVisible),
+    []
+  );
 
   const mainPageRef = useRef<HTMLDivElement>(null);
 
@@ -152,7 +165,7 @@ const MainPageInternal: React.FC<
           }
         }}
       >
-        <CardBackContext.Provider value={value}>
+        <SoundContext.Provider value={soundContextValue}>
           {isWindowVisible?.cardBackWindow && <DeckSelect />}
           {isWindowVisible?.aboutWindow && (
             <AboutSolitaire aboutChildren={aboutChildren} />
@@ -168,10 +181,10 @@ const MainPageInternal: React.FC<
           />
           <AppToolbar
             gameVisible={gameVisible}
-            setGameVisible={setGameVisible}
             helpVisible={helpVisible}
-            setHelpVisible={setHelpVisible}
-            setBottomBarText={setBottomBarText}
+            setGameVisible={setGameVisibleCallback}
+            setHelpVisible={setHelpVisibleCallback}
+            setBottomBarText={setBottomBarTextCallback}
           />
           <GameContainer
             canvasHeight={canvasSize[1]}
@@ -183,21 +196,17 @@ const MainPageInternal: React.FC<
             bottomBarVisible={bottomBarVisible}
             timerVisible={timerVisible}
           />
-        </CardBackContext.Provider>
+        </SoundContext.Provider>
       </div>
     </DndProvider>
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    toggleDealWindow: (windowState: boolean, windowToToggle: string) =>
-      dispatch(toggleWindow(windowState, windowToToggle)),
-    stopGame: () => dispatch(stopGame()),
-    addPointsOnEnd: (pointsToAdd: number) => dispatch(countScore(pointsToAdd)),
-    setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
-  };
+const mapDispatchToProps = {
+  toggleDealWindow: toggleWindow,
+  stopGame,
+  addPointsOnEnd: countScore,
+  setGameFinished: finishGame,
 };
 
 const mapStateToProps = (state: {

@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
-import { CardBackContext } from "../../game-containers";
 import {
   CardsDistributionInitialState,
   FoundationInitialState,
@@ -15,6 +14,14 @@ import {
   countScore,
   removeCardFromFoundation,
 } from "../../../store/actions/";
+import {
+  AddCardToFoundationType,
+  RemoveCardFromPileType,
+  CountScoreType,
+  RemoveCardFromStockType,
+  StartGameType,
+  RemoveCardFromFoundationType,
+} from "../../../store/actions/actionTypes";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
@@ -26,22 +33,16 @@ export type FoundationStateTypes = {
   gameStarted: boolean;
   outlineDragging: boolean;
   threeCardsOnTable: cardConfigType[];
+  cardBackImage: string;
 };
 
 export type FoundationDispatchTypes = {
-  addCardToFoundation: (
-    card: cardConfigType,
-    foundationNumber: string,
-    foundationSuite: string
-  ) => void;
-  removeCardFromPile: (pileNumber: string) => void;
-  addPoints: (points: number) => void;
-  removeCardFromStock: (
-    filteredCardsOnStock: cardConfigType[],
-    threeCardsOnStockFiltered: cardConfigType[]
-  ) => void;
-  startGame: () => void;
-  removeCardFromFoundation: (foundationNumber: string) => void;
+  addCardToFoundation: AddCardToFoundationType;
+  removeCardFromPile: RemoveCardFromPileType;
+  addPoints: CountScoreType;
+  removeCardFromStock: RemoveCardFromStockType;
+  startGame: StartGameType;
+  removeCardFromFoundation: RemoveCardFromFoundationType;
 };
 
 export type FoundationPropTypes = {
@@ -66,9 +67,8 @@ const FoundationInternal: React.FC<
     removeCardFromFoundation,
     outlineDragging,
     threeCardsOnTable,
+    cardBackImage,
   } = props;
-
-  const { cardBackImage } = useContext(CardBackContext);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const canBeDroppedOnFoundation = (card: any) => {
@@ -205,31 +205,17 @@ const mapStateToProps = (state: {
     gameStarted: state.gameState.gameStarted,
     outlineDragging: state.gameState.outlineDragging,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
+    cardBackImage: state.gameState.cardDeck,
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    addCardToFoundation: (
-      card: cardConfigType,
-      foundationNumber: string,
-      foundationSuite: string
-    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
-    removeCardFromPile: (pileNumber: string) =>
-      dispatch(removeCardFromPile(pileNumber)),
-    removeCardFromStock: (
-      filteredCardsOnStock: cardConfigType[],
-      threeCardsOnStockFiltered: cardConfigType[]
-    ) =>
-      dispatch(
-        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
-      ),
-    addPoints: (points: number) => dispatch(countScore(points)),
-    startGame: () => dispatch(startGame()),
-    removeCardFromFoundation: (foundationNumber: string) =>
-      dispatch(removeCardFromFoundation(foundationNumber)),
-  };
+const mapDispatchToProps = {
+  addCardToFoundation: addCardToFoundation,
+  removeCardFromPile: removeCardFromPile,
+  removeCardFromStock: removeCardFromStock,
+  addPoints: countScore,
+  startGame: startGame,
+  removeCardFromFoundation: removeCardFromFoundation,
 };
 
 export const Foundation = connect<

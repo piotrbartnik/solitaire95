@@ -1,27 +1,14 @@
-import { TopBar } from "./TopBar/TopBar";
-import { ToolBar } from "./ToolBar/ToolBar";
-import { BottomBar } from "./BottomBar/BottomBar";
-import { TopbarButton } from "./TopbarButton/TopbarButton";
-import { ToolButton } from "./ToolButton/ToolButton";
-import { Separator } from "./Separator/Separator";
-import { SettingsWindow } from "./SettingsWindow/SettingsWindow";
-import { Button } from "./Buttons/Button";
-import { CloseButton } from "./Buttons/CloseButton";
-import { Checkbox } from "./Checkbox/Checkbox";
-import { RadioBox } from "./RadioBox/RadioBox";
-import { Radiobutton } from "./Radiobutton/Radiobutton";
-
-export {
-  TopBar,
-  ToolBar,
-  BottomBar,
-  TopbarButton,
-  ToolButton,
-  Separator,
-  SettingsWindow,
-  Button,
-  CloseButton,
-  Checkbox,
-  RadioBox,
-  Radiobutton,
-};
+export { TopBar } from "./TopBar/TopBar";
+export { ToolBar } from "./ToolBar/ToolBar";
+export { BottomBar } from "./BottomBar/BottomBar";
+export { TopbarButton } from "./TopbarButton/TopbarButton";
+export { ToolButton } from "./ToolButton/ToolButton";
+export { Separator } from "./Separator/Separator";
+export { SettingsWindow } from "./SettingsWindow/SettingsWindow";
+export { Button } from "./Buttons/Button";
+export { CloseButton } from "./Buttons/CloseButton";
+export { Checkbox } from "./Checkbox/Checkbox";
+export { RadioBox } from "./RadioBox/RadioBox";
+export { Radiobutton } from "./Radiobutton/Radiobutton";
+export { ToolDropdown } from "./ToolDropdown/ToolDropdown";
+export { Score } from "./Score/Score";

@@ -1,12 +1,27 @@
-import * as actionTypes from "./actionTypes";
+import { ACTION_TYPES } from "./actionTypes";
 
-export const toggleWindow = (
-  windowState: boolean,
-  windowToToggle: string
-): { type: string; windowState: boolean; windowToToggle: string } => {
-  return {
-    type: actionTypes.TOGGLE_WINDOW,
-    windowState,
-    windowToToggle,
-  };
+export type WindowTypes =
+  | "dealAgainWindow"
+  | "aboutWindow"
+  | "cardBackWindow"
+  | "optionsWindow";
+
+export type ToggleWindowReducerType = {
+  type: ACTION_TYPES.TOGGLE_WINDOW;
+  windowState: boolean;
+  windowToToggle: WindowTypes;
 };
+
+export type ToggleWindowType = (
+  windowState: boolean,
+  windowToToggle: WindowTypes
+) => ToggleWindowReducerType;
+
+export const toggleWindow: ToggleWindowType = (
+  windowState,
+  windowToToggle
+) => ({
+  type: ACTION_TYPES.TOGGLE_WINDOW,
+  windowState,
+  windowToToggle,
+});

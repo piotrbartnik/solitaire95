@@ -31,10 +31,14 @@ const initialStateWitcAces = {
   cardDistribution: {
     cardsOnStock: [
       ["ace", "spades", null, "red", "0"],
-      ["ace", "hearts", null, "red", "0"],
+      ["ace", "diamonds", null, "black", "0"],
       ["ace", "hearts", null, "red", "0"],
     ],
-    cardsFromStock: [],
+    cardsFromStock: [
+      ["two", "spades", null, "red", "0"],
+      ["two", "diamonds", null, "black", "0"],
+      ["two", "hearts", null, "red", "0"],
+    ],
     cardsOnPiles: {},
     threeCardsOnTable: [],
   },
@@ -79,7 +83,38 @@ describe("render MainPage with custom state for cards on stock", () => {
       container.querySelector(".foundation")?.querySelectorAll(".card")
     ).toHaveLength(1);
   });
-  it("thre cards move on stock can be undone", () => {
+  it("and all thre cards can be added to foundation and then subsequent 3 cards added previously to table will be shown", () => {
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      initialStateWitcAces
+    );
+
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    fireEvent.doubleClick(
+      container.querySelector("div[data-suite='spades']") as Element
+    );
+    expect(screen.getByText("Score: 10")).toBeVisible();
+    expect(container.querySelectorAll(".foundation .card")).toHaveLength(1);
+    fireEvent.doubleClick(
+      container.querySelector("div[data-suite='diamonds']") as Element
+    );
+    expect(screen.getByText("Score: 20")).toBeVisible();
+    expect(container.querySelectorAll(".foundation .card")).toHaveLength(2);
+    expect(
+      container.querySelector("div[data-card='two']") as Element
+    ).toBeNull();
+    fireEvent.doubleClick(
+      container.querySelector("div[data-suite='hearts']") as Element
+    );
+    expect(screen.getByText("Score: 30")).toBeVisible();
+    expect(container.querySelectorAll(".foundation .card")).toHaveLength(3);
+    expect(
+      container.querySelectorAll("div[data-cardname='two']") as Element
+    ).toHaveLength(3);
+  });
+  it("three cards move on stock can be undone", () => {
     const { container } = reduxRtlWrapper(
       dndWrapper(<MainPage />),
       initialState
@@ -95,6 +130,42 @@ describe("render MainPage with custom state for cards on stock", () => {
 
     expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
     expect(container.querySelectorAll(".cardBack")).toHaveLength(13);
+  });
+  it("three cards reverse on stock can be undone", () => {
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      initialState
+    );
+
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
+
+    fireEvent.click(
+      container.querySelector(".cardStock__cardHolder") as Element
+    );
+
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(13);
+
+    clickUndo();
+
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
   });
   it("and when ace added to foundation it can be undo back to stock and score is substracted", () => {
     const { container } = reduxRtlWrapper(

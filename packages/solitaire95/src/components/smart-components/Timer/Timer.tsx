@@ -2,6 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { GameState, Points } from "../../../store/reducers";
 import { countScore, saveTime, saveScoreTime } from "../../../store/actions/";
+import {
+  CountScoreType,
+  SaveTimeType,
+  SaveScoreTimeType,
+} from "../../../store/actions/actionTypes";
 import styles from "./Timer.module.scss";
 import { useStartTimer, useSubstractPointsEveryTenSeconds } from "./TimerHooks";
 
@@ -13,9 +18,9 @@ type TimerStatePropTypes = {
 };
 
 type TimerDispatchPropTypes = {
-  substractPoints: (poinst: number) => void;
-  saveTime: (timeToSave: number) => void;
-  saveScoreTime: (timeToSave: number) => void;
+  substractPoints: CountScoreType;
+  saveTime: SaveTimeType;
+  saveScoreTime: SaveScoreTimeType;
 };
 
 const TimerInternal: React.FC<TimerStatePropTypes & TimerDispatchPropTypes> = (
@@ -59,13 +64,10 @@ const mapStateToProps = (state: {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    substractPoints: (payload: number) => dispatch(countScore(payload)),
-    saveTime: (timeToSave: number) => dispatch(saveTime(timeToSave)),
-    saveScoreTime: (timeToSave: number) => dispatch(saveScoreTime(timeToSave)),
-  };
+const mapDispatchToProps = {
+  substractPoints: countScore,
+  saveTime: saveTime,
+  saveScoreTime: saveScoreTime,
 };
 
 export const Timer = connect<TimerStatePropTypes, TimerDispatchPropTypes>(

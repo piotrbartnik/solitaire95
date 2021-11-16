@@ -8,6 +8,7 @@ import {
 import { WaterfallCanvas } from "../../smart-components";
 import { useCountDistanceBetweenPiles } from "./GameContainerHooks";
 import { addCardToFoundation } from "../../../store/actions/";
+import { AddCardToFoundationType } from "../../../store/actions/actionTypes";
 import { Foundation, Pile, CardStock } from "../../smart-components";
 import { cardConfigType } from "../../../configs/cardTypes";
 import styles from "./GameContainer.module.scss";
@@ -30,11 +31,7 @@ type GameContainerStateTypes = {
 };
 
 type GameContainerDispatchTypes = {
-  addCardToFoundation: (
-    card: cardConfigType,
-    foundationNumber: string,
-    foundationSuite: string
-  ) => void;
+  addCardToFoundation: AddCardToFoundationType;
 };
 
 const GameContainerInternal: React.FC<
@@ -184,15 +181,8 @@ const mapStateToProps = (state: {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    addCardToFoundation: (
-      card: cardConfigType,
-      foundationNumber: string,
-      foundationSuite: string
-    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
-  };
+const mapDispatchToProps = {
+  addCardToFoundation,
 };
 
 export const GameContainer = connect<

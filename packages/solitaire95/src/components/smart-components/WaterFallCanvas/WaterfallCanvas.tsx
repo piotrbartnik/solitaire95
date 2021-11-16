@@ -5,6 +5,7 @@ import {
   useCancelCanvasAnimation,
 } from "./WaterfallHooks";
 import { toggleWindow } from "../../../store/actions/";
+import { ToggleWindowType } from "../../../store/actions/actionTypes";
 
 type WaterfallCanvasPropTypes = {
   canvasWidth: number;
@@ -13,7 +14,7 @@ type WaterfallCanvasPropTypes = {
 };
 
 type WaterfallCanvasDispatchTypes = {
-  toggleDealWindow: (state: boolean, window: string) => void;
+  toggleDealWindow: ToggleWindowType;
 };
 
 const WaterfallCanvasInternal: React.FC<
@@ -73,12 +74,8 @@ const WaterfallCanvasInternal: React.FC<
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    toggleDealWindow: (windowState: boolean, windowToToggle: string) =>
-      dispatch(toggleWindow(windowState, windowToToggle)),
-  };
+const mapDispatchToProps = {
+  toggleDealWindow: toggleWindow,
 };
 
 export const WaterfallCanvas = connect<

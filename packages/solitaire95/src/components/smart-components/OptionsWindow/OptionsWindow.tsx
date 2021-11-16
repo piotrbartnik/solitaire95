@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import {
   toggleWindow,
   setOutlineDragging,
@@ -7,6 +8,15 @@ import {
   toggleTimer,
   toggledrawType,
 } from "../../../store/actions/";
+import {
+  ToggleWindowType,
+  SetOutlineDraggingType,
+  ToggleBottomBarType,
+  ToggleTimerType,
+  ToggleDrawType,
+  WindowTypes,
+  DrawType,
+} from "../../../store/actions/actionTypes";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
 import { Checkbox, RadioBox, Radiobutton } from "../../ui-components/";
@@ -18,15 +28,15 @@ export type OptionsWindowStateTypes = {
   outlineDragging: boolean;
   bottomBarVisible: boolean;
   timerVisible: boolean;
-  drawType: string;
+  drawType: DrawType;
 };
 
 export type OptionsWindowDispatchTypes = {
-  toggleOptionsWindow: (windowState: boolean, windowToToggle: string) => void;
-  setOutlineDragging: (outlineDragging: boolean) => void;
-  toggleBottomBar: (bottomBarVisible: boolean) => void;
-  toggleTimer: (timerVisible: boolean) => void;
-  toggledrawType: (drawType: string) => void;
+  toggleOptionsWindow: ToggleWindowType;
+  setOutlineDragging: SetOutlineDraggingType;
+  toggleBottomBar: ToggleBottomBarType;
+  toggleTimer: ToggleTimerType;
+  toggledrawType: ToggleDrawType;
   dealCardsAllSteps: () => void;
 };
 
@@ -112,7 +122,7 @@ const OptionsInternal: React.FC<
                 label={radioType}
                 onClick={() => {
                   setToggleDrawTypeState(
-                    Object.keys(drawRadioButtonsTypes)[index]
+                    Object.keys(drawRadioButtonsTypes)[index] as DrawType
                   );
                 }}
                 currentValue={drawRadioButtonsTypes[toggleDrawTypeState]}
@@ -187,18 +197,17 @@ const mapStateToProps = (state: {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
-    toggleOptionsWindow: (windowState: boolean, windowToToggle: string) =>
+    toggleOptionsWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
     setOutlineDragging: (isOutlined: boolean) =>
       dispatch(setOutlineDragging(isOutlined)),
     toggleBottomBar: (bottomBarVisible: boolean) =>
       dispatch(toggleBottomBar(bottomBarVisible)),
     toggleTimer: (timerVisible: boolean) => dispatch(toggleTimer(timerVisible)),
-    toggledrawType: (drawType: string) => dispatch(toggledrawType(drawType)),
+    toggledrawType: (drawType: DrawType) => dispatch(toggledrawType(drawType)),
   };
 };
 

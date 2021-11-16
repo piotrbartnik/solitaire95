@@ -1,6 +1,5 @@
-import React, { useContext, useCallback } from "react";
+import React, { useCallback } from "react";
 import { connect } from "react-redux";
-import { CardBackContext } from "../../game-containers";
 import {
   takeOneFromStock,
   reverseStock,
@@ -11,6 +10,16 @@ import {
   stockTurnCounter,
   takeThreeFromStock,
 } from "../../../store/actions";
+import {
+  TakeOneFromStockType,
+  TakeThreeFromStockType,
+  ReverseStockType,
+  RemoveCardFromStockType,
+  AddCardToFoundationType,
+  CountScoreType,
+  StartGameType,
+  StockTurnCounterType,
+} from "../../../store/actions/actionTypes";
 import {
   CardsDistributionInitialState,
   FoundationInitialState,
@@ -31,31 +40,18 @@ export type CardStockStateTypes = {
   gameStarted: boolean;
   drawType: string;
   threeCardsOnTable: cardConfigType[];
+  cardBackImage: string;
 };
 
 export type CardStockDispatchTypes = {
-  takeOneFromStock: (
-    cardsOnStock: cardConfigType[],
-    cardToAddToTable: cardConfigType
-  ) => void;
-  takeThreeFromStock: (
-    cardsOnStock: cardConfigType[],
-    cardToAddToTable: cardConfigType[],
-    threeCardsOnTable: cardConfigType[]
-  ) => void;
-  reverseStock: (cardsFromStock: cardConfigType[]) => void;
-  removeCardFromStock: (
-    filteredCardsOnStock: cardConfigType[],
-    threeCardsOnStockFiltered: cardConfigType[]
-  ) => void;
-  addCardToFoundation: (
-    card: cardConfigType,
-    foundationNumber: string,
-    foundationSuite: string
-  ) => void;
-  addPoints: (points: number) => void;
-  startGame: () => void;
-  addToStockCounter: () => void;
+  takeOneFromStock: TakeOneFromStockType;
+  takeThreeFromStock: TakeThreeFromStockType;
+  reverseStock: ReverseStockType;
+  removeCardFromStock: RemoveCardFromStockType;
+  addCardToFoundation: AddCardToFoundationType;
+  addPoints: CountScoreType;
+  startGame: StartGameType;
+  addToStockCounter: StockTurnCounterType;
 };
 
 export type CardStockPropTypes = {
@@ -82,6 +78,7 @@ const CardStockInternal: React.FC<
     gameStarted,
     drawType,
     threeCardsOnTable,
+    cardBackImage,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -130,8 +127,6 @@ const CardStockInternal: React.FC<
       }
     }
   };
-
-  const { cardBackImage } = useContext(CardBackContext);
 
   const moveToFoundationCallback = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
@@ -293,42 +288,19 @@ const mapStateToProps = (state: {
     stockCounter: state.stockCounter,
     gameStarted: state.gameState.gameStarted,
     drawType: state.gameState.drawType,
+    cardBackImage: state.gameState.cardDeck,
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    takeOneFromStock: (
-      cardsOnStock: cardConfigType[],
-      cardToAddToTable: cardConfigType
-    ) => dispatch(takeOneFromStock(cardsOnStock, cardToAddToTable)),
-    takeThreeFromStock: (
-      cardsOnStock: cardConfigType[],
-      cardToAddToTable: cardConfigType[],
-      threeCardsOnTable: cardConfigType[]
-    ) =>
-      dispatch(
-        takeThreeFromStock(cardsOnStock, cardToAddToTable, threeCardsOnTable)
-      ),
-    reverseStock: (payload: cardConfigType[]) =>
-      dispatch(reverseStock(payload)),
-    removeCardFromStock: (
-      filteredCardsOnStock: cardConfigType[],
-      threeCardsOnStockFiltered: cardConfigType[]
-    ) =>
-      dispatch(
-        removeCardFromStock(filteredCardsOnStock, threeCardsOnStockFiltered)
-      ),
-    addCardToFoundation: (
-      card: cardConfigType,
-      foundationNumber: string,
-      foundationSuite: string
-    ) => dispatch(addCardToFoundation(card, foundationNumber, foundationSuite)),
-    addPoints: (payload: number) => dispatch(countScore(payload)),
-    startGame: () => dispatch(startGame()),
-    addToStockCounter: () => dispatch(stockTurnCounter()),
-  };
+const mapDispatchToProps = {
+  takeOneFromStock: takeOneFromStock,
+  takeThreeFromStock: takeThreeFromStock,
+  reverseStock: reverseStock,
+  removeCardFromStock: removeCardFromStock,
+  addCardToFoundation: addCardToFoundation,
+  addPoints: countScore,
+  startGame: startGame,
+  addToStockCounter: stockTurnCounter,
 };
 
 export const CardStock = connect<

@@ -1,6 +1,12 @@
 import React, { useCallback } from "react";
 import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import { toggleWindow, finishGame } from "../../../store/actions/";
+import {
+  ToggleWindowType,
+  FinishGameType,
+  WindowTypes,
+} from "../../../store/actions/actionTypes";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
 import styles from "./DealAgain.module.scss";
@@ -10,8 +16,8 @@ export type DealAgainStateTypes = {
   isWindowVisible: boolean;
 };
 export type DealAgainDispatchTypes = {
-  toggleDealWindow: (windowState: boolean, windowToToggle: string) => void;
-  setGameFinished: (gameState: boolean) => void;
+  toggleDealWindow: ToggleWindowType;
+  setGameFinished: FinishGameType;
   dealCardsAllSteps: () => void;
 };
 
@@ -72,15 +78,12 @@ const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
-    toggleDealWindow: (windowState: boolean, windowToToggle: string) =>
-      dispatch(toggleWindow(windowState, windowToToggle)),
-    setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
+  toggleDealWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
+    dispatch(toggleWindow(windowState, windowToToggle)),
+  setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
+});
 
 export const DealAgain = connect<DealAgainStateTypes, DealAgainDispatchTypes>(
   mapStateToProps,

@@ -1,10 +1,11 @@
+import {
+  ACTION_TYPES,
+  CountScoreTypeReducer,
+  ResetScoreTypeReducer,
+} from "../actions/actionTypes";
+
 export interface Points {
   points: number;
-}
-
-export interface CountScoreActionTypes {
-  type: string;
-  countScore: number;
 }
 
 const initialState: Points = {
@@ -13,14 +14,14 @@ const initialState: Points = {
 
 export const countScore = (
   state = initialState,
-  action: CountScoreActionTypes
+  action: CountScoreTypeReducer | ResetScoreTypeReducer
 ): Points => {
   switch (action.type) {
-    case "COUNT_SCORE": {
+    case ACTION_TYPES.COUNT_SCORE: {
       const pointsCounted = state.points + action.countScore;
       return { ...state, points: pointsCounted < 0 ? 0 : pointsCounted };
     }
-    case "RESET_SCORE":
+    case ACTION_TYPES.RESET_SCORE:
       return { ...state, points: 0 };
     default:
       return state;

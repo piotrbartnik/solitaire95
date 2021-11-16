@@ -1,4 +1,26 @@
 import { cardConfigType } from "../../configs/cardTypes";
+import {
+  ACTION_TYPES,
+  CardDealTypeReducer,
+  TakeOneFromStockTypeReducer,
+  TakeThreeFromStockTypeReducer,
+  ReverseStockTypeReducer,
+  AddCardToFoundationTypeReducer,
+  RemoveCardFromStockTypeReducer,
+  RemoveCardFromPileTypeReducer,
+  AddCardToPileTypeReducer,
+  RemoveCardFromFoundationTypeReducer,
+  TurnCardOnPileTypeReducer,
+  StockTurnCounterTypeReducer,
+  ResetStockCounterTypeReducer,
+  UndoTakeOneFromStockTypeReducer,
+  UndoThreeCardsFromStockTypeReducer,
+  UndoRemoveCardFromPileTypeReducer,
+  UndoMoveFromStockToPilesTypeReducer,
+  UndoMoveFromStockToFoundationTypeReducer,
+  UndoMoveFromPileToFoundationTypeReducer,
+  UndoMoveFromFoundationToPilesTypeReducer,
+} from "../actions/actionTypes";
 
 export interface CardsDistributionInitialState {
   cardsOnStock: cardConfigType[];
@@ -7,26 +29,26 @@ export interface CardsDistributionInitialState {
   threeCardsOnTable: cardConfigType[];
 }
 
-export interface CardDistributionActionTypes {
-  type: string;
-  cardsOnPiles: { [key: string]: cardConfigType[] };
-  cardsForStock: cardConfigType[];
-  cardsOnStock: cardConfigType[];
-  cardToAddToTable: cardConfigType[] | cardConfigType;
-  reverseStock: cardConfigType[];
-  filteredCardsOnStock: cardConfigType[];
-  removeCardFromPile: number;
-  cardToPile: cardConfigType;
-  addCardToPile: number;
-  cardToTurn: number;
-  cardsOnStockUndo: cardConfigType[];
-  cardsFromStockUndo: cardConfigType[];
-  threeCardsFromStockUndo: cardConfigType[];
-  pilesState: { [key: string]: cardConfigType[] };
-  cardsFromStockState: cardConfigType[];
-  threeCardsOnTable: cardConfigType[];
-  threeCardsOnStockFiltered: cardConfigType[];
-}
+export type CardDistributionActionTypes =
+  | CardDealTypeReducer
+  | TakeOneFromStockTypeReducer
+  | TakeThreeFromStockTypeReducer
+  | ReverseStockTypeReducer
+  | AddCardToFoundationTypeReducer
+  | RemoveCardFromStockTypeReducer
+  | RemoveCardFromPileTypeReducer
+  | AddCardToPileTypeReducer
+  | RemoveCardFromFoundationTypeReducer
+  | TurnCardOnPileTypeReducer
+  | StockTurnCounterTypeReducer
+  | ResetStockCounterTypeReducer
+  | UndoTakeOneFromStockTypeReducer
+  | UndoThreeCardsFromStockTypeReducer
+  | UndoRemoveCardFromPileTypeReducer
+  | UndoMoveFromStockToPilesTypeReducer
+  | UndoMoveFromStockToFoundationTypeReducer
+  | UndoMoveFromPileToFoundationTypeReducer
+  | UndoMoveFromFoundationToPilesTypeReducer;
 
 const initialState: CardsDistributionInitialState = {
   cardsOnStock: [],
@@ -40,14 +62,14 @@ export const cardDistribution = (
   action: CardDistributionActionTypes
 ): CardsDistributionInitialState => {
   switch (action.type) {
-    case "DEAL_CARDS":
+    case ACTION_TYPES.DEAL_CARDS:
       return {
         cardsOnStock: action.cardsForStock,
         cardsFromStock: [],
         threeCardsOnTable: [],
         cardsOnPiles: action.cardsOnPiles,
       };
-    case "TAKE_ONE_FROM_STOCK":
+    case ACTION_TYPES.TAKE_ONE_FROM_STOCK:
       return {
         ...state,
         cardsFromStock: [
@@ -56,7 +78,7 @@ export const cardDistribution = (
         ],
         cardsOnStock: action.cardsOnStock,
       };
-    case "TAKE_THREE_FROM_STOCK":
+    case ACTION_TYPES.TAKE_THREE_FROM_STOCK:
       return {
         ...state,
         cardsFromStock: [
@@ -66,20 +88,20 @@ export const cardDistribution = (
         threeCardsOnTable: [...(action.threeCardsOnTable as cardConfigType[])],
         cardsOnStock: action.cardsOnStock,
       };
-    case "REVERSE_STOCK":
+    case ACTION_TYPES.REVERSE_STOCK:
       return {
         ...state,
         cardsOnStock: action.reverseStock,
         cardsFromStock: [],
         threeCardsOnTable: [],
       };
-    case "REMOVE_CARD_FROM_STOCK":
+    case ACTION_TYPES.REMOVE_CARD_FROM_STOCK:
       return {
         ...state,
         cardsFromStock: action.filteredCardsOnStock,
         threeCardsOnTable: action.threeCardsOnStockFiltered,
       };
-    case "REMOVE_CARD_FROM_PILE":
+    case ACTION_TYPES.REMOVE_CARD_FROM_PILE:
       return {
         ...state,
         cardsOnPiles: {
@@ -89,7 +111,7 @@ export const cardDistribution = (
           ].slice(0, -1),
         },
       };
-    case "ADD_CARD_TO_PILE":
+    case ACTION_TYPES.ADD_CARD_TO_PILE:
       // eslint-disable-next-line no-case-declarations
       const cardAdded: cardConfigType[] = [action.cardToPile];
       return {
@@ -100,7 +122,7 @@ export const cardDistribution = (
             state.cardsOnPiles[action.addCardToPile].concat(cardAdded),
         },
       };
-    case "TURN_CARD_ON_PILE":
+    case ACTION_TYPES.TURN_CARD_ON_PILE:
       // eslint-disable-next-line no-case-declarations
       const newStateForPile = state.cardsOnPiles[action.cardToTurn];
       // eslint-disable-next-line no-case-declarations
@@ -121,43 +143,43 @@ export const cardDistribution = (
           [action.cardToTurn[0]]: mapState,
         },
       };
-    case "UNDO_TAKE_ONE_FROM_STOCK":
+    case ACTION_TYPES.UNDO_TAKE_ONE_FROM_STOCK:
       return {
         ...state,
         cardsOnStock: action.cardsOnStockUndo,
         cardsFromStock: action.cardsFromStockUndo,
       };
-    case "UNDO_TAKE_THREE_FROM_STOCK":
+    case ACTION_TYPES.UNDO_TAKE_THREE_FROM_STOCK:
       return {
         ...state,
         cardsOnStock: action.cardsOnStockUndo,
         threeCardsOnTable: action.threeCardsFromStockUndo,
         cardsFromStock: action.cardsFromStockUndo,
       };
-    case "UNDO_REMOVE_FROM_PILE":
+    case ACTION_TYPES.UNDO_REMOVE_FROM_PILE:
       return {
         ...state,
         cardsOnPiles: { ...action.pilesState },
       };
-    case "UNDO_MOVE_FROM_STOCK_TO_PILE":
+    case ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_PILE:
       return {
         ...state,
         cardsOnPiles: { ...action.pilesState },
         cardsFromStock: action.cardsFromStockState,
         threeCardsOnTable: action.threeCardsFromStockUndo,
       };
-    case "UNDO_MOVE_FROM_STOCK_TO_FOUNDATION":
+    case ACTION_TYPES.UNDO_MOVE_FROM_STOCK_TO_FOUNDATION:
       return {
         ...state,
         cardsFromStock: action.cardsFromStockState,
         threeCardsOnTable: action.threeCardsFromStockUndo,
       };
-    case "UNDO_MOVE_FROM_PILE_TO_FOUNDATION":
+    case ACTION_TYPES.UNDO_MOVE_FROM_PILE_TO_FOUNDATION:
       return {
         ...state,
         cardsOnPiles: { ...action.pilesState },
       };
-    case "UNDO_MOVE_FROM_FOUNDATION_TO_PILE":
+    case ACTION_TYPES.UNDO_MOVE_FROM_FOUNDATION_TO_PILE:
       return {
         ...state,
         cardsOnPiles: { ...action.pilesState },
