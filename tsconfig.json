@@ -18,6 +18,6 @@
     "declaration": true,
     "declarationMap": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["cypress", "@testing-library/cypress"]
-  },
+    "types": ["cypress", "@testing-library/cypress"],
+  }
 }
