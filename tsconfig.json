@@ -18,6 +18,7 @@
     "declaration": true,
     "declarationMap": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["cypress", "@testing-library/cypress"],
-  }
+    "types": ["jest"],
+  },
+  "include": ["**/*.test.tsx"],
 }
