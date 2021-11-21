@@ -1,3 +1,7 @@
 {
-  "video": false
+  "video": false,
+  "baseUrl": "http://localhost:3007",
+  "fixturesFolder": false,
+  "pluginsFile": false,
+  "supportFile": false
 }

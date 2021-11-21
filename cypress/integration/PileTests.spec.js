@@ -1,16 +1,3 @@
-const dataTransfer = new DndSimulatorDataTransfer();
-
-cy.get(".draggable")
-  .trigger("mousedown", { which: 1 })
-  .trigger("dragstart", { dataTransfer })
-  .trigger("drag", {});
-
-cy.get(".droppable")
-  .trigger("dragover", { dataTransfer })
-  .trigger("drop", { dataTransfer })
-  .trigger("dragend", { dataTransfer })
-  .trigger("mouseup", { which: 1 });
-
 function DndSimulatorDataTransfer() {
   this.data = {};
 }
@@ -47,15 +34,6 @@ DndSimulatorDataTransfer.prototype.getData = function (format) {
   return "";
 };
 
-DndSimulatorDataTransfer.prototype.setDragImage = function (
-  img,
-  xOffset,
-  yOffset
-) {
-  // since simulation doesn"t replicate the visual
-  // effects, there is no point in implementing this
-};
-
 Cypress.Commands.add(
   "drag",
   {
@@ -76,3 +54,38 @@ Cypress.Commands.add(
       .trigger("mouseup", { which: 1 });
   }
 );
+
+describe("Solitaire", () => {
+  beforeEach(function () {
+    cy.clock();
+    cy.viewport(1030, 900);
+  });
+  it("opens in web app", () => {
+    window.localStorage.setItem(
+      "solitaireState",
+      JSON.stringify({
+        cardDistribution: {
+          cardsOnStock: [],
+          cardsFromStock: [],
+          threeCardsOnTable: [],
+          cardsOnPiles: {
+            0: [["ace", "spades", null, "black", "0"]],
+          },
+        },
+        stockCounter: { stockRevolutions: 0 },
+        timeCounter: { initialTime: 0, scoreTime: 0 },
+      })
+    );
+    cy.visit("http://localhost:3007");
+    // cy.get("[data-front=true]")
+    //   .trigger("mousedown", { which: 1 })
+    //   .trigger("mousemove", { clientX: 100, clientY: 100 })
+    //   .trigger("mouseup", { force: true });
+    cy.get("[data-front=true]").drag("div[class*='foundation']div[id='0']");
+  });
+});
+
+// cy.get(`.piece-${number}`)
+//       .trigger('mousedown', { which: 1 })
+//       .trigger('mousemove', { clientX: x, clientY: y })
+//       .trigger('mouseup', { force: true })
