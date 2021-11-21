@@ -4,11 +4,5 @@
     "baseUrl": ".",
     "outDir": "./lib",
     "rootDir": "src",
-    "types": ["jest"],
-  },
-  "include": ["**/*.test.tsx"],
-  "exclude": [
-    "lib",
-    "node_modules",
-  ]
+  }
 }
