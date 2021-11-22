@@ -1,41 +1,49 @@
 // load the global Cypress types
 /// <reference types="cypress" />
 
-function DndSimulatorDataTransfer() {
-  this.data = {};
-}
+class DndSimulatorDataTransfer {
+  data: Record<string, unknown>;
+  dropEffect: string;
+  effectAllowed: string;
+  files: [];
+  items: [];
+  types: [];
 
-DndSimulatorDataTransfer.prototype.dropEffect = "move";
-DndSimulatorDataTransfer.prototype.effectAllowed = "all";
-DndSimulatorDataTransfer.prototype.files = [];
-DndSimulatorDataTransfer.prototype.items = [];
-DndSimulatorDataTransfer.prototype.types = [];
-
-DndSimulatorDataTransfer.prototype.clearData = function (format) {
-  if (format) {
-    delete this.data[format];
-
-    const index = this.types.indexOf(format);
-    delete this.types[index];
-    delete this.data[index];
-  } else {
+  constructor() {
     this.data = {};
-  }
-};
-
-DndSimulatorDataTransfer.prototype.setData = function (format, data) {
-  this.data[format] = data;
-  this.items.push(data);
-  this.types.push(format);
-};
-
-DndSimulatorDataTransfer.prototype.getData = function (format) {
-  if (format in this.data) {
-    return this.data[format];
+    this.dropEffect = "move";
+    this.effectAllowed = "all";
+    this.files = [];
+    this.items = [];
+    this.types = [];
   }
 
-  return "";
-};
+  clearData(format: never) {
+    if (format) {
+      delete this.data[format];
+
+      const index = this.types.indexOf(format);
+      delete this.types[index];
+      delete this.data[index];
+    } else {
+      this.data = {};
+    }
+  }
+
+  setData(format: never, data: never) {
+    this.data[format] = data;
+    this.items.push(data);
+    this.types.push(format);
+  }
+
+  getData(format) {
+    if (format in this.data) {
+      return this.data[format];
+    }
+
+    return "";
+  }
+}
 
 const reactDndCypressImplementation = (
   sourceSelector: JQuery<HTMLElement>,
