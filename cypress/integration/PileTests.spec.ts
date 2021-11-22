@@ -38,6 +38,9 @@ describe("Solitaire piles", () => {
       JSON.stringify(pileTestsInitialState)
     );
     cy.visit("/");
-    cy.get("[data-cardname=ace]").drag("div[class*='foundation']div[id='0']");
+    cy.findByRole("listitem", { name: "ace spades" }).drag(
+      "list",
+      "foundation 0"
+    );
   });
 });

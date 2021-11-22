@@ -6,6 +6,6 @@ declare namespace Cypress {
      * Custom command to test drag and drop from ReactDND
      * @example cy.drag(targetSelector: string)
      */
-    drag: (targetSelector: string) => void;
+    drag: (targetRole: string, targetName: string) => void;
   }
 }

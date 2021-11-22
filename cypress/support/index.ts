@@ -1,6 +1,8 @@
 // load the global Cypress types
 /// <reference types="cypress" />
 
+import "@testing-library/cypress/add-commands";
+
 class DndSimulatorDataTransfer {
   data: Record<string, unknown>;
   dropEffect: string;
@@ -36,7 +38,7 @@ class DndSimulatorDataTransfer {
     this.types.push(format);
   }
 
-  getData(format) {
+  getData(format: never) {
     if (format in this.data) {
       return this.data[format];
     }
@@ -47,7 +49,8 @@ class DndSimulatorDataTransfer {
 
 const reactDndCypressImplementation = (
   sourceSelector: JQuery<HTMLElement>,
-  targetSelector: string
+  targetRole: string,
+  targetName: string
 ): void => {
   const dataTransfer = new DndSimulatorDataTransfer();
 
@@ -56,7 +59,7 @@ const reactDndCypressImplementation = (
     .trigger("dragstart", { dataTransfer })
     .trigger("drag", {});
 
-  cy.get(targetSelector)
+  cy.findByRole(targetRole, { name: targetName })
     .trigger("dragover", { dataTransfer })
     .trigger("drop", { dataTransfer })
     .trigger("dragend", { dataTransfer })

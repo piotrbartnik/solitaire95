@@ -102,7 +102,7 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
           data-pilenumber={pileNumber}
           data-foundationnumber={foundationNumber}
           data-cardback={cardBack}
-          role="button"
+          role="listitem"
           aria-label={`${cardFront} ${cardSuite}`}
         ></div>
       ) : (
