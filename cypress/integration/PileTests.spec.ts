@@ -32,15 +32,20 @@ const pileTestsInitialState = {
 };
 
 describe("Solitaire piles", () => {
-  it("aces can be moved to foundations", () => {
+  it("aces can be moved to foundations and for each ace added to foundation 10 points are added", () => {
     window.localStorage.setItem(
       "solitaireState",
       JSON.stringify(pileTestsInitialState)
     );
     cy.visit("/");
-    cy.findByRole("listitem", { name: "ace spades" }).drag(
-      "list",
-      "foundation 0"
-    );
+    for (let i = 0; i < 4; i++) {
+      const pile = pileTestsInitialState.cardDistribution.cardsOnPiles[i];
+      const cardName = `${pile[i][0]} ${pile[i][1]}`;
+      cy.findByRole("listitem", { name: cardName }).drag(
+        "list",
+        `foundation ${i}`
+      );
+      cy.findByText(`Score: ${10 * (i + 1)}`).should("exist");
+    }
   });
 });
