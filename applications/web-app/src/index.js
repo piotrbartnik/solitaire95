@@ -7,7 +7,11 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Solitaire95 playSounds aboutChildren={<Bio />} />
+    <Solitaire95
+      playSounds
+      aboutChildren={<Bio />}
+      preserveStateInLocalStorage={process.env.REACT_APP_CY_ENV !== "test"}
+    />
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -2,6 +2,7 @@
 /// <reference path="../support/index.d.ts" />
 
 const pileTestsInitialState = {
+  testEnv: true,
   cardDistribution: {
     cardsOnStock: [],
     cardsFromStock: [],
@@ -9,21 +10,27 @@ const pileTestsInitialState = {
     cardsOnPiles: {
       0: [["ace", "spades", null, "black", "0"]],
       1: [
-        ["ace", "spades", null, "black", "0"],
+        ["ace", "a", null, "black", "0"],
         ["ace", "hearts", null, "red", "0"],
       ],
       2: [
-        ["ace", "spades", null, "black", "0"],
-        ["ace", "hearts", null, "red", "0"],
+        ["ace", "b", null, "black", "0"],
+        ["ace", "c", null, "red", "0"],
         ["ace", "diamonds", null, "red", "0"],
       ],
       3: [
-        ["ace", "spades", null, "black", "0"],
-        ["ace", "hearts", null, "red", "0"],
-        ["ace", "diamonds", null, "red", "0"],
+        ["ace", "d", null, "black", "0"],
+        ["ace", "e", null, "red", "0"],
+        ["ace", "r", null, "red", "0"],
         ["ace", "clubs", null, "black", "0"],
       ],
-      4: [],
+      4: [
+        ["ace", "g", null, "black", "0"],
+        ["ace", "h", null, "red", "0"],
+        ["ace", "i", null, "red", "0"],
+        ["ace", "x", null, "black", "0"],
+        ["two", "diamonds", null, "red", "1"],
+      ],
       6: [],
     },
   },
@@ -32,12 +39,14 @@ const pileTestsInitialState = {
 };
 
 describe("Solitaire piles", () => {
-  it("aces can be moved to foundations and for each ace added to foundation 10 points are added", () => {
+  beforeEach(() => {
+    cy.visit("/");
     window.localStorage.setItem(
       "solitaireState",
       JSON.stringify(pileTestsInitialState)
     );
-    cy.visit("/");
+  });
+  it("aces can be moved to foundations and for each ace added to foundation 10 points are added", () => {
     for (let i = 0; i < 4; i++) {
       const pile = pileTestsInitialState.cardDistribution.cardsOnPiles[i];
       const cardName = `${pile[i][0]} ${pile[i][1]}`;
@@ -47,5 +56,12 @@ describe("Solitaire piles", () => {
       );
       cy.findByText(`Score: ${10 * (i + 1)}`).should("exist");
     }
+  });
+
+  it("aces can be moved to higher card on pile", () => {
+    cy.findByRole("listitem", { name: "ace clubs" }).drag(
+      "listitem",
+      "two diamonds"
+    );
   });
 });

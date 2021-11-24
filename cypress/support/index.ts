@@ -62,8 +62,8 @@ const reactDndCypressImplementation = (
   cy.findByRole(targetRole, { name: targetName })
     .trigger("dragover", { dataTransfer })
     .trigger("drop", { dataTransfer })
-    .trigger("dragend", { dataTransfer })
-    .trigger("mouseup", { which: 1 });
+    .trigger("dragend", { dataTransfer, force: true })
+    .trigger("mouseup", { which: 1, force: true });
 };
 
 Cypress.Commands.add(

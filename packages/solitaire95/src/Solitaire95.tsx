@@ -24,10 +24,6 @@ const store = createStore(
   composeEnhancers(middlewareEnhancer)
 );
 
-store.subscribe(() => {
-  localStorage.setItem("solitaireState", JSON.stringify(store.getState()));
-});
-
 if (!persistedState) {
   store.dispatch(dealCards());
 }
@@ -35,10 +31,18 @@ if (!persistedState) {
 type PropTypes = {
   playSounds?: boolean;
   aboutChildren?: JSX.Element;
+  preserveStateInLocalStorage?: boolean;
 };
 
 const Solitaire95: React.FC<PropTypes> = (props) => {
-  const { playSounds, aboutChildren } = props;
+  const { playSounds, aboutChildren, preserveStateInLocalStorage } = props;
+
+  if (preserveStateInLocalStorage) {
+    store.subscribe(() => {
+      localStorage.setItem("solitaireState", JSON.stringify(store.getState()));
+    });
+  }
+
   return (
     <Provider store={store}>
       <MainPage playSounds={playSounds} aboutChildren={aboutChildren} />
