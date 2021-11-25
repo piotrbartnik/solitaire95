@@ -55,9 +55,9 @@ const reactDndCypressImplementation = (
   const dataTransfer = new DndSimulatorDataTransfer();
 
   cy.wrap(sourceSelector.get(0))
-    .trigger("mousedown", { which: 1 })
-    .trigger("dragstart", { dataTransfer })
-    .trigger("drag", {});
+    .trigger("mousedown", { which: 1, force: true })
+    .trigger("dragstart", { dataTransfer, force: true })
+    .trigger("drag", { force: true });
 
   cy.findByRole(targetRole, { name: targetName })
     .trigger("dragover", { dataTransfer })
