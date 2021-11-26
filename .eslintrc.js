@@ -20,7 +20,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react", "@typescript-eslint", "no-only-tests"],
   rules: {
     "linebreak-style": ["error", "unix"],
     "@typescript-eslint/ban-ts-comment": "off",
@@ -28,5 +28,6 @@ module.exports = {
     "@typescript-eslint/no-var-requires": 0,
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
+    "no-only-tests/no-only-tests": "error",
   },
 };
