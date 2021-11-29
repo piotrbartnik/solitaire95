@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/piotrbartnik/solitaire95.svg?branch=master)](https://travis-ci.com/piotrbartnik/solitaire95)
+[![Build Status](https://app.travis-ci.com/piotrbartnik/solitaire95.svg?branch=master)](https://app.travis-ci.com/piotrbartnik/solitaire95)
 [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://solitaire95-4b3b8.web.app/)
 [![codecov](https://codecov.io/gh/piotrbartnik/solitaire95/branch/master/graph/badge.svg?token=6I29VMDVU6)](https://codecov.io/gh/piotrbartnik/solitaire95)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
