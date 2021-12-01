@@ -39,13 +39,13 @@
   "scripts": {
     "install": "lerna bootstrap",
     "start:web": "concurrently 'cd ./packages/solitaire95 && npx webpack' 'cd ./applications/web-app && yarn start'",
-    "start:web:ci": "cd ./applications/web-app && yarn start",
+    "start:web:ci": "cd ./applications/web-app && PORT=3007 REACT_APP_CY_ENV=test yarn start:ci",
     "start:desktop": "concurrently 'cd ./packages/solitaire95 && npx webpack' 'cd ./applications/electron-react-app && yarn start'",
     "rmmodules": "find . -name 'node_modules' -type d -exec rm -rf '{}' +",
     "build:packages": "lerna run webpack",
     "test": "jest",
     "test:ci": "jest --collect-coverage",
-    "cy:ci": "PORT=3007 REACT_APP_CY_ENV=test start-server-and-test start:web:ci 3007 cy:run:ci",
+    "cy:ci": "start-server-and-test start:web:ci 3007 cy:run:ci",
     "cy:run": "concurrently 'PORT=3007 REACT_APP_CY_ENV=test yarn start:web' 'yarn cypress run && - kill $(jobs -p) || true'",
     "cy:open": "concurrently 'PORT=3007 REACT_APP_CY_ENV=test yarn start:web' 'yarn cypress open'",
     "cy:run:ci": "cypress run",
@@ -54,7 +54,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "yarn eslint:packages",
-      "pre-push": "yarn test && yarn cy:ci",
+      "pre-push": "yarn test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
