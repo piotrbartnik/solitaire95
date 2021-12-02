@@ -4,13 +4,16 @@
 const stockInitialState = {
   testEnv: true,
   cardDistribution: {
-    cardsOnStock: [["king", "diamonds", true, "red", "11"]],
+    cardsOnStock: [
+      ["two", "diamonds", true, "red", "1"],
+      ["king", "diamonds", true, "red", "11"],
+    ],
     cardsFromStock: [["ace", "diamonds", true, "red", "0"]],
     threeCardsOnTable: [],
     cardsOnPiles: {
       0: [],
       1: [["two", "clubs", true, "black", "1"]],
-      2: [],
+      2: [["two", "hearts", true, "red", "1"]],
       3: [],
       4: [],
       5: [],
@@ -46,7 +49,7 @@ describe("Solitaire stock for one draw", () => {
       .should("have.attr", "aria-label", "foundation 0");
   });
   it("cards can be dragger from stock to pile", () => {
-    cy.get("[data-front=false]").click();
+    cy.get("[data-front=false]").first().click({ force: true });
     cy.findByRole("listitem", { name: "king diamonds" })
       .parent()
       .parent()
@@ -74,5 +77,58 @@ describe("Solitaire stock for one draw", () => {
       "data-pilenumber",
       1
     );
+  });
+  it("cards can not be dragger to the same color higher card", () => {
+    cy.findByRole("listitem", { name: "ace diamonds" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+    cy.findByRole("listitem", { name: "ace diamonds" }).drag(
+      "listitem",
+      `two hearts`
+    );
+    cy.findByRole("listitem", { name: "ace diamonds" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+  });
+  it("cards can not be dragger to foundation if lower card is not on it", () => {
+    cy.get("[data-front=false]").first().click({ force: true });
+    cy.findByRole("listitem", { name: "king diamonds" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+    cy.findByRole("listitem", { name: "king diamonds" }).drag(
+      "list",
+      `foundation 0`
+    );
+    cy.findByRole("listitem", { name: "king diamonds" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+  });
+  it("next suite card can be dragged to foundation from stock", () => {
+    cy.findByRole("listitem", { name: "ace diamonds" }).drag(
+      "list",
+      `foundation 0`
+    );
+    cy.get("[data-front=false]").first().click({ force: true });
+    cy.get("[data-front=false]").first().click({ force: true });
+    cy.findByRole("listitem", { name: "two diamonds" }).drag(
+      "list",
+      `foundation 0`
+    );
+    cy.findByRole("listitem", { name: "ace diamonds" })
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "foundation 0");
+    cy.findByRole("listitem", { name: "two diamonds" })
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "foundation 0");
   });
 });
