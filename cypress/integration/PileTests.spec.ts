@@ -71,6 +71,22 @@ describe("Solitaire piles", () => {
       4
     );
   });
+  it("card can not be moved to higher card with the same color", () => {
+    cy.findByRole("listitem", { name: "ace diamonds" }).should(
+      "have.attr",
+      "data-pilenumber",
+      2
+    );
+    cy.findByRole("listitem", { name: "ace diamonds" }).drag(
+      "listitem",
+      "two diamonds"
+    );
+    cy.findByRole("listitem", { name: "ace diamonds" }).should(
+      "have.attr",
+      "data-pilenumber",
+      2
+    );
+  });
   it("turned back card after card on top dragged can be turned front and points are added and can be undone", () => {
     cy.findByRole("listitem", { name: "ace clubs" }).drag(
       "listitem",
@@ -182,6 +198,22 @@ describe("Solitaire piles", () => {
     );
     cy.findByText("Score: 0").should("exist");
     cy.findByRole("listitem", { name: "ace clubs" }).should(
+      "have.attr",
+      "data-pilenumber",
+      4
+    );
+  });
+  it("wrong card can not be dragged to foundation from pile", () => {
+    cy.findByRole("listitem", { name: "two diamonds" }).should(
+      "have.attr",
+      "data-pilenumber",
+      4
+    );
+    cy.findByRole("listitem", { name: "two diamonds" }).drag(
+      "list",
+      `foundation 0`
+    );
+    cy.findByRole("listitem", { name: "two diamonds" }).should(
       "have.attr",
       "data-pilenumber",
       4
