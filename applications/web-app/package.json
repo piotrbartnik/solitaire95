@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:ci": "react-scripts start --watchAll=false",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

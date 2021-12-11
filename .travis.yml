@@ -1,12 +1,14 @@
 language: node_js
 os: linux
 node_js:
-  - 10.19.0
+  - 14.17.0
 cache: npm
 install:
   - yarn global add lerna
   - yarn install
   - yarn test:ci
+  - yarn build:packages
+  - yarn cy:ci
 matrix:
   include:
     # - name: electron-react-app

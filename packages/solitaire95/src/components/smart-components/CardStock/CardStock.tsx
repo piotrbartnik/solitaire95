@@ -248,7 +248,7 @@ const CardStockInternal: React.FC<
             : null}
         </div>
       </div>
-      <div className={styles.cardsOnTable}>
+      <div className={styles.cardsOnTable} role="list" aria-label="card stock">
         {drawType === "drawOne"
           ? cardsFromStock?.map((card, index) => (
               <div

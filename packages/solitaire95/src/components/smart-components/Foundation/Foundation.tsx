@@ -173,6 +173,8 @@ const FoundationInternal: React.FC<
       ref={drop}
       style={outlineStyling()}
       id={foundationId?.toString()}
+      role="list"
+      aria-label={`foundation ${foundationId}`}
     >
       {cardsOnFoundation?.length
         ? cardsOnFoundation.map((card, index) => (

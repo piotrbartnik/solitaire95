@@ -280,6 +280,8 @@ const PileInternal: React.FC<
           ? { backgroundColor: "#ff00ff" }
           : undefined
       }
+      role="list"
+      aria-label={`pile ${pileIndex}`}
     >
       {distributeCards(cardsOnPile)}
     </div>

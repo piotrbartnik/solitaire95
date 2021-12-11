@@ -9,4 +9,5 @@ module.exports = {
   },
   setupFilesAfterEnv: ["./setupTests.ts"],
   coverageDirectory: "./coverage",
+  roots: ["<rootDir>/packages", "<rootDir>/applications"],
 };
