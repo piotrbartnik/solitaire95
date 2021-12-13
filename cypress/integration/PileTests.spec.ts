@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../support/index.d.ts" />
 
+import { clickUndo } from "../support";
+
 const pileTestsInitialState = {
   testEnv: true,
   cardDistribution: {
@@ -23,11 +25,6 @@ const pileTestsInitialState = {
   },
   stockCounter: { stockRevolutions: 0 },
   timeCounter: { initialTime: 0, scoreTime: 0 },
-};
-
-const clickUndo = () => {
-  cy.findByRole("button", { name: "Game" }).click();
-  cy.findByRole("button", { name: "Undo" }).click();
 };
 
 describe("Solitaire piles", () => {

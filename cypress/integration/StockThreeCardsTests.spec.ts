@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../support/index.d.ts" />
 
+import { clickUndo } from "../support";
+
 const stockThreeCardsInitialState = {
   testEnv: true,
   cardDistribution: {
@@ -93,6 +95,11 @@ describe("Solitaire stock for three draw", () => {
       "listitem",
       `two hearts`
     );
+    cy.findByRole("listitem", { name: "ace spades" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "pile 2");
     cy.findByText("Score: 15").should("exist");
   });
   it("three cards are shown after all card are used from current 3 stock", () => {
@@ -126,5 +133,77 @@ describe("Solitaire stock for three draw", () => {
       .parent()
       .should("have.attr", "aria-label", "card stock");
     cy.findByText("Score: 25").should("exist");
+  });
+  it("card can be dragged to foundation and undone", () => {
+    cy.get("[data-front=false]").should("have.length", 6);
+    cy.get("[data-front=false]").first().click({ force: true });
+    cy.get("[data-front=false]").first().click({ force: true });
+    cy.findByRole("listitem", { name: "ace clubs" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+    cy.findByRole("listitem", { name: "ace clubs" }).drag(
+      "list",
+      `foundation 0`
+    );
+    cy.findByRole("listitem", { name: "ace clubs" })
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "foundation 0");
+    cy.findByText("Score: 10").should("exist");
+    clickUndo();
+    cy.findByRole("listitem", { name: "ace clubs" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+  });
+  it("card can be dragged to pile and undone", () => {
+    cy.get("[data-front=false]").first().click({ force: true });
+    cy.get("[data-front=false]").first().click({ force: true });
+    cy.findByRole("listitem", { name: "ace clubs" }).drag(
+      "list",
+      `foundation 0`
+    );
+    cy.findByRole("listitem", { name: "ace spades" }).drag(
+      "listitem",
+      `two hearts`
+    );
+    cy.findByRole("listitem", { name: "ace spades" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "pile 2");
+    cy.findByText("Score: 15").should("exist");
+    clickUndo();
+    cy.findByText("Score: 10").should("exist");
+    cy.findByRole("listitem", { name: "ace spades" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+  });
+  it("on card back click three cards are added to stock and undone", () => {
+    cy.get("[data-front=false]").should("have.length", 6);
+    cy.get("[data-front=false]").first().click({ force: true });
+    cy.get("[data-front=false]").should("have.length", 3);
+    cy.findByRole("listitem", { name: "king diamonds" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+    cy.findByRole("listitem", { name: "two diamonds" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+    cy.findByRole("listitem", { name: "ace diamonds" })
+      .parent()
+      .parent()
+      .parent()
+      .should("have.attr", "aria-label", "card stock");
+    clickUndo();
+    cy.get("[data-front=false]").should("have.length", 6);
   });
 });
