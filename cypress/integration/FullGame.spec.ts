@@ -1,24 +1,34 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../support/index.d.ts" />
 
+import { createCards } from "../../packages/solitaire95/src/configs/cardTypes";
+import { orderPiles } from "../../packages/solitaire95/src/store/actions/cardActions";
+
+const clubsCards = createCards.filter((card) => card[1] === "clubs").reverse();
+const heartsCards = createCards
+  .filter((card) => card[1] === "hearts")
+  .reverse();
+const diamondsCards = createCards
+  .filter((card) => card[1] === "diamonds")
+  .reverse();
+const spadesCards = createCards
+  .filter((card) => card[1] === "spades")
+  .reverse();
+const cardsOnPiles = orderPiles([
+  ...(heartsCards.slice(11) as any),
+  ...diamondsCards,
+  ...spadesCards,
+]);
+
+console.log(cardsOnPiles);
+
 const fullGameInitialState = {
   testEnv: true,
   cardDistribution: {
-    cardsOnStock: [
-      ["two", "diamonds", true, "red", "1"],
-      ["king", "diamonds", true, "red", "11"],
-    ],
-    cardsFromStock: [["ace", "diamonds", true, "red", "0"]],
+    cardsOnStock: [...clubsCards, ...heartsCards.slice(0, 11)],
+    cardsFromStock: [],
     threeCardsOnTable: [],
-    cardsOnPiles: {
-      0: [],
-      1: [["two", "clubs", true, "black", "1"]],
-      2: [["two", "hearts", true, "red", "1"]],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-    },
+    cardsOnPiles: cardsOnPiles,
   },
   stockCounter: { stockRevolutions: 0 },
   timeCounter: { initialTime: 0, scoreTime: 0 },

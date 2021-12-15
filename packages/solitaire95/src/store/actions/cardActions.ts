@@ -29,7 +29,7 @@ const mixCardsForGame = (cards: cardConfigType[]): cardConfigType[][] => {
   return [cardsForStock, cardsForPiles];
 };
 
-const orderPiles = (
+export const orderPiles = (
   cardsForPiles: cardConfigType[]
 ): { [key: string]: cardConfigType[] } => {
   const cardsOnPiles = {};
