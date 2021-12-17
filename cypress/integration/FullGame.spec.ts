@@ -15,7 +15,7 @@ const spadesCards = createCards
   .filter((card) => card[1] === "spades")
   .reverse();
 const cardsOnPiles = orderPiles([
-  ...(heartsCards.slice(11) as any),
+  ...heartsCards.slice(11),
   ...diamondsCards,
   ...spadesCards,
 ]);
