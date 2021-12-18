@@ -20,8 +20,6 @@ const cardsOnPiles = orderPiles([
   ...spadesCards,
 ]);
 
-console.log(cardsOnPiles);
-
 const fullGameInitialState = {
   testEnv: true,
   cardDistribution: {
