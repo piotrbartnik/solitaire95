@@ -23,7 +23,7 @@ export type cardConfigType = [
   number | string
 ];
 
-const cardRank: CardNameType[] = [
+export const cardName: CardNameType[] = [
   "ace",
   "two",
   "three",
@@ -46,12 +46,12 @@ const cardConfigTypes: [CardSuiteType, undefined | boolean, CardColorType][] = [
   ["diamonds", undefined, "red"],
 ];
 
-export const createCards = cardRank
-  .map((rank) =>
+export const createCards = cardName
+  .map((name) =>
     cardConfigTypes.map((config) => [
-      rank,
+      name,
       ...config,
-      cardRank.indexOf(rank).toString(),
+      cardName.indexOf(name).toString(),
     ])
   )
   .reduce(

@@ -1,7 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../support/index.d.ts" />
 
-import { createCards } from "../../packages/solitaire95/src/configs/cardTypes";
+import {
+  createCards,
+  cardName,
+} from "../../packages/solitaire95/src/configs/cardTypes";
 import { orderPiles } from "../../packages/solitaire95/src/store/actions/cardActions";
 
 const clubsCards = createCards.filter((card) => card[1] === "clubs").reverse();
@@ -41,20 +44,22 @@ describe("Solitaire full game test", () => {
     );
   });
 
-  it("game can be finished", () => {
-    cy.findByRole("listitem", { name: "ace clubs" }).should(
-      "have.attr",
-      "data-pilenumber",
-      3
-    );
-    cy.findByRole("listitem", { name: "ace clubs" }).drag(
-      "listitem",
-      "two diamonds"
-    );
-    cy.findByRole("listitem", { name: "ace clubs" }).should(
-      "have.attr",
-      "data-pilenumber",
-      4
-    );
+  it("game can be finished by dragging cards", () => {
+    ["spades", "diamonds", "hearts", "clubs"].forEach((suite, suiteIndex) => {
+      cardName.forEach((cardname) => {
+        cy.findByRole("listitem", { name: `${cardname} ${suite}` }).drag(
+          "list",
+          `foundation ${suiteIndex}`
+        );
+        cy.get("body").then(($body) => {
+          if ($body.find("[data-front=false]").length) {
+            cy.get("[data-front=false]")
+              .last()
+              .children()
+              .click({ force: true });
+          }
+        });
+      });
+    });
   });
 });

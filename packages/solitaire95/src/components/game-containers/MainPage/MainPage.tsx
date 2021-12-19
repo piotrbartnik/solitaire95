@@ -115,7 +115,7 @@ const MainPageInternal: React.FC<
 
     if (allCards.length === 52) {
       stopGame();
-      setGameFinished(true);
+      setTimeout(() => setGameFinished(true), 1000);
       setCanvasSize([
         mainPageRef.current
           ?.querySelector("#gameContainer")
