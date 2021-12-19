@@ -4,10 +4,11 @@ import { fireEvent, screen } from "@testing-library/react";
 import { dndWrapper, reduxRtlWrapper } from "../../../../helpers/testHelpers";
 import { MainPage } from "../MainPage";
 import { createCards } from "../../../../configs/cardTypes";
+import { cardConfigType } from "../../../../configs/cardTypes";
 
 jest.useFakeTimers();
 
-const filterCards = (suite: string): (string | number | undefined)[][] =>
+const filterCards = (suite: string): cardConfigType[] =>
   createCards.filter((card) => card[1] === suite);
 
 const spades = filterCards("spades");

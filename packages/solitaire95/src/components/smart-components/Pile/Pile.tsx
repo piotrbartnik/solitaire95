@@ -7,6 +7,11 @@ import {
   GameState,
 } from "../../../store/reducers/";
 import {
+  CardNameType,
+  CardSuiteType,
+  CardColorType,
+} from "../../../configs/cardTypes";
+import {
   removeCardFromPile,
   addCardToPile,
   removeCardFromStock,
@@ -89,9 +94,9 @@ const PileInternal: React.FC<
   const ref = useRef<HTMLDivElement>(null);
 
   const dropCardOnPile = (dragObject: {
-    cardFront: string;
-    cardSuite: string;
-    cardColor: string;
+    cardFront: CardNameType;
+    cardSuite: CardSuiteType;
+    cardColor: CardColorType;
     cardOrder: number;
     pileNumber: string;
     foundationNumber: string;
