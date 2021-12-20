@@ -35,6 +35,8 @@ const fullGameInitialState = {
   timeCounter: { initialTime: 0, scoreTime: 0 },
 };
 
+const cardSuites = ["spades", "diamonds", "hearts", "clubs"];
+
 describe("Solitaire full game test", () => {
   beforeEach(() => {
     cy.visit("/");
@@ -45,14 +47,45 @@ describe("Solitaire full game test", () => {
   });
 
   it("game can be finished by dragging cards", () => {
-    ["spades", "diamonds", "hearts", "clubs"].forEach((suite, suiteIndex) => {
+    cardSuites.forEach((suite, suiteIndex) => {
       cardName.forEach((cardname) => {
         cy.findByRole("listitem", { name: `${cardname} ${suite}` }).drag(
           "list",
           `foundation ${suiteIndex}`
         );
         cy.get("body").then(($body) => {
-          if ($body.find("[data-front=false]").length) {
+          if ($body.find("[data-front=false][data-pilenumber]").length) {
+            cy.get("[data-front=false][data-pilenumber]")
+              .last()
+              .children()
+              .click({ force: true });
+          } else if (
+            !$body.find("[data-cardname][data-pilenumber]").length &&
+            $body.find("[data-front=false]").length
+          ) {
+            cy.get("[data-front=false]")
+              .last()
+              .children()
+              .click({ force: true });
+          }
+        });
+      });
+    });
+  });
+  it("game can be finished by double click cards", () => {
+    cardSuites.forEach((suite) => {
+      cardName.forEach((cardname) => {
+        cy.findByRole("listitem", { name: `${cardname} ${suite}` }).dblclick();
+        cy.get("body").then(($body) => {
+          if ($body.find("[data-front=false][data-pilenumber]").length) {
+            cy.get("[data-front=false][data-pilenumber]")
+              .last()
+              .children()
+              .click({ force: true });
+          } else if (
+            !$body.find("[data-cardname][data-pilenumber]").length &&
+            $body.find("[data-front=false]").length
+          ) {
             cy.get("[data-front=false]")
               .last()
               .children()
