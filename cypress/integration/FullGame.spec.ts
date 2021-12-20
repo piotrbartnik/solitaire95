@@ -37,6 +37,34 @@ const fullGameInitialState = {
 
 const cardSuites = ["spades", "diamonds", "hearts", "clubs"];
 
+const resolveSolitaire = (actionType: "drag" | "dbclick"): void => {
+  cardSuites.forEach((suite, suiteIndex) => {
+    cardName.forEach((cardname) => {
+      if (actionType === "drag") {
+        cy.findByRole("listitem", { name: `${cardname} ${suite}` }).drag(
+          "list",
+          `foundation ${suiteIndex}`
+        );
+      } else {
+        cy.findByRole("listitem", { name: `${cardname} ${suite}` }).dblclick();
+      }
+      cy.get("body").then(($body) => {
+        if ($body.find("[data-front=false][data-pilenumber]").length) {
+          cy.get("[data-front=false][data-pilenumber]")
+            .last()
+            .children()
+            .click({ force: true });
+        } else if (
+          !$body.find("[data-cardname][data-pilenumber]").length &&
+          $body.find("[data-front=false]").length
+        ) {
+          cy.get("[data-front=false]").last().children().click({ force: true });
+        }
+      });
+    });
+  });
+};
+
 describe("Solitaire full game test", () => {
   beforeEach(() => {
     cy.visit("/");
@@ -47,52 +75,9 @@ describe("Solitaire full game test", () => {
   });
 
   it("game can be finished by dragging cards", () => {
-    cardSuites.forEach((suite, suiteIndex) => {
-      cardName.forEach((cardname) => {
-        cy.findByRole("listitem", { name: `${cardname} ${suite}` }).drag(
-          "list",
-          `foundation ${suiteIndex}`
-        );
-        cy.get("body").then(($body) => {
-          if ($body.find("[data-front=false][data-pilenumber]").length) {
-            cy.get("[data-front=false][data-pilenumber]")
-              .last()
-              .children()
-              .click({ force: true });
-          } else if (
-            !$body.find("[data-cardname][data-pilenumber]").length &&
-            $body.find("[data-front=false]").length
-          ) {
-            cy.get("[data-front=false]")
-              .last()
-              .children()
-              .click({ force: true });
-          }
-        });
-      });
-    });
+    resolveSolitaire("drag");
   });
   it("game can be finished by double click cards", () => {
-    cardSuites.forEach((suite) => {
-      cardName.forEach((cardname) => {
-        cy.findByRole("listitem", { name: `${cardname} ${suite}` }).dblclick();
-        cy.get("body").then(($body) => {
-          if ($body.find("[data-front=false][data-pilenumber]").length) {
-            cy.get("[data-front=false][data-pilenumber]")
-              .last()
-              .children()
-              .click({ force: true });
-          } else if (
-            !$body.find("[data-cardname][data-pilenumber]").length &&
-            $body.find("[data-front=false]").length
-          ) {
-            cy.get("[data-front=false]")
-              .last()
-              .children()
-              .click({ force: true });
-          }
-        });
-      });
-    });
+    resolveSolitaire("dbclick");
   });
 });
