@@ -24,6 +24,7 @@ export enum ACTION_TYPES {
   TOGGLE_BOTTOMBAR = "TOGGLE_BOTTOMBAR",
   TOGGLE_TIMER = "TOGGLE_TIMER",
   TOGGLE_DRAW_TYPE = "TOGGLE_DRAW_TYPE",
+  TOGGLE_SCORE_TYPE = "TOGGLE_SCORE_TYPE",
   SET_CARD_DECK = "SET_CARD_DECK",
   SAVE_INITIAL_TIME = "SAVE_INITIAL_TIME",
   RESET_TIME = "RESET_TIME",
@@ -59,6 +60,9 @@ export type {
   SetCardDeckTypeReducer,
   UndoActionType,
   DrawType,
+  ToggleScoreType,
+  ScoreType,
+  ToggleScoreTypeReducer,
 } from "./gameActionTypes";
 
 export { UNDO_TYPES } from "./gameActionTypes";

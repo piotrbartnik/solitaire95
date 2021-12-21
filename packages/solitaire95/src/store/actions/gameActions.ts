@@ -9,6 +9,7 @@ import {
   ToggleTimerType,
   ToggleDrawType,
   SetCardDeckType,
+  ToggleScoreType,
 } from "./actionTypes";
 
 export const startGame: StartGameType = () => {
@@ -62,6 +63,13 @@ export const toggledrawType: ToggleDrawType = (drawType) => {
   return {
     type: ACTION_TYPES.TOGGLE_DRAW_TYPE,
     drawType,
+  };
+};
+
+export const toggleScoreType: ToggleScoreType = (scoreType) => {
+  return {
+    type: ACTION_TYPES.TOGGLE_SCORE_TYPE,
+    scoreType,
   };
 };
 

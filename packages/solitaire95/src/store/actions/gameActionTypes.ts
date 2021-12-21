@@ -77,6 +77,13 @@ export type ToggleDrawTypeReducer = {
 };
 export type ToggleDrawType = (drawType: DrawType) => ToggleDrawTypeReducer;
 
+export type ScoreType = "standard" | "vegas" | "none";
+export type ToggleScoreTypeReducer = {
+  type: ACTION_TYPES.TOGGLE_SCORE_TYPE;
+  scoreType: ScoreType;
+};
+export type ToggleScoreType = (scoreType: ScoreType) => ToggleScoreTypeReducer;
+
 export type SetCardDeckTypeReducer = {
   type: ACTION_TYPES.SET_CARD_DECK;
   cardDeck: string;

@@ -10,6 +10,9 @@ import {
   SetCardDeckTypeReducer,
   UndoActionType,
   ACTION_TYPES,
+  ScoreType,
+  DrawType,
+  ToggleScoreTypeReducer,
 } from "../actions/actionTypes";
 
 export interface GameState {
@@ -19,7 +22,8 @@ export interface GameState {
   outlineDragging: boolean;
   bottomBarVisible: boolean;
   timerVisible: boolean;
-  drawType: "drawOne" | "drawThree";
+  drawType: DrawType;
+  scoreType: ScoreType;
   cardDeck: string;
 }
 
@@ -32,7 +36,8 @@ type GameStateActionTypes =
   | ToggleBottomBarTypeReducer
   | ToggleTimerTypeReducer
   | ToggleDrawTypeReducer
-  | SetCardDeckTypeReducer;
+  | SetCardDeckTypeReducer
+  | ToggleScoreTypeReducer;
 
 const initialState: GameState = {
   gameStarted: false,
@@ -42,6 +47,7 @@ const initialState: GameState = {
   bottomBarVisible: true,
   timerVisible: true,
   drawType: "drawOne",
+  scoreType: "standard",
   cardDeck: "acorns",
 };
 
@@ -66,6 +72,8 @@ export const gameState = (
       return { ...state, timerVisible: action.timerVisible };
     case ACTION_TYPES.TOGGLE_DRAW_TYPE:
       return { ...state, drawType: action.drawType };
+    case ACTION_TYPES.TOGGLE_SCORE_TYPE:
+      return { ...state, scoreType: action.scoreType };
     case ACTION_TYPES.SET_CARD_DECK:
       return { ...state, cardDeck: action.cardDeck };
     default:
