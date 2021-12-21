@@ -29,6 +29,7 @@ export {
   toggleTimer,
   toggledrawType,
   setCardDeck,
+  toggleScoreType,
 } from "./gameActions";
 export { countScore, resetScore } from "./scoreActions";
 export { toggleWindow } from "./windowActions";
