@@ -4,6 +4,11 @@ import { GameState } from "../../../store/reducers/";
 import { useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { itemTypes } from "../../../configs/dragndropConfig";
+import {
+  CardNameType,
+  CardSuiteType,
+  CardColorType,
+} from "../../../configs/cardTypes";
 import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardBackImages } from "../../../static/cardBacks";
 import styles from "./Card.module.scss";
@@ -13,9 +18,9 @@ type CardStateTypes = {
 };
 
 type CardPropTypes = {
-  cardFront: string;
-  cardColor: string;
-  cardSuite: string;
+  cardFront: CardNameType;
+  cardColor: CardColorType;
+  cardSuite: CardSuiteType;
   cardOrder: string | number;
   cardBack: string;
   isTurnedBack?: boolean;

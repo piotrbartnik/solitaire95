@@ -10,10 +10,10 @@ describe("renders Card", () => {
         <Card
           isTurnedBack
           cardBack={"test"}
-          cardColor={"test"}
-          cardFront={"test"}
+          cardColor={"black"}
+          cardFront={"ace"}
           cardOrder={"test"}
-          cardSuite={"test"}
+          cardSuite={"clubs"}
           canBeTurned
         />
       )
@@ -27,10 +27,10 @@ describe("renders Card", () => {
         <Card
           isTurnedBack={false}
           cardBack={"test"}
-          cardColor={"test"}
-          cardFront={"test"}
+          cardColor={"black"}
+          cardFront={"ace"}
           cardOrder={"test"}
-          cardSuite={"test"}
+          cardSuite={"clubs"}
           canBeTurned
         />
       )
@@ -47,10 +47,10 @@ describe("renders Card", () => {
           isTurnedBack={false}
           onDoubleClick={handleDoubleClick}
           cardBack={"test"}
-          cardColor={"test"}
-          cardFront={"test"}
+          cardColor={"black"}
+          cardFront={"ace"}
           cardOrder={"test"}
-          cardSuite={"test"}
+          cardSuite={"clubs"}
           canBeTurned
         />
       )

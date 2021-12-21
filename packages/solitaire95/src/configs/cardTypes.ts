@@ -1,12 +1,29 @@
+export type CardNameType =
+  | "ace"
+  | "two"
+  | "three"
+  | "four"
+  | "five"
+  | "six"
+  | "seven"
+  | "eight"
+  | "nine"
+  | "ten"
+  | "jack"
+  | "queen"
+  | "king";
+export type CardSuiteType = "clubs" | "spades" | "hearts" | "diamonds";
+export type CardColorType = "black" | "red";
+
 export type cardConfigType = [
-  string,
-  string,
+  CardNameType,
+  CardSuiteType,
   undefined | boolean,
-  string,
+  CardColorType,
   number | string
 ];
 
-const cardRank: string[] = [
+export const cardName: CardNameType[] = [
   "ace",
   "two",
   "three",
@@ -22,23 +39,22 @@ const cardRank: string[] = [
   "king",
 ];
 
-const cardConfigTypes: (string | undefined)[][] = [
+const cardConfigTypes: [CardSuiteType, undefined | boolean, CardColorType][] = [
   ["clubs", undefined, "black"],
   ["spades", undefined, "black"],
   ["hearts", undefined, "red"],
   ["diamonds", undefined, "red"],
 ];
 
-export const createCards: (
-  | string
-  | undefined
-  | number
-)[][] = cardRank
-  .map((rank) =>
+export const createCards = cardName
+  .map((name) =>
     cardConfigTypes.map((config) => [
-      rank,
+      name,
       ...config,
-      cardRank.indexOf(rank).toString(),
+      cardName.indexOf(name).toString(),
     ])
   )
-  .reduce((a, b) => a.concat(b), []);
+  .reduce(
+    (cards, createdCards) => cards.concat(createdCards as cardConfigType[]),
+    [] as cardConfigType[]
+  );

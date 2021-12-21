@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { dndWrapper, reduxRtlWrapper } from "../../../../helpers/testHelpers";
 import { MainPage } from "../MainPage";
 import { createCards } from "../../../../configs/cardTypes";
+import { cardConfigType } from "../../../../configs/cardTypes";
 
 jest.useFakeTimers();
 
-const filterCards = (suite: string): (string | number | undefined)[][] =>
+const filterCards = (suite: string): cardConfigType[] =>
   createCards.filter((card) => card[1] === suite);
 
 const spades = filterCards("spades");
@@ -49,23 +50,24 @@ const initialState = {
 };
 
 describe("render MainPage for Deal again window testing", () => {
-  it("when 52 card appears on foundations deal window will appear", () => {
+  it("when 52 card appears on foundations deal window will appear", async () => {
     const { container } = reduxRtlWrapper(
       dndWrapper(<MainPage />),
       initialState
     );
     fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
-    fireEvent.click(container.querySelector("canvas"));
+    await waitFor(() => fireEvent.click(container.querySelector("canvas")));
+
     expect(screen.getByText("Deal again?")).toBeVisible();
   });
-  it("when no clicked cards are not dealt again", () => {
+  it("when no clicked cards are not dealt again", async () => {
     const { container } = reduxRtlWrapper(
       dndWrapper(<MainPage />),
       initialState
     );
 
     fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
-    fireEvent.click(container.querySelector("canvas"));
+    await waitFor(() => fireEvent.click(container.querySelector("canvas")));
     fireEvent.click(screen.getByText("No"));
 
     expect(
@@ -73,14 +75,14 @@ describe("render MainPage for Deal again window testing", () => {
     ).toHaveLength(0);
     expect(screen.queryByText("Deal again?")).toBeNull();
   });
-  it("when x clicked cards are not dealt again", () => {
+  it("when x clicked cards are not dealt again", async () => {
     const { container } = reduxRtlWrapper(
       dndWrapper(<MainPage />),
       initialState
     );
 
     fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
-    fireEvent.click(container.querySelector("canvas"));
+    await waitFor(() => fireEvent.click(container.querySelector("canvas")));
     fireEvent.click(screen.getByRole("button", { name: "close window" }));
 
     expect(
@@ -89,17 +91,19 @@ describe("render MainPage for Deal again window testing", () => {
 
     expect(screen.queryByText("Deal again?")).toBeNull();
   });
-  it("when yes clicked cards are dealt again", () => {
+  it("when yes clicked cards are dealt again", async () => {
     const { container } = reduxRtlWrapper(
       dndWrapper(<MainPage />),
       initialState
     );
 
     fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
-    fireEvent.keyDown(container.querySelector("canvas"), {
-      key: "Escape",
-      code: "Escape",
-    });
+    await waitFor(() =>
+      fireEvent.keyDown(container.querySelector("canvas"), {
+        key: "Escape",
+        code: "Escape",
+      })
+    );
     fireEvent.click(screen.getByText("Yes"));
 
     expect(

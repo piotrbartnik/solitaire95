@@ -74,3 +74,8 @@ Cypress.Commands.add(
   },
   reactDndCypressImplementation
 );
+
+export const clickUndo = (): void => {
+  cy.findByRole("button", { name: "Game" }).click();
+  cy.findByRole("button", { name: "Undo" }).click();
+};
