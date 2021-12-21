@@ -38,6 +38,22 @@ const fullGameInitialState = {
 const cardSuites = ["spades", "diamonds", "hearts", "clubs"];
 
 const resolveSolitaire = (actionType: "drag" | "dbclick"): void => {
+  cy.findByText("Score: 0").should("exist");
+  cy.findByRole("listitem", { name: "ace spades" }).should(
+    "have.attr",
+    "data-pilenumber",
+    6
+  );
+  cy.findByRole("listitem", { name: "ace diamonds" }).should(
+    "have.attr",
+    "data-pilenumber",
+    4
+  );
+  cy.findByRole("listitem", { name: "king diamonds" }).should(
+    "have.attr",
+    "data-pilenumber",
+    1
+  );
   cardSuites.forEach((suite, suiteIndex) => {
     cardName.forEach((cardname) => {
       if (actionType === "drag") {
@@ -63,6 +79,15 @@ const resolveSolitaire = (actionType: "drag" | "dbclick"): void => {
       });
     });
   });
+  cardSuites.forEach((suite, suiteIndex) => {
+    cardName.forEach((cardname) => {
+      cy.findByRole("listitem", { name: `${cardname} ${suite}` })
+        .parent()
+        .parent()
+        .should("have.attr", "aria-label", `foundation ${suiteIndex}`);
+    });
+  });
+  cy.findByText(/Score: 6\d+/).should("exist");
 };
 
 describe("Solitaire full game test", () => {
