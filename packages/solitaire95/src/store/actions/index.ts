@@ -30,6 +30,7 @@ export {
   toggledrawType,
   setCardDeck,
   toggleScoreType,
+  toggleScoreBar,
 } from "./gameActions";
 export { countScore, resetScore } from "./scoreActions";
 export { toggleWindow } from "./windowActions";
