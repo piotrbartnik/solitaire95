@@ -8,6 +8,7 @@ import {
   toggleTimer,
   toggledrawType,
   toggleScoreType,
+  toggleScoreBar,
 } from "../../../store/actions/";
 import {
   ToggleWindowType,
@@ -19,6 +20,7 @@ import {
   DrawType,
   ScoreType,
   ToggleScoreType,
+  ToggleScoreBarType,
 } from "../../../store/actions/actionTypes";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
@@ -43,6 +45,7 @@ export type OptionsWindowDispatchTypes = {
   toggledrawType: ToggleDrawType;
   dealCardsAllSteps: () => void;
   toggleScoreType: ToggleScoreType;
+  toggleScoreBar: ToggleScoreBarType;
 };
 
 const OptionsInternal: React.FC<
@@ -62,6 +65,7 @@ const OptionsInternal: React.FC<
     scoreType,
     dealCardsAllSteps,
     toggleScoreType,
+    toggleScoreBar,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [bottomBarVisibleState, setBottomBarVisibleState] =
@@ -83,6 +87,11 @@ const OptionsInternal: React.FC<
     }
     if (toggleScoreTypeState !== scoreType) {
       toggleScoreType(toggleScoreTypeState);
+      if (toggleScoreTypeState === "none") {
+        toggleScoreBar(false);
+      } else {
+        toggleScoreBar(true);
+      }
       dealCardsAllSteps();
     }
   }, [
@@ -99,6 +108,7 @@ const OptionsInternal: React.FC<
     dealCardsAllSteps,
     toggledrawType,
     toggleScoreType,
+    toggleScoreBar,
   ]);
 
   const closeButtonAction = useCallback(
@@ -233,6 +243,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     toggledrawType: (drawType: DrawType) => dispatch(toggledrawType(drawType)),
     toggleScoreType: (scoreType: ScoreType) =>
       dispatch(toggleScoreType(scoreType)),
+    toggleScoreBar: (scoreVisible: boolean) =>
+      dispatch(toggleScoreBar(scoreVisible)),
   };
 };
 
