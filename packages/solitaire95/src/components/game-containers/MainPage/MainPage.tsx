@@ -61,6 +61,7 @@ type MainPageStateTypes = {
   scoreTime: number;
   bottomBarVisible: boolean;
   timerVisible: boolean;
+  scoreVisible: boolean;
 };
 
 type MainPagePropTypes = Partial<SoundContextType> & {
@@ -82,6 +83,7 @@ const MainPageInternal: React.FC<
     scoreTime,
     bottomBarVisible,
     timerVisible,
+    scoreVisible,
   } = props;
 
   const soundContextValue: SoundContextType = {
@@ -195,6 +197,7 @@ const MainPageInternal: React.FC<
             score={score}
             bottomBarVisible={bottomBarVisible}
             timerVisible={timerVisible}
+            scoreVisible={scoreVisible}
           />
         </SoundContext.Provider>
       </div>
@@ -223,6 +226,7 @@ const mapStateToProps = (state: {
     scoreTime: state.timeCounter.scoreTime,
     bottomBarVisible: state.gameState.bottomBarVisible,
     timerVisible: state.gameState.timerVisible,
+    scoreVisible: state.gameState.scoreVisible,
   };
 };
 
