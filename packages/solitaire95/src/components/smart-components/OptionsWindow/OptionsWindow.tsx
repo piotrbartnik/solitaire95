@@ -73,6 +73,7 @@ const OptionsInternal: React.FC<
   const [timerVisibleState, setTimerVisibleSrate] = useState(timerVisible);
   const [toggleDrawTypeState, setToggleDrawTypeState] = useState(drawType);
   const [toggleScoreTypeState, setToggleScoreTypeState] = useState(scoreType);
+  const [toggleKeepScoreState, setToggleKeepScoreState] = useState(false);
 
   const onOkClick = useCallback(() => {
     toggleOptionsWindow(false, "optionsWindow");
@@ -205,11 +206,9 @@ const OptionsInternal: React.FC<
         <Checkbox
           label="Keep score"
           id="keepScore"
-          checked={false}
-          onClick={() => {
-            console.log("keepScore");
-          }}
-          disabled
+          checked={toggleKeepScoreState}
+          onClick={() => setToggleKeepScoreState(!toggleKeepScoreState)}
+          disabled={toggleScoreTypeState !== "vegas"}
         />
       </div>
     </SettingsWindow>
