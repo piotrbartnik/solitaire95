@@ -11,6 +11,7 @@ import {
   SetCardDeckType,
   ToggleScoreType,
   ToggleScoreBarType,
+  KeepVegasScoreType,
 } from "./actionTypes";
 
 export const startGame: StartGameType = () => {
@@ -87,3 +88,8 @@ export const setCardDeck: SetCardDeckType = (cardDeck) => {
     cardDeck,
   };
 };
+
+export const keepVegasScore: KeepVegasScoreType = (keepVegasScore) => ({
+  type: ACTION_TYPES.KEEP_VEGAS_SCORE,
+  keepVegasScore,
+});

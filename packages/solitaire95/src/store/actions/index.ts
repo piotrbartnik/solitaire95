@@ -31,6 +31,7 @@ export {
   setCardDeck,
   toggleScoreType,
   toggleScoreBar,
+  keepVegasScore,
 } from "./gameActions";
 export { countScore, resetScore } from "./scoreActions";
 export { toggleWindow } from "./windowActions";

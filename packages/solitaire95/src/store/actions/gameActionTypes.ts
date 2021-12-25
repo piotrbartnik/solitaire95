@@ -97,3 +97,12 @@ export type SetCardDeckTypeReducer = {
   cardDeck: string;
 };
 export type SetCardDeckType = (cardDeck: string) => SetCardDeckTypeReducer;
+
+export type KeepVegasScoreTypeReducer = {
+  type: ACTION_TYPES.KEEP_VEGAS_SCORE;
+  keepVegasScore: boolean;
+};
+
+export type KeepVegasScoreType = (
+  keepVegasScore: boolean
+) => KeepVegasScoreTypeReducer;

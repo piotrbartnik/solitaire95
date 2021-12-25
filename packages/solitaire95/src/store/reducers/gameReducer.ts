@@ -14,6 +14,7 @@ import {
   DrawType,
   ToggleScoreTypeReducer,
   ToggleScoreBarTypeReducer,
+  KeepVegasScoreTypeReducer,
 } from "../actions/actionTypes";
 
 export interface GameState {
@@ -27,6 +28,7 @@ export interface GameState {
   drawType: DrawType;
   scoreType: ScoreType;
   cardDeck: string;
+  keepVegasScore: boolean;
 }
 
 type GameStateActionTypes =
@@ -40,7 +42,8 @@ type GameStateActionTypes =
   | ToggleDrawTypeReducer
   | SetCardDeckTypeReducer
   | ToggleScoreTypeReducer
-  | ToggleScoreBarTypeReducer;
+  | ToggleScoreBarTypeReducer
+  | KeepVegasScoreTypeReducer;
 
 const initialState: GameState = {
   gameStarted: false,
@@ -53,6 +56,7 @@ const initialState: GameState = {
   drawType: "drawOne",
   scoreType: "standard",
   cardDeck: "acorns",
+  keepVegasScore: false,
 };
 
 export const gameState = (
@@ -82,6 +86,8 @@ export const gameState = (
       return { ...state, scoreVisible: action.scoreVisible };
     case ACTION_TYPES.SET_CARD_DECK:
       return { ...state, cardDeck: action.cardDeck };
+    case ACTION_TYPES.KEEP_VEGAS_SCORE:
+      return { ...state, keepVegasScore: action.keepVegasScore };
     default:
       return state;
   }

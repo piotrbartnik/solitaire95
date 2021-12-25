@@ -38,6 +38,7 @@ export enum ACTION_TYPES {
   UNDO_MOVE_FROM_STOCK_TO_FOUNDATION = "UNDO_MOVE_FROM_STOCK_TO_FOUNDATION",
   UNDO_MOVE_FROM_PILE_TO_FOUNDATION = "UNDO_MOVE_FROM_PILE_TO_FOUNDATION",
   UNDO_MOVE_FROM_FOUNDATION_TO_PILE = "UNDO_MOVE_FROM_FOUNDATION_TO_PILE",
+  KEEP_VEGAS_SCORE = "KEEP_VEGAS_SCORE",
 }
 
 export type {
@@ -66,6 +67,8 @@ export type {
   ToggleScoreTypeReducer,
   ToggleScoreBarType,
   ToggleScoreBarTypeReducer,
+  KeepVegasScoreType,
+  KeepVegasScoreTypeReducer,
 } from "./gameActionTypes";
 
 export { UNDO_TYPES } from "./gameActionTypes";
