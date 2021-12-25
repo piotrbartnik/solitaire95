@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Checkbox.module.scss";
 
 type CheckboxPropTypes = {
@@ -13,6 +13,8 @@ export const Checkbox: React.FC<CheckboxPropTypes> = (props) => {
   const { id, label, checked, onClick, disabled } = props;
 
   const [isChecked, setIsChecked] = useState(checked);
+
+  useEffect(() => setIsChecked(checked), [checked]);
 
   return (
     <div className={styles.checkbox}>

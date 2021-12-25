@@ -9,6 +9,7 @@ import {
   toggledrawType,
   toggleScoreType,
   toggleScoreBar,
+  keepVegasScore,
 } from "../../../store/actions/";
 import {
   ToggleWindowType,
@@ -21,6 +22,7 @@ import {
   ScoreType,
   ToggleScoreType,
   ToggleScoreBarType,
+  KeepVegasScoreType,
 } from "../../../store/actions/actionTypes";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
@@ -35,6 +37,7 @@ export type OptionsWindowStateTypes = {
   timerVisible: boolean;
   drawType: DrawType;
   scoreType: ScoreType;
+  keepVegasScoreState: boolean;
 };
 
 export type OptionsWindowDispatchTypes = {
@@ -46,6 +49,7 @@ export type OptionsWindowDispatchTypes = {
   dealCardsAllSteps: () => void;
   toggleScoreType: ToggleScoreType;
   toggleScoreBar: ToggleScoreBarType;
+  keepVegasScore: KeepVegasScoreType;
 };
 
 const OptionsInternal: React.FC<
@@ -66,6 +70,8 @@ const OptionsInternal: React.FC<
     dealCardsAllSteps,
     toggleScoreType,
     toggleScoreBar,
+    keepVegasScore,
+    keepVegasScoreState,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [bottomBarVisibleState, setBottomBarVisibleState] =
@@ -73,7 +79,6 @@ const OptionsInternal: React.FC<
   const [timerVisibleState, setTimerVisibleSrate] = useState(timerVisible);
   const [toggleDrawTypeState, setToggleDrawTypeState] = useState(drawType);
   const [toggleScoreTypeState, setToggleScoreTypeState] = useState(scoreType);
-  const [toggleKeepScoreState, setToggleKeepScoreState] = useState(false);
 
   const onOkClick = useCallback(() => {
     toggleOptionsWindow(false, "optionsWindow");
@@ -206,8 +211,8 @@ const OptionsInternal: React.FC<
         <Checkbox
           label="Keep score"
           id="keepScore"
-          checked={toggleKeepScoreState}
-          onClick={() => setToggleKeepScoreState(!toggleKeepScoreState)}
+          checked={toggleScoreTypeState === "vegas" && keepVegasScoreState}
+          onClick={() => keepVegasScore(!keepVegasScoreState)}
           disabled={toggleScoreTypeState !== "vegas"}
         />
       </div>
@@ -226,6 +231,7 @@ const mapStateToProps = (state: {
     timerVisible: state.gameState.timerVisible,
     drawType: state.gameState.drawType,
     scoreType: state.gameState.scoreType,
+    keepVegasScoreState: state.gameState.keepVegasScore,
   };
 };
 
@@ -244,6 +250,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       dispatch(toggleScoreType(scoreType)),
     toggleScoreBar: (scoreVisible: boolean) =>
       dispatch(toggleScoreBar(scoreVisible)),
+    keepVegasScore: (keepVegasScoring: boolean) =>
+      dispatch(keepVegasScore(keepVegasScoring)),
   };
 };
 
