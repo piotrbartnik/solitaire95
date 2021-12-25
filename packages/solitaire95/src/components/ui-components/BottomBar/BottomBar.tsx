@@ -9,10 +9,12 @@ type BottomBarPropTypes = {
   bottomBarVisible?: boolean;
   timerVisible?: boolean;
   scoreVisible?: boolean;
+  isVegas?: boolean;
 };
 
 export const BottomBar: React.FC<BottomBarPropTypes> = (props) => {
-  const { text, score, bottomBarVisible, timerVisible, scoreVisible } = props;
+  const { text, score, bottomBarVisible, timerVisible, scoreVisible, isVegas } =
+    props;
 
   return (
     <div
@@ -25,7 +27,7 @@ export const BottomBar: React.FC<BottomBarPropTypes> = (props) => {
         <>
           <div className={styles.bottomBar__text}>{text}</div>
           <div className={styles.bottomBar__stats}>
-            {scoreVisible && <Score score={score} />}
+            {scoreVisible && <Score score={score} isVegas={isVegas} />}
             {timerVisible && <Timer />}
           </div>
         </>
