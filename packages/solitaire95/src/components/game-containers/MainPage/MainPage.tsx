@@ -62,7 +62,8 @@ type MainPageStateTypes = {
   bottomBarVisible: boolean;
   timerVisible: boolean;
   scoreVisible: boolean;
-  isVegas: string;
+  scoreType: string;
+  vegasScore: number;
 };
 
 type MainPagePropTypes = Partial<SoundContextType> & {
@@ -85,12 +86,15 @@ const MainPageInternal: React.FC<
     bottomBarVisible,
     timerVisible,
     scoreVisible,
-    isVegas,
+    scoreType,
+    vegasScore,
   } = props;
 
   const soundContextValue: SoundContextType = {
     playSounds: playSounds || false,
   };
+
+  const isVegas = scoreType === "vegas";
 
   const [gameVisible, setGameVisible] = useState<boolean>(false);
   const [helpVisible, setHelpVisible] = useState(false);
@@ -196,11 +200,11 @@ const MainPageInternal: React.FC<
           />
           <BottomBar
             text={bottomBarText}
-            score={score}
+            score={isVegas ? vegasScore : score}
             bottomBarVisible={bottomBarVisible}
             timerVisible={timerVisible}
             scoreVisible={scoreVisible}
-            isVegas={isVegas === "vegas"}
+            isVegas={isVegas}
           />
         </SoundContext.Provider>
       </div>
@@ -230,7 +234,8 @@ const mapStateToProps = (state: {
     bottomBarVisible: state.gameState.bottomBarVisible,
     timerVisible: state.gameState.timerVisible,
     scoreVisible: state.gameState.scoreVisible,
-    isVegas: state.gameState.scoreType,
+    scoreType: state.gameState.scoreType,
+    vegasScore: state.countScore.dollars,
   };
 };
 
