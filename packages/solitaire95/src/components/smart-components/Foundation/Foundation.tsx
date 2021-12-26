@@ -13,6 +13,7 @@ import {
   startGame,
   countScore,
   removeCardFromFoundation,
+  countVegasScore,
 } from "../../../store/actions/";
 import {
   AddCardToFoundationType,
@@ -21,6 +22,7 @@ import {
   RemoveCardFromStockType,
   StartGameType,
   RemoveCardFromFoundationType,
+  CountVegasScoreType,
 } from "../../../store/actions/actionTypes";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
@@ -34,6 +36,7 @@ export type FoundationStateTypes = {
   outlineDragging: boolean;
   threeCardsOnTable: cardConfigType[];
   cardBackImage: string;
+  scoreType: string;
 };
 
 export type FoundationDispatchTypes = {
@@ -43,6 +46,7 @@ export type FoundationDispatchTypes = {
   removeCardFromStock: RemoveCardFromStockType;
   startGame: StartGameType;
   removeCardFromFoundation: RemoveCardFromFoundationType;
+  addDollars: CountVegasScoreType;
 };
 
 export type FoundationPropTypes = {
@@ -68,6 +72,8 @@ const FoundationInternal: React.FC<
     outlineDragging,
     threeCardsOnTable,
     cardBackImage,
+    addDollars,
+    scoreType,
   } = props;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -121,8 +127,11 @@ const FoundationInternal: React.FC<
 
     const foundationTargetId = foundationTarget.props.id;
 
+    const isVegas = scoreType === "vegas";
+
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
     !foundationNumber && addPoints(10);
+    !foundationNumber && isVegas && addDollars(5);
     !gameStarted && startGame();
 
     if (typeof pileNumber === "number") {
@@ -208,6 +217,7 @@ const mapStateToProps = (state: {
     outlineDragging: state.gameState.outlineDragging,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
     cardBackImage: state.gameState.cardDeck,
+    scoreType: state.gameState.scoreType,
   };
 };
 
@@ -218,6 +228,7 @@ const mapDispatchToProps = {
   addPoints: countScore,
   startGame: startGame,
   removeCardFromFoundation: removeCardFromFoundation,
+  addDollars: countVegasScore,
 };
 
 export const Foundation = connect<

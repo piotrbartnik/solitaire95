@@ -1,13 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  toggleWindow,
-  finishGame,
-  countScore,
-} from "../../../../../store/actions/";
+import { toggleWindow, finishGame } from "../../../../../store/actions/";
 import {
   ToggleWindowType,
-  CountScoreType,
   FinishGameType,
   WindowTypes,
 } from "../../../../../store/actions/actionTypes";
@@ -18,7 +13,6 @@ import { Dispatch } from "redux";
 
 type GameDropdownDispatchTypes = {
   toggleCardBackWindow: ToggleWindowType;
-  substractScorePoints: CountScoreType;
   setGameFinished: FinishGameType;
   dealCardsAllSteps: () => void;
 };
@@ -93,8 +87,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     toggleCardBackWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
-    substractScorePoints: (pointsToSubstract: number) =>
-      dispatch(countScore(pointsToSubstract)),
     setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
     dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
   };
