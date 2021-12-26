@@ -21,6 +21,7 @@ import {
   startGame,
   turnCardOnPile,
   setUndoAction,
+  countVegasScore,
 } from "../../../store/actions/";
 import {
   RemoveCardFromPileType,
@@ -32,6 +33,7 @@ import {
   StartGameType,
   TurnCardOnPileType,
   SetUndoActionType,
+  CountVegasScoreType,
 } from "../../../store/actions/actionTypes";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
@@ -48,6 +50,7 @@ type PileStateTypes = {
   outlineDragging: boolean;
   threeCardsOnTable: cardConfigType[];
   cardBackImage: string;
+  scoreType: string;
 };
 
 type PileDispatchTypes = {
@@ -60,6 +63,7 @@ type PileDispatchTypes = {
   startGame: StartGameType;
   turnCardOnPile: TurnCardOnPileType;
   setUndoAction: SetUndoActionType;
+  vegasDollarCounter: CountVegasScoreType;
 };
 
 type PilePropTypes = {
@@ -89,6 +93,8 @@ const PileInternal: React.FC<
     outlineDragging,
     threeCardsOnTable,
     cardBackImage,
+    scoreType,
+    vegasDollarCounter,
   } = props;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -193,6 +199,8 @@ const PileInternal: React.FC<
 
   drop(ref, null);
 
+  const isVegas = scoreType === "vegas";
+
   const moveToFoundationCallback = useCallback(
     (e: MouseEvent<HTMLInputElement>) =>
       moveToFoundation(
@@ -204,7 +212,10 @@ const PileInternal: React.FC<
         addPoints,
         undefined,
         startGame,
-        gameStarted
+        gameStarted,
+        undefined,
+        isVegas,
+        vegasDollarCounter
       ),
     [
       cardsOnFoundations,
@@ -213,6 +224,8 @@ const PileInternal: React.FC<
       addPoints,
       startGame,
       gameStarted,
+      isVegas,
+      vegasDollarCounter,
     ]
   );
 
@@ -308,6 +321,7 @@ const mapStateToProps = (state: {
     outlineDragging: state.gameState.outlineDragging,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
     cardBackImage: state.gameState.cardDeck,
+    scoreType: state.gameState.scoreType,
   };
 };
 
@@ -321,6 +335,7 @@ const mapDispatchToProps = {
   startGame: startGame,
   turnCardOnPile: turnCardOnPile,
   setUndoAction: setUndoAction,
+  vegasDollarCounter: countVegasScore,
 };
 
 export const Pile = connect<PileStateTypes, PileDispatchTypes, PilePropTypes>(

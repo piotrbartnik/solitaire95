@@ -9,6 +9,7 @@ import {
   startGame,
   stockTurnCounter,
   takeThreeFromStock,
+  countVegasScore,
 } from "../../../store/actions";
 import {
   TakeOneFromStockType,
@@ -19,6 +20,7 @@ import {
   CountScoreType,
   StartGameType,
   StockTurnCounterType,
+  CountVegasScoreType,
 } from "../../../store/actions/actionTypes";
 import {
   CardsDistributionInitialState,
@@ -41,6 +43,7 @@ export type CardStockStateTypes = {
   drawType: string;
   threeCardsOnTable: cardConfigType[];
   cardBackImage: string;
+  scoreType: string;
 };
 
 export type CardStockDispatchTypes = {
@@ -52,6 +55,7 @@ export type CardStockDispatchTypes = {
   addPoints: CountScoreType;
   startGame: StartGameType;
   addToStockCounter: StockTurnCounterType;
+  vegasDollarCounter: CountVegasScoreType;
 };
 
 export type CardStockPropTypes = {
@@ -79,6 +83,8 @@ const CardStockInternal: React.FC<
     drawType,
     threeCardsOnTable,
     cardBackImage,
+    vegasDollarCounter,
+    scoreType,
   } = props;
 
   const moveFirstFromTheTop = () => {
@@ -128,6 +134,8 @@ const CardStockInternal: React.FC<
     }
   };
 
+  const isVegas = scoreType === "vegas";
+
   const moveToFoundationCallback = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
       moveToFoundation(
@@ -140,15 +148,19 @@ const CardStockInternal: React.FC<
         cardsFromStock,
         undefined,
         undefined,
-        threeCardsOnTable
+        threeCardsOnTable,
+        isVegas,
+        vegasDollarCounter
       ),
     [
       addCardToFoundation,
       addPoints,
       cardsFromStock,
       cardsOnFoundations,
+      isVegas,
       removeCardFromStock,
       threeCardsOnTable,
+      vegasDollarCounter,
     ]
   );
 
@@ -289,6 +301,7 @@ const mapStateToProps = (state: {
     gameStarted: state.gameState.gameStarted,
     drawType: state.gameState.drawType,
     cardBackImage: state.gameState.cardDeck,
+    scoreType: state.gameState.scoreType,
   };
 };
 
@@ -301,6 +314,7 @@ const mapDispatchToProps = {
   addPoints: countScore,
   startGame: startGame,
   addToStockCounter: stockTurnCounter,
+  vegasDollarCounter: countVegasScore,
 };
 
 export const CardStock = connect<

@@ -127,10 +127,10 @@ const FoundationInternal: React.FC<
 
     const foundationTargetId = foundationTarget.props.id;
 
-    const isVegas = scoreType === "vegas";
-
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
     !foundationNumber && addPoints(10);
+
+    const isVegas = scoreType === "vegas";
     !foundationNumber && isVegas && addDollars(5);
     !gameStarted && startGame();
 
