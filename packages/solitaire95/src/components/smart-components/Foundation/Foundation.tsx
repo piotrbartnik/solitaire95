@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
@@ -28,6 +28,7 @@ import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Foundation.module.scss";
+import { VegasContext } from "../../game-containers";
 
 export type FoundationStateTypes = {
   cardsFromStock: cardConfigType[];
@@ -36,7 +37,6 @@ export type FoundationStateTypes = {
   outlineDragging: boolean;
   threeCardsOnTable: cardConfigType[];
   cardBackImage: string;
-  scoreType: string;
 };
 
 export type FoundationDispatchTypes = {
@@ -73,8 +73,9 @@ const FoundationInternal: React.FC<
     threeCardsOnTable,
     cardBackImage,
     addDollars,
-    scoreType,
   } = props;
+
+  const { isVegas } = useContext(VegasContext);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const canBeDroppedOnFoundation = (card: any) => {
@@ -130,7 +131,6 @@ const FoundationInternal: React.FC<
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
     !foundationNumber && addPoints(10);
 
-    const isVegas = scoreType === "vegas";
     !foundationNumber && isVegas && addDollars(5);
     !gameStarted && startGame();
 
@@ -217,7 +217,6 @@ const mapStateToProps = (state: {
     outlineDragging: state.gameState.outlineDragging,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
     cardBackImage: state.gameState.cardDeck,
-    scoreType: state.gameState.scoreType,
   };
 };
 

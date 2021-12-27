@@ -1,4 +1,4 @@
-import React, { useRef, MouseEvent, useCallback } from "react";
+import React, { useRef, MouseEvent, useCallback, useContext } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
@@ -41,6 +41,7 @@ import { Card } from "..";
 import styles from "./Pile.module.scss";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import { useSetCardsPositionFromTopOnPiles } from "./PileHooks";
+import { VegasContext } from "../../game-containers";
 
 type PileStateTypes = {
   cardsFromStock: cardConfigType[];
@@ -50,7 +51,6 @@ type PileStateTypes = {
   outlineDragging: boolean;
   threeCardsOnTable: cardConfigType[];
   cardBackImage: string;
-  scoreType: string;
 };
 
 type PileDispatchTypes = {
@@ -93,7 +93,6 @@ const PileInternal: React.FC<
     outlineDragging,
     threeCardsOnTable,
     cardBackImage,
-    scoreType,
     vegasDollarCounter,
   } = props;
 
@@ -199,7 +198,7 @@ const PileInternal: React.FC<
 
   drop(ref, null);
 
-  const isVegas = scoreType === "vegas";
+  const { isVegas } = useContext(VegasContext);
 
   const moveToFoundationCallback = useCallback(
     (e: MouseEvent<HTMLInputElement>) =>
@@ -321,7 +320,6 @@ const mapStateToProps = (state: {
     outlineDragging: state.gameState.outlineDragging,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
     cardBackImage: state.gameState.cardDeck,
-    scoreType: state.gameState.scoreType,
   };
 };
 

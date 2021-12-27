@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { connect } from "react-redux";
 import {
   takeOneFromStock,
@@ -33,6 +33,7 @@ import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import styles from "./CardStock.module.scss";
 import { useGetThreeFromCardsOnStock } from "./CardStock.hooks";
+import { VegasContext } from "../../game-containers";
 
 export type CardStockStateTypes = {
   cardsOnStock: cardConfigType[];
@@ -43,7 +44,6 @@ export type CardStockStateTypes = {
   drawType: string;
   threeCardsOnTable: cardConfigType[];
   cardBackImage: string;
-  scoreType: string;
 };
 
 export type CardStockDispatchTypes = {
@@ -84,8 +84,9 @@ const CardStockInternal: React.FC<
     threeCardsOnTable,
     cardBackImage,
     vegasDollarCounter,
-    scoreType,
   } = props;
+
+  const { isVegas } = useContext(VegasContext);
 
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
@@ -133,8 +134,6 @@ const CardStockInternal: React.FC<
       }
     }
   };
-
-  const isVegas = scoreType === "vegas";
 
   const moveToFoundationCallback = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
@@ -301,7 +300,6 @@ const mapStateToProps = (state: {
     gameStarted: state.gameState.gameStarted,
     drawType: state.gameState.drawType,
     cardBackImage: state.gameState.cardDeck,
-    scoreType: state.gameState.scoreType,
   };
 };
 
