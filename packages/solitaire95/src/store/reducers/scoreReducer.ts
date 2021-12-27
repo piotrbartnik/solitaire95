@@ -3,6 +3,7 @@ import {
   CountScoreTypeReducer,
   ResetScoreTypeReducer,
   CountVegasScoreTypeReducer,
+  ResetVegasScoreTypeReducer,
 } from "../actions/actionTypes";
 
 export interface Points {
@@ -21,6 +22,7 @@ export const countScore = (
     | CountScoreTypeReducer
     | ResetScoreTypeReducer
     | CountVegasScoreTypeReducer
+    | ResetVegasScoreTypeReducer
 ): Points => {
   switch (action.type) {
     case ACTION_TYPES.COUNT_SCORE: {
@@ -33,6 +35,8 @@ export const countScore = (
     }
     case ACTION_TYPES.RESET_SCORE:
       return { ...state, points: 0 };
+    case ACTION_TYPES.RESET_VEGAS_SCORE:
+      return { ...state, dollars: -52 };
     default:
       return state;
   }

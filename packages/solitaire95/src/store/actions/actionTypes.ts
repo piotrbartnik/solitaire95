@@ -40,6 +40,7 @@ export enum ACTION_TYPES {
   UNDO_MOVE_FROM_FOUNDATION_TO_PILE = "UNDO_MOVE_FROM_FOUNDATION_TO_PILE",
   KEEP_VEGAS_SCORE = "KEEP_VEGAS_SCORE",
   COUNT_VEGAS_SCORE = "COUNT_VEGAS_SCORE",
+  RESET_VEGAS_SCORE = "RESET_VEGAS_SCORE",
 }
 
 export type {
@@ -94,6 +95,7 @@ export type {
   ResetScoreTypeReducer,
   CountVegasScoreType,
   CountVegasScoreTypeReducer,
+  ResetVegasScoreTypeReducer,
 } from "./scoreActions";
 
 export {

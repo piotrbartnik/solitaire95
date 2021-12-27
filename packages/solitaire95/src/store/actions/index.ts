@@ -33,7 +33,12 @@ export {
   toggleScoreBar,
   keepVegasScore,
 } from "./gameActions";
-export { countScore, resetScore, countVegasScore } from "./scoreActions";
+export {
+  countScore,
+  resetScore,
+  countVegasScore,
+  resetVegasScore,
+} from "./scoreActions";
 export { toggleWindow } from "./windowActions";
 export { saveTime, resetTime, saveScoreTime } from "./timeActions";
 

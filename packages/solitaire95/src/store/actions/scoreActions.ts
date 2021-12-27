@@ -34,3 +34,13 @@ export const resetScore = (): ResetScoreTypeReducer => {
     type: ACTION_TYPES.RESET_SCORE,
   };
 };
+
+export type ResetVegasScoreTypeReducer = {
+  type: ACTION_TYPES.RESET_VEGAS_SCORE;
+};
+
+export const resetVegasScore = (): ResetVegasScoreTypeReducer => {
+  return {
+    type: ACTION_TYPES.RESET_VEGAS_SCORE,
+  };
+};
