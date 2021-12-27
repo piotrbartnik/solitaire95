@@ -235,6 +235,7 @@ const CardStockInternal: React.FC<
         style={{ marginRight: `${distanceBtwPiles}px` }}
       >
         <div className={styles.cardStock__cardHolder}>
+          <div className={styles.circleHolder} />
           {cardsOnStock?.length
             ? cardsOnStock.map((card, index) => (
                 <div

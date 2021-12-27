@@ -15,35 +15,52 @@
   position: relative;
 
   &__cardHolder {
-    position: relative;
-    border: 14px solid #00ff00;
-    border-radius: 130px;
-    width: 120px;
-    height: 120px;
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
 
+    & .circleHolder {
+      border: 14px solid #00ff00;
+      border-radius: 130px;
+      position: fixed;
+      width: 120px;
+      height: 120px;
+    }
+
+    & .vegasHolder {
+      width: 120px;
+      height: 120px;
+      &::after {
+        content: "\d7";
+        font-size: 250px;
+        color: #ff0000;
+        font-weight: bold;
+        position: fixed;
+        top: 20px;
+        left: 18px;
+      }
+    }
+
     div.cardContainer {
       @for $i from 0 through 7 {
         &.card_#{$i} {
           position: absolute;
-          left: -19px;
+          left: -65px;
         }
       }
       @for $i from 8 through 16 {
         &.card_#{$i} {
           position: absolute;
-          left: -15px;
-          top: -40px;
+          left: -61px;
+          top: -86px;
         }
       }
       @for $i from 17 through 23 {
         &.card_#{$i} {
           position: absolute;
-          left: -11px;
-          top: -38px;
+          left: -57px;
+          top: -84px;
         }
       }
     }
