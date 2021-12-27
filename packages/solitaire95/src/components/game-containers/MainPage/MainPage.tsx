@@ -39,8 +39,10 @@ import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
 import styles from "./MainPage.module.scss";
 
-export const SoundContext = createContext({
-  playSounds: true,
+export const SoundContext = createContext({ playSounds: true });
+export const VegasContext = createContext({
+  isVegas: true,
+  keepVegasScore: false,
 });
 
 type SoundContextType = {
@@ -64,6 +66,7 @@ type MainPageStateTypes = {
   scoreVisible: boolean;
   scoreType: string;
   vegasScore: number;
+  keepVegasScore: boolean;
 };
 
 type MainPagePropTypes = Partial<SoundContextType> & {
@@ -88,6 +91,7 @@ const MainPageInternal: React.FC<
     scoreVisible,
     scoreType,
     vegasScore,
+    keepVegasScore,
   } = props;
 
   const soundContextValue: SoundContextType = {
@@ -95,6 +99,11 @@ const MainPageInternal: React.FC<
   };
 
   const isVegas = scoreType === "vegas";
+
+  const vegasContext: { isVegas: boolean; keepVegasScore: boolean } = {
+    isVegas,
+    keepVegasScore,
+  };
 
   const [gameVisible, setGameVisible] = useState<boolean>(false);
   const [helpVisible, setHelpVisible] = useState(false);
@@ -174,38 +183,40 @@ const MainPageInternal: React.FC<
         }}
       >
         <SoundContext.Provider value={soundContextValue}>
-          {isWindowVisible?.cardBackWindow && <DeckSelect />}
-          {isWindowVisible?.aboutWindow && (
-            <AboutSolitaire aboutChildren={aboutChildren} />
-          )}
-          {isWindowVisible?.optionsWindow && <Options />}
-          {isWindowVisible?.dealAgainWindow && <DealAgain />}
-          <TopBar
-            title={"Solitaire"}
-            showIcon
-            shouldBeGreyedOut={Object.values(
-              isWindowVisible as WindowsState
-            ).some((window) => window === true)}
-          />
-          <AppToolbar
-            gameVisible={gameVisible}
-            helpVisible={helpVisible}
-            setGameVisible={setGameVisibleCallback}
-            setHelpVisible={setHelpVisibleCallback}
-            setBottomBarText={setBottomBarTextCallback}
-          />
-          <GameContainer
-            canvasHeight={canvasSize[1]}
-            canvasWidth={canvasSize[0]}
-          />
-          <BottomBar
-            text={bottomBarText}
-            score={isVegas ? vegasScore : score}
-            bottomBarVisible={bottomBarVisible}
-            timerVisible={timerVisible}
-            scoreVisible={scoreVisible}
-            isVegas={isVegas}
-          />
+          <VegasContext.Provider value={vegasContext}>
+            {isWindowVisible?.cardBackWindow && <DeckSelect />}
+            {isWindowVisible?.aboutWindow && (
+              <AboutSolitaire aboutChildren={aboutChildren} />
+            )}
+            {isWindowVisible?.optionsWindow && <Options />}
+            {isWindowVisible?.dealAgainWindow && <DealAgain />}
+            <TopBar
+              title={"Solitaire"}
+              showIcon
+              shouldBeGreyedOut={Object.values(
+                isWindowVisible as WindowsState
+              ).some((window) => window === true)}
+            />
+            <AppToolbar
+              gameVisible={gameVisible}
+              helpVisible={helpVisible}
+              setGameVisible={setGameVisibleCallback}
+              setHelpVisible={setHelpVisibleCallback}
+              setBottomBarText={setBottomBarTextCallback}
+            />
+            <GameContainer
+              canvasHeight={canvasSize[1]}
+              canvasWidth={canvasSize[0]}
+            />
+            <BottomBar
+              text={bottomBarText}
+              score={isVegas ? vegasScore : score}
+              bottomBarVisible={bottomBarVisible}
+              timerVisible={timerVisible}
+              scoreVisible={scoreVisible}
+              isVegas={isVegas}
+            />
+          </VegasContext.Provider>
         </SoundContext.Provider>
       </div>
     </DndProvider>
@@ -236,6 +247,7 @@ const mapStateToProps = (state: {
     scoreVisible: state.gameState.scoreVisible,
     scoreType: state.gameState.scoreType,
     vegasScore: state.countScore.dollars,
+    keepVegasScore: state.gameState.keepVegasScore,
   };
 };
 

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
+import { VegasContext } from "../../../";
 import { toggleWindow, finishGame } from "../../../../../store/actions/";
 import {
   ToggleWindowType,
@@ -14,7 +15,7 @@ import { Dispatch } from "redux";
 type GameDropdownDispatchTypes = {
   toggleCardBackWindow: ToggleWindowType;
   setGameFinished: FinishGameType;
-  dealCardsAllSteps: () => void;
+  dealCardsAllSteps: (isVegas: boolean, keepVegasScore: boolean) => void;
 };
 
 type GameDropdownPropTypes = {
@@ -35,6 +36,7 @@ export const GameDropdownInternal: React.FC<
   setGameVisible,
   setHelpVisible,
 }) => {
+  const { isVegas, keepVegasScore } = useContext(VegasContext);
   return (
     <>
       <ToolButton
@@ -42,7 +44,7 @@ export const GameDropdownInternal: React.FC<
           setGameVisible(!gameVisible);
           setHelpVisible(false);
           setGameFinished(false);
-          dealCardsAllSteps();
+          dealCardsAllSteps(isVegas, keepVegasScore);
         }}
         onMouseOver={() => setBottomBarText("Deal a new game")}
         onMouseLeave={() => setBottomBarText("")}
@@ -88,7 +90,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     toggleCardBackWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
     setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
-    dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
+    dealCardsAllSteps: (isVegas: boolean, keepVegasScore: boolean) =>
+      dealCardsAllSteps(dispatch, isVegas, keepVegasScore),
   };
 };
 

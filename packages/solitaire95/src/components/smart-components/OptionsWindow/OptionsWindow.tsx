@@ -46,10 +46,10 @@ export type OptionsWindowDispatchTypes = {
   toggleBottomBar: ToggleBottomBarType;
   toggleTimer: ToggleTimerType;
   toggledrawType: ToggleDrawType;
-  dealCardsAllSteps: () => void;
+  dealCardsAllSteps: (isVegas: boolean, keepVegasScore: boolean) => void;
   toggleScoreType: ToggleScoreType;
   toggleScoreBar: ToggleScoreBarType;
-  keepVegasScore: KeepVegasScoreType;
+  setKeepVegasScore: KeepVegasScoreType;
 };
 
 const OptionsInternal: React.FC<
@@ -70,8 +70,8 @@ const OptionsInternal: React.FC<
     dealCardsAllSteps,
     toggleScoreType,
     toggleScoreBar,
-    keepVegasScore,
     keepVegasScoreState,
+    setKeepVegasScore,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
   const [bottomBarVisibleState, setBottomBarVisibleState] =
@@ -85,11 +85,11 @@ const OptionsInternal: React.FC<
     toggleBottomBar(bottomBarVisibleState);
     if (timerVisibleState !== timerVisible) {
       toggleTimer(timerVisibleState);
-      dealCardsAllSteps();
+      dealCardsAllSteps(true, false);
     }
     if (toggleDrawTypeState !== drawType) {
       toggledrawType(toggleDrawTypeState);
-      dealCardsAllSteps();
+      dealCardsAllSteps(true, false);
     }
     if (toggleScoreTypeState !== scoreType) {
       toggleScoreType(toggleScoreTypeState);
@@ -98,7 +98,7 @@ const OptionsInternal: React.FC<
       } else {
         toggleScoreBar(true);
       }
-      dealCardsAllSteps();
+      dealCardsAllSteps(true, false);
     }
   }, [
     toggleOptionsWindow,
@@ -212,7 +212,7 @@ const OptionsInternal: React.FC<
           label="Keep score"
           id="keepScore"
           checked={toggleScoreTypeState === "vegas" && keepVegasScoreState}
-          onClick={() => keepVegasScore(!keepVegasScoreState)}
+          onClick={() => setKeepVegasScore(!keepVegasScoreState)}
           disabled={toggleScoreTypeState !== "vegas"}
         />
       </div>
@@ -237,7 +237,8 @@ const mapStateToProps = (state: {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
+    dealCardsAllSteps: (isVegas: boolean, keepVegasScore: boolean) =>
+      dealCardsAllSteps(dispatch, isVegas, keepVegasScore),
     toggleOptionsWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
     setOutlineDragging: (isOutlined: boolean) =>
@@ -250,7 +251,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       dispatch(toggleScoreType(scoreType)),
     toggleScoreBar: (scoreVisible: boolean) =>
       dispatch(toggleScoreBar(scoreVisible)),
-    keepVegasScore: (keepVegasScoring: boolean) =>
+    setKeepVegasScore: (keepVegasScoring: boolean) =>
       dispatch(keepVegasScore(keepVegasScoring)),
   };
 };
