@@ -27,9 +27,7 @@ export const BottomBar: React.FC<BottomBarPropTypes> = (props) => {
         <>
           <div className={styles.bottomBar__text}>{text}</div>
           <div className={styles.bottomBar__stats}>
-            {scoreVisible && score && isVegas && (
-              <Score score={score} isVegas={isVegas} />
-            )}
+            {scoreVisible && <Score score={score} isVegas={isVegas} />}
             {timerVisible && <Timer />}
           </div>
         </>

@@ -20,8 +20,6 @@ export const dealCardsAllSteps = (
   dispatch(dealCards());
   dispatch(resetStockCounter());
 
-  console.log(isVegas, keepVegasScore);
-
   if (isVegas) {
     if (!keepVegasScore) {
       dispatch(resetVegasScore());
