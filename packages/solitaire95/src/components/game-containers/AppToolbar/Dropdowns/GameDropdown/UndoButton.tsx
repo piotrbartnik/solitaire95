@@ -10,6 +10,7 @@ import {
   undoMoveFromFoundationToPiles,
   undoThreeCardsFromStock,
   countScore,
+  countVegasScore,
 } from "../../../../../store/actions/";
 import {
   CountScoreType,
@@ -22,6 +23,7 @@ import {
   UndoMoveFromPileToFoundationType,
   UndoMoveFromFoundationToPilesType,
   UndoActionType,
+  CountVegasScoreType,
 } from "../../../../../store/actions/actionTypes";
 import { GameState } from "../../../../../store/reducers";
 import { ToolButton } from "../../../../ui-components";
@@ -41,6 +43,7 @@ type UndoButtonDispatchTypes = {
   undoMoveFromStockToFoundation: UndoMoveFromStockToFoundationType;
   undoMoveFromPileToFoundation: UndoMoveFromPileToFoundationType;
   undoMoveFromFoundationToPiles: UndoMoveFromFoundationToPilesType;
+  substractDollars: CountVegasScoreType;
 };
 
 type UndoButtonPropTypes = {
@@ -65,6 +68,7 @@ export const UndoButtonInternal: React.FC<
   undoMoveFromPileToFoundation,
   undoMoveFromFoundationToPiles,
   undoThreeCardsFromStock,
+  substractDollars,
 }) => {
   return (
     <ToolButton
@@ -84,7 +88,8 @@ export const UndoButtonInternal: React.FC<
           undoMoveFromStockToPiles,
           undoMoveFromStockToFoundation,
           undoMoveFromPileToFoundation,
-          undoMoveFromFoundationToPiles
+          undoMoveFromFoundationToPiles,
+          substractDollars
         );
       }}
     />
@@ -107,6 +112,7 @@ const mapDispatchToProps = {
   undoMoveFromStockToFoundation,
   undoMoveFromPileToFoundation,
   undoMoveFromFoundationToPiles,
+  substractDollars: countVegasScore,
 };
 
 export const UndoButton = connect<
