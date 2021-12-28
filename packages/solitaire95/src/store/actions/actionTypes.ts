@@ -23,7 +23,6 @@ export enum ACTION_TYPES {
   OUTLINE_DRAGGING = "OUTLINE_DRAGGING",
   TOGGLE_BOTTOMBAR = "TOGGLE_BOTTOMBAR",
   TOGGLE_TIMER = "TOGGLE_TIMER",
-  TOGGLE_SCORE = "TOGGLE_SCORE",
   TOGGLE_DRAW_TYPE = "TOGGLE_DRAW_TYPE",
   TOGGLE_SCORE_TYPE = "TOGGLE_SCORE_TYPE",
   SET_CARD_DECK = "SET_CARD_DECK",
@@ -67,8 +66,6 @@ export type {
   ToggleScoreType,
   ScoreType,
   ToggleScoreTypeReducer,
-  ToggleScoreBarType,
-  ToggleScoreBarTypeReducer,
   KeepVegasScoreType,
   KeepVegasScoreTypeReducer,
 } from "./gameActionTypes";

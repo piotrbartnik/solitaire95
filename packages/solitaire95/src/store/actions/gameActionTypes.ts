@@ -70,14 +70,6 @@ export type ToggleTimerTypeReducer = {
 };
 export type ToggleTimerType = (timerVisible: boolean) => ToggleTimerTypeReducer;
 
-export type ToggleScoreBarTypeReducer = {
-  type: ACTION_TYPES.TOGGLE_SCORE;
-  scoreVisible: boolean;
-};
-export type ToggleScoreBarType = (
-  scoreVisible: boolean
-) => ToggleScoreBarTypeReducer;
-
 export type DrawType = "drawOne" | "drawThree";
 export type ToggleDrawTypeReducer = {
   type: ACTION_TYPES.TOGGLE_DRAW_TYPE;

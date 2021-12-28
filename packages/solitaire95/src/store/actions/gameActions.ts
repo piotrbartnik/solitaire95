@@ -10,7 +10,6 @@ import {
   ToggleDrawType,
   SetCardDeckType,
   ToggleScoreType,
-  ToggleScoreBarType,
   KeepVegasScoreType,
 } from "./actionTypes";
 
@@ -58,13 +57,6 @@ export const toggleTimer: ToggleTimerType = (timerVisible) => {
   return {
     type: ACTION_TYPES.TOGGLE_TIMER,
     timerVisible,
-  };
-};
-
-export const toggleScoreBar: ToggleScoreBarType = (scoreVisible) => {
-  return {
-    type: ACTION_TYPES.TOGGLE_SCORE,
-    scoreVisible,
   };
 };
 

@@ -14,11 +14,6 @@ describe("render BottomBar", () => {
     expect(screen.getByText("Test")).toBeVisible();
   });
 
-  it("and check if score is rendered", () => {
-    reduxRtlWrapper(dndWrapper(<BottomBar bottomBarVisible scoreVisible />));
-    expect(screen.getByText("Score:")).toBeVisible();
-  });
-
   it("and if score is passed it is rendered", () => {
     reduxRtlWrapper(
       dndWrapper(<BottomBar score={11} bottomBarVisible scoreVisible />)

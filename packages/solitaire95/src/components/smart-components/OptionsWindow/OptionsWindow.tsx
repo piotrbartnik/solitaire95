@@ -8,7 +8,6 @@ import {
   toggleTimer,
   toggledrawType,
   toggleScoreType,
-  toggleScoreBar,
   keepVegasScore,
 } from "../../../store/actions/";
 import {
@@ -21,7 +20,6 @@ import {
   DrawType,
   ScoreType,
   ToggleScoreType,
-  ToggleScoreBarType,
   KeepVegasScoreType,
 } from "../../../store/actions/actionTypes";
 import { WindowsState, GameState } from "../../../store/reducers/";
@@ -48,7 +46,6 @@ export type OptionsWindowDispatchTypes = {
   toggledrawType: ToggleDrawType;
   dealCardsAllSteps: (isVegas: boolean, keepVegasScore: boolean) => void;
   toggleScoreType: ToggleScoreType;
-  toggleScoreBar: ToggleScoreBarType;
   setKeepVegasScore: KeepVegasScoreType;
 };
 
@@ -69,7 +66,6 @@ const OptionsInternal: React.FC<
     scoreType,
     dealCardsAllSteps,
     toggleScoreType,
-    toggleScoreBar,
     keepVegasScoreState,
     setKeepVegasScore,
   } = props;
@@ -93,11 +89,6 @@ const OptionsInternal: React.FC<
     }
     if (toggleScoreTypeState !== scoreType) {
       toggleScoreType(toggleScoreTypeState);
-      if (toggleScoreTypeState === "none") {
-        toggleScoreBar(false);
-      } else {
-        toggleScoreBar(true);
-      }
       dealCardsAllSteps(true, false);
     }
   }, [
@@ -114,7 +105,6 @@ const OptionsInternal: React.FC<
     dealCardsAllSteps,
     toggledrawType,
     toggleScoreType,
-    toggleScoreBar,
   ]);
 
   const closeButtonAction = useCallback(
@@ -249,8 +239,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     toggledrawType: (drawType: DrawType) => dispatch(toggledrawType(drawType)),
     toggleScoreType: (scoreType: ScoreType) =>
       dispatch(toggleScoreType(scoreType)),
-    toggleScoreBar: (scoreVisible: boolean) =>
-      dispatch(toggleScoreBar(scoreVisible)),
     setKeepVegasScore: (keepVegasScoring: boolean) =>
       dispatch(keepVegasScore(keepVegasScoring)),
   };

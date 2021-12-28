@@ -45,6 +45,7 @@ const initialState = {
     bottomBarVisible: true,
     timerVisible: true,
     drawType: "drawOne",
+    scoreType: "standard",
   },
   timeCounter: { scoreTime: 500 },
 };

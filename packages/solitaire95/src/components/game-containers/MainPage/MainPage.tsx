@@ -63,7 +63,6 @@ type MainPageStateTypes = {
   scoreTime: number;
   bottomBarVisible: boolean;
   timerVisible: boolean;
-  scoreVisible: boolean;
   scoreType: string;
   vegasScore: number;
   keepVegasScore: boolean;
@@ -88,7 +87,6 @@ const MainPageInternal: React.FC<
     scoreTime,
     bottomBarVisible,
     timerVisible,
-    scoreVisible,
     scoreType,
     vegasScore,
     keepVegasScore,
@@ -213,7 +211,7 @@ const MainPageInternal: React.FC<
               score={isVegas ? vegasScore : score}
               bottomBarVisible={bottomBarVisible}
               timerVisible={timerVisible}
-              scoreVisible={scoreVisible}
+              scoreVisible={scoreType !== "none"}
               isVegas={isVegas}
             />
           </VegasContext.Provider>
@@ -244,7 +242,6 @@ const mapStateToProps = (state: {
     scoreTime: state.timeCounter.scoreTime,
     bottomBarVisible: state.gameState.bottomBarVisible,
     timerVisible: state.gameState.timerVisible,
-    scoreVisible: state.gameState.scoreVisible,
     scoreType: state.gameState.scoreType,
     vegasScore: state.countScore.dollars,
     keepVegasScore: state.gameState.keepVegasScore,

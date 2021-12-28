@@ -30,7 +30,6 @@ export {
   toggledrawType,
   setCardDeck,
   toggleScoreType,
-  toggleScoreBar,
   keepVegasScore,
 } from "./gameActions";
 export {
