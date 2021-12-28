@@ -29,16 +29,38 @@
     }
 
     & .vegasHolder {
+      position: fixed;
       width: 120px;
       height: 120px;
-      &::after {
-        content: "\d7";
-        font-size: 250px;
-        color: #ff0000;
-        font-weight: bold;
-        position: fixed;
-        top: 20px;
-        left: 18px;
+      transform: rotate(Xdeg);
+      // &::after {
+      //   content: "\d7";
+      //   font-size: 250px;
+      //   color: #ff0000;
+      //   font-weight: bold;
+      //   position: fixed;
+      //   top: 145px;
+      //   left: 18px;
+      //   line-height: 20px;
+      // }
+
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        width: 118px;
+        height: 12px;
+        background-color: #ff0000;
+        top: 55px;
+      }
+
+      &:before {
+        transform: rotate(45deg);
+        left: 2px;
+      }
+      &:after {
+        transform: rotate(-45deg);
+        right: 2px;
       }
     }
 

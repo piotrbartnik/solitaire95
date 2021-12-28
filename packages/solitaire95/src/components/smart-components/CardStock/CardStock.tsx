@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
   takeOneFromStock,
@@ -39,7 +39,7 @@ export type CardStockStateTypes = {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: FoundationInitialState;
-  stockCounter: StockCount;
+  stockCounter: number;
   gameStarted: boolean;
   drawType: string;
   threeCardsOnTable: cardConfigType[];
@@ -88,6 +88,8 @@ const CardStockInternal: React.FC<
 
   const { isVegas } = useContext(VegasContext);
 
+  const [blockVegasStock, setVegasBlockStock] = useState(false);
+
   const moveFirstFromTheTop = () => {
     if (cardsOnStock?.length) {
       const cardsOnStockCopy = cardsOnStock.slice();
@@ -100,7 +102,7 @@ const CardStockInternal: React.FC<
 
       const reversedStock = cardsFromStock.slice().reverse();
       reverseStock(reversedStock);
-      if (stockCounter.stockRevolutions >= 1) {
+      if (stockCounter >= 1) {
         addPoints(-100);
       }
     }
@@ -129,7 +131,7 @@ const CardStockInternal: React.FC<
         reversedThreeCards.unshift(...cardsFromStock.slice(i, i + 3));
       }
       reverseStock(reversedThreeCards);
-      if (stockCounter.stockRevolutions >= 3) {
+      if (stockCounter >= 3) {
         addPoints(-100);
       }
     }
@@ -225,6 +227,22 @@ const CardStockInternal: React.FC<
     </>
   ) : null;
 
+  useEffect(() => {
+    if (drawType === "drawOne" && isVegas) {
+      setVegasBlockStock(true);
+      return;
+    }
+    if (drawType === "drawThree" && stockCounter >= 2 && isVegas) {
+      setVegasBlockStock(true);
+      return;
+    }
+    setVegasBlockStock(false);
+  }, [drawType, stockCounter, isVegas]);
+
+  const stockHolderBackground = blockVegasStock
+    ? styles.vegasHolder
+    : styles.circleHolder;
+
   return (
     <div className={styles.cardStock__container}>
       <div
@@ -235,7 +253,7 @@ const CardStockInternal: React.FC<
         style={{ marginRight: `${distanceBtwPiles}px` }}
       >
         <div className={styles.cardStock__cardHolder}>
-          <div className={styles.circleHolder} />
+          <div className={stockHolderBackground} />
           {cardsOnStock?.length
             ? cardsOnStock.map((card, index) => (
                 <div
@@ -297,7 +315,7 @@ const mapStateToProps = (state: {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
     cardsOnFoundations: state.cardsOnFoundation,
-    stockCounter: state.stockCounter,
+    stockCounter: state.stockCounter.stockRevolutions,
     gameStarted: state.gameState.gameStarted,
     drawType: state.gameState.drawType,
     cardBackImage: state.gameState.cardDeck,
