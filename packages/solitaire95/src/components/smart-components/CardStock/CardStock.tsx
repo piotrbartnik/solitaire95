@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
   takeOneFromStock,
@@ -9,6 +9,7 @@ import {
   startGame,
   stockTurnCounter,
   takeThreeFromStock,
+  countVegasScore,
 } from "../../../store/actions";
 import {
   TakeOneFromStockType,
@@ -19,6 +20,7 @@ import {
   CountScoreType,
   StartGameType,
   StockTurnCounterType,
+  CountVegasScoreType,
 } from "../../../store/actions/actionTypes";
 import {
   CardsDistributionInitialState,
@@ -31,12 +33,13 @@ import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import styles from "./CardStock.module.scss";
 import { useGetThreeFromCardsOnStock } from "./CardStock.hooks";
+import { VegasContext } from "../../game-containers";
 
 export type CardStockStateTypes = {
   cardsOnStock: cardConfigType[];
   cardsFromStock: cardConfigType[];
   cardsOnFoundations: FoundationInitialState;
-  stockCounter: StockCount;
+  stockCounter: number;
   gameStarted: boolean;
   drawType: string;
   threeCardsOnTable: cardConfigType[];
@@ -52,6 +55,7 @@ export type CardStockDispatchTypes = {
   addPoints: CountScoreType;
   startGame: StartGameType;
   addToStockCounter: StockTurnCounterType;
+  vegasDollarCounter: CountVegasScoreType;
 };
 
 export type CardStockPropTypes = {
@@ -79,9 +83,14 @@ const CardStockInternal: React.FC<
     drawType,
     threeCardsOnTable,
     cardBackImage,
+    vegasDollarCounter,
   } = props;
 
-  const moveFirstFromTheTop = () => {
+  const { isVegas } = useContext(VegasContext);
+
+  const [blockVegasStock, setVegasBlockStock] = useState(false);
+
+  const moveFirstFromTheTop = useCallback(() => {
     if (cardsOnStock?.length) {
       const cardsOnStockCopy = cardsOnStock.slice();
       const cardToPush = cardsOnStockCopy.pop();
@@ -93,13 +102,23 @@ const CardStockInternal: React.FC<
 
       const reversedStock = cardsFromStock.slice().reverse();
       reverseStock(reversedStock);
-      if (stockCounter.stockRevolutions >= 1) {
+      if (stockCounter >= 1) {
         addPoints(-100);
       }
     }
-  };
+  }, [
+    addPoints,
+    addToStockCounter,
+    cardsFromStock,
+    cardsOnStock,
+    gameStarted,
+    reverseStock,
+    startGame,
+    stockCounter,
+    takeOneFromStock,
+  ]);
 
-  const moveThreeFromTheTop = () => {
+  const moveThreeFromTheTop = useCallback(() => {
     if (cardsOnStock?.length) {
       const cardsOnStockCopy =
         cardsOnStock.length >= 3
@@ -122,11 +141,21 @@ const CardStockInternal: React.FC<
         reversedThreeCards.unshift(...cardsFromStock.slice(i, i + 3));
       }
       reverseStock(reversedThreeCards);
-      if (stockCounter.stockRevolutions >= 3) {
+      if (stockCounter >= 3) {
         addPoints(-100);
       }
     }
-  };
+  }, [
+    addPoints,
+    addToStockCounter,
+    cardsFromStock,
+    cardsOnStock,
+    gameStarted,
+    reverseStock,
+    startGame,
+    stockCounter,
+    takeThreeFromStock,
+  ]);
 
   const moveToFoundationCallback = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
@@ -140,15 +169,19 @@ const CardStockInternal: React.FC<
         cardsFromStock,
         undefined,
         undefined,
-        threeCardsOnTable
+        threeCardsOnTable,
+        isVegas,
+        vegasDollarCounter
       ),
     [
       addCardToFoundation,
       addPoints,
       cardsFromStock,
       cardsOnFoundations,
+      isVegas,
       removeCardFromStock,
       threeCardsOnTable,
+      vegasDollarCounter,
     ]
   );
 
@@ -214,16 +247,47 @@ const CardStockInternal: React.FC<
     </>
   ) : null;
 
+  useEffect(() => {
+    if (drawType === "drawOne" && isVegas) {
+      setVegasBlockStock(true);
+      return;
+    }
+    if (drawType === "drawThree" && stockCounter >= 2 && isVegas) {
+      setVegasBlockStock(true);
+      return;
+    }
+    setVegasBlockStock(false);
+  }, [drawType, stockCounter, isVegas]);
+
+  const stockHolderBackground = blockVegasStock
+    ? styles.vegasHolder
+    : styles.circleHolder;
+
+  const stockOnClickCallback = useCallback(() => {
+    if (!cardsOnStock?.length && blockVegasStock) {
+      return undefined;
+    }
+    if (drawType === "drawOne") {
+      return moveFirstFromTheTop;
+    }
+    return moveThreeFromTheTop;
+  }, [
+    cardsOnStock?.length,
+    blockVegasStock,
+    drawType,
+    moveThreeFromTheTop,
+    moveFirstFromTheTop,
+  ]);
+
   return (
     <div className={styles.cardStock__container}>
       <div
         className={styles.cardStock}
-        onClick={
-          drawType === "drawOne" ? moveFirstFromTheTop : moveThreeFromTheTop
-        }
+        onClick={stockOnClickCallback()}
         style={{ marginRight: `${distanceBtwPiles}px` }}
       >
         <div className={styles.cardStock__cardHolder}>
+          <div className={stockHolderBackground} />
           {cardsOnStock?.length
             ? cardsOnStock.map((card, index) => (
                 <div
@@ -285,7 +349,7 @@ const mapStateToProps = (state: {
     cardsFromStock: state.cardDistribution.cardsFromStock,
     threeCardsOnTable: state.cardDistribution.threeCardsOnTable,
     cardsOnFoundations: state.cardsOnFoundation,
-    stockCounter: state.stockCounter,
+    stockCounter: state.stockCounter.stockRevolutions,
     gameStarted: state.gameState.gameStarted,
     drawType: state.gameState.drawType,
     cardBackImage: state.gameState.cardDeck,
@@ -301,6 +365,7 @@ const mapDispatchToProps = {
   addPoints: countScore,
   startGame: startGame,
   addToStockCounter: stockTurnCounter,
+  vegasDollarCounter: countVegasScore,
 };
 
 export const CardStock = connect<

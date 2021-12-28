@@ -10,6 +10,10 @@ import {
   SetCardDeckTypeReducer,
   UndoActionType,
   ACTION_TYPES,
+  ScoreType,
+  DrawType,
+  ToggleScoreTypeReducer,
+  KeepVegasScoreTypeReducer,
 } from "../actions/actionTypes";
 
 export interface GameState {
@@ -19,8 +23,11 @@ export interface GameState {
   outlineDragging: boolean;
   bottomBarVisible: boolean;
   timerVisible: boolean;
-  drawType: "drawOne" | "drawThree";
+  scoreVisible: boolean;
+  drawType: DrawType;
+  scoreType: ScoreType;
   cardDeck: string;
+  keepVegasScore: boolean;
 }
 
 type GameStateActionTypes =
@@ -32,7 +39,9 @@ type GameStateActionTypes =
   | ToggleBottomBarTypeReducer
   | ToggleTimerTypeReducer
   | ToggleDrawTypeReducer
-  | SetCardDeckTypeReducer;
+  | SetCardDeckTypeReducer
+  | ToggleScoreTypeReducer
+  | KeepVegasScoreTypeReducer;
 
 const initialState: GameState = {
   gameStarted: false,
@@ -41,8 +50,11 @@ const initialState: GameState = {
   outlineDragging: false,
   bottomBarVisible: true,
   timerVisible: true,
+  scoreVisible: true,
   drawType: "drawOne",
+  scoreType: "standard",
   cardDeck: "acorns",
+  keepVegasScore: false,
 };
 
 export const gameState = (
@@ -66,8 +78,12 @@ export const gameState = (
       return { ...state, timerVisible: action.timerVisible };
     case ACTION_TYPES.TOGGLE_DRAW_TYPE:
       return { ...state, drawType: action.drawType };
+    case ACTION_TYPES.TOGGLE_SCORE_TYPE:
+      return { ...state, scoreType: action.scoreType };
     case ACTION_TYPES.SET_CARD_DECK:
       return { ...state, cardDeck: action.cardDeck };
+    case ACTION_TYPES.KEEP_VEGAS_SCORE:
+      return { ...state, keepVegasScore: action.keepVegasScore };
     default:
       return state;
   }

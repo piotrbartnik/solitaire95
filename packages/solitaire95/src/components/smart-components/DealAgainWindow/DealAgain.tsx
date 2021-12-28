@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { toggleWindow, finishGame } from "../../../store/actions/";
@@ -9,6 +9,7 @@ import {
 } from "../../../store/actions/actionTypes";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
+import { VegasContext } from "../../game-containers";
 import styles from "./DealAgain.module.scss";
 import { dealCardsAllSteps } from "../../../helpers/dealCardsAllSteps";
 
@@ -18,7 +19,7 @@ export type DealAgainStateTypes = {
 export type DealAgainDispatchTypes = {
   toggleDealWindow: ToggleWindowType;
   setGameFinished: FinishGameType;
-  dealCardsAllSteps: () => void;
+  dealCardsAllSteps: (isVegas: boolean, keepVegasScore: boolean) => void;
 };
 
 const DealAgainInternal: React.FC<
@@ -31,14 +32,22 @@ const DealAgainInternal: React.FC<
     dealCardsAllSteps,
   } = props;
 
+  const { isVegas, keepVegasScore } = useContext(VegasContext);
+
   const dealWindowPositionX = window.innerWidth;
   const dealWindowPositionY = window.innerHeight;
 
   const yesActions = useCallback(() => {
     toggleDealWindow(false, "dealAgainWindow");
     setGameFinished(false);
-    dealCardsAllSteps();
-  }, [toggleDealWindow, setGameFinished, dealCardsAllSteps]);
+    dealCardsAllSteps(isVegas, keepVegasScore);
+  }, [
+    toggleDealWindow,
+    setGameFinished,
+    dealCardsAllSteps,
+    isVegas,
+    keepVegasScore,
+  ]);
 
   const closeActions = useCallback(
     () => toggleDealWindow(false, "dealAgainWindow"),
@@ -78,12 +87,15 @@ const mapStateToProps = (state: { toggleWindows: WindowsState }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
-  toggleDealWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
-    dispatch(toggleWindow(windowState, windowToToggle)),
-  setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
-});
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    dealCardsAllSteps: (isVegas: boolean, keepVegasScore: boolean) =>
+      dealCardsAllSteps(dispatch, isVegas, keepVegasScore),
+    toggleDealWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
+      dispatch(toggleWindow(windowState, windowToToggle)),
+    setGameFinished: (gameState: boolean) => dispatch(finishGame(gameState)),
+  };
+};
 
 export const DealAgain = connect<DealAgainStateTypes, DealAgainDispatchTypes>(
   mapStateToProps,

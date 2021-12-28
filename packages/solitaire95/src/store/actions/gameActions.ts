@@ -9,6 +9,8 @@ import {
   ToggleTimerType,
   ToggleDrawType,
   SetCardDeckType,
+  ToggleScoreType,
+  KeepVegasScoreType,
 } from "./actionTypes";
 
 export const startGame: StartGameType = () => {
@@ -65,9 +67,21 @@ export const toggledrawType: ToggleDrawType = (drawType) => {
   };
 };
 
+export const toggleScoreType: ToggleScoreType = (scoreType) => {
+  return {
+    type: ACTION_TYPES.TOGGLE_SCORE_TYPE,
+    scoreType,
+  };
+};
+
 export const setCardDeck: SetCardDeckType = (cardDeck) => {
   return {
     type: ACTION_TYPES.SET_CARD_DECK,
     cardDeck,
   };
 };
+
+export const keepVegasScore: KeepVegasScoreType = (keepVegasScore) => ({
+  type: ACTION_TYPES.KEEP_VEGAS_SCORE,
+  keepVegasScore,
+});

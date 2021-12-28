@@ -12,6 +12,7 @@ import {
   UndoMoveFromFoundationToPilesType,
   UndoActionType,
   UNDO_TYPES,
+  CountVegasScoreType,
 } from "../../../../../store/actions/actionTypes";
 
 export type SetActionToUndoType = (
@@ -24,7 +25,8 @@ export type SetActionToUndoType = (
   undoMoveFromStockToPiles: UndoMoveFromStockToPilesType,
   undoMoveFromStockToFoundation: UndoMoveFromStockToFoundationType,
   undoMoveFromPileToFoundation: UndoMoveFromPileToFoundationType,
-  undoMoveFromFoundationToPiles: UndoMoveFromFoundationToPilesType
+  undoMoveFromFoundationToPiles: UndoMoveFromFoundationToPilesType,
+  substractDollars: CountVegasScoreType
 ) => void;
 
 export const setActionToUndo: SetActionToUndoType = (
@@ -37,7 +39,8 @@ export const setActionToUndo: SetActionToUndoType = (
   undoMoveFromStockToPiles,
   undoMoveFromStockToFoundation,
   undoMoveFromPileToFoundation,
-  undoMoveFromFoundationToPiles
+  undoMoveFromFoundationToPiles,
+  substractDollars
 ) => {
   if (actionToUndo.length) {
     switch (actionToUndo[0]) {
@@ -80,6 +83,7 @@ export const setActionToUndo: SetActionToUndoType = (
         break;
       case UNDO_TYPES.FROM_STOCK_TO_FOUNDATION:
         substractScorePoints(-10);
+        substractDollars(-5);
         undoMoveFromStockToFoundation(
           actionToUndo[1] as { [key: string]: FoundationState },
           actionToUndo[2] as cardConfigType[],
@@ -88,6 +92,7 @@ export const setActionToUndo: SetActionToUndoType = (
         break;
       case UNDO_TYPES.FROM_PILE_TO_FOUNDATION:
         substractScorePoints(-10);
+        substractDollars(-5);
         undoMoveFromPileToFoundation(
           actionToUndo[1] as { [key: string]: FoundationState },
           actionToUndo[2] as { [key: string]: cardConfigType[] }

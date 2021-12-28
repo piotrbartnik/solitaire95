@@ -24,6 +24,7 @@ export enum ACTION_TYPES {
   TOGGLE_BOTTOMBAR = "TOGGLE_BOTTOMBAR",
   TOGGLE_TIMER = "TOGGLE_TIMER",
   TOGGLE_DRAW_TYPE = "TOGGLE_DRAW_TYPE",
+  TOGGLE_SCORE_TYPE = "TOGGLE_SCORE_TYPE",
   SET_CARD_DECK = "SET_CARD_DECK",
   SAVE_INITIAL_TIME = "SAVE_INITIAL_TIME",
   RESET_TIME = "RESET_TIME",
@@ -36,6 +37,9 @@ export enum ACTION_TYPES {
   UNDO_MOVE_FROM_STOCK_TO_FOUNDATION = "UNDO_MOVE_FROM_STOCK_TO_FOUNDATION",
   UNDO_MOVE_FROM_PILE_TO_FOUNDATION = "UNDO_MOVE_FROM_PILE_TO_FOUNDATION",
   UNDO_MOVE_FROM_FOUNDATION_TO_PILE = "UNDO_MOVE_FROM_FOUNDATION_TO_PILE",
+  KEEP_VEGAS_SCORE = "KEEP_VEGAS_SCORE",
+  COUNT_VEGAS_SCORE = "COUNT_VEGAS_SCORE",
+  RESET_VEGAS_SCORE = "RESET_VEGAS_SCORE",
 }
 
 export type {
@@ -59,6 +63,11 @@ export type {
   SetCardDeckTypeReducer,
   UndoActionType,
   DrawType,
+  ToggleScoreType,
+  ScoreType,
+  ToggleScoreTypeReducer,
+  KeepVegasScoreType,
+  KeepVegasScoreTypeReducer,
 } from "./gameActionTypes";
 
 export { UNDO_TYPES } from "./gameActionTypes";
@@ -81,6 +90,9 @@ export type {
   CountScoreTypeReducer,
   CountScoreType,
   ResetScoreTypeReducer,
+  CountVegasScoreType,
+  CountVegasScoreTypeReducer,
+  ResetVegasScoreTypeReducer,
 } from "./scoreActions";
 
 export {

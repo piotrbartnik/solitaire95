@@ -1,5 +1,6 @@
 import { cardConfigType } from "../configs/cardTypes";
 import { FoundationInitialState } from "../store/reducers/";
+import { CountVegasScoreType } from "../store/actions/actionTypes";
 
 export const moveToFoundation = (
   event: React.SyntheticEvent<HTMLDivElement>,
@@ -18,7 +19,9 @@ export const moveToFoundation = (
   oneCardFromStock?: cardConfigType[],
   startGame?: () => void,
   gameStarted?: boolean,
-  threeCardsFromStock?: cardConfigType[]
+  threeCardsFromStock?: cardConfigType[],
+  isVegas?: boolean,
+  vegasDollarCounter?: CountVegasScoreType
 ): void => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { dataset } = event.target as any;
@@ -36,6 +39,9 @@ export const moveToFoundation = (
     if (!cardsOnFoundations[foundationToPopulate[0]].cards.length) {
       addToFoundationCallback(cardConfig, foundationToPopulate[0], suite);
       addPoints(10);
+      if (isVegas && vegasDollarCounter) {
+        vegasDollarCounter(5);
+      }
       !gameStarted && startGame && startGame();
       isPile
         ? removeFromCallback(pilenumber)
@@ -62,6 +68,9 @@ export const moveToFoundation = (
         ) {
           addToFoundationCallback(cardConfig, foundation);
           addPoints(10);
+          if (isVegas && vegasDollarCounter) {
+            vegasDollarCounter(5);
+          }
           !gameStarted && startGame && startGame();
           isPile
             ? removeFromCallback(pilenumber)

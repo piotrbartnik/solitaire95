@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
@@ -13,6 +13,7 @@ import {
   startGame,
   countScore,
   removeCardFromFoundation,
+  countVegasScore,
 } from "../../../store/actions/";
 import {
   AddCardToFoundationType,
@@ -21,11 +22,13 @@ import {
   RemoveCardFromStockType,
   StartGameType,
   RemoveCardFromFoundationType,
+  CountVegasScoreType,
 } from "../../../store/actions/actionTypes";
 import { itemTypes } from "../../../configs/dragndropConfig";
 import { cardConfigType } from "../../../configs/cardTypes";
 import { Card } from "..";
 import styles from "./Foundation.module.scss";
+import { VegasContext } from "../../game-containers";
 
 export type FoundationStateTypes = {
   cardsFromStock: cardConfigType[];
@@ -43,6 +46,7 @@ export type FoundationDispatchTypes = {
   removeCardFromStock: RemoveCardFromStockType;
   startGame: StartGameType;
   removeCardFromFoundation: RemoveCardFromFoundationType;
+  addDollars: CountVegasScoreType;
 };
 
 export type FoundationPropTypes = {
@@ -68,7 +72,10 @@ const FoundationInternal: React.FC<
     outlineDragging,
     threeCardsOnTable,
     cardBackImage,
+    addDollars,
   } = props;
+
+  const { isVegas } = useContext(VegasContext);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const canBeDroppedOnFoundation = (card: any) => {
@@ -123,6 +130,8 @@ const FoundationInternal: React.FC<
 
     addCardToFoundation(cardConfig, foundations[foundationTargetId], cardSuite);
     !foundationNumber && addPoints(10);
+
+    !foundationNumber && isVegas && addDollars(5);
     !gameStarted && startGame();
 
     if (typeof pileNumber === "number") {
@@ -218,6 +227,7 @@ const mapDispatchToProps = {
   addPoints: countScore,
   startGame: startGame,
   removeCardFromFoundation: removeCardFromFoundation,
+  addDollars: countVegasScore,
 };
 
 export const Foundation = connect<

@@ -7,6 +7,8 @@ import {
   toggleBottomBar,
   toggleTimer,
   toggledrawType,
+  toggleScoreType,
+  keepVegasScore,
 } from "../../../store/actions/";
 import {
   ToggleWindowType,
@@ -16,6 +18,9 @@ import {
   ToggleDrawType,
   WindowTypes,
   DrawType,
+  ScoreType,
+  ToggleScoreType,
+  KeepVegasScoreType,
 } from "../../../store/actions/actionTypes";
 import { WindowsState, GameState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
@@ -29,6 +34,8 @@ export type OptionsWindowStateTypes = {
   bottomBarVisible: boolean;
   timerVisible: boolean;
   drawType: DrawType;
+  scoreType: ScoreType;
+  keepVegasScoreState: boolean;
 };
 
 export type OptionsWindowDispatchTypes = {
@@ -37,7 +44,9 @@ export type OptionsWindowDispatchTypes = {
   toggleBottomBar: ToggleBottomBarType;
   toggleTimer: ToggleTimerType;
   toggledrawType: ToggleDrawType;
-  dealCardsAllSteps: () => void;
+  dealCardsAllSteps: (isVegas: boolean, keepVegasScore: boolean) => void;
+  toggleScoreType: ToggleScoreType;
+  setKeepVegasScore: KeepVegasScoreType;
 };
 
 const OptionsInternal: React.FC<
@@ -54,25 +63,33 @@ const OptionsInternal: React.FC<
     toggleTimer,
     toggledrawType,
     drawType,
+    scoreType,
     dealCardsAllSteps,
+    toggleScoreType,
+    keepVegasScoreState,
+    setKeepVegasScore,
   } = props;
   const [isDragOutline, setDragOutline] = useState(outlineDragging);
-  const [scoringType, setScoringType] = useState("Standard");
   const [bottomBarVisibleState, setBottomBarVisibleState] =
     useState(bottomBarVisible);
   const [timerVisibleState, setTimerVisibleSrate] = useState(timerVisible);
   const [toggleDrawTypeState, setToggleDrawTypeState] = useState(drawType);
+  const [toggleScoreTypeState, setToggleScoreTypeState] = useState(scoreType);
 
   const onOkClick = useCallback(() => {
     toggleOptionsWindow(false, "optionsWindow");
     toggleBottomBar(bottomBarVisibleState);
     if (timerVisibleState !== timerVisible) {
       toggleTimer(timerVisibleState);
-      dealCardsAllSteps();
+      dealCardsAllSteps(true, false);
     }
     if (toggleDrawTypeState !== drawType) {
       toggledrawType(toggleDrawTypeState);
-      dealCardsAllSteps();
+      dealCardsAllSteps(true, false);
+    }
+    if (toggleScoreTypeState !== scoreType) {
+      toggleScoreType(toggleScoreTypeState);
+      dealCardsAllSteps(true, false);
     }
   }, [
     toggleOptionsWindow,
@@ -82,9 +99,12 @@ const OptionsInternal: React.FC<
     timerVisible,
     toggleDrawTypeState,
     drawType,
+    toggleScoreTypeState,
+    scoreType,
     toggleTimer,
     dealCardsAllSteps,
     toggledrawType,
+    toggleScoreType,
   ]);
 
   const closeButtonAction = useCallback(
@@ -100,7 +120,11 @@ const OptionsInternal: React.FC<
     drawOne: "Draw one",
     drawThree: "Draw three",
   };
-  const scoringRadioButtonsTypes = ["Standard", "Vegas", "None"];
+  const scoringRadioButtonsTypes = {
+    standard: "Standard",
+    vegas: "Vegas",
+    none: "None",
+  };
 
   return (
     <SettingsWindow
@@ -133,11 +157,15 @@ const OptionsInternal: React.FC<
         </RadioBox>
         <RadioBox width={240} heigth={120} title="Scoring">
           <div className={styles.radioWrapper__inner}>
-            {scoringRadioButtonsTypes.map((radioType) => (
+            {Object.values(scoringRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
                 label={radioType}
-                onClick={() => setScoringType(radioType)}
-                currentValue={scoringType}
+                onClick={() => {
+                  setToggleScoreTypeState(
+                    Object.keys(scoringRadioButtonsTypes)[index] as ScoreType
+                  );
+                }}
+                currentValue={scoringRadioButtonsTypes[toggleScoreTypeState]}
                 key={radioType}
               />
             ))}
@@ -173,11 +201,9 @@ const OptionsInternal: React.FC<
         <Checkbox
           label="Keep score"
           id="keepScore"
-          checked={false}
-          onClick={() => {
-            console.log("keepScore");
-          }}
-          disabled
+          checked={toggleScoreTypeState === "vegas" && keepVegasScoreState}
+          onClick={() => setKeepVegasScore(!keepVegasScoreState)}
+          disabled={toggleScoreTypeState !== "vegas"}
         />
       </div>
     </SettingsWindow>
@@ -194,12 +220,15 @@ const mapStateToProps = (state: {
     bottomBarVisible: state.gameState.bottomBarVisible,
     timerVisible: state.gameState.timerVisible,
     drawType: state.gameState.drawType,
+    scoreType: state.gameState.scoreType,
+    keepVegasScoreState: state.gameState.keepVegasScore,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    dealCardsAllSteps: () => dealCardsAllSteps(dispatch),
+    dealCardsAllSteps: (isVegas: boolean, keepVegasScore: boolean) =>
+      dealCardsAllSteps(dispatch, isVegas, keepVegasScore),
     toggleOptionsWindow: (windowState: boolean, windowToToggle: WindowTypes) =>
       dispatch(toggleWindow(windowState, windowToToggle)),
     setOutlineDragging: (isOutlined: boolean) =>
@@ -208,6 +237,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       dispatch(toggleBottomBar(bottomBarVisible)),
     toggleTimer: (timerVisible: boolean) => dispatch(toggleTimer(timerVisible)),
     toggledrawType: (drawType: DrawType) => dispatch(toggledrawType(drawType)),
+    toggleScoreType: (scoreType: ScoreType) =>
+      dispatch(toggleScoreType(scoreType)),
+    setKeepVegasScore: (keepVegasScoring: boolean) =>
+      dispatch(keepVegasScore(keepVegasScoring)),
   };
 };
 

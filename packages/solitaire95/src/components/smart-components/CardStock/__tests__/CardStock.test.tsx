@@ -15,7 +15,8 @@ const store = {
     cardsFromStock: testAceCardStock,
     threeCardsOnTable: [],
   },
-  gameState: { gameStarted: false, drawType: "drawOne" },
+  gameState: { gameStarted: false, drawType: "drawOne", scoreType: "standard" },
+  stockCounter: { stockRevolutions: 0 },
   cardsOnFoundation: {
     cardsOnFirstFoundation: { foundationSuite: undefined, cards: [] },
     cardsOnSecondFoundation: { foundationSuite: undefined, cards: [] },
