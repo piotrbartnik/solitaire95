@@ -90,7 +90,7 @@ const CardStockInternal: React.FC<
 
   const [blockVegasStock, setVegasBlockStock] = useState(false);
 
-  const moveFirstFromTheTop = () => {
+  const moveFirstFromTheTop = useCallback(() => {
     if (cardsOnStock?.length) {
       const cardsOnStockCopy = cardsOnStock.slice();
       const cardToPush = cardsOnStockCopy.pop();
@@ -106,9 +106,19 @@ const CardStockInternal: React.FC<
         addPoints(-100);
       }
     }
-  };
+  }, [
+    addPoints,
+    addToStockCounter,
+    cardsFromStock,
+    cardsOnStock,
+    gameStarted,
+    reverseStock,
+    startGame,
+    stockCounter,
+    takeOneFromStock,
+  ]);
 
-  const moveThreeFromTheTop = () => {
+  const moveThreeFromTheTop = useCallback(() => {
     if (cardsOnStock?.length) {
       const cardsOnStockCopy =
         cardsOnStock.length >= 3
@@ -135,7 +145,17 @@ const CardStockInternal: React.FC<
         addPoints(-100);
       }
     }
-  };
+  }, [
+    addPoints,
+    addToStockCounter,
+    cardsFromStock,
+    cardsOnStock,
+    gameStarted,
+    reverseStock,
+    startGame,
+    stockCounter,
+    takeThreeFromStock,
+  ]);
 
   const moveToFoundationCallback = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
@@ -243,13 +263,27 @@ const CardStockInternal: React.FC<
     ? styles.vegasHolder
     : styles.circleHolder;
 
+  const stockOnClickCallback = useCallback(() => {
+    if (!cardsOnStock?.length && blockVegasStock) {
+      return undefined;
+    }
+    if (drawType === "drawOne") {
+      return moveFirstFromTheTop;
+    }
+    return moveThreeFromTheTop;
+  }, [
+    cardsOnStock?.length,
+    blockVegasStock,
+    drawType,
+    moveThreeFromTheTop,
+    moveFirstFromTheTop,
+  ]);
+
   return (
     <div className={styles.cardStock__container}>
       <div
         className={styles.cardStock}
-        onClick={
-          drawType === "drawOne" ? moveFirstFromTheTop : moveThreeFromTheTop
-        }
+        onClick={stockOnClickCallback()}
         style={{ marginRight: `${distanceBtwPiles}px` }}
       >
         <div className={styles.cardStock__cardHolder}>
