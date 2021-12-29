@@ -15,7 +15,7 @@ export const Score: React.FC<PropTypes> = (props) => {
     <div>
       Score:{" "}
       {isVegas ? (
-        <span className={score < 0 && styles.vegasScore}>
+        <span className={score < 0 ? styles.vegasScore : undefined}>
           {vegasDollarsScore}
         </span>
       ) : (

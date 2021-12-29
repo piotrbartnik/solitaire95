@@ -34,7 +34,27 @@ describe("render BottomBar", () => {
   });
 
   it("and score can be hidden", () => {
-    reduxRtlWrapper(dndWrapper(<BottomBar scoreVisible={false} />));
+    reduxRtlWrapper(
+      dndWrapper(<BottomBar bottomBarVisible scoreVisible={false} />)
+    );
     expect(screen.queryAllByText("Score:")).toHaveLength(0);
+  });
+
+  it("and score can be in vegas style under 0 dollars", () => {
+    reduxRtlWrapper(
+      dndWrapper(
+        <BottomBar bottomBarVisible scoreVisible isVegas score={-52} />
+      )
+    );
+    expect(screen.getByText("Score:")).toBeVisible();
+    expect(screen.getByText("-$52")).toBeVisible();
+  });
+
+  it("and score can be in vegas style over 0 dollars", () => {
+    reduxRtlWrapper(
+      dndWrapper(<BottomBar bottomBarVisible scoreVisible isVegas score={2} />)
+    );
+    expect(screen.getByText("Score:")).toBeVisible();
+    expect(screen.getByText("$2")).toBeVisible();
   });
 });
