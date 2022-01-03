@@ -12,4 +12,11 @@ describe("renders Score", () => {
     render(<Score score={27} />);
     expect(screen.getByText(/Score: 27/)).toBeTruthy();
   });
+
+  it("and vegas class is applied when svore is vegas", () => {
+    const { container } = render(<Score score={-27} isVegas />);
+    expect(screen.getByText("Score:")).toBeInTheDocument();
+    expect(screen.getByText("-$27")).toBeInTheDocument();
+    expect(container.querySelector(".vegasScore")).toBeInTheDocument();
+  });
 });

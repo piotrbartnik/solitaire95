@@ -16,6 +16,7 @@ describe("render MainPage for AppToolbar testing", () => {
     // not visible after clicking anywhere else
     expect(screen.queryByRole("listbox", { name: "Game" })).toBeNull();
   });
+
   it("when Help button clicked Help dropown opens up and is closed on clicking anywhere else", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     // help dropdown not visible on page
@@ -27,6 +28,7 @@ describe("render MainPage for AppToolbar testing", () => {
     // not visible after clicking anywhere else
     expect(screen.queryByRole("listbox", { name: "Help" })).toBeNull();
   });
+
   it("each Game button on mouse hover shows different text on bottom bar", () => {
     const gameButtonTexts = {
       Deal: "Deal a new game",
@@ -44,6 +46,7 @@ describe("render MainPage for AppToolbar testing", () => {
       expect(screen.queryByText(gameButtonTexts[button])).toBeNull();
     });
   });
+
   it("each Help button on mouse hover shows different text on bottom bar", () => {
     const helpButtonTexts = {
       "Help Topics": "Index of Solitaire help topics",
@@ -57,5 +60,27 @@ describe("render MainPage for AppToolbar testing", () => {
       fireEvent.mouseLeave(screen.getByRole("button", { name: button }));
       expect(screen.queryByText(helpButtonTexts[button])).toBeNull();
     });
+  });
+
+  it("when Help button clicked Help dropown opens up and is closed when Game button hovered", () => {
+    reduxRtlWrapper(dndWrapper(<MainPage />));
+    expect(screen.queryByRole("listbox", { name: "Help" })).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "Help" }));
+    expect(screen.getByRole("listbox", { name: "Help" })).toBeVisible();
+
+    fireEvent.mouseEnter(screen.getByRole("button", { name: "Game" }));
+    expect(screen.queryByRole("listbox", { name: "Help" })).toBeNull();
+  });
+
+  it("when Game button clicked Game dropown opens up and is closed when Help button hovered", () => {
+    reduxRtlWrapper(dndWrapper(<MainPage />));
+    expect(screen.queryByRole("listbox", { name: "Game" })).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "Game" }));
+    expect(screen.getByRole("listbox", { name: "Game" })).toBeVisible();
+
+    fireEvent.mouseEnter(screen.getByRole("button", { name: "Help" }));
+    expect(screen.queryByRole("listbox", { name: "Game" })).toBeNull();
   });
 });

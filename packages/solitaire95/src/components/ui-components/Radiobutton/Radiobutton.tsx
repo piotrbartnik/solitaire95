@@ -17,7 +17,12 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
   }, [currentValue, label]);
 
   return (
-    <div className={styles.radioWrapper} onClick={onClick} role="radio">
+    <div
+      className={styles.radioWrapper}
+      onClick={onClick}
+      role="radio"
+      id={label}
+    >
       <div className={styles.customRadio__outer}>
         <div className={styles.customRadio__inner}>
           <div
@@ -26,7 +31,7 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
           />
         </div>
       </div>
-      <span>{label}</span>
+      <label htmlFor={label}>{label}</label>
     </div>
   );
 };

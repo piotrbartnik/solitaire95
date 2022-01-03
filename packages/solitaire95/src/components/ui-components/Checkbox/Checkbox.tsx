@@ -17,7 +17,7 @@ export const Checkbox: React.FC<CheckboxPropTypes> = (props) => {
   useEffect(() => setIsChecked(checked), [checked]);
 
   return (
-    <div className={styles.checkbox}>
+    <div className={styles.checkbox} aria-checked={isChecked}>
       <div
         className={[
           styles.doubleBorder,

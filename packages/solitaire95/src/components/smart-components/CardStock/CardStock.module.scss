@@ -15,7 +15,7 @@
   position: relative;
 
   &__cardHolder {
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,26 +23,16 @@
     & .circleHolder {
       border: 14px solid #00ff00;
       border-radius: 130px;
-      position: fixed;
+      position: absolute;
       width: 120px;
       height: 120px;
     }
 
     & .vegasHolder {
-      position: fixed;
+      position: absolute;
       width: 120px;
       height: 120px;
       transform: rotate(Xdeg);
-      // &::after {
-      //   content: "\d7";
-      //   font-size: 250px;
-      //   color: #ff0000;
-      //   font-weight: bold;
-      //   position: fixed;
-      //   top: 145px;
-      //   left: 18px;
-      //   line-height: 20px;
-      // }
 
       &:before,
       &:after {
