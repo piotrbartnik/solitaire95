@@ -11,10 +11,10 @@ describe("renders Options Window", () => {
     expect(screen.getByLabelText("Status bar")).toBeTruthy();
     expect(screen.getByLabelText("Outline dragging")).toBeTruthy();
     expect(screen.getByLabelText("Keep score")).toBeTruthy();
-    expect(screen.getByLabelText("Draw one")).toBeTruthy();
-    expect(screen.getByLabelText("Draw three")).toBeTruthy();
-    expect(screen.getByLabelText("Standard")).toBeTruthy();
-    expect(screen.getByLabelText("Vegas")).toBeTruthy();
-    expect(screen.getByLabelText("None")).toBeTruthy();
+    expect(screen.getByText("Draw one")).toBeTruthy();
+    expect(screen.getByText("Draw three")).toBeTruthy();
+    expect(screen.getByText("Standard")).toBeTruthy();
+    expect(screen.getByText("Vegas")).toBeTruthy();
+    expect(screen.getByText("None")).toBeTruthy();
   });
 });

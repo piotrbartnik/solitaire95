@@ -4,7 +4,7 @@ import { act } from "react-dom/test-utils";
 import { dndWrapper, reduxRtlWrapper } from "../../../../helpers/testHelpers";
 import { MainPage } from "../MainPage";
 
-const fireDeal = () => {
+export const fireDeal = (): void => {
   fireEvent.click(screen.getByRole("button", { name: "Game" }));
   fireEvent.click(screen.getByRole("button", { name: "Deal" }));
 };

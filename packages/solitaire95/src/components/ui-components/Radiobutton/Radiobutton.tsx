@@ -28,7 +28,6 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
           <div
             className={styles.customRadio__circle}
             style={{ visibility: isChecked ? "visible" : "hidden" }}
-            aria-label={label}
           />
         </div>
       </div>
