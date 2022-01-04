@@ -11,6 +11,13 @@ type ToolButtonPropTypes = {
 
 export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
   const { onClick, onMouseOver, onMouseLeave, text, disabled } = props;
+
+  const handleToolButtonKeyPress = ({ key }: { key: string }) => {
+    if (onClick && key === "Enter") {
+      onClick();
+    }
+  };
+
   return (
     <div className={styles.toolElement}>
       <div
@@ -21,6 +28,8 @@ export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}
         role="button"
+        tabIndex={1}
+        onKeyDown={handleToolButtonKeyPress}
       >
         {text}
       </div>
