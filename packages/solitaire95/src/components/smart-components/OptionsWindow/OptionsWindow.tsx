@@ -49,6 +49,52 @@ export type OptionsWindowDispatchTypes = {
   setKeepVegasScore: KeepVegasScoreType;
 };
 
+const drawRadioButtonsTypes = {
+  drawOne: {
+    title: "Draw one",
+    node: (
+      <>
+        Draw <span>o</span>ne
+      </>
+    ),
+  },
+  drawThree: {
+    title: "Draw three",
+    node: (
+      <>
+        Draw <span>t</span>hree
+      </>
+    ),
+  },
+};
+
+const scoringRadioButtonsTypes = {
+  standard: {
+    title: "Standard",
+    node: (
+      <>
+        St<span>a</span>ndard
+      </>
+    ),
+  },
+  vegas: {
+    title: "Vegas",
+    node: (
+      <>
+        <span>V</span>egas
+      </>
+    ),
+  },
+  none: {
+    title: "None",
+    node: (
+      <>
+        <span>N</span>one
+      </>
+    ),
+  },
+};
+
 const OptionsInternal: React.FC<
   OptionsWindowStateTypes & OptionsWindowDispatchTypes
 > = (props) => {
@@ -116,25 +162,6 @@ const OptionsInternal: React.FC<
     toggleOptionsWindow(false, "optionsWindow");
   }, [toggleOptionsWindow]);
 
-  const drawRadioButtonsTypes = {
-    drawOne: "Draw one",
-    drawThree: "Draw three",
-  };
-  const scoringRadioButtonsTypes = {
-    standard: "Standard",
-    vegas: "Vegas",
-    none: "None",
-  };
-
-  const drawRadioUnderline = [
-    <>
-      Draw <span>o</span>ne
-    </>,
-    <>
-      Draw <span>t</span>hree
-    </>,
-  ];
-
   return (
     <SettingsWindow
       windowTitle={"Options"}
@@ -160,15 +187,15 @@ const OptionsInternal: React.FC<
           <div className={styles.radioWrapper__inner}>
             {Object.values(drawRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
-                label={drawRadioUnderline[index]}
-                title={radioType}
+                label={radioType.node}
+                title={radioType.title}
                 onClick={() => {
                   setToggleDrawTypeState(
                     Object.keys(drawRadioButtonsTypes)[index] as DrawType
                   );
                 }}
-                currentValue={drawRadioButtonsTypes[toggleDrawTypeState]}
-                key={radioType}
+                currentValue={drawRadioButtonsTypes[toggleDrawTypeState].title}
+                key={radioType.title}
               />
             ))}
           </div>
@@ -185,15 +212,17 @@ const OptionsInternal: React.FC<
           <div className={styles.radioWrapper__inner}>
             {Object.values(scoringRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
-                label={radioType}
-                title={radioType}
+                label={radioType.node}
+                title={radioType.title}
                 onClick={() => {
                   setToggleScoreTypeState(
                     Object.keys(scoringRadioButtonsTypes)[index] as ScoreType
                   );
                 }}
-                currentValue={scoringRadioButtonsTypes[toggleScoreTypeState]}
-                key={radioType}
+                currentValue={
+                  scoringRadioButtonsTypes[toggleScoreTypeState].title
+                }
+                key={radioType.title}
               />
             ))}
           </div>

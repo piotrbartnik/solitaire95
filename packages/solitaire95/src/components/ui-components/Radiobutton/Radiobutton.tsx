@@ -14,8 +14,8 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
   const [isChecked, setIsChecked] = useState(currentValue === label);
 
   useEffect(() => {
-    setIsChecked(currentValue === label);
-  }, [currentValue, label]);
+    setIsChecked(currentValue === title);
+  }, [currentValue, title]);
 
   return (
     <div
