@@ -34,6 +34,7 @@ import {
   AboutSolitaire,
   Options,
   DealAgain,
+  HelpTopics,
 } from "../../smart-components";
 import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
@@ -188,6 +189,7 @@ const MainPageInternal: React.FC<
             )}
             {isWindowVisible?.optionsWindow && <Options />}
             {isWindowVisible?.dealAgainWindow && <DealAgain />}
+            {isWindowVisible?.helpTopicsWindow && <HelpTopics />}
             <TopBar
               title={"Solitaire"}
               showIcon

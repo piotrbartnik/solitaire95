@@ -8,3 +8,4 @@ export { AboutSolitaire } from "./AboutSolitaireWindow/AboutSolitaireWindow";
 export { Options } from "./OptionsWindow/OptionsWindow";
 export { DealAgain } from "./DealAgainWindow/DealAgain";
 export { WaterfallCanvas } from "./WaterFallCanvas/WaterfallCanvas";
+export { HelpTopics } from "./HelpTopicsWindow/HelpTopics";
