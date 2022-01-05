@@ -24,7 +24,11 @@ const HelpDropdownInternal: React.VFC<
         toggleAboutWindow(true, "helpTopicsWindow");
         setHelpVisible(false);
       }}
-      text="Help Topics"
+      text={
+        <>
+          <span>H</span>elp Topics
+        </>
+      }
     />
     <Separator />
     <ToolButton
@@ -34,7 +38,11 @@ const HelpDropdownInternal: React.VFC<
         toggleAboutWindow(true, "aboutWindow");
         setHelpVisible(false);
       }}
-      text="About"
+      text={
+        <>
+          <span>A</span>bout
+        </>
+      }
     />
   </>
 );
