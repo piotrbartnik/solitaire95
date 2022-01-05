@@ -139,7 +139,15 @@ const OptionsInternal: React.FC<
       height={330}
     >
       <div className={styles.radioWrapper__outer}>
-        <RadioBox width={240} heigth={120} title="Draw">
+        <RadioBox
+          width={240}
+          heigth={120}
+          title={
+            <>
+              <span>D</span>raw
+            </>
+          }
+        >
           <div className={styles.radioWrapper__inner}>
             {Object.values(drawRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
@@ -155,7 +163,15 @@ const OptionsInternal: React.FC<
             ))}
           </div>
         </RadioBox>
-        <RadioBox width={240} heigth={120} title="Scoring">
+        <RadioBox
+          width={240}
+          heigth={120}
+          title={
+            <>
+              <span>S</span>coring
+            </>
+          }
+        >
           <div className={styles.radioWrapper__inner}>
             {Object.values(scoringRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton

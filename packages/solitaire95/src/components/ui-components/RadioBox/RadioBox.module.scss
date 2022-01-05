@@ -24,4 +24,8 @@
   left: 10px;
   background-color: #c0c0c0;
   padding: 0 2px;
+
+  & span {
+    text-decoration: underline;
+  }
 }
