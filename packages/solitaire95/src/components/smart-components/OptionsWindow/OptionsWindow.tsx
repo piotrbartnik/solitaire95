@@ -126,6 +126,15 @@ const OptionsInternal: React.FC<
     none: "None",
   };
 
+  const drawRadioUnderline = [
+    <>
+      Draw <span>o</span>ne
+    </>,
+    <>
+      Draw <span>t</span>hree
+    </>,
+  ];
+
   return (
     <SettingsWindow
       windowTitle={"Options"}
@@ -151,7 +160,8 @@ const OptionsInternal: React.FC<
           <div className={styles.radioWrapper__inner}>
             {Object.values(drawRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
-                label={radioType}
+                label={drawRadioUnderline[index]}
+                title={radioType}
                 onClick={() => {
                   setToggleDrawTypeState(
                     Object.keys(drawRadioButtonsTypes)[index] as DrawType
@@ -176,6 +186,7 @@ const OptionsInternal: React.FC<
             {Object.values(scoringRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
                 label={radioType}
+                title={radioType}
                 onClick={() => {
                   setToggleScoreTypeState(
                     Object.keys(scoringRadioButtonsTypes)[index] as ScoreType
