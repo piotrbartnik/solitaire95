@@ -6,7 +6,7 @@ type ToolButtonPropTypes = {
   onMouseOver?: () => void;
   onMouseLeave?: () => void;
   disabled?: boolean;
-  text: string;
+  text: string | JSX.Element;
 };
 
 export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {

@@ -48,7 +48,11 @@ export const GameDropdownInternal: React.FC<
         }}
         onMouseOver={() => setBottomBarText("Deal a new game")}
         onMouseLeave={() => setBottomBarText("")}
-        text="Deal"
+        text={
+          <>
+            <span>D</span>eal
+          </>
+        }
       />
       <Separator />
       <UndoButton
@@ -63,7 +67,11 @@ export const GameDropdownInternal: React.FC<
         }}
         onMouseOver={() => setBottomBarText("Choose new deck back")}
         onMouseLeave={() => setBottomBarText("")}
-        text="Deck"
+        text={
+          <>
+            De<span>c</span>k
+          </>
+        }
       />
       <ToolButton
         onClick={() => {
@@ -72,13 +80,21 @@ export const GameDropdownInternal: React.FC<
         }}
         onMouseOver={() => setBottomBarText("Change Solitaire options")}
         onMouseLeave={() => setBottomBarText("")}
-        text="Options"
+        text={
+          <>
+            <span>O</span>ptions
+          </>
+        }
       />
       <Separator />
       <ToolButton
         onMouseOver={() => setBottomBarText("Exit Solitaire")}
         onMouseLeave={() => setBottomBarText("")}
-        text="Exit"
+        text={
+          <>
+            E<span>x</span>it
+          </>
+        }
         disabled
       />
     </>
