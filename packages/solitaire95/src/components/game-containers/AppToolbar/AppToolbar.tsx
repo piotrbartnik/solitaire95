@@ -31,7 +31,11 @@ export const AppToolbar: React.VFC<AppToolbarPropTypes> = (props) => {
               setGameVisible(!gameVisible);
               setHelpVisible(false);
             }}
-            buttonText={"Game"}
+            buttonText={
+              <>
+                <span>G</span>ame
+              </>
+            }
             id={"gameButton"}
             active={gameVisible}
             onMouseOver={() => {
@@ -56,7 +60,11 @@ export const AppToolbar: React.VFC<AppToolbarPropTypes> = (props) => {
               setHelpVisible(!helpVisible);
               setGameVisible(false);
             }}
-            buttonText={"Help"}
+            buttonText={
+              <>
+                <span>H</span>elp
+              </>
+            }
             id={"helpButton"}
             active={helpVisible}
             onMouseOver={() => {

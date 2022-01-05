@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./TopbarButton.module.scss";
 
 type TopbarButtonPropTypes = {
-  buttonText: string;
+  buttonText: string | JSX.Element;
   onClick: () => void;
   id: string;
   active?: boolean;
@@ -28,7 +28,7 @@ export const TopbarButton: React.FC<TopbarButtonPropTypes> = (props) => {
       tabIndex={1}
       onKeyPress={handleTopBarButtonKeyPress}
     >
-      <span>{buttonText}</span>
+      {buttonText}
     </div>
   );
 };
