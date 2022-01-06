@@ -32,8 +32,22 @@ const HelpTopicsInternal: React.FC<
     <SettingsWindow
       windowTitle={"Help Topics: Solitaire Help"}
       buttons={[
-        { text: "Display", onClick: okOnClick },
-        { text: "Print", onClick: okOnClick },
+        {
+          text: (
+            <>
+              <span>D</span>isplay
+            </>
+          ),
+          onClick: okOnClick,
+        },
+        {
+          text: (
+            <>
+              <span>P</span>rint
+            </>
+          ),
+          onClick: okOnClick,
+        },
         { text: "Cancel", onClick: okOnClick },
       ]}
       visible={isWindowVisible as boolean}

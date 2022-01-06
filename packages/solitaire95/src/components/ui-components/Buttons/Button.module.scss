@@ -12,6 +12,10 @@
   align-items: center;
   cursor: pointer;
 
+  & span {
+    text-decoration: underline;
+  }
+
   &:active,
   &:focus {
     border: 2px solid #808080;

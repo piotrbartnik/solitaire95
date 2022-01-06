@@ -21,7 +21,7 @@ type SettingWindowPropTypes = {
   visible: boolean;
   width?: number;
   height?: number;
-  buttons?: { text: string; onClick: () => void }[];
+  buttons?: { text: string | JSX.Element; onClick: () => void }[];
   closeButtonAction?: () => void;
   positionOnWindow?: number[];
 };

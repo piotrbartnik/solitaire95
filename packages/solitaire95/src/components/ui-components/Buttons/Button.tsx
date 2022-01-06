@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Button.module.scss";
 
 type ButtonPropTypes = {
-  text: string;
+  text: string | JSX.Element;
   onClick?: () => void;
 };
 
