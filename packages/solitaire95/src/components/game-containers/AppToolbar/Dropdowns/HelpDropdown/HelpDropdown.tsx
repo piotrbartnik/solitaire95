@@ -29,6 +29,7 @@ const HelpDropdownInternal: React.VFC<
           <span>H</span>elp Topics
         </>
       }
+      label="Help Topics"
     />
     <Separator />
     <ToolButton
@@ -43,6 +44,7 @@ const HelpDropdownInternal: React.VFC<
           <span>A</span>bout
         </>
       }
+      label="About"
     />
   </>
 );

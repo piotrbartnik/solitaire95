@@ -187,8 +187,8 @@ const OptionsInternal: React.FC<
           <div className={styles.radioWrapper__inner}>
             {Object.values(drawRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
-                label={radioType.node}
-                title={radioType.title}
+                text={radioType.node}
+                label={radioType.title}
                 onClick={() => {
                   setToggleDrawTypeState(
                     Object.keys(drawRadioButtonsTypes)[index] as DrawType
@@ -212,8 +212,8 @@ const OptionsInternal: React.FC<
           <div className={styles.radioWrapper__inner}>
             {Object.values(scoringRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
-                label={radioType.node}
-                title={radioType.title}
+                text={radioType.node}
+                label={radioType.title}
                 onClick={() => {
                   setToggleScoreTypeState(
                     Object.keys(scoringRadioButtonsTypes)[index] as ScoreType
@@ -230,11 +230,12 @@ const OptionsInternal: React.FC<
       </div>
       <div className={styles.checkboxWrapper}>
         <Checkbox
-          label={
+          text={
             <>
               T<span>i</span>med game
             </>
           }
+          label="Timed game"
           id="timedGame"
           checked={timerVisible}
           onClick={() => {
@@ -242,11 +243,12 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
-          label={
+          text={
             <>
               Out<span>l</span>ine dragging
             </>
           }
+          label="Outline dragging"
           id="outlineDragging"
           checked={isDragOutline}
           onClick={() => {
@@ -255,11 +257,12 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
-          label={
+          text={
             <>
               Status <span>b</span>ar
             </>
           }
+          label="Status bar"
           id="statusBar"
           checked={bottomBarVisible}
           onClick={() => {
@@ -267,11 +270,12 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
-          label={
+          text={
             <>
               <span>K</span>eep score
             </>
           }
+          label="Keep score"
           id="keepScore"
           checked={toggleScoreTypeState === "vegas" && keepVegasScoreState}
           onClick={() => setKeepVegasScore(!keepVegasScoreState)}

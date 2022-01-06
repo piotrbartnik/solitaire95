@@ -10,7 +10,7 @@ describe("render radio box", () => {
         label="Radio button test"
         onClick={clickMock}
         currentValue="Radio button test"
-        title="Radio button test"
+        text="Radio button test"
       />
     );
     expect(screen.getByText("Radio button test")).toBeVisible();

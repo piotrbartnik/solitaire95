@@ -79,6 +79,7 @@ export const UndoButtonInternal: React.FC<
           <span>U</span>ndo
         </>
       }
+      label="Undo"
       disabled={!actionToUndo?.length}
       onClick={() => {
         setGameVisible(!gameVisible);

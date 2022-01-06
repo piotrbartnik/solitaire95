@@ -53,6 +53,7 @@ export const GameDropdownInternal: React.FC<
             <span>D</span>eal
           </>
         }
+        label="Deal"
       />
       <Separator />
       <UndoButton
@@ -72,6 +73,7 @@ export const GameDropdownInternal: React.FC<
             De<span>c</span>k
           </>
         }
+        label="Deck"
       />
       <ToolButton
         onClick={() => {
@@ -85,6 +87,7 @@ export const GameDropdownInternal: React.FC<
             <span>O</span>ptions
           </>
         }
+        label="Options"
       />
       <Separator />
       <ToolButton
@@ -96,6 +99,7 @@ export const GameDropdownInternal: React.FC<
           </>
         }
         disabled
+        label="Exit"
       />
     </>
   );

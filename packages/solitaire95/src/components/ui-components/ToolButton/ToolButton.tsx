@@ -7,10 +7,18 @@ type ToolButtonPropTypes = {
   onMouseLeave?: () => void;
   disabled?: boolean;
   text: string | JSX.Element;
+  label?: string;
 };
 
 export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
-  const { onClick, onMouseOver, onMouseLeave, text, disabled } = props;
+  const {
+    onClick,
+    onMouseOver,
+    onMouseLeave,
+    text,
+    disabled,
+    label = "",
+  } = props;
 
   const handleToolButtonKeyPress = ({ key }: { key: string }) => {
     if (onClick && key === "Enter") {
@@ -30,6 +38,7 @@ export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
         role="button"
         tabIndex={1}
         onKeyDown={handleToolButtonKeyPress}
+        aria-label={label}
       >
         {text}
       </div>

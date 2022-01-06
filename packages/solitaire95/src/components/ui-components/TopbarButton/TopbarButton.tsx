@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./TopbarButton.module.scss";
 
 type TopbarButtonPropTypes = {
-  buttonText: string | JSX.Element;
+  text: string | JSX.Element;
+  label?: string;
   onClick: () => void;
   id: string;
   active?: boolean;
@@ -10,7 +11,7 @@ type TopbarButtonPropTypes = {
 };
 
 export const TopbarButton: React.FC<TopbarButtonPropTypes> = (props) => {
-  const { buttonText, onClick, id, active, onMouseOver } = props;
+  const { text, onClick, id, active, onMouseOver, label = "" } = props;
 
   const handleTopBarButtonKeyPress = ({ key }: { key: string }) => {
     if (key === " " || key === "Enter") {
@@ -27,8 +28,9 @@ export const TopbarButton: React.FC<TopbarButtonPropTypes> = (props) => {
       onMouseOver={onMouseOver}
       tabIndex={1}
       onKeyPress={handleTopBarButtonKeyPress}
+      aria-label={label}
     >
-      {buttonText}
+      {text}
     </div>
   );
 };
