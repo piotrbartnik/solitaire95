@@ -230,7 +230,11 @@ const OptionsInternal: React.FC<
       </div>
       <div className={styles.checkboxWrapper}>
         <Checkbox
-          label="Timed game"
+          label={
+            <>
+              T<span>i</span>med game
+            </>
+          }
           id="timedGame"
           checked={timerVisible}
           onClick={() => {
@@ -238,7 +242,11 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
-          label="Outline dragging"
+          label={
+            <>
+              Out<span>l</span>ine dragging
+            </>
+          }
           id="outlineDragging"
           checked={isDragOutline}
           onClick={() => {
@@ -247,7 +255,11 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
-          label="Status bar"
+          label={
+            <>
+              Status <span>b</span>ar
+            </>
+          }
           id="statusBar"
           checked={bottomBarVisible}
           onClick={() => {
@@ -255,7 +267,11 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
-          label="Keep score"
+          label={
+            <>
+              <span>K</span>eep score
+            </>
+          }
           id="keepScore"
           checked={toggleScoreTypeState === "vegas" && keepVegasScoreState}
           onClick={() => setKeepVegasScore(!keepVegasScoreState)}

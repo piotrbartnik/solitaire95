@@ -3,7 +3,7 @@ import styles from "./Checkbox.module.scss";
 
 type CheckboxPropTypes = {
   id: string;
-  label: string;
+  label: string | JSX.Element;
   checked: boolean;
   onClick: () => void;
   disabled?: boolean;
