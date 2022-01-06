@@ -64,7 +64,7 @@ export const useRunWaterfallAnimation = (
       ) as CanvasRenderingContext2D;
       setContext(context);
       context.imageSmoothingEnabled = false;
-      context.fillStyle = "#20ac55";
+      context.fillStyle = "#64ac55";
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
       drawKings(context);
       drawStockRectangle(context);
