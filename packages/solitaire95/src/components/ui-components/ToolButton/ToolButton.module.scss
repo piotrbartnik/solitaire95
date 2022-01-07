@@ -1,6 +1,12 @@
 .toolElement {
-  margin: 7px 35px;
+  padding: 7px 35px;
   cursor: pointer;
+
+  &:focus {
+    background-color: #213faa;
+    color: #ffffff;
+    outline: none;
+  }
 }
 
 .disabled {

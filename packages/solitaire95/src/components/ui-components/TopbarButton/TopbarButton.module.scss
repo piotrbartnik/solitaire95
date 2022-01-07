@@ -10,6 +10,12 @@
   font-size: 18px;
   letter-spacing: 1px;
   cursor: default;
+
+  &:focus {
+    background-color: #213faa;
+    color: #ffffff;
+    outline: none;
+  }
 }
 
 .active {

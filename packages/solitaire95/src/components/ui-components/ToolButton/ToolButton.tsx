@@ -27,21 +27,21 @@ export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
   };
 
   return (
-    <div className={styles.toolElement}>
-      <div
-        onClick={!disabled ? onClick : undefined}
-        className={[styles.shortcutLetter, disabled && styles.disabled].join(
-          " "
-        )}
-        onMouseOver={onMouseOver}
-        onMouseLeave={onMouseLeave}
-        role="button"
-        tabIndex={1}
-        onKeyDown={handleToolButtonKeyPress}
-        aria-label={label}
-      >
-        {text}
-      </div>
+    <div
+      onClick={!disabled ? onClick : undefined}
+      className={[
+        styles.shortcutLetter,
+        disabled && styles.disabled,
+        styles.toolElement,
+      ].join(" ")}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+      role="button"
+      tabIndex={1}
+      onKeyDown={handleToolButtonKeyPress}
+      aria-label={label}
+    >
+      {text}
     </div>
   );
 };
