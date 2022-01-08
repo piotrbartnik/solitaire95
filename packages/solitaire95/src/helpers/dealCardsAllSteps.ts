@@ -7,6 +7,7 @@ import {
   resetStockCounter,
   countVegasScore,
   resetVegasScore,
+  setUndoAction,
 } from "../store/actions/";
 
 export const dealCardsAllSteps = (
@@ -19,6 +20,7 @@ export const dealCardsAllSteps = (
   dispatch(stopGame());
   dispatch(dealCards());
   dispatch(resetStockCounter());
+  dispatch(setUndoAction([]));
 
   if (isVegas) {
     if (!keepVegasScore) {
