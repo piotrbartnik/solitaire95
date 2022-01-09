@@ -37,7 +37,7 @@ export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
       role="button"
-      tabIndex={1}
+      tabIndex={!disabled ? 1 : 0}
       onKeyDown={handleToolButtonKeyPress}
       aria-label={label}
     >

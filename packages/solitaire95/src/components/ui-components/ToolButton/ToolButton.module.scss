@@ -12,6 +12,12 @@
 .disabled {
   color: #868a8e;
   cursor: not-allowed;
+
+  &:focus {
+    background-color: transparent;
+    color: #868a8e;
+    cursor: not-allowed;
+  }
 }
 
 .toolElement span {
