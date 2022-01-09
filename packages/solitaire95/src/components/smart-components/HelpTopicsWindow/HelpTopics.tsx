@@ -4,6 +4,7 @@ import { toggleWindow } from "../../../store/actions/";
 import { ToggleWindowType } from "../../../store/actions/actionTypes";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
+import { HelpTabs } from "../HelpTabs/HelpTabs";
 import styles from "./HelpTopics.module.scss";
 
 export type HelpTopicsStateTypes = {
@@ -55,7 +56,9 @@ const HelpTopicsInternal: React.FC<
       width={528}
     >
       <div className={styles.container}>
-        <div className={styles.textContainer}></div>
+        <div className={styles.textContainer}>
+          <HelpTabs />
+        </div>
       </div>
     </SettingsWindow>
   );
