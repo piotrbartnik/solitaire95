@@ -13,9 +13,33 @@ export const HelpTabs: React.FC<PilePropTypes> = ({ children }) => {
   return (
     <div className={styles.tabContainer}>
       <div className={styles.navBar}>
-        <button onClick={() => setActiveTab("Contents")}>Contents</button>
-        <button onClick={() => setActiveTab("Index")}>Index</button>
-        <button onClick={() => setActiveTab("Find")}>Find</button>
+        <button
+          className={[
+            styles.tabButton,
+            activeTab === "Contents" ? styles.tabButton__active : undefined,
+          ].join(" ")}
+          onClick={() => setActiveTab("Contents")}
+        >
+          Contents
+        </button>
+        <button
+          className={[
+            styles.tabButton,
+            activeTab === "Index" ? styles.tabButton__active : undefined,
+          ].join(" ")}
+          onClick={() => setActiveTab("Index")}
+        >
+          Index
+        </button>
+        <button
+          className={[
+            styles.tabButton,
+            activeTab === "Find" ? styles.tabButton__active : undefined,
+          ].join(" ")}
+          onClick={() => setActiveTab("Find")}
+        >
+          Find
+        </button>
       </div>
       <div
         className={[
