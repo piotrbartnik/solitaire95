@@ -5,7 +5,6 @@ import { ToggleWindowType } from "../../../store/actions/actionTypes";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow } from "../../ui-components";
 import { HelpTabs } from "../HelpTabs/HelpTabs";
-import styles from "./HelpTopics.module.scss";
 
 export type HelpTopicsStateTypes = {
   isWindowVisible?: boolean;
@@ -54,12 +53,9 @@ const HelpTopicsInternal: React.FC<
       visible={isWindowVisible as boolean}
       closeButtonAction={closeButtonActionCallback}
       width={528}
+      height={600}
     >
-      <div className={styles.container}>
-        <div className={styles.textContainer}>
-          <HelpTabs />
-        </div>
-      </div>
+      <HelpTabs />
     </SettingsWindow>
   );
 };
