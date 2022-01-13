@@ -39,7 +39,10 @@ export const fullGameInitialState = {
 
 const cardSuites = ["spades", "diamonds", "hearts", "clubs"];
 
-export const resolveSolitaire = (actionType: "drag" | "dbclick"): void => {
+export const resolveSolitaire = (
+  actionType: "drag" | "dbclick",
+  waitBetweenMoves = false
+): void => {
   cy.findByRole("listitem", { name: "ace spades" }).should(
     "have.attr",
     "data-pilenumber",
@@ -57,6 +60,8 @@ export const resolveSolitaire = (actionType: "drag" | "dbclick"): void => {
   );
   cardSuites.forEach((suite, suiteIndex) => {
     cardName.forEach((cardname) => {
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      waitBetweenMoves && cy.wait(500);
       if (actionType === "drag") {
         cy.findByRole("listitem", { name: `${cardname} ${suite}` }).drag(
           "list",
