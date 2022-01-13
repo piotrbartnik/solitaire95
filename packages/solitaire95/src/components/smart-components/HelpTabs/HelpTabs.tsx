@@ -1,45 +1,26 @@
 import React, { useState } from "react";
+import { TabNavButton } from "./TabNavButton/TabNavButton";
 import styles from "./HelpTabs.module.scss";
 
-type PilePropTypes = {
-  children?: JSX.Element;
-};
-
-export const HelpTabs: React.FC<PilePropTypes> = ({ children }) => {
+export const HelpTabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState("Contents");
 
-  console.log(children);
+  const tabs = ["Contents", "Index", "Find"];
+
+  const setActiveTabCallback = (tabToSetActive: string) =>
+    setActiveTab(tabToSetActive);
 
   return (
     <div className={styles.tabContainer}>
       <div className={styles.navBar}>
-        <button
-          className={[
-            styles.tabButton,
-            activeTab === "Contents" ? styles.tabButton__active : undefined,
-          ].join(" ")}
-          onClick={() => setActiveTab("Contents")}
-        >
-          Contents
-        </button>
-        <button
-          className={[
-            styles.tabButton,
-            activeTab === "Index" ? styles.tabButton__active : undefined,
-          ].join(" ")}
-          onClick={() => setActiveTab("Index")}
-        >
-          Index
-        </button>
-        <button
-          className={[
-            styles.tabButton,
-            activeTab === "Find" ? styles.tabButton__active : undefined,
-          ].join(" ")}
-          onClick={() => setActiveTab("Find")}
-        >
-          Find
-        </button>
+        {tabs.map((tab) => (
+          <TabNavButton
+            label={tab}
+            activeTab={activeTab}
+            setActiveTabCallback={setActiveTabCallback}
+            key={tab}
+          />
+        ))}
       </div>
       <div
         className={[
