@@ -1,0 +1,24 @@
+.contentContainer {
+  width: 100%;
+  height: 90%;
+  border-bottom: 2px solid #000000;
+  border-right: 2px solid #000000;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  margin: 0 10px;
+  visibility: hidden;
+  position: absolute;
+  display: block;
+
+  &__inner {
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid #808080;
+    border-right: 2px solid #808080;
+    padding: 30px;
+  }
+}
+
+.active {
+  visibility: visible;
+}

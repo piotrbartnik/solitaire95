@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TabNavButton } from "./TabNavButton/TabNavButton";
+import { TabContainer } from "./TabContainer/TabContainer";
 import styles from "./HelpTabs.module.scss";
 
 export const HelpTabs: React.FC = () => {
@@ -13,39 +14,20 @@ export const HelpTabs: React.FC = () => {
   return (
     <div className={styles.tabContainer}>
       <div className={styles.navBar}>
-        {tabs.map((tab) => (
+        {tabs.map((tabLabel) => (
           <TabNavButton
-            label={tab}
+            label={tabLabel}
             activeTab={activeTab}
             setActiveTabCallback={setActiveTabCallback}
-            key={tab}
+            key={tabLabel}
           />
         ))}
       </div>
-      <div
-        className={[
-          styles.contentContainer,
-          activeTab === "Contents" ? styles.active : undefined,
-        ].join(" ")}
-      >
-        <div className={styles.contentContainer__inner}>Contents</div>
-      </div>
-      <div
-        className={[
-          styles.contentContainer,
-          activeTab === "Index" ? styles.active : undefined,
-        ].join(" ")}
-      >
-        <div className={styles.contentContainer__inner}>Index</div>
-      </div>
-      <div
-        className={[
-          styles.contentContainer,
-          activeTab === "Find" ? styles.active : undefined,
-        ].join(" ")}
-      >
-        <div className={styles.contentContainer__inner}>Find</div>
-      </div>
+      {tabs.map((tabLabel) => (
+        <TabContainer activeTab={activeTab} label={tabLabel} key={tabLabel}>
+          {tabLabel}
+        </TabContainer>
+      ))}
     </div>
   );
 };
