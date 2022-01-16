@@ -5,7 +5,7 @@ import styles from "./TabGroup.module.scss";
 
 type TabGroupPropTypes = {
   defaultActiveTab: string;
-  tabs: string[];
+  tabs: [string, React.ReactNode][];
 };
 
 export const TabGroup: React.VFC<TabGroupPropTypes> = ({
@@ -20,7 +20,7 @@ export const TabGroup: React.VFC<TabGroupPropTypes> = ({
   return (
     <div className={styles.tabContainer}>
       <div className={styles.navBar}>
-        {tabs.map((tabLabel) => (
+        {tabs.map(([tabLabel]) => (
           <TabNavButton
             label={tabLabel}
             activeTab={activeTab}
@@ -29,9 +29,9 @@ export const TabGroup: React.VFC<TabGroupPropTypes> = ({
           />
         ))}
       </div>
-      {tabs.map((tabLabel) => (
+      {tabs.map(([tabLabel, tabChildren]) => (
         <TabContainer activeTab={activeTab} label={tabLabel} key={tabLabel}>
-          {tabLabel}
+          {tabChildren}
         </TabContainer>
       ))}
     </div>

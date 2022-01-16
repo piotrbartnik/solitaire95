@@ -27,7 +27,11 @@ const HelpTopicsInternal: React.FC<
     [toggleHelpWindow]
   );
 
-  const tabs = ["Contents", "Index", "Find"];
+  const tabs: [string, React.ReactNode][] = [
+    ["Contents", <>Test</>],
+    ["Index", "index"],
+    ["Find", "Find"],
+  ];
 
   return (
     <SettingsWindow
