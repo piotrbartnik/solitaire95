@@ -13,3 +13,5 @@ export { Radiobutton } from "./Radiobutton/Radiobutton";
 export { ToolDropdown } from "./ToolDropdown/ToolDropdown";
 export { Score } from "./Score/Score";
 export { TabGroup } from "./TabGroup/TabGroup";
+export { SearchBar } from "./SearchBar/SearchBar";
+export { TextSelectField } from "./TextSelectField/TextSelectField";

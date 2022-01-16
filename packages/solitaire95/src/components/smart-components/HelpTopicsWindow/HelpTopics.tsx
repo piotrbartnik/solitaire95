@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { toggleWindow } from "../../../store/actions/";
 import { ToggleWindowType } from "../../../store/actions/actionTypes";
 import { WindowsState } from "../../../store/reducers/";
-import { SettingsWindow, TabGroup } from "../../ui-components";
+import { SettingsWindow, TabGroup, SearchBar } from "../../ui-components";
 
 export type HelpTopicsStateTypes = {
   isWindowVisible?: boolean;
@@ -28,7 +28,7 @@ const HelpTopicsInternal: React.FC<
   );
 
   const tabs: [string, React.ReactNode][] = [
-    ["Contents", <>Test</>],
+    ["Contents", <SearchBar key="searchBar" />],
     ["Index", "index"],
     ["Find", "Find"],
   ];
