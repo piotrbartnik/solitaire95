@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { toggleWindow } from "../../../store/actions/";
 import { ToggleWindowType } from "../../../store/actions/actionTypes";
 import { WindowsState } from "../../../store/reducers/";
-import { SettingsWindow } from "../../ui-components";
-import { HelpTabs } from "../HelpTabs/HelpTabs";
+import { SettingsWindow, TabGroup } from "../../ui-components";
 
 export type HelpTopicsStateTypes = {
   isWindowVisible?: boolean;
@@ -27,6 +26,8 @@ const HelpTopicsInternal: React.FC<
     () => toggleHelpWindow(false, "helpTopicsWindow"),
     [toggleHelpWindow]
   );
+
+  const tabs = ["Contents", "Index", "Find"];
 
   return (
     <SettingsWindow
@@ -55,7 +56,7 @@ const HelpTopicsInternal: React.FC<
       width={528}
       height={600}
     >
-      <HelpTabs />
+      <TabGroup tabs={tabs} defaultActiveTab="Contents" />
     </SettingsWindow>
   );
 };

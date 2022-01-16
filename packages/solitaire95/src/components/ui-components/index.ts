@@ -12,3 +12,4 @@ export { RadioBox } from "./RadioBox/RadioBox";
 export { Radiobutton } from "./Radiobutton/Radiobutton";
 export { ToolDropdown } from "./ToolDropdown/ToolDropdown";
 export { Score } from "./Score/Score";
+export { TabGroup } from "./TabGroup/TabGroup";
