@@ -15,3 +15,4 @@ export { Score } from "./Score/Score";
 export { TabGroup } from "./TabGroup/TabGroup";
 export { SearchBar } from "./SearchBar/SearchBar";
 export { TextSelectField } from "./TextSelectField/TextSelectField";
+export { TextButton } from "./TextButton/TextButton";

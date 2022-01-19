@@ -1,40 +1,5 @@
 import React, { useState } from "react";
-import { TextSelectField } from "../../../ui-components";
-import styles from "./ContentsTab.module.scss";
-import questionIcon from "./questionHelpIcon.png";
-
-type TextButtonPropTypes = {
-  selectedItem?: number;
-  onClickCallback: () => void;
-  textId: number;
-};
-
-const TextButton: React.FC<TextButtonPropTypes> = ({
-  children,
-  selectedItem,
-  onClickCallback,
-  textId,
-}) => {
-  return (
-    <div className={styles.clickableText__container}>
-      <img
-        className={styles.clickableText__icon}
-        src={questionIcon}
-        alt="question mark icon"
-      />
-      <div
-        className={[
-          selectedItem === textId &&
-            styles["clickableText__textContainer--selected"],
-          styles.clickableText__textContainer,
-        ].join(" ")}
-        onClick={onClickCallback}
-      >
-        {children}
-      </div>
-    </div>
-  );
-};
+import { TextSelectField, TextButton } from "../../../ui-components";
 
 export const ContentsTab: React.VFC = () => {
   const [selectedItem, setSelectedItem] = useState<number>();
