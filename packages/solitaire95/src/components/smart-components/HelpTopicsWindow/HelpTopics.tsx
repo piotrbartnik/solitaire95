@@ -22,7 +22,13 @@ const HelpTopicsInternal: React.FC<
 
   const okOnClick = () => {
     toggleHelpWindow(false, "helpTopicsWindow");
-    console.log(activeContentsHelp);
+  };
+
+  const displayOnClick = () => {
+    if (activeContentsHelp) {
+      console.log(activeContentsHelp);
+      toggleHelpWindow(false, "helpTopicsWindow");
+    }
   };
 
   const closeButtonActionCallback = useCallback(
@@ -52,7 +58,7 @@ const HelpTopicsInternal: React.FC<
               <span>D</span>isplay
             </>
           ),
-          onClick: okOnClick,
+          onClick: displayOnClick,
         },
         {
           text: (
