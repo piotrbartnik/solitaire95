@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { connect } from "react-redux";
 import { toggleWindow } from "../../../store/actions/";
 import { ToggleWindowType } from "../../../store/actions/actionTypes";
@@ -18,9 +18,11 @@ const HelpTopicsInternal: React.FC<
   HelpTopicsDispatchTypes & HelpTopicsStateTypes
 > = (props) => {
   const { isWindowVisible, toggleHelpWindow } = props;
+  const [activeContentsHelp, setActiveContentTab] = useState<string>();
 
   const okOnClick = () => {
     toggleHelpWindow(false, "helpTopicsWindow");
+    console.log(activeContentsHelp);
   };
 
   const closeButtonActionCallback = useCallback(
@@ -29,7 +31,13 @@ const HelpTopicsInternal: React.FC<
   );
 
   const tabs: [string, React.ReactNode][] = [
-    ["Contents", <ContentsTab key="Contents Tab" />],
+    [
+      "Contents",
+      <ContentsTab
+        key="Contents Tab"
+        notifyParent={(a) => setActiveContentTab(a)}
+      />,
+    ],
     ["Index", "index"],
     ["Find", "Find"],
   ];

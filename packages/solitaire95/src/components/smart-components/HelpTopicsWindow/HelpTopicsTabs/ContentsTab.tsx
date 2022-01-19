@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { TextSelectField, TextButton } from "../../../ui-components";
 
-export const ContentsTab: React.VFC = () => {
+type ContentsTabPropTypes = {
+  notifyParent: (helpTopic: string) => void;
+};
+
+export const ContentsTab: React.VFC<ContentsTabPropTypes> = ({
+  notifyParent,
+}) => {
   const [selectedItem, setSelectedItem] = useState<number>();
 
   return (
@@ -10,14 +16,20 @@ export const ContentsTab: React.VFC = () => {
       Index.
       <TextSelectField>
         <TextButton
-          onClickCallback={() => setSelectedItem(0)}
+          onClickCallback={() => {
+            setSelectedItem(0);
+            notifyParent("How to play Solitaire");
+          }}
           selectedItem={selectedItem}
           textId={0}
         >
           How to play Solitaire
         </TextButton>
         <TextButton
-          onClickCallback={() => setSelectedItem(1)}
+          onClickCallback={() => {
+            setSelectedItem(1);
+            notifyParent("Scoring information");
+          }}
           selectedItem={selectedItem}
           textId={1}
         >
