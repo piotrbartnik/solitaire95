@@ -20,6 +20,8 @@ const HelpTopicsInternal: React.FC<
   const { isWindowVisible, toggleHelpWindow } = props;
   const [activeContentsHelp, setActiveContentTab] = useState<string>();
 
+  console.log(activeContentsHelp);
+
   const okOnClick = () => {
     toggleHelpWindow(false, "helpTopicsWindow");
   };
