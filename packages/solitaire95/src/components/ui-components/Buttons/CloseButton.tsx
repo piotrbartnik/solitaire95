@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import xButton from "../../../static/misc/xButton.png";
 import styles from "./Button.module.scss";
 
@@ -8,16 +8,25 @@ type CloseButtonPropTypes = {
 
 export const CloseButton: React.FC<CloseButtonPropTypes> = (props) => {
   const { onClick } = props;
+  const [buttonActive, setButtonActive] = useState(false);
+
   return (
     <div
       role="button"
       title="close window"
-      className={[styles.button, styles.closeButton].join(" ")}
+      className={[
+        styles.button,
+        styles.closeButton,
+        buttonActive && styles["button--active"],
+      ].join(" ")}
       tabIndex={0}
-      onClick={onClick}
+      onMouseDown={() => {
+        setButtonActive(true);
+      }}
+      onMouseUp={() => setTimeout(() => onClick?.(), 50)}
       style={{ backgroundImage: `url(${xButton})` }}
     >
-      <div className={styles.activeBorder}></div>
+      <div className={buttonActive && styles.activeBorder}></div>
     </div>
   );
 };
