@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { SettingsWindow } from "../../../ui-components";
 
 export const HelpTopicsTextWindow: React.VFC = () => {
+  const [helpTextVisible, setHelpTextVisible] = useState(true);
   return (
     <SettingsWindow
       windowTitle={"Solitaire Help"}
-      visible={true}
-      // closeButtonAction={closeButtonActionCallback}
+      visible={helpTextVisible}
+      closeButtonAction={() => setHelpTextVisible(false)}
       width={200}
       height={200}
       positionOnWindow={[0, 0]}
