@@ -5,6 +5,7 @@ import { ToggleWindowType } from "../../../store/actions/actionTypes";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow, TabGroup } from "../../ui-components";
 import { ContentsTab } from "./HelpTopicsTabs/ContentsTab";
+import { HelpTopicsTextWindow } from "./HelpTopicsTextWindow/HelpTopicsTextWindow";
 
 export type HelpTopicsStateTypes = {
   isWindowVisible?: boolean;
@@ -51,34 +52,37 @@ const HelpTopicsInternal: React.FC<
   ];
 
   return (
-    <SettingsWindow
-      windowTitle={"Help Topics: Solitaire Help"}
-      buttons={[
-        {
-          text: (
-            <>
-              <span>D</span>isplay
-            </>
-          ),
-          onClick: displayOnClick,
-        },
-        {
-          text: (
-            <>
-              <span>P</span>rint
-            </>
-          ),
-          onClick: okOnClick,
-        },
-        { text: "Cancel", onClick: okOnClick },
-      ]}
-      visible={isWindowVisible as boolean}
-      closeButtonAction={closeButtonActionCallback}
-      width={600}
-      height={600}
-    >
-      <TabGroup tabs={tabs} defaultActiveTab="Contents" />
-    </SettingsWindow>
+    <>
+      <SettingsWindow
+        windowTitle={"Help Topics: Solitaire Help"}
+        buttons={[
+          {
+            text: (
+              <>
+                <span>D</span>isplay
+              </>
+            ),
+            onClick: displayOnClick,
+          },
+          {
+            text: (
+              <>
+                <span>P</span>rint
+              </>
+            ),
+            onClick: okOnClick,
+          },
+          { text: "Cancel", onClick: okOnClick },
+        ]}
+        visible={isWindowVisible as boolean}
+        closeButtonAction={closeButtonActionCallback}
+        width={600}
+        height={600}
+      >
+        <TabGroup tabs={tabs} defaultActiveTab="Contents" />
+      </SettingsWindow>
+      <HelpTopicsTextWindow />
+    </>
   );
 };
 

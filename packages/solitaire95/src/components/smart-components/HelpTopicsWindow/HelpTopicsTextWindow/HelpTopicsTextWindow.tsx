@@ -7,8 +7,9 @@ export const HelpTopicsTextWindow: React.VFC = () => {
       windowTitle={"Solitaire Help"}
       visible={true}
       // closeButtonAction={closeButtonActionCallback}
-      width={600}
-      height={600}
+      width={200}
+      height={200}
+      positionOnWindow={[0, 0]}
     >
       <div>Test</div>
     </SettingsWindow>
