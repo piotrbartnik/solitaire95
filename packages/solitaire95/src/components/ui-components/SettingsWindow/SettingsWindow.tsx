@@ -145,6 +145,11 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     }
   }, [width]);
 
+  const shouldCreateDragLayer = useMemo(
+    () => windowTitle === item?.windowTitle,
+    [item?.windowTitle, windowTitle]
+  );
+
   return (
     <div
       className={styles.backdrop}
@@ -193,7 +198,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           </div>
         </div>
       </div>
-      {windowTitle === item?.windowTitle && (
+      {shouldCreateDragLayer && (
         <SettingsWindowDragLayer
           size={[
             width ? `${width}px` : "450px",
