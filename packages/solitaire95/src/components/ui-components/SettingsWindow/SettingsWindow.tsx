@@ -24,6 +24,8 @@ type SettingWindowPropTypes = {
   buttons?: { text: string | JSX.Element; onClick: () => void }[];
   closeButtonAction?: () => void;
   positionOnWindow?: number[];
+  topBarIcon?: string;
+  iconHeight?: string;
 };
 
 export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
@@ -36,6 +38,8 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     visible,
     closeButtonAction,
     positionOnWindow,
+    topBarIcon,
+    iconHeight,
   } = props;
 
   const [windowPosition, setWindowPosition] = useState([
@@ -169,7 +173,13 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
         role="dialog"
         aria-label={windowTitle}
       >
-        <TopBar title={windowTitle} dragRef={drag}>
+        <TopBar
+          title={windowTitle}
+          dragRef={drag}
+          icon={topBarIcon}
+          showIcon={!!topBarIcon}
+          iconHeight={iconHeight}
+        >
           <CloseButton onClick={closeButtonAction} />
         </TopBar>
         <div

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./TextButton.module.scss";
-import questionIcon from "./questionHelpIcon.png";
+import questionIcon from "../../../static/misc/questionHelpIcon.png";
 
 type TextButtonPropTypes = {
   selectedItem?: number;
