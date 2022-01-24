@@ -10,7 +10,7 @@ export const HelpTopicsTextWindow: React.VFC = () => {
       closeButtonAction={() => setHelpTextVisible(false)}
       width={200}
       height={200}
-      positionOnWindow={[0, 0]}
+      positionOnWindow={[10, 10]}
     >
       <div>Test</div>
     </SettingsWindow>

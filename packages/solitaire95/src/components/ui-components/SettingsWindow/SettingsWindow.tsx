@@ -94,7 +94,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     }),
   });
 
-  const [, drag, preview] = useDrag({
+  const [{ item }, drag, preview] = useDrag({
     item: {
       type: itemTypes.WINDOW,
       windowTitle: windowTitle,
@@ -193,13 +193,16 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           </div>
         </div>
       </div>
-      <SettingsWindowDragLayer
-        size={[
-          width ? `${width}px` : "450px",
-          height ? `${height}px` : "360px",
-        ]}
-        maxWindowWidth={maxWindowWidth}
-      />
+      {windowTitle === item?.windowTitle && (
+        <SettingsWindowDragLayer
+          size={[
+            width ? `${width}px` : "450px",
+            height ? `${height}px` : "360px",
+          ]}
+          maxWindowWidth={maxWindowWidth}
+          key={windowTitle}
+        />
+      )}
     </div>
   );
 };
