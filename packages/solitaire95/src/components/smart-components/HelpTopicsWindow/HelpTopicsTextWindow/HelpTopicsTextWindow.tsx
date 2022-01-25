@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { SettingsWindow } from "../../../ui-components";
 import questionIcon from "../../../../static/misc/questionHelpIcon.png";
 import styles from "./HelpTopicsTextWindow.module.scss";
-
-const howToPlay = <p>To play Solitaire: starting the game</p>;
+import { howToPlay } from "./HelpTexts";
 
 export const HelpTopicsTextWindow: React.VFC = () => {
   const [helpTextVisible, setHelpTextVisible] = useState(true);
