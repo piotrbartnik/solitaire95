@@ -26,6 +26,7 @@ type SettingWindowPropTypes = {
   positionOnWindow?: number[];
   topBarIcon?: string;
   iconHeight?: string;
+  topBarGreyetOut?: boolean;
 };
 
 export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
@@ -40,6 +41,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     positionOnWindow,
     topBarIcon,
     iconHeight,
+    topBarGreyetOut,
   } = props;
 
   const [windowPosition, setWindowPosition] = useState([
@@ -179,6 +181,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           icon={topBarIcon}
           showIcon={!!topBarIcon}
           iconHeight={iconHeight}
+          shouldBeGreyedOut={topBarGreyetOut}
         >
           <CloseButton onClick={closeButtonAction} />
         </TopBar>

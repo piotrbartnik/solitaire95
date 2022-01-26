@@ -79,6 +79,7 @@ const HelpTopicsInternal: React.FC<
         closeButtonAction={closeButtonActionCallback}
         width={600}
         height={600}
+        topBarGreyetOut={helpTextWindowVisible}
       >
         <TabGroup tabs={tabs} defaultActiveTab="Contents" />
       </SettingsWindow>
