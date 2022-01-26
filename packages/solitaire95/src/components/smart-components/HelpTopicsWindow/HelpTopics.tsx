@@ -20,6 +20,9 @@ const HelpTopicsInternal: React.FC<
 > = (props) => {
   const { isWindowVisible, toggleHelpWindow } = props;
   const [activeContentsHelp, setActiveContentTab] = useState<string>();
+  const [helpTextWindowVisible, setHelpTextWindowVisible] = useState(false);
+
+  const toggleOffTextWindow = () => setHelpTextWindowVisible(false);
 
   const okOnClick = () => {
     toggleHelpWindow(false, "helpTopicsWindow");
@@ -28,7 +31,7 @@ const HelpTopicsInternal: React.FC<
   const displayOnClick = () => {
     if (activeContentsHelp) {
       console.log(activeContentsHelp);
-      toggleHelpWindow(false, "helpTopicsWindow");
+      setHelpTextWindowVisible(true);
     }
   };
 
@@ -79,7 +82,11 @@ const HelpTopicsInternal: React.FC<
       >
         <TabGroup tabs={tabs} defaultActiveTab="Contents" />
       </SettingsWindow>
-      <HelpTopicsTextWindow />
+      <HelpTopicsTextWindow
+        textWindowVisible={helpTextWindowVisible}
+        helpToDisplay={activeContentsHelp}
+        toggleOffTextWindow={toggleOffTextWindow}
+      />
     </>
   );
 };

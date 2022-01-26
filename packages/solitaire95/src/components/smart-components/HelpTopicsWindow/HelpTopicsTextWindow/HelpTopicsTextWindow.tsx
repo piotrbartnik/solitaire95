@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { SettingsWindow } from "../../../ui-components";
 import questionIcon from "../../../../static/misc/questionHelpIcon.png";
 import styles from "./HelpTopicsTextWindow.module.scss";
 import { howToPlay } from "./HelpTexts";
 
-export const HelpTopicsTextWindow: React.VFC = () => {
-  const [helpTextVisible, setHelpTextVisible] = useState(true);
+type HelpTopicsTextWindowPropTypes = {
+  textWindowVisible: boolean;
+  helpToDisplay?: string;
+  toggleOffTextWindow: () => void;
+};
+
+export const HelpTopicsTextWindow: React.VFC<HelpTopicsTextWindowPropTypes> = ({
+  textWindowVisible,
+  // helpToDisplay,
+  toggleOffTextWindow,
+}) => {
   return (
     <SettingsWindow
       windowTitle={"Solitaire Help"}
-      visible={helpTextVisible}
-      closeButtonAction={() => setHelpTextVisible(false)}
+      visible={textWindowVisible}
+      closeButtonAction={toggleOffTextWindow}
       width={400}
       height={600}
       positionOnWindow={[10, 10]}
