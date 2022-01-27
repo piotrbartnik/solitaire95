@@ -4,6 +4,7 @@ import React, {
   useContext,
   useCallback,
   useMemo,
+  useRef,
 } from "react";
 import { useDrop, useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
@@ -49,8 +50,22 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     positionOnWindow?.[1] || 100,
   ]);
   const [maxWindowWidth, setMaxWindowWidth] = useState(width || 450);
+  const [calculatedHeight, setCalulatedWindowHeight] = useState<number>();
 
   const { playSounds } = useContext(SoundContext);
+
+  const settingWindowRef = useRef(null);
+
+  useEffect(() => {
+    const windowRef = settingWindowRef.current;
+    if (windowRef && !height) {
+      const sizesOfWindow = (
+        windowRef as HTMLDivElement
+      ).getBoundingClientRect();
+      const heightCalculated = sizesOfWindow.bottom - sizesOfWindow.top;
+      setCalulatedWindowHeight(heightCalculated);
+    }
+  }, [height]);
 
   const [, drop] = useDrop({
     accept: itemTypes.WINDOW,
@@ -79,7 +94,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
 
       setWindowPosition([
         calculateWindowPosition(
-          height as number,
+          (height as number) || (calculatedHeight as number),
           360,
           windowPosition[0],
           delta?.y as number,
@@ -167,13 +182,14 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
         className={styles.settingsWindow}
         style={{
           width: width ? `${width}px` : "450px",
-          height: height ?? `${height}px`,
+          height: height ? `${height}px` : undefined,
           top: `${windowPosition[0]}px`,
           left: `${windowPosition[1]}px`,
           maxWidth: `${maxWindowWidth}px`,
         }}
         role="dialog"
         aria-label={windowTitle}
+        ref={settingWindowRef}
       >
         <TopBar
           title={windowTitle}
@@ -215,7 +231,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
         <SettingsWindowDragLayer
           size={[
             width ? `${width}px` : "450px",
-            height ? `${height}px` : "360px",
+            height ? `${height}px` : `${calculatedHeight}px`,
           ]}
           maxWindowWidth={maxWindowWidth}
           key={windowTitle}
