@@ -50,6 +50,7 @@ const DeckSelectInternal: React.FC<
       visible={isWindowVisible as boolean}
       closeButtonAction={closeButtonActionCallback}
       width={528}
+      height={360}
     >
       <div className={styles.deckContainer}>
         <div className={styles.deckContainer__cardBackContainer}>

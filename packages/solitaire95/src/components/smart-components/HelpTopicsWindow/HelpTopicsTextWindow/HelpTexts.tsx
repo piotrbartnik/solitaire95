@@ -1,7 +1,8 @@
 import React from "react";
+import styles from "./HelpTopicsTextWindow.module.scss";
 
 export const howToPlay = (
-  <div>
+  <div className={styles.textContainer}>
     <p>To play Solitaire: starting the game</p>
     <ol>
       <li>On the Game menu, click Deal.</li>
@@ -11,7 +12,7 @@ export const howToPlay = (
         any other plays available on the board.
         <br /> You will be building two kinds of stacks: row stacks and suit
         stacks.
-        <br /> To free up cards that you need to build a suit stackc, tou build
+        <br /> To free up cards that you need to build a suit stackc, you build
         row stacks. <br /> To move a card or a stack of cards from one row to
         another, drag it. <br />
         To move a card to a suit stack, double-click it.

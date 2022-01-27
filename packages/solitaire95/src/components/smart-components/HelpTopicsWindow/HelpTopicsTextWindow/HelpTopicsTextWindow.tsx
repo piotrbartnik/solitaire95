@@ -20,9 +20,8 @@ export const HelpTopicsTextWindow: React.VFC<HelpTopicsTextWindowPropTypes> = ({
       windowTitle={"Solitaire Help"}
       visible={textWindowVisible}
       closeButtonAction={toggleOffTextWindow}
-      width={400}
-      height={600}
-      positionOnWindow={[10, 10]}
+      width={450}
+      positionOnWindow={[200, 500]}
       topBarIcon={questionIcon}
       iconHeight="18px"
     >

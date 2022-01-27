@@ -167,7 +167,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
         className={styles.settingsWindow}
         style={{
           width: width ? `${width}px` : "450px",
-          height: height ? `${height}px` : "360px",
+          height: height ?? `${height}px`,
           top: `${windowPosition[0]}px`,
           left: `${windowPosition[1]}px`,
           maxWidth: `${maxWindowWidth}px`,
