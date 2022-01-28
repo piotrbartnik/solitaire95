@@ -87,7 +87,7 @@ const GameContainerInternal: React.FC<
   const foundationsSuiteOrder: [string, number][] = gameFinished
     ? [
         [
-          cardsOnFirstFoundation[0][1],
+          cardsOnFirstFoundation[0]?.[1],
           (
             foundationCountaierRef.current?.querySelector(
               "div[id='0']"
@@ -95,7 +95,7 @@ const GameContainerInternal: React.FC<
           )?.getBoundingClientRect().left,
         ],
         [
-          cardsOnSecondFoundation[0][1],
+          cardsOnSecondFoundation[0]?.[1],
           (
             foundationCountaierRef.current?.querySelector(
               "div[id='1']"
@@ -103,7 +103,7 @@ const GameContainerInternal: React.FC<
           )?.getBoundingClientRect().left,
         ],
         [
-          cardsOnThirdFoundation[0][1],
+          cardsOnThirdFoundation[0]?.[1],
           (
             foundationCountaierRef.current?.querySelector(
               "div[id='2']"
@@ -111,7 +111,7 @@ const GameContainerInternal: React.FC<
           )?.getBoundingClientRect().left,
         ],
         [
-          cardsOnFourthFoundation[0][1],
+          cardsOnFourthFoundation[0]?.[1],
           (
             foundationCountaierRef.current?.querySelector(
               "div[id='3']"

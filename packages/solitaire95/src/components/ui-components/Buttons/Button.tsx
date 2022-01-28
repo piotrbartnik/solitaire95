@@ -12,9 +12,10 @@ export const Button: React.FC<ButtonPropTypes> = (props) => {
   const [buttonActive, setButtonActive] = useState(false);
   return (
     <div
-      className={[styles.button, buttonActive && styles["button--active"]].join(
-        " "
-      )}
+      className={[
+        styles.button,
+        buttonActive ? styles["button--active"] : undefined,
+      ].join(" ")}
       tabIndex={0}
       onMouseDown={() => {
         setButtonActive(true);
@@ -26,7 +27,9 @@ export const Button: React.FC<ButtonPropTypes> = (props) => {
         setTimeout(() => onClick?.(), 50);
       }}
     >
-      <div className={buttonActive && styles.activeBorder}>{text}</div>
+      <div className={buttonActive ? styles.activeBorder : undefined}>
+        {text}
+      </div>
     </div>
   );
 };

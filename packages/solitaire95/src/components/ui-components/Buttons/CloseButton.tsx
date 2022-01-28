@@ -17,7 +17,7 @@ export const CloseButton: React.FC<CloseButtonPropTypes> = (props) => {
       className={[
         styles.button,
         styles.closeButton,
-        buttonActive && styles["button--active"],
+        buttonActive ? styles["button--active"] : undefined,
       ].join(" ")}
       tabIndex={0}
       onMouseDown={() => {
@@ -29,7 +29,7 @@ export const CloseButton: React.FC<CloseButtonPropTypes> = (props) => {
       }}
       style={{ backgroundImage: `url(${xButton})` }}
     >
-      <div className={buttonActive && styles.activeBorder}></div>
+      <div className={buttonActive ? styles.activeBorder : undefined}></div>
     </div>
   );
 };
