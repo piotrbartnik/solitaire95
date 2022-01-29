@@ -10,8 +10,9 @@ export const howToPlay = (
         Begin play by double-clicking any aces on top of the seven row stacks to
         move them to the spaces at the top right fo the screen and then making
         any other plays available on the board.
-        <br /> You will be building two kinds of stacks: row stacks and suit
-        stacks.
+        <br /> You will be building two kinds of stacks:{" "}
+        <span className={styles.anchor}>row stacks</span> and{" "}
+        <span className={styles.anchor}>suit stacks.</span>
         <br /> To free up cards that you need to build a suit stackc, you build
         row stacks. <br /> To move a card or a stack of cards from one row to
         another, drag it. <br />
