@@ -2,7 +2,7 @@ import React from "react";
 import { SettingsWindow } from "../../../ui-components";
 import questionIcon from "../../../../static/misc/questionHelpIcon.png";
 import styles from "./HelpTopicsTextWindow.module.scss";
-import { howToPlay } from "./HelpTexts";
+import { HowToPlay } from "./HelpTexts";
 
 type HelpTopicsTextWindowPropTypes = {
   textWindowVisible: boolean;
@@ -25,7 +25,9 @@ export const HelpTopicsTextWindow: React.VFC<HelpTopicsTextWindowPropTypes> = ({
       topBarIcon={questionIcon}
       iconHeight="18px"
     >
-      <div className={styles.helpTopicsContainer}>{howToPlay}</div>
+      <div className={styles.helpTopicsContainer}>
+        <HowToPlay />
+      </div>
     </SettingsWindow>
   );
 };
