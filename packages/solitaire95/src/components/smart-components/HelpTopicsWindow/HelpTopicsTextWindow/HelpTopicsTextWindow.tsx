@@ -12,7 +12,7 @@ type HelpTopicsTextWindowPropTypes = {
 
 export const HelpTopicsTextWindow: React.VFC<HelpTopicsTextWindowPropTypes> = ({
   textWindowVisible,
-  // helpToDisplay,
+  helpToDisplay,
   toggleOffTextWindow,
 }) => {
   return (
@@ -26,7 +26,10 @@ export const HelpTopicsTextWindow: React.VFC<HelpTopicsTextWindowPropTypes> = ({
       iconHeight="18px"
     >
       <div className={styles.helpTopicsContainer}>
-        <HowToPlay />
+        {
+          helpToDisplay === "How to play Solitaire" ? <HowToPlay /> : null
+          // <ScoringInformation />
+        }
       </div>
     </SettingsWindow>
   );
