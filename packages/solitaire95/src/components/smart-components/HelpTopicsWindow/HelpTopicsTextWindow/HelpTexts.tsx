@@ -9,7 +9,7 @@ const AdditionalInfo: React.VFC<AdditionalInfoPropTypes> = ({
   additionalInfoVisible,
 }) => {
   return additionalInfoVisible ? (
-    <div>
+    <div className={styles.externalInfo}>
       Cards are stacked in descending order, alternating between red cards and
       black cards. For example, you can play the two of hearts on the three of
       clubs
@@ -36,7 +36,7 @@ export const HowToPlay: React.VFC = () => {
             onMouseOut={() => setShowAdditionalInfo(false)}
           >
             row stacks
-          </span>{" "}
+          </span>
           <AdditionalInfo additionalInfoVisible={showAdditionalInfo} />
           and <span className={styles.anchor}>suit stacks.</span>
           <br /> To free up cards that you need to build a suit stackc, you
