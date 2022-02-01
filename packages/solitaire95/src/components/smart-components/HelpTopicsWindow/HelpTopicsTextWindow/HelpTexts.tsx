@@ -69,10 +69,38 @@ export const HowToPlay: React.VFC = () => {
   );
 };
 
+const standardScoringInfo = (
+  <div className={styles.externalInfo}>
+    <p>Standard scoring</p>
+    <ul>
+      <li>If you move a card to a suit stack, you get 10 points.</li>
+      <li>
+        If you move a card from the deck to a row stack, you get 5 points.
+      </li>
+      <li>If you turn onver a card in a row stack, you get 5 points.</li>
+      <li>
+        If you move a card from a suit stack back to a row stack, you lose 15
+        points.
+      </li>
+      <li>
+        If you are playing with the Draw Three option, you lose 20 points every
+        time you go trough the deck after the third time.
+      </li>
+      <li>
+        If you are playing with the Draw One option, you lose 100 points every
+        time you go trough the deck after first time.
+      </li>
+      <li>
+        For timed games only, you lose 2 points every 10 seconds of play, and
+        you receive bonus points at the end of the game. The shorter the game,
+        the larger the bonus.
+      </li>
+    </ul>
+  </div>
+);
+
 export const ScoringInformation: React.VFC = () => {
   const [showStandardScoringInfo, setStandardScoringInfo] = useState(false);
-
-  console.log(showStandardScoringInfo);
 
   return (
     <div className={styles.textContainer}>
@@ -88,7 +116,8 @@ export const ScoringInformation: React.VFC = () => {
           >
             Standard scoring
           </span>
-          , <span>Vegas scoring</span> or None.
+          {showStandardScoringInfo && standardScoringInfo},{" "}
+          <span>Vegas scoring</span> or None.
         </li>
       </ol>
       <p>Note</p>
