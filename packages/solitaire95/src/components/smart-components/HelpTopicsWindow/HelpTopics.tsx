@@ -20,7 +20,7 @@ const HelpTopicsInternal: React.FC<
 > = (props) => {
   const { isWindowVisible, toggleHelpWindow } = props;
   const [activeContentsHelp, setActiveContentTab] = useState<string>();
-  const [helpTextWindowVisible, setHelpTextWindowVisible] = useState(true);
+  const [helpTextWindowVisible, setHelpTextWindowVisible] = useState(false);
 
   const toggleOffTextWindow = () => setHelpTextWindowVisible(false);
 

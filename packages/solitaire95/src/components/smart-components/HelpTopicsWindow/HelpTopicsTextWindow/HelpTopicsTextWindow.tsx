@@ -2,7 +2,7 @@ import React from "react";
 import { SettingsWindow } from "../../../ui-components";
 import questionIcon from "../../../../static/misc/questionHelpIcon.png";
 import styles from "./HelpTopicsTextWindow.module.scss";
-import { HowToPlay } from "./HelpTexts";
+import { HowToPlay, ScoringInformation } from "./HelpTexts";
 
 type HelpTopicsTextWindowPropTypes = {
   textWindowVisible: boolean;
@@ -26,10 +26,11 @@ export const HelpTopicsTextWindow: React.VFC<HelpTopicsTextWindowPropTypes> = ({
       iconHeight="18px"
     >
       <div className={styles.helpTopicsContainer}>
-        {
-          helpToDisplay === "How to play Solitaire" ? <HowToPlay /> : null
-          // <ScoringInformation />
-        }
+        {helpToDisplay === "How to play Solitaire" ? (
+          <HowToPlay />
+        ) : (
+          <ScoringInformation />
+        )}
       </div>
     </SettingsWindow>
   );

@@ -68,3 +68,36 @@ export const HowToPlay: React.VFC = () => {
     </div>
   );
 };
+
+export const ScoringInformation: React.VFC = () => {
+  const [showStandardScoringInfo, setStandardScoringInfo] = useState(false);
+
+  console.log(showStandardScoringInfo);
+
+  return (
+    <div className={styles.textContainer}>
+      <p>To choose a scoring system</p>
+      <ol>
+        <li>On the Game menu, click Options.</li>
+        <li>
+          In the Scoring box, click{" "}
+          <span
+            className={styles.anchor}
+            onMouseOver={() => setStandardScoringInfo(true)}
+            onMouseOut={() => setStandardScoringInfo(false)}
+          >
+            Standard scoring
+          </span>
+          , <span>Vegas scoring</span> or None.
+        </li>
+      </ol>
+      <p>Note</p>
+      <ul>
+        <li>
+          On the Options menu, you can also specify whether to draw one or three
+          cards at a time. These options are scored slightly differently.
+        </li>
+      </ul>
+    </div>
+  );
+};
