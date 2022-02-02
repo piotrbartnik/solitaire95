@@ -99,8 +99,23 @@ const standardScoringInfo = (
   </div>
 );
 
+const vegasScoringInfo = (
+  <div className={styles.externalInfo}>
+    <p>Vegas scoring</p>
+    <ul>
+      <li>
+        You stard the game with a debt of 52 dollars, which represents your
+        wager.
+      </li>
+      <li>You win 5 dollars for every card you play on a suit stack.</li>
+      <li>The object of the game is to earn more money than you wager.</li>
+    </ul>
+  </div>
+);
+
 export const ScoringInformation: React.VFC = () => {
   const [showStandardScoringInfo, setStandardScoringInfo] = useState(false);
+  const [showVegasScoringInfo, setShowVegasScoringInfo] = useState(false);
 
   return (
     <div className={styles.textContainer}>
@@ -117,7 +132,15 @@ export const ScoringInformation: React.VFC = () => {
             Standard scoring
           </span>
           {showStandardScoringInfo && standardScoringInfo},{" "}
-          <span>Vegas scoring</span> or None.
+          <span
+            className={styles.anchor}
+            onMouseOver={() => setShowVegasScoringInfo(true)}
+            onMouseOut={() => setShowVegasScoringInfo(false)}
+          >
+            Vegas scoring
+          </span>{" "}
+          {showVegasScoringInfo && vegasScoringInfo}
+          or None.
         </li>
       </ol>
       <p>Note</p>
