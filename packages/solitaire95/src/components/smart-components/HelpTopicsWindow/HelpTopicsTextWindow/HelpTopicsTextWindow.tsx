@@ -5,20 +5,18 @@ import styles from "./HelpTopicsTextWindow.module.scss";
 import { HowToPlay, ScoringInformation } from "./HelpTexts";
 
 type HelpTopicsTextWindowPropTypes = {
-  textWindowVisible: boolean;
   helpToDisplay?: string;
   toggleOffTextWindow: () => void;
 };
 
 export const HelpTopicsTextWindow: React.VFC<HelpTopicsTextWindowPropTypes> = ({
-  textWindowVisible,
   helpToDisplay,
   toggleOffTextWindow,
 }) => {
   return (
     <SettingsWindow
       windowTitle={"Solitaire Help"}
-      visible={textWindowVisible}
+      visible={true}
       closeButtonAction={toggleOffTextWindow}
       width={450}
       positionOnWindow={[200, 500]}

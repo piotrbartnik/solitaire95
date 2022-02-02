@@ -83,11 +83,12 @@ const HelpTopicsInternal: React.FC<
       >
         <TabGroup tabs={tabs} defaultActiveTab="Contents" />
       </SettingsWindow>
-      <HelpTopicsTextWindow
-        textWindowVisible={helpTextWindowVisible}
-        helpToDisplay={activeContentsHelp}
-        toggleOffTextWindow={toggleOffTextWindow}
-      />
+      {helpTextWindowVisible && (
+        <HelpTopicsTextWindow
+          helpToDisplay={activeContentsHelp}
+          toggleOffTextWindow={toggleOffTextWindow}
+        />
+      )}
     </>
   );
 };
