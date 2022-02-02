@@ -5,7 +5,7 @@ import styles from "./TabGroup.module.scss";
 
 type TabGroupPropTypes = {
   defaultActiveTab: string;
-  tabs: [string, React.ReactNode][];
+  tabs: [string, React.ReactNode, boolean?][];
 };
 
 export const TabGroupContext = createContext("");
@@ -22,12 +22,13 @@ export const TabGroup: React.VFC<TabGroupPropTypes> = ({
   return (
     <div className={styles.tabContainer}>
       <div className={styles.navBar}>
-        {tabs.map(([tabLabel]) => (
+        {tabs.map(([tabLabel, , disabled]) => (
           <TabNavButton
             label={tabLabel}
             activeTab={activeTab}
             setActiveTabCallback={setActiveTabCallback}
             key={tabLabel}
+            disabledTab={disabled}
           />
         ))}
       </div>

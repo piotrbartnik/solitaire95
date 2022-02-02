@@ -40,7 +40,7 @@ const HelpTopicsInternal: React.FC<
     [toggleHelpWindow]
   );
 
-  const tabs: [string, React.ReactNode][] = [
+  const tabs: [string, React.ReactNode, boolean?][] = [
     [
       "Contents",
       <ContentsTab
@@ -49,7 +49,7 @@ const HelpTopicsInternal: React.FC<
       />,
     ],
     ["Index", "index"],
-    ["Find", "Find"],
+    ["Find", "Find", true],
   ];
 
   return (
