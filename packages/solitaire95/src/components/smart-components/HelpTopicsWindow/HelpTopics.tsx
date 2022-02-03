@@ -5,6 +5,7 @@ import { ToggleWindowType } from "../../../store/actions/actionTypes";
 import { WindowsState } from "../../../store/reducers/";
 import { SettingsWindow, TabGroup } from "../../ui-components";
 import { ContentsTab } from "./HelpTopicsTabs/ContentsTab";
+import { IndexTab } from "./HelpTopicsTabs/IndexTab";
 import { HelpTopicsTextWindow } from "./HelpTopicsTextWindow/HelpTopicsTextWindow";
 
 export type HelpTopicsStateTypes = {
@@ -48,7 +49,10 @@ const HelpTopicsInternal: React.FC<
         notifyParent={(a) => setActiveContentTab(a)}
       />,
     ],
-    ["Index", "index"],
+    [
+      "Index",
+      <IndexTab key="Index" notifyParent={(a) => setActiveContentTab(a)} />,
+    ],
     ["Find", "Find", true],
   ];
 
