@@ -4,6 +4,7 @@ import {
   TextButton,
   TabGroupContext,
 } from "../../../ui-components";
+import styles from "./IndexTab.module.scss";
 
 type IndexTabPropTypes = {
   notifyParent: (helpTopic: string) => void;
@@ -24,7 +25,9 @@ export const IndexTab: React.VFC<IndexTabPropTypes> = ({ notifyParent }) => {
   return (
     <>
       1. Type the first few letters of the word you&apos;re looking for.
-      <input />
+      <div className={styles.indexSearch__container}>
+        <input className={styles.indexSearch__input} />
+      </div>
       2. Click the index entry you want, and then click Display.
       <TextSelectField>
         <TextButton
