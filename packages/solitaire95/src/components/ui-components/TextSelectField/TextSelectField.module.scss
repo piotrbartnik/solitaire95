@@ -1,7 +1,6 @@
 .textSelect {
-  &Container {
+  &__container {
     width: 100%;
-    height: calc(100% - 30px);
     border-bottom: 2px solid #fff;
     border-right: 2px solid #fff;
     border-top: 2px solid #808080;
@@ -10,7 +9,7 @@
     font-size: 14px;
   }
 
-  &Field {
+  &__field {
     width: 100%;
     height: 100%;
     border-bottom: 2px solid #c0c0c0;

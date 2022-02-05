@@ -1,10 +1,20 @@
 import React from "react";
 import styles from "./TextSelectField.module.scss";
 
-export const TextSelectField: React.FC = ({ children }) => {
+type TextSeletFieldPropTypes = {
+  fieldHeight?: string;
+};
+
+export const TextSelectField: React.FC<TextSeletFieldPropTypes> = ({
+  children,
+  fieldHeight = "350px",
+}) => {
   return (
-    <div className={styles.textSelectContainer}>
-      <div className={styles.textSelectField}>{children}</div>
+    <div
+      className={styles.textSelect__container}
+      style={{ height: fieldHeight }}
+    >
+      <div className={styles.textSelect__field}>{children}</div>
     </div>
   );
 };

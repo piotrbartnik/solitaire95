@@ -29,7 +29,7 @@ export const IndexTab: React.VFC<IndexTabPropTypes> = ({ notifyParent }) => {
         <input className={styles.indexSearch__input} />
       </div>
       2. Click the index entry you want, and then click Display.
-      <TextSelectField>
+      <TextSelectField fieldHeight={"260px"}>
         <TextButton
           onClickCallback={() => {
             setSelectedItem(0);
