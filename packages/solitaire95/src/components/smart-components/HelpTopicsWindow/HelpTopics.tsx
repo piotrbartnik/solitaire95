@@ -31,7 +31,6 @@ const HelpTopicsInternal: React.FC<
 
   const displayOnClick = () => {
     if (activeContentsHelp) {
-      console.log(activeContentsHelp);
       setHelpTextWindowVisible(true);
     }
   };
@@ -41,18 +40,17 @@ const HelpTopicsInternal: React.FC<
     [toggleHelpWindow]
   );
 
+  const notifyParentCallback = useCallback(
+    (activeTab) => setActiveContentTab(activeTab),
+    []
+  );
+
   const tabs: [string, React.ReactNode, boolean?][] = [
     [
       "Contents",
-      <ContentsTab
-        key="Contents Tab"
-        notifyParent={(a) => setActiveContentTab(a)}
-      />,
+      <ContentsTab key="Contents Tab" notifyParent={notifyParentCallback} />,
     ],
-    [
-      "Index",
-      <IndexTab key="Index" notifyParent={(a) => setActiveContentTab(a)} />,
-    ],
+    ["Index", <IndexTab key="Index" notifyParent={notifyParentCallback} />],
     ["Find", "Find", true],
   ];
 

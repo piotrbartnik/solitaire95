@@ -13,7 +13,7 @@ const initialState: WindowsState = {
   aboutWindow: false,
   optionsWindow: false,
   dealAgainWindow: false,
-  helpTopicsWindow: true,
+  helpTopicsWindow: false,
 };
 
 export const toggleWindows = (
