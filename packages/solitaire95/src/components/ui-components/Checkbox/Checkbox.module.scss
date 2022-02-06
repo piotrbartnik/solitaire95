@@ -65,6 +65,10 @@ input[type="checkbox"].disabled:after {
   &:active {
     border: 1px dotted #000;
   }
+
+  & span {
+    text-decoration: underline;
+  }
 }
 
 .disabled {

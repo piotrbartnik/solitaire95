@@ -12,8 +12,11 @@
   align-items: center;
   cursor: pointer;
 
-  &:active,
-  &:focus {
+  & span {
+    text-decoration: underline;
+  }
+
+  &--active {
     border: 2px solid #808080;
     box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 1);
     outline: none;
@@ -33,7 +36,7 @@
     width: 23px;
     height: 23px;
     margin: 0;
-    background-size: 14px;
+    background-size: 13px;
     background-position: center;
     background-repeat: no-repeat;
   }

@@ -9,10 +9,20 @@ type TopBarPropTypes = {
   children?: JSX.Element;
   shouldBeGreyedOut?: boolean;
   dragRef?: DragElementWrapper<DragSourceOptions>;
+  icon?: string;
+  iconHeight?: string;
 };
 
 export const TopBar: React.FC<TopBarPropTypes> = (props) => {
-  const { title, showIcon, children, shouldBeGreyedOut, dragRef } = props;
+  const {
+    title,
+    showIcon,
+    icon = appIco,
+    children,
+    shouldBeGreyedOut,
+    dragRef,
+    iconHeight,
+  } = props;
   return (
     <>
       <div
@@ -25,9 +35,9 @@ export const TopBar: React.FC<TopBarPropTypes> = (props) => {
         <div className={styles.leftSide}>
           {showIcon && (
             <img
-              className={styles["topBar__bar--icon"]}
-              src={appIco}
+              src={icon}
               alt="Application Icon"
+              style={{ height: iconHeight || "28px" }}
             />
           )}
           <span className={styles["topBar__bar--title"]}>{title}</span>

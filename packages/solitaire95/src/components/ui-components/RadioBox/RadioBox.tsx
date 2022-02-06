@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./RadioBox.module.scss";
 
 type RadioBoxPropTypes = {
-  title: string;
+  title: string | JSX.Element;
   children: React.ReactNode;
   width: number;
   heigth: number;

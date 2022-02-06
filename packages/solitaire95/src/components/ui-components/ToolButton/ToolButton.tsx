@@ -6,24 +6,42 @@ type ToolButtonPropTypes = {
   onMouseOver?: () => void;
   onMouseLeave?: () => void;
   disabled?: boolean;
-  text: string;
+  text: string | JSX.Element;
+  label?: string;
 };
 
 export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
-  const { onClick, onMouseOver, onMouseLeave, text, disabled } = props;
+  const {
+    onClick,
+    onMouseOver,
+    onMouseLeave,
+    text,
+    disabled,
+    label = "",
+  } = props;
+
+  const handleToolButtonKeyPress = ({ key }: { key: string }) => {
+    if (onClick && key === "Enter") {
+      onClick();
+    }
+  };
+
   return (
-    <div className={styles.toolElement}>
-      <div
-        onClick={!disabled ? onClick : undefined}
-        className={[styles.shortcutLetter, disabled && styles.disabled].join(
-          " "
-        )}
-        onMouseOver={onMouseOver}
-        onMouseLeave={onMouseLeave}
-        role="button"
-      >
-        {text}
-      </div>
+    <div
+      onClick={!disabled ? onClick : undefined}
+      className={[
+        styles.shortcutLetter,
+        disabled && styles.disabled,
+        styles.toolElement,
+      ].join(" ")}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+      role="button"
+      tabIndex={!disabled ? 1 : 0}
+      onKeyDown={handleToolButtonKeyPress}
+      aria-label={label}
+    >
+      {text}
     </div>
   );
 };

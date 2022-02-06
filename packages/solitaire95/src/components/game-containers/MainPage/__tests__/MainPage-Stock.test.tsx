@@ -244,4 +244,33 @@ describe("render MainPage with custom state for cards on stock", () => {
     expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
     expect(container.querySelectorAll(".cardBack")).toHaveLength(24);
   });
+
+  it("vegas holder is shown for draw one type when all cards clicked once", () => {
+    const { container } = reduxRtlWrapper(dndWrapper(<MainPage />), {
+      ...initialStateWitcAces,
+      gameState: { scoreType: "vegas", drawType: "drawOne" },
+    });
+    for (let i = 0; i < 4; i++) {
+      fireEvent.click(
+        container.querySelector(".cardStock__cardHolder") as Element
+      );
+    }
+
+    expect(container.querySelector(".vegasHolder")).toBeVisible();
+  });
+
+  it("vegas holder is shown for draw three type when all cards clicked once", () => {
+    const { container } = reduxRtlWrapper(dndWrapper(<MainPage />), {
+      ...initialStateWitcAces,
+      gameState: { scoreType: "vegas", drawType: "drawThree" },
+      stockCounter: { stockRevolutions: 0 },
+    });
+    for (let i = 0; i < 5; i++) {
+      fireEvent.click(
+        container.querySelector(".cardStock__cardHolder") as Element
+      );
+    }
+
+    expect(container.querySelector(".vegasHolder")).toBeVisible();
+  });
 });

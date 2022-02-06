@@ -4,7 +4,8 @@ export type WindowTypes =
   | "dealAgainWindow"
   | "aboutWindow"
   | "cardBackWindow"
-  | "optionsWindow";
+  | "optionsWindow"
+  | "helpTopicsWindow";
 
 export type ToggleWindowReducerType = {
   type: ACTION_TYPES.TOGGLE_WINDOW;

@@ -49,6 +49,52 @@ export type OptionsWindowDispatchTypes = {
   setKeepVegasScore: KeepVegasScoreType;
 };
 
+const drawRadioButtonsTypes = {
+  drawOne: {
+    title: "Draw one",
+    node: (
+      <>
+        Draw <span>o</span>ne
+      </>
+    ),
+  },
+  drawThree: {
+    title: "Draw three",
+    node: (
+      <>
+        Draw <span>t</span>hree
+      </>
+    ),
+  },
+};
+
+const scoringRadioButtonsTypes = {
+  standard: {
+    title: "Standard",
+    node: (
+      <>
+        St<span>a</span>ndard
+      </>
+    ),
+  },
+  vegas: {
+    title: "Vegas",
+    node: (
+      <>
+        <span>V</span>egas
+      </>
+    ),
+  },
+  none: {
+    title: "None",
+    node: (
+      <>
+        <span>N</span>one
+      </>
+    ),
+  },
+};
+
 const OptionsInternal: React.FC<
   OptionsWindowStateTypes & OptionsWindowDispatchTypes
 > = (props) => {
@@ -116,16 +162,6 @@ const OptionsInternal: React.FC<
     toggleOptionsWindow(false, "optionsWindow");
   }, [toggleOptionsWindow]);
 
-  const drawRadioButtonsTypes = {
-    drawOne: "Draw one",
-    drawThree: "Draw three",
-  };
-  const scoringRadioButtonsTypes = {
-    standard: "Standard",
-    vegas: "Vegas",
-    none: "None",
-  };
-
   return (
     <SettingsWindow
       windowTitle={"Options"}
@@ -139,34 +175,54 @@ const OptionsInternal: React.FC<
       height={330}
     >
       <div className={styles.radioWrapper__outer}>
-        <RadioBox width={240} heigth={120} title="Draw">
+        <RadioBox
+          width={240}
+          heigth={120}
+          title={
+            <>
+              <span>D</span>raw
+            </>
+          }
+        >
           <div className={styles.radioWrapper__inner}>
             {Object.values(drawRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
-                label={radioType}
+                text={radioType.node}
+                label={radioType.title}
                 onClick={() => {
                   setToggleDrawTypeState(
                     Object.keys(drawRadioButtonsTypes)[index] as DrawType
                   );
                 }}
-                currentValue={drawRadioButtonsTypes[toggleDrawTypeState]}
-                key={radioType}
+                currentValue={drawRadioButtonsTypes[toggleDrawTypeState].title}
+                key={radioType.title}
               />
             ))}
           </div>
         </RadioBox>
-        <RadioBox width={240} heigth={120} title="Scoring">
+        <RadioBox
+          width={240}
+          heigth={120}
+          title={
+            <>
+              <span>S</span>coring
+            </>
+          }
+        >
           <div className={styles.radioWrapper__inner}>
             {Object.values(scoringRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
-                label={radioType}
+                text={radioType.node}
+                label={radioType.title}
                 onClick={() => {
                   setToggleScoreTypeState(
                     Object.keys(scoringRadioButtonsTypes)[index] as ScoreType
                   );
                 }}
-                currentValue={scoringRadioButtonsTypes[toggleScoreTypeState]}
-                key={radioType}
+                currentValue={
+                  scoringRadioButtonsTypes[toggleScoreTypeState].title
+                }
+                key={radioType.title}
               />
             ))}
           </div>
@@ -174,6 +230,11 @@ const OptionsInternal: React.FC<
       </div>
       <div className={styles.checkboxWrapper}>
         <Checkbox
+          text={
+            <>
+              T<span>i</span>med game
+            </>
+          }
           label="Timed game"
           id="timedGame"
           checked={timerVisible}
@@ -182,6 +243,11 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
+          text={
+            <>
+              Out<span>l</span>ine dragging
+            </>
+          }
           label="Outline dragging"
           id="outlineDragging"
           checked={isDragOutline}
@@ -191,6 +257,11 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
+          text={
+            <>
+              Status <span>b</span>ar
+            </>
+          }
           label="Status bar"
           id="statusBar"
           checked={bottomBarVisible}
@@ -199,6 +270,11 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
+          text={
+            <>
+              <span>K</span>eep score
+            </>
+          }
           label="Keep score"
           id="keepScore"
           checked={toggleScoreTypeState === "vegas" && keepVegasScoreState}

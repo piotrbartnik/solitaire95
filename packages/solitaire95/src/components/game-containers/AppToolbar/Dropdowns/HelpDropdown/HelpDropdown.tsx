@@ -20,8 +20,16 @@ const HelpDropdownInternal: React.VFC<
     <ToolButton
       onMouseOver={() => setBottomBarText("Index of Solitaire help topics")}
       onMouseLeave={() => setBottomBarText("")}
-      text="Help Topics"
-      disabled
+      onClick={() => {
+        toggleAboutWindow(true, "helpTopicsWindow");
+        setHelpVisible(false);
+      }}
+      text={
+        <>
+          <span>H</span>elp Topics
+        </>
+      }
+      label="Help Topics"
     />
     <Separator />
     <ToolButton
@@ -31,7 +39,12 @@ const HelpDropdownInternal: React.VFC<
         toggleAboutWindow(true, "aboutWindow");
         setHelpVisible(false);
       }}
-      text="About"
+      text={
+        <>
+          <span>A</span>bout
+        </>
+      }
+      label="About"
     />
   </>
 );

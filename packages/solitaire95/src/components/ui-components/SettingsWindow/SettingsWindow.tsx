@@ -4,6 +4,7 @@ import React, {
   useContext,
   useCallback,
   useMemo,
+  useRef,
 } from "react";
 import { useDrop, useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
@@ -21,9 +22,12 @@ type SettingWindowPropTypes = {
   visible: boolean;
   width?: number;
   height?: number;
-  buttons?: { text: string; onClick: () => void }[];
+  buttons?: { text: string | JSX.Element; onClick: () => void }[];
   closeButtonAction?: () => void;
   positionOnWindow?: number[];
+  topBarIcon?: string;
+  iconHeight?: string;
+  topBarGreyetOut?: boolean;
 };
 
 export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
@@ -36,6 +40,9 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     visible,
     closeButtonAction,
     positionOnWindow,
+    topBarIcon,
+    iconHeight,
+    topBarGreyetOut,
   } = props;
 
   const [windowPosition, setWindowPosition] = useState([
@@ -43,8 +50,22 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     positionOnWindow?.[1] || 100,
   ]);
   const [maxWindowWidth, setMaxWindowWidth] = useState(width || 450);
+  const [calculatedHeight, setCalulatedWindowHeight] = useState<number>();
 
   const { playSounds } = useContext(SoundContext);
+
+  const settingWindowRef = useRef(null);
+
+  useEffect(() => {
+    const windowRef = settingWindowRef.current;
+    if (windowRef && !height) {
+      const sizesOfWindow = (
+        windowRef as HTMLDivElement
+      ).getBoundingClientRect();
+      const heightCalculated = sizesOfWindow.bottom - sizesOfWindow.top;
+      setCalulatedWindowHeight(heightCalculated);
+    }
+  }, [height]);
 
   const [, drop] = useDrop({
     accept: itemTypes.WINDOW,
@@ -73,7 +94,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
 
       setWindowPosition([
         calculateWindowPosition(
-          height as number,
+          (height as number) || (calculatedHeight as number),
           360,
           windowPosition[0],
           delta?.y as number,
@@ -94,7 +115,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     }),
   });
 
-  const [, drag, preview] = useDrag({
+  const [{ item }, drag, preview] = useDrag({
     item: {
       type: itemTypes.WINDOW,
       windowTitle: windowTitle,
@@ -145,6 +166,11 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
     }
   }, [width]);
 
+  const shouldCreateDragLayer = useMemo(
+    () => windowTitle === item?.windowTitle,
+    [item?.windowTitle, windowTitle]
+  );
+
   return (
     <div
       className={styles.backdrop}
@@ -156,15 +182,23 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
         className={styles.settingsWindow}
         style={{
           width: width ? `${width}px` : "450px",
-          height: height ? `${height}px` : "360px",
+          height: height ? `${height}px` : undefined,
           top: `${windowPosition[0]}px`,
           left: `${windowPosition[1]}px`,
           maxWidth: `${maxWindowWidth}px`,
         }}
         role="dialog"
         aria-label={windowTitle}
+        ref={settingWindowRef}
       >
-        <TopBar title={windowTitle} dragRef={drag}>
+        <TopBar
+          title={windowTitle}
+          dragRef={drag}
+          icon={topBarIcon}
+          showIcon={!!topBarIcon}
+          iconHeight={iconHeight}
+          shouldBeGreyedOut={topBarGreyetOut}
+        >
           <CloseButton onClick={closeButtonAction} />
         </TopBar>
         <div
@@ -193,13 +227,16 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           </div>
         </div>
       </div>
-      <SettingsWindowDragLayer
-        size={[
-          width ? `${width}px` : "450px",
-          height ? `${height}px` : "360px",
-        ]}
-        maxWindowWidth={maxWindowWidth}
-      />
+      {shouldCreateDragLayer && (
+        <SettingsWindowDragLayer
+          size={[
+            width ? `${width}px` : "450px",
+            height ? `${height}px` : `${calculatedHeight}px`,
+          ]}
+          maxWindowWidth={maxWindowWidth}
+          key={windowTitle}
+        />
+      )}
     </div>
   );
 };

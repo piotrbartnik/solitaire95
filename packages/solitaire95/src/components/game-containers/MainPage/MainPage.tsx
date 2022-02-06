@@ -34,6 +34,7 @@ import {
   AboutSolitaire,
   Options,
   DealAgain,
+  HelpTopics,
 } from "../../smart-components";
 import { GameContainer } from "../";
 import { AppToolbar } from "../AppToolbar/AppToolbar";
@@ -129,8 +130,8 @@ const MainPageInternal: React.FC<
     const allCards = testCard?.reduce((acc, val) => acc.concat(val), []);
 
     if (allCards.length === 52) {
-      stopGame();
-      setTimeout(() => setGameFinished(true), 1000);
+      setTimeout(() => setGameFinished(true), 300);
+      setTimeout(() => stopGame(), 400);
       setCanvasSize([
         mainPageRef.current
           ?.querySelector("#gameContainer")
@@ -188,6 +189,7 @@ const MainPageInternal: React.FC<
             )}
             {isWindowVisible?.optionsWindow && <Options />}
             {isWindowVisible?.dealAgainWindow && <DealAgain />}
+            {isWindowVisible?.helpTopicsWindow && <HelpTopics />}
             <TopBar
               title={"Solitaire"}
               showIcon

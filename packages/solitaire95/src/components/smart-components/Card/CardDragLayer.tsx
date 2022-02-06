@@ -142,6 +142,7 @@ const CardDragLayerInternal: React.FC<
         top: `${27 * cardIndex}px`,
         position: "absolute",
       }}
+      key={cardIndex}
     />
   );
 
