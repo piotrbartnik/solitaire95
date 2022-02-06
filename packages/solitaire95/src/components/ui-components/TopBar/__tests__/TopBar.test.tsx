@@ -9,7 +9,7 @@ describe("render TopBar", () => {
   });
   it("and icon is rendered when showIcon prop is set to true", () => {
     const { container } = render(<TopBar title={"Test Title"} showIcon />);
-    expect(container.querySelector("img.topBar__bar--icon")).toBeVisible();
+    expect(container.querySelector("img")).toBeVisible();
   });
   it("is disabled when shouldBeGreyedOut prop is passed", () => {
     const { container } = render(

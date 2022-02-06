@@ -20,7 +20,7 @@ describe("render SettingsWindows", () => {
     );
     expect(screen.getByText("Test button")).toBeVisible();
   });
-  it("and passed button can be clicked", () => {
+  it("and passed button can be clicked", async () => {
     const testClickFn = jest.fn();
     render(
       dndWrapper(
@@ -32,6 +32,7 @@ describe("render SettingsWindows", () => {
       )
     );
     fireEvent.click(screen.getByText("Test button"));
+
     expect(testClickFn).toHaveBeenCalled();
   });
 });

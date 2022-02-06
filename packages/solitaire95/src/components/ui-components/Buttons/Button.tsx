@@ -20,12 +20,12 @@ export const Button: React.FC<ButtonPropTypes> = (props) => {
       onMouseDown={() => {
         setButtonActive(true);
       }}
-      role="button"
-      aria-label={label}
       onMouseUp={() => {
         setButtonActive(false);
-        setTimeout(() => onClick?.(), 50);
       }}
+      onClick={() => onClick?.()}
+      role="button"
+      aria-label={label}
     >
       <div className={buttonActive ? styles.activeBorder : undefined}>
         {text}

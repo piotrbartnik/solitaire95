@@ -24,9 +24,9 @@ export const CloseButton: React.FC<CloseButtonPropTypes> = (props) => {
         setButtonActive(true);
       }}
       onMouseUp={() => {
-        setTimeout(() => onClick?.(), 50);
         setButtonActive(false);
       }}
+      onClick={() => onClick?.()}
       style={{ backgroundImage: `url(${xButton})` }}
     >
       <div className={buttonActive ? styles.activeBorder : undefined}></div>
