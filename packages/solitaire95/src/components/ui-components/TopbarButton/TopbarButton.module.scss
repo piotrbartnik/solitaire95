@@ -11,7 +11,7 @@
   letter-spacing: 1px;
   cursor: default;
 
-  &:focus {
+  &:focus-visible {
     background-color: #213faa;
     color: #ffffff;
     outline: none;
