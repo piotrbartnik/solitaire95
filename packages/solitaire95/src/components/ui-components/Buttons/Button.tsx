@@ -23,11 +23,14 @@ export const Button: React.FC<ButtonPropTypes> = (props) => {
       onMouseUp={() => {
         setButtonActive(false);
       }}
+      onMouseLeave={() => {
+        setButtonActive(false);
+      }}
       onClick={() => onClick?.()}
       role="button"
       aria-label={label}
     >
-      <div className={buttonActive ? styles.activeBorder : undefined}>
+      <div className={buttonActive ? styles.button__activeBorder : undefined}>
         {text}
       </div>
     </div>

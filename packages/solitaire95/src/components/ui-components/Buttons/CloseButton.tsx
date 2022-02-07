@@ -26,10 +26,15 @@ export const CloseButton: React.FC<CloseButtonPropTypes> = (props) => {
       onMouseUp={() => {
         setButtonActive(false);
       }}
+      onMouseLeave={() => {
+        setButtonActive(false);
+      }}
       onClick={() => onClick?.()}
       style={{ backgroundImage: `url(${xButton})` }}
     >
-      <div className={buttonActive ? styles.activeBorder : undefined}></div>
+      <div
+        className={buttonActive ? styles.button__activeBorder : undefined}
+      ></div>
     </div>
   );
 };
