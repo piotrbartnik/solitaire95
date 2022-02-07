@@ -18,7 +18,9 @@ export const TabContainer: React.FC<TabContainerPropTypes> = ({
         activeTab === label ? styles.active : undefined,
       ].join(" ")}
     >
-      <div className={styles.contentContainer__inner}>{children}</div>
+      {activeTab === label && (
+        <div className={styles.contentContainer__inner}>{children}</div>
+      )}
     </div>
   );
 };

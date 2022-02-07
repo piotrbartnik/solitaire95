@@ -21,6 +21,7 @@ export const TabNavButton: React.VFC<TabNavButtonPropTypes> = ({
       disabledTab ? styles.tabButton__disabled : undefined,
     ].join(" ")}
     onClick={!disabledTab ? () => setActiveTabCallback(label) : undefined}
+    disabled={disabledTab}
   >
     {label}
   </button>
