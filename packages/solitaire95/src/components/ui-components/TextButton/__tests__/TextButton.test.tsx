@@ -6,11 +6,7 @@ describe("render TextButton", () => {
   it("and check if it is visible", () => {
     const onClick = jest.fn();
 
-    render(
-      <TextButton onClickCallback={onClick} textId={0}>
-        Test
-      </TextButton>
-    );
+    render(<TextButton onClickCallback={onClick} textId={0} label={"Test"} />);
 
     expect(screen.getByText("Test")).toBeVisible();
   });
@@ -18,11 +14,7 @@ describe("render TextButton", () => {
   it("and click callback is called", () => {
     const onClick = jest.fn();
 
-    render(
-      <TextButton onClickCallback={onClick} textId={0}>
-        Test
-      </TextButton>
-    );
+    render(<TextButton onClickCallback={onClick} textId={0} label={"Test"} />);
 
     fireEvent.click(screen.getByText("Test"));
 
@@ -33,9 +25,12 @@ describe("render TextButton", () => {
     const onClick = jest.fn();
 
     render(
-      <TextButton onClickCallback={onClick} textId={0} selectedItem={0}>
-        Test
-      </TextButton>
+      <TextButton
+        onClickCallback={onClick}
+        textId={0}
+        selectedItem={0}
+        label={"Test"}
+      />
     );
 
     expect(screen.getByText("Test")).toHaveClass(
