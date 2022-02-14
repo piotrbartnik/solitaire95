@@ -61,9 +61,9 @@ export const IndexTab: React.VFC<IndexTabPropTypes> = ({ notifyParent }) => {
           selectedItem={selectedItem}
           textId={0}
           showIcon={false}
-        >
-          how to play
-        </TextButton>
+          label={"how to play"}
+        />
+
         <TextButton
           onClickCallback={() => {
             setSelectedItem(1);
@@ -72,9 +72,8 @@ export const IndexTab: React.VFC<IndexTabPropTypes> = ({ notifyParent }) => {
           selectedItem={selectedItem}
           textId={1}
           showIcon={false}
-        >
-          scoring
-        </TextButton>
+          label={"scoring"}
+        />
       </TextSelectField>
     </>
   );

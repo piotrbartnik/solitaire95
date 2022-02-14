@@ -35,9 +35,9 @@ export const ContentsTab: React.VFC<ContentsTabPropTypes> = ({
           }}
           selectedItem={selectedItem}
           textId={0}
-        >
-          How to play Solitaire
-        </TextButton>
+          label={"How to play Solitaire"}
+        />
+
         <TextButton
           onClickCallback={() => {
             setSelectedItem(1);
@@ -45,9 +45,8 @@ export const ContentsTab: React.VFC<ContentsTabPropTypes> = ({
           }}
           selectedItem={selectedItem}
           textId={1}
-        >
-          Scoring information
-        </TextButton>
+          label={"Scoring information"}
+        />
       </TextSelectField>
     </>
   );

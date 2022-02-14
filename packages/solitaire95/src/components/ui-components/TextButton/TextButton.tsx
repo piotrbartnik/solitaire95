@@ -7,17 +7,22 @@ type TextButtonPropTypes = {
   onClickCallback: () => void;
   textId: number;
   showIcon?: boolean;
+  label: string;
 };
 
-export const TextButton: React.FC<TextButtonPropTypes> = ({
-  children,
+export const TextButton: React.VFC<TextButtonPropTypes> = ({
   selectedItem,
   onClickCallback,
   textId,
   showIcon = true,
+  label,
 }) => {
   return (
-    <div className={styles.clickableText__container}>
+    <div
+      className={styles.clickableText__container}
+      role="button"
+      aria-label={label}
+    >
       {showIcon && (
         <img
           className={styles.clickableText__icon}
@@ -33,7 +38,7 @@ export const TextButton: React.FC<TextButtonPropTypes> = ({
         ].join(" ")}
         onClick={onClickCallback}
       >
-        {children}
+        {label}
       </div>
     </div>
   );
