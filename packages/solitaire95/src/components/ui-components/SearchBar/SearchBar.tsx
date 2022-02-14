@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./SearchBar.module.scss";
 
-export const SearchBar: React.VFC = () => {
-  const [searchBarValue, setSearchBarValue] = useState("");
+type SearchBarPropTypes = {
+  ariaLabel?: string;
+  onChange?: (e: React.SyntheticEvent) => void;
+  searchBarValue?: string;
+};
 
+export const SearchBar: React.VFC<SearchBarPropTypes> = ({
+  ariaLabel,
+  onChange,
+  searchBarValue,
+}) => {
   return (
-    <div className={styles.inputContainer}>
+    <div className={styles.search__container}>
       <input
         value={searchBarValue}
-        onChange={(e) => setSearchBarValue(e.target.value)}
-        className={styles.inputField}
+        onChange={onChange}
+        className={styles.search__input}
+        aria-labelledby={ariaLabel}
       />
     </div>
   );
