@@ -18,11 +18,7 @@ export const TextButton: React.VFC<TextButtonPropTypes> = ({
   label,
 }) => {
   return (
-    <div
-      className={styles.clickableText__container}
-      role="button"
-      aria-label={label}
-    >
+    <div className={styles.clickableText__container}>
       {showIcon && (
         <img
           className={styles.clickableText__icon}
@@ -37,6 +33,8 @@ export const TextButton: React.VFC<TextButtonPropTypes> = ({
           styles.clickableText__textContainer,
         ].join(" ")}
         onClick={onClickCallback}
+        role="button"
+        aria-label={label}
       >
         {label}
       </div>
