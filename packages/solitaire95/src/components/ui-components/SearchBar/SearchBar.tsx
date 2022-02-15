@@ -18,7 +18,7 @@ export const SearchBar: React.VFC<SearchBarPropTypes> = ({
         value={searchBarValue}
         onChange={onChange}
         className={styles.search__input}
-        aria-labelledby={ariaLabel}
+        aria-label={ariaLabel}
       />
     </div>
   );
