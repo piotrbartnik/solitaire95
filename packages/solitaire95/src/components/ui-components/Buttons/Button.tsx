@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import styles from "./Button.module.scss";
 
 type ButtonPropTypes = {
-  text: string | JSX.Element;
+  text: string;
   onClick?: () => void;
-  label?: string;
+  underscoredLetter?: number;
 };
 
-export const Button: React.FC<ButtonPropTypes> = (props) => {
-  const { text, onClick, label = "" } = props;
+export const Button: React.FC<ButtonPropTypes> = ({
+  text,
+  onClick,
+  underscoredLetter,
+}) => {
   const [buttonActive, setButtonActive] = useState(false);
+
   return (
     <div
       className={[
@@ -28,10 +32,14 @@ export const Button: React.FC<ButtonPropTypes> = (props) => {
       }}
       onClick={() => onClick?.()}
       role="button"
-      aria-label={label}
+      aria-label={text}
     >
       <div className={buttonActive ? styles.button__activeBorder : undefined}>
-        {text}
+        {text
+          .split("")
+          .map((letter, index) =>
+            index === underscoredLetter ? <span>{letter}</span> : letter
+          )}
       </div>
     </div>
   );

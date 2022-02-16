@@ -27,7 +27,9 @@ describe("render MainPage for About window testing", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openAboutWindow();
 
-    fireEvent.click(screen.getByRole("button", { name: "close window" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "About Solitaire close button" })
+    );
     expect(screen.queryByText("About Solitaire")).toBeNull();
   });
 });

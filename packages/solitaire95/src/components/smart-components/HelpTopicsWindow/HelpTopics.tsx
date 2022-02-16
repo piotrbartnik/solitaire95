@@ -60,20 +60,14 @@ const HelpTopicsInternal: React.FC<
         windowTitle={"Help Topics: Solitaire Help"}
         buttons={[
           {
-            text: (
-              <>
-                <span>D</span>isplay
-              </>
-            ),
+            text: "Display",
             onClick: displayOnClick,
+            underscoredLetter: 0,
           },
           {
-            text: (
-              <>
-                <span>P</span>rint
-              </>
-            ),
+            text: "Print",
             onClick: okOnClick,
+            underscoredLetter: 0,
           },
           { text: "Cancel", onClick: okOnClick },
         ]}
