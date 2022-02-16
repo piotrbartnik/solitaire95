@@ -199,7 +199,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           iconHeight={iconHeight}
           shouldBeGreyedOut={topBarGreyetOut}
         >
-          <CloseButton onClick={closeButtonAction} />
+          <CloseButton onClick={closeButtonAction} ariaLabel={windowTitle} />
         </TopBar>
         <div
           style={{

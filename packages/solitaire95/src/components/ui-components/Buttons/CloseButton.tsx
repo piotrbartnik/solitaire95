@@ -4,16 +4,20 @@ import styles from "./Button.module.scss";
 
 type CloseButtonPropTypes = {
   onClick?: () => void;
+  ariaLabel?: string;
 };
 
-export const CloseButton: React.FC<CloseButtonPropTypes> = (props) => {
-  const { onClick } = props;
+export const CloseButton: React.FC<CloseButtonPropTypes> = ({
+  onClick,
+  ariaLabel,
+}) => {
   const [buttonActive, setButtonActive] = useState(false);
 
   return (
     <div
       role="button"
       title="close window"
+      aria-label={ariaLabel ? `${ariaLabel} close button` : undefined}
       className={[
         styles.button,
         styles.closeButton,
