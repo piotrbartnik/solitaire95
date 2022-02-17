@@ -22,7 +22,11 @@ type SettingWindowPropTypes = {
   visible: boolean;
   width?: number;
   height?: number;
-  buttons?: { text: string | JSX.Element; onClick: () => void }[];
+  buttons?: {
+    text: string;
+    onClick: () => void;
+    underscoredLetter?: number;
+  }[];
   closeButtonAction?: () => void;
   positionOnWindow?: number[];
   topBarIcon?: string;
@@ -199,7 +203,7 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           iconHeight={iconHeight}
           shouldBeGreyedOut={topBarGreyetOut}
         >
-          <CloseButton onClick={closeButtonAction} />
+          <CloseButton onClick={closeButtonAction} ariaLabel={windowTitle} />
         </TopBar>
         <div
           style={{
@@ -216,11 +220,12 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           >
             {children}
             <div className={styles.buttonContainer}>
-              {buttons?.map((button, index) => (
+              {buttons?.map(({ text, onClick, underscoredLetter }, index) => (
                 <Button
-                  text={button.text}
-                  onClick={button.onClick}
+                  text={text}
+                  onClick={onClick}
                   key={index}
+                  underscoredLetter={underscoredLetter}
                 />
               ))}
             </div>

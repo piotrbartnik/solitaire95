@@ -84,7 +84,9 @@ describe("render MainPage for Deal again window testing", () => {
 
     fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
     await waitFor(() => fireEvent.click(container.querySelector("canvas")));
-    fireEvent.click(screen.getByRole("button", { name: "close window" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Solitaire close button" })
+    );
 
     expect(
       container.querySelectorAll("div[data-foundationnumber]")

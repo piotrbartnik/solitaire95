@@ -43,7 +43,9 @@ describe("render MainPage for DeckSelect window testing", () => {
     reduxRtlWrapper(dndWrapper(<MainPage />));
     openDeckWindow();
 
-    fireEvent.click(screen.getByRole("button", { name: "close window" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Select Card Back close button" })
+    );
     expect(screen.queryByText("Select Card Back")).toBeNull();
   });
   it("when window is visible it is possible to change card back on double click from default acorns card back", () => {

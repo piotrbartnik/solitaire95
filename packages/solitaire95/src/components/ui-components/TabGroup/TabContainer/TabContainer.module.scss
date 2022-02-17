@@ -8,7 +8,7 @@
   margin: 0 10px;
   visibility: hidden;
   position: absolute;
-  display: block;
+  display: none;
 
   &__inner {
     width: 100%;
@@ -21,4 +21,5 @@
 
 .active {
   visibility: visible;
+  display: block;
 }
