@@ -38,7 +38,11 @@ export const Button: React.FC<ButtonPropTypes> = ({
         {text
           .split("")
           .map((letter, index) =>
-            index === underscoredLetter ? <span>{letter}</span> : letter
+            index === underscoredLetter ? (
+              <span key={`${index}${letter}`}>{letter}</span>
+            ) : (
+              letter
+            )
           )}
       </div>
     </div>

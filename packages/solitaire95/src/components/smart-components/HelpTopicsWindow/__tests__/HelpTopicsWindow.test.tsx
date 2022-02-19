@@ -270,4 +270,51 @@ describe("render HelpTopics", () => {
       screen.queryByText("To play Solitaire: starting the game")
     ).toBeNull();
   });
+
+  it("additional info winows for how to play solitaire are opened", () => {
+    reduxRtlWrapper(dndWrapper(<HelpTopics />), helpWindowVisibleState);
+
+    userEvent.click(screen.getByRole("button", { name: "Index" }));
+
+    userEvent.type(
+      screen.getByRole("textbox", {
+        name: "Type the first few letters of the word you are looking for.",
+      }),
+      "ho"
+    );
+
+    userEvent.click(screen.getByRole("button", { name: "Display" }));
+
+    userEvent.hover(screen.getAllByText(/row stacks/)[1]);
+
+    expect(
+      screen.getByText(
+        /Cards are stacked in descending order, alternating between red cards and/
+      )
+    ).toBeVisible();
+
+    userEvent.unhover(screen.getAllByText(/row stacks/)[1]);
+
+    expect(
+      screen.queryAllByText(
+        /Cards are stacked in descending order, alternating between red cards and/
+      )
+    ).toHaveLength(0);
+
+    userEvent.hover(screen.getAllByText(/suit stacks/)[1]);
+
+    expect(
+      screen.getByText(
+        /Cards are stacked in the four areas at the top right of the screen in/
+      )
+    ).toBeVisible();
+
+    userEvent.unhover(screen.getAllByText(/suit stacks/)[1]);
+
+    expect(
+      screen.queryAllByText(
+        /Cards are stacked in the four areas at the top right of the screen in/
+      )
+    ).toHaveLength(0);
+  });
 });
