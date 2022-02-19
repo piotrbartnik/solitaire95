@@ -16,4 +16,22 @@ describe("render MainPage for Help Topics window testing", () => {
 
     expect(screen.getByText("Help Topics: Solitaire Help")).toBeVisible();
   });
+  it("when dropdown Help -> Help Topics clicked Help window is visible and on Cancel click it is closed", () => {
+    reduxRtlWrapper(dndWrapper(<MainPage />));
+    openHelpWindow();
+
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(screen.queryByText("Help Topics: Solitaire Help")).toBeNull();
+  });
+  it("when dropdown Help -> Help Topics clicked Help window is visible and x button is clicked it is closed", () => {
+    reduxRtlWrapper(dndWrapper(<MainPage />));
+    openHelpWindow();
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "Help Topics: Solitaire Help close button",
+      })
+    );
+    expect(screen.queryByText("Help Topics: Solitaire Help")).toBeNull();
+  });
 });
