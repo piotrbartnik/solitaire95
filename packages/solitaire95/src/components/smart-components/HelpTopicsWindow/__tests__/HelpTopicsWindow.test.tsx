@@ -317,4 +317,49 @@ describe("render HelpTopics", () => {
       )
     ).toHaveLength(0);
   });
+
+  it("additional info winows for scoring solitaire are opened", () => {
+    reduxRtlWrapper(dndWrapper(<HelpTopics />), helpWindowVisibleState);
+
+    userEvent.click(screen.getByRole("button", { name: "Index" }));
+
+    userEvent.type(
+      screen.getByRole("textbox", {
+        name: "Type the first few letters of the word you are looking for.",
+      }),
+      "sc"
+    );
+
+    userEvent.click(screen.getByRole("button", { name: "Display" }));
+
+    userEvent.hover(screen.getAllByText(/Standard scoring/)[0]);
+
+    expect(
+      screen.getByText(/If you move a card to a suit stack, you get 10 points./)
+    ).toBeVisible();
+
+    userEvent.unhover(screen.getAllByText(/Standard scoring/)[0]);
+
+    expect(
+      screen.queryAllByText(
+        /If you move a card to a suit stack, you get 10 points./
+      )
+    ).toHaveLength(0);
+
+    userEvent.hover(screen.getAllByText(/Vegas scoring/)[0]);
+
+    expect(
+      screen.getByText(
+        /You stard the game with a debt of 52 dollars, which represents your wager./
+      )
+    ).toBeVisible();
+
+    userEvent.unhover(screen.getAllByText(/Vegas scoring/)[0]);
+
+    expect(
+      screen.queryAllByText(
+        /You stard the game with a debt of 52 dollars, which represents your wager./
+      )
+    ).toHaveLength(0);
+  });
 });
