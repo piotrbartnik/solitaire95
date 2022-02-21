@@ -31,11 +31,7 @@ export const AppToolbar: React.VFC<AppToolbarPropTypes> = (props) => {
               setGameVisible(!gameVisible);
               setHelpVisible(false);
             }}
-            text={
-              <>
-                <span>G</span>ame
-              </>
-            }
+            underscoredLetter={0}
             label="Game"
             id={"gameButton"}
             active={gameVisible}
@@ -61,11 +57,7 @@ export const AppToolbar: React.VFC<AppToolbarPropTypes> = (props) => {
               setHelpVisible(!helpVisible);
               setGameVisible(false);
             }}
-            text={
-              <>
-                <span>H</span>elp
-              </>
-            }
+            underscoredLetter={0}
             label="Help"
             id={"helpButton"}
             active={helpVisible}

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./TopbarButton.module.scss";
 
 type TopbarButtonPropTypes = {
-  text: string | JSX.Element;
+  underscoredLetter?: number;
   label?: string;
   onClick: () => void;
   id: string;
@@ -10,9 +10,14 @@ type TopbarButtonPropTypes = {
   onMouseOver?: () => void;
 };
 
-export const TopbarButton: React.FC<TopbarButtonPropTypes> = (props) => {
-  const { text, onClick, id, active, onMouseOver, label = "" } = props;
-
+export const TopbarButton: React.FC<TopbarButtonPropTypes> = ({
+  underscoredLetter,
+  onClick,
+  id,
+  active,
+  onMouseOver,
+  label = "",
+}) => {
   const handleTopBarButtonKeyPress = ({ key }: { key: string }) => {
     if (key === " " || key === "Enter") {
       onClick();
@@ -30,7 +35,15 @@ export const TopbarButton: React.FC<TopbarButtonPropTypes> = (props) => {
       onKeyPress={handleTopBarButtonKeyPress}
       aria-label={label}
     >
-      {text}
+      {label
+        .split("")
+        .map((letter, index) =>
+          index === underscoredLetter ? (
+            <span key={`${index}${letter}`}>{letter}</span>
+          ) : (
+            letter
+          )
+        )}
     </div>
   );
 };
