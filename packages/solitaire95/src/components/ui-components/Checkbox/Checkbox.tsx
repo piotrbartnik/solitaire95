@@ -3,16 +3,21 @@ import styles from "./Checkbox.module.scss";
 
 type CheckboxPropTypes = {
   id: string;
-  text: string | JSX.Element;
   checked: boolean;
   onClick: () => void;
   disabled?: boolean;
   label?: string;
+  underscoredLetter?: number;
 };
 
-export const Checkbox: React.FC<CheckboxPropTypes> = (props) => {
-  const { id, label = "", checked, onClick, disabled, text } = props;
-
+export const Checkbox: React.FC<CheckboxPropTypes> = ({
+  id,
+  label = "",
+  checked,
+  onClick,
+  disabled,
+  underscoredLetter,
+}) => {
   const [isChecked, setIsChecked] = useState(checked);
 
   useEffect(() => setIsChecked(checked), [checked]);
@@ -43,7 +48,15 @@ export const Checkbox: React.FC<CheckboxPropTypes> = (props) => {
         htmlFor={id}
         className={[styles.label, disabled ? styles.disabled : null].join(" ")}
       >
-        {text}
+        {label
+          .split("")
+          .map((letter, index) =>
+            index === underscoredLetter ? (
+              <span key={`${index}${letter}`}>{letter}</span>
+            ) : (
+              letter
+            )
+          )}
       </label>
     </div>
   );

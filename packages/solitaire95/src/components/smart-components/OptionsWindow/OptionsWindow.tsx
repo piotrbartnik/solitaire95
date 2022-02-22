@@ -52,46 +52,26 @@ export type OptionsWindowDispatchTypes = {
 const drawRadioButtonsTypes = {
   drawOne: {
     title: "Draw one",
-    node: (
-      <>
-        Draw <span>o</span>ne
-      </>
-    ),
+    underscoredLetter: 5,
   },
   drawThree: {
     title: "Draw three",
-    node: (
-      <>
-        Draw <span>t</span>hree
-      </>
-    ),
+    underscoredLetter: 5,
   },
 };
 
 const scoringRadioButtonsTypes = {
   standard: {
     title: "Standard",
-    node: (
-      <>
-        St<span>a</span>ndard
-      </>
-    ),
+    underscoredLetter: 2,
   },
   vegas: {
     title: "Vegas",
-    node: (
-      <>
-        <span>V</span>egas
-      </>
-    ),
+    underscoredLetter: 0,
   },
   none: {
     title: "None",
-    node: (
-      <>
-        <span>N</span>one
-      </>
-    ),
+    underscoredLetter: 0,
   },
 };
 
@@ -175,19 +155,11 @@ const OptionsInternal: React.FC<
       height={330}
     >
       <div className={styles.radioWrapper__outer}>
-        <RadioBox
-          width={240}
-          heigth={120}
-          title={
-            <>
-              <span>D</span>raw
-            </>
-          }
-        >
+        <RadioBox width={240} heigth={120} label="Draw" underscoredLetter={0}>
           <div className={styles.radioWrapper__inner}>
             {Object.values(drawRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
-                text={radioType.node}
+                underscoredLetter={radioType.underscoredLetter}
                 label={radioType.title}
                 onClick={() => {
                   setToggleDrawTypeState(
@@ -203,16 +175,13 @@ const OptionsInternal: React.FC<
         <RadioBox
           width={240}
           heigth={120}
-          title={
-            <>
-              <span>S</span>coring
-            </>
-          }
+          label="Scoring"
+          underscoredLetter={0}
         >
           <div className={styles.radioWrapper__inner}>
             {Object.values(scoringRadioButtonsTypes).map((radioType, index) => (
               <Radiobutton
-                text={radioType.node}
+                underscoredLetter={radioType.underscoredLetter}
                 label={radioType.title}
                 onClick={() => {
                   setToggleScoreTypeState(
@@ -230,11 +199,7 @@ const OptionsInternal: React.FC<
       </div>
       <div className={styles.checkboxWrapper}>
         <Checkbox
-          text={
-            <>
-              T<span>i</span>med game
-            </>
-          }
+          underscoredLetter={1}
           label="Timed game"
           id="timedGame"
           checked={timerVisible}
@@ -243,11 +208,7 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
-          text={
-            <>
-              Out<span>l</span>ine dragging
-            </>
-          }
+          underscoredLetter={3}
           label="Outline dragging"
           id="outlineDragging"
           checked={isDragOutline}
@@ -257,11 +218,7 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
-          text={
-            <>
-              Status <span>b</span>ar
-            </>
-          }
+          underscoredLetter={7}
           label="Status bar"
           id="statusBar"
           checked={bottomBarVisible}
@@ -270,11 +227,7 @@ const OptionsInternal: React.FC<
           }}
         />
         <Checkbox
-          text={
-            <>
-              <span>K</span>eep score
-            </>
-          }
+          underscoredLetter={0}
           label="Keep score"
           id="keepScore"
           checked={toggleScoreTypeState === "vegas" && keepVegasScoreState}

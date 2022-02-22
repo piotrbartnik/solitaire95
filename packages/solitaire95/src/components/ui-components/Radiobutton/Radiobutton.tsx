@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import styles from "./RadioButton.module.scss";
 
 type RadiobuttonPropTypes = {
-  text: string | JSX.Element;
   label: string;
   onClick: () => void;
   currentValue: string;
+  underscoredLetter?: number;
 };
 
-export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
-  const { label, onClick, currentValue, text } = props;
-
+export const Radiobutton: React.FC<RadiobuttonPropTypes> = ({
+  label,
+  onClick,
+  currentValue,
+  underscoredLetter,
+}) => {
   const [isChecked, setIsChecked] = useState(currentValue === label);
 
   useEffect(() => {
@@ -34,7 +37,15 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = (props) => {
         </div>
       </div>
       <label htmlFor={label} className={styles.radioLabel}>
-        {text}
+        {label
+          .split("")
+          .map((letter, index) =>
+            index === underscoredLetter ? (
+              <span key={`${index}${letter}`}>{letter}</span>
+            ) : (
+              letter
+            )
+          )}
       </label>
     </div>
   );
