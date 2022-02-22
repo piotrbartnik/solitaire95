@@ -24,11 +24,7 @@ const HelpDropdownInternal: React.VFC<
         toggleAboutWindow(true, "helpTopicsWindow");
         setHelpVisible(false);
       }}
-      text={
-        <>
-          <span>H</span>elp Topics
-        </>
-      }
+      underscoredLetter={0}
       label="Help Topics"
     />
     <Separator />
@@ -39,11 +35,7 @@ const HelpDropdownInternal: React.VFC<
         toggleAboutWindow(true, "aboutWindow");
         setHelpVisible(false);
       }}
-      text={
-        <>
-          <span>A</span>bout
-        </>
-      }
+      underscoredLetter={0}
       label="About"
     />
   </>

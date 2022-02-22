@@ -6,8 +6,8 @@ type ToolButtonPropTypes = {
   onMouseOver?: () => void;
   onMouseLeave?: () => void;
   disabled?: boolean;
-  text: string | JSX.Element;
   label?: string;
+  underscoredLetter?: number;
 };
 
 export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
@@ -15,7 +15,7 @@ export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
     onClick,
     onMouseOver,
     onMouseLeave,
-    text,
+    underscoredLetter,
     disabled,
     label = "",
   } = props;
@@ -41,7 +41,15 @@ export const ToolButton: React.FC<ToolButtonPropTypes> = (props) => {
       onKeyDown={handleToolButtonKeyPress}
       aria-label={label}
     >
-      {text}
+      {label
+        .split("")
+        .map((letter, index) =>
+          index === underscoredLetter ? (
+            <span key={`${index}${letter}`}>{letter}</span>
+          ) : (
+            letter
+          )
+        )}
     </div>
   );
 };
