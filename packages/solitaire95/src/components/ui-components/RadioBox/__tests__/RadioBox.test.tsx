@@ -5,7 +5,7 @@ import { RadioBox } from "../RadioBox";
 describe("render radio box", () => {
   it("and check its functionality", () => {
     render(
-      <RadioBox title="Radio box title" width={600} heigth={600}>
+      <RadioBox label="Radio box title" width={600} heigth={600}>
         <div>Test children</div>
       </RadioBox>
     );
