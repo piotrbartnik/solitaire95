@@ -45,6 +45,9 @@ export const VegasContext = createContext({
   isVegas: true,
   keepVegasScore: false,
 });
+export const WindowsOpenedContext = createContext({
+  isAnyWindowOpened: false,
+});
 
 type SoundContextType = {
   playSounds: boolean;
@@ -159,6 +162,14 @@ const MainPageInternal: React.FC<
     ? TouchBackend
     : HTML5Backend;
 
+  const isAnyWindowOpened = isWindowVisible
+    ? Object.values(isWindowVisible).filter(Boolean).length > 0
+    : false;
+
+  const windowOpenedContextValue = {
+    isAnyWindowOpened,
+  };
+
   return (
     <DndProvider backend={dndProviderBackend}>
       <div
@@ -183,39 +194,41 @@ const MainPageInternal: React.FC<
       >
         <SoundContext.Provider value={soundContextValue}>
           <VegasContext.Provider value={vegasContext}>
-            {isWindowVisible?.cardBackWindow && <DeckSelect />}
-            {isWindowVisible?.aboutWindow && (
-              <AboutSolitaire aboutChildren={aboutChildren} />
-            )}
-            {isWindowVisible?.optionsWindow && <Options />}
-            {isWindowVisible?.dealAgainWindow && <DealAgain />}
-            {isWindowVisible?.helpTopicsWindow && <HelpTopics />}
-            <TopBar
-              title={"Solitaire"}
-              showIcon
-              shouldBeGreyedOut={Object.values(
-                isWindowVisible as WindowsState
-              ).some((window) => window === true)}
-            />
-            <AppToolbar
-              gameVisible={gameVisible}
-              helpVisible={helpVisible}
-              setGameVisible={setGameVisibleCallback}
-              setHelpVisible={setHelpVisibleCallback}
-              setBottomBarText={setBottomBarTextCallback}
-            />
-            <GameContainer
-              canvasHeight={canvasSize[1]}
-              canvasWidth={canvasSize[0]}
-            />
-            <BottomBar
-              text={bottomBarText}
-              score={isVegas ? vegasScore : score}
-              bottomBarVisible={bottomBarVisible}
-              timerVisible={timerVisible}
-              scoreVisible={scoreType !== "none"}
-              isVegas={isVegas}
-            />
+            <WindowsOpenedContext.Provider value={windowOpenedContextValue}>
+              {isWindowVisible?.cardBackWindow && <DeckSelect />}
+              {isWindowVisible?.aboutWindow && (
+                <AboutSolitaire aboutChildren={aboutChildren} />
+              )}
+              {isWindowVisible?.optionsWindow && <Options />}
+              {isWindowVisible?.dealAgainWindow && <DealAgain />}
+              {isWindowVisible?.helpTopicsWindow && <HelpTopics />}
+              <TopBar
+                title={"Solitaire"}
+                showIcon
+                shouldBeGreyedOut={Object.values(
+                  isWindowVisible as WindowsState
+                ).some((window) => window === true)}
+              />
+              <AppToolbar
+                gameVisible={gameVisible}
+                helpVisible={helpVisible}
+                setGameVisible={setGameVisibleCallback}
+                setHelpVisible={setHelpVisibleCallback}
+                setBottomBarText={setBottomBarTextCallback}
+              />
+              <GameContainer
+                canvasHeight={canvasSize[1]}
+                canvasWidth={canvasSize[0]}
+              />
+              <BottomBar
+                text={bottomBarText}
+                score={isVegas ? vegasScore : score}
+                bottomBarVisible={bottomBarVisible}
+                timerVisible={timerVisible}
+                scoreVisible={scoreType !== "none"}
+                isVegas={isVegas}
+              />
+            </WindowsOpenedContext.Provider>
           </VegasContext.Provider>
         </SoundContext.Provider>
       </div>

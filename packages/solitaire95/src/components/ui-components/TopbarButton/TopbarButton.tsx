@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./TopbarButton.module.scss";
+import { WindowsOpenedContext } from "../../game-containers";
 
 type TopbarButtonPropTypes = {
   underscoredLetter?: number;
@@ -24,6 +25,8 @@ export const TopbarButton: React.FC<TopbarButtonPropTypes> = ({
     }
   };
 
+  const { isAnyWindowOpened } = useContext(WindowsOpenedContext);
+
   return (
     <div
       className={[styles.container, active ? styles.active : ""].join(" ")}
@@ -31,7 +34,7 @@ export const TopbarButton: React.FC<TopbarButtonPropTypes> = ({
       role="button"
       id={id}
       onMouseOver={onMouseOver}
-      tabIndex={1}
+      tabIndex={!isAnyWindowOpened ? 1 : -1}
       onKeyPress={handleTopBarButtonKeyPress}
       aria-label={label}
     >
