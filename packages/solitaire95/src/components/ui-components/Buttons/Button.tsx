@@ -14,13 +14,19 @@ export const Button: React.FC<ButtonPropTypes> = ({
 }) => {
   const [buttonActive, setButtonActive] = useState(false);
 
+  const handleButtonClick = ({ key }: { key: string }) => {
+    if (key === "Enter") {
+      onClick?.();
+    }
+  };
+
   return (
     <div
       className={[
         styles.button,
         buttonActive ? styles["button--active"] : undefined,
       ].join(" ")}
-      tabIndex={0}
+      tabIndex={1}
       onMouseDown={() => {
         setButtonActive(true);
       }}
@@ -31,6 +37,7 @@ export const Button: React.FC<ButtonPropTypes> = ({
         setButtonActive(false);
       }}
       onClick={() => onClick?.()}
+      onKeyPress={handleButtonClick}
       role="button"
       aria-label={text}
     >
