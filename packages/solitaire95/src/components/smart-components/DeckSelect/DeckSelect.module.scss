@@ -27,7 +27,9 @@
       filter: invert(100%);
     }
 
-    &:focus,
+    &:focus {
+      border: 3px solid #ff0000;
+    }
     &.selected {
       border: 3px solid #000000;
     }
