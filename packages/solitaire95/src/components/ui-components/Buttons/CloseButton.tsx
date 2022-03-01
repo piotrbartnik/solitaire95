@@ -13,6 +13,12 @@ export const CloseButton: React.FC<CloseButtonPropTypes> = ({
 }) => {
   const [buttonActive, setButtonActive] = useState(false);
 
+  const handleButtonClick = ({ key }: { key: string }) => {
+    if (key === "Enter") {
+      onClick?.();
+    }
+  };
+
   return (
     <div
       role="button"
@@ -23,7 +29,7 @@ export const CloseButton: React.FC<CloseButtonPropTypes> = ({
         styles.closeButton,
         buttonActive ? styles["button--active"] : undefined,
       ].join(" ")}
-      tabIndex={0}
+      tabIndex={1}
       onMouseDown={() => {
         setButtonActive(true);
       }}
@@ -33,6 +39,7 @@ export const CloseButton: React.FC<CloseButtonPropTypes> = ({
       onMouseLeave={() => {
         setButtonActive(false);
       }}
+      onKeyPress={handleButtonClick}
       onClick={() => onClick?.()}
       style={{ backgroundImage: `url(${xButton})` }}
     >
