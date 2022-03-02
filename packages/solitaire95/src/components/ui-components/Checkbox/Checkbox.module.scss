@@ -66,6 +66,10 @@ input[type="checkbox"].disabled:after {
     border: 1px dotted #000;
   }
 
+  &:focus-visible {
+    border: 1px dotted #000;
+  }
+
   & span {
     text-decoration: underline;
   }

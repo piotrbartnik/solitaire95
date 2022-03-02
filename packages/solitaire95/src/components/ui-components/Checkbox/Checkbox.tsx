@@ -22,6 +22,15 @@ export const Checkbox: React.FC<CheckboxPropTypes> = ({
 
   useEffect(() => setIsChecked(checked), [checked]);
 
+  const handleButtonClick = ({ key }: { key: string }) => {
+    if (key === "Enter") {
+      if (!disabled) {
+        setIsChecked(!isChecked);
+        onClick();
+      }
+    }
+  };
+
   return (
     <div className={styles.checkbox} aria-checked={isChecked}>
       <div
@@ -47,6 +56,8 @@ export const Checkbox: React.FC<CheckboxPropTypes> = ({
       <label
         htmlFor={id}
         className={[styles.label, disabled ? styles.disabled : null].join(" ")}
+        tabIndex={1}
+        onKeyPress={handleButtonClick}
       >
         {label
           .split("")
