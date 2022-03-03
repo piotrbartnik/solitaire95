@@ -20,6 +20,12 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = ({
     setIsChecked(currentValue === label);
   }, [currentValue, label]);
 
+  const handleButtonClick = ({ key }: { key: string }) => {
+    if (key === "Enter") {
+      onClick();
+    }
+  };
+
   return (
     <div
       className={styles.radioWrapper}
@@ -27,6 +33,7 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = ({
       role="radio"
       id={label}
       aria-label={label}
+      onKeyDown={handleButtonClick}
     >
       <div className={styles.customRadio__outer}>
         <div className={styles.customRadio__inner}>
@@ -36,7 +43,7 @@ export const Radiobutton: React.FC<RadiobuttonPropTypes> = ({
           />
         </div>
       </div>
-      <label htmlFor={label} className={styles.radioLabel}>
+      <label htmlFor={label} className={styles.radioLabel} tabIndex={1}>
         {label
           .split("")
           .map((letter, index) =>

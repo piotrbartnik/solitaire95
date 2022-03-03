@@ -38,6 +38,16 @@
   }
 }
 
-.radioLabel span {
-  text-decoration: underline;
+.radioLabel {
+  &:active {
+    border: 1px dotted #000;
+  }
+
+  &:focus-visible {
+    border: 1px dotted #000;
+  }
+
+  & span {
+    text-decoration: underline;
+  }
 }
