@@ -13,16 +13,30 @@ export const TabNavButton: React.VFC<TabNavButtonPropTypes> = ({
   label,
   setActiveTabCallback,
   disabledTab,
-}) => (
-  <button
-    className={[
-      styles.tabButton,
-      activeTab === label ? styles.tabButton__active : undefined,
-      disabledTab ? styles.tabButton__disabled : undefined,
-    ].join(" ")}
-    onClick={!disabledTab ? () => setActiveTabCallback(label) : undefined}
-    disabled={disabledTab}
-  >
-    {label}
-  </button>
-);
+}) => {
+  const tabActionCallback = !disabledTab
+    ? () => setActiveTabCallback(label)
+    : undefined;
+
+  const handleButtonClick = ({ key }: { key: string }) => {
+    if (key === "Enter") {
+      tabActionCallback?.();
+    }
+  };
+
+  return (
+    <button
+      className={[
+        styles.tabButton,
+        activeTab === label ? styles.tabButton__active : undefined,
+        disabledTab ? styles.tabButton__disabled : undefined,
+      ].join(" ")}
+      onClick={() => tabActionCallback?.()}
+      disabled={disabledTab}
+      tabIndex={1}
+      onKeyPress={handleButtonClick}
+    >
+      {label}
+    </button>
+  );
+};

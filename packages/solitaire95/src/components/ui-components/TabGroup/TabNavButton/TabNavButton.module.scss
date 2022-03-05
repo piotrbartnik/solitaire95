@@ -13,6 +13,10 @@
   cursor: pointer;
   padding: 0 10px;
 
+  &:focus-visible {
+    border: 1px solid black;
+  }
+
   &__active {
     height: 35px;
 
