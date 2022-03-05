@@ -26,6 +26,7 @@ type SettingWindowPropTypes = {
     text: string;
     onClick: () => void;
     underscoredLetter?: number;
+    disabled?: boolean;
   }[];
   closeButtonAction?: () => void;
   positionOnWindow?: number[];
@@ -220,14 +221,17 @@ export const SettingsWindow: React.FC<SettingWindowPropTypes> = (props) => {
           >
             {children}
             <div className={styles.buttonContainer}>
-              {buttons?.map(({ text, onClick, underscoredLetter }, index) => (
-                <Button
-                  text={text}
-                  onClick={onClick}
-                  key={index}
-                  underscoredLetter={underscoredLetter}
-                />
-              ))}
+              {buttons?.map(
+                ({ text, onClick, underscoredLetter, disabled }, index) => (
+                  <Button
+                    text={text}
+                    onClick={onClick}
+                    key={index}
+                    underscoredLetter={underscoredLetter}
+                    disabled={disabled}
+                  />
+                )
+              )}
             </div>
           </div>
         </div>

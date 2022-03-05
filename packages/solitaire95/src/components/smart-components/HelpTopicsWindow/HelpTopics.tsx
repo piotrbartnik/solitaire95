@@ -68,6 +68,7 @@ const HelpTopicsInternal: React.FC<
             text: "Print",
             onClick: okOnClick,
             underscoredLetter: 0,
+            disabled: true,
           },
           { text: "Cancel", onClick: okOnClick },
         ]}

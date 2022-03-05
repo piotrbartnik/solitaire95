@@ -5,17 +5,19 @@ type ButtonPropTypes = {
   text: string;
   onClick?: () => void;
   underscoredLetter?: number;
+  disabled?: boolean;
 };
 
 export const Button: React.FC<ButtonPropTypes> = ({
   text,
   onClick,
   underscoredLetter,
+  disabled,
 }) => {
   const [buttonActive, setButtonActive] = useState(false);
 
   const handleButtonClick = ({ key }: { key: string }) => {
-    if (key === "Enter") {
+    if (key === "Enter" && !disabled) {
       onClick?.();
     }
   };
@@ -25,18 +27,19 @@ export const Button: React.FC<ButtonPropTypes> = ({
       className={[
         styles.button,
         buttonActive ? styles["button--active"] : undefined,
+        disabled ? styles["button--disabled"] : undefined,
       ].join(" ")}
-      tabIndex={1}
+      tabIndex={!disabled ? 1 : -1}
       onMouseDown={() => {
-        setButtonActive(true);
+        !disabled && setButtonActive(true);
       }}
       onMouseUp={() => {
-        setButtonActive(false);
+        !disabled && setButtonActive(false);
       }}
       onMouseLeave={() => {
-        setButtonActive(false);
+        !disabled && setButtonActive(false);
       }}
-      onClick={() => onClick?.()}
+      onClick={() => !disabled && onClick?.()}
       onKeyPress={handleButtonClick}
       role="button"
       aria-label={text}
