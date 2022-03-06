@@ -56,7 +56,7 @@ export const Checkbox: React.FC<CheckboxPropTypes> = ({
       <label
         htmlFor={id}
         className={[styles.label, disabled ? styles.disabled : null].join(" ")}
-        tabIndex={1}
+        tabIndex={!disabled ? 1 : -1}
         onKeyPress={handleButtonClick}
       >
         {label
