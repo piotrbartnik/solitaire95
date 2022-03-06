@@ -30,7 +30,6 @@ type CardPropTypes = {
   pileNumber?: number;
   foundationNumber?: string;
   wasCardTurnedFront?: boolean;
-  canBeTurned?: boolean;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   positionOnPile?: number;
   canBeDragged?: boolean;

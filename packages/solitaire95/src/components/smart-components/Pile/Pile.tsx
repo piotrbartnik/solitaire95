@@ -250,8 +250,6 @@ const PileInternal: React.FC<
       const shouldBeTurnedAfterDrag = isTurnedBackString
         ? !isTurnedBackString
         : pileIndex > index;
-      const canBeTurned =
-        !isTurnedBackString && cardsOnPileLength - 1 === index ? true : false;
       return cardsOnPileLength > 0 ? (
         <div
           className={styles[`pile__${index}`]}
@@ -273,7 +271,6 @@ const PileInternal: React.FC<
             cardOrder={card[4]}
             cardBack={cardBackImage}
             isTurnedBack={shouldBeTurnedAfterDrag}
-            canBeTurned={canBeTurned}
             pileNumber={pileIndex}
             positionOnPile={index}
             onDoubleClick={moveToFoundationCallback}
