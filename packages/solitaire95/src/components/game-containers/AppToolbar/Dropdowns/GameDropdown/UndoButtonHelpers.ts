@@ -49,6 +49,7 @@ export const setActionToUndo: SetActionToUndoType = (
           actionToUndo[1] as cardConfigType[],
           actionToUndo[2] as cardConfigType[]
         );
+        setUndoAction([]);
         break;
       case UNDO_TYPES.ADD_CARD_TO_PILE:
         undoRemoveCardFromPile(
@@ -56,6 +57,7 @@ export const setActionToUndo: SetActionToUndoType = (
             [key: string]: cardConfigType[];
           }
         );
+        setUndoAction([]);
         break;
       case UNDO_TYPES.TAKE_THREE_FROM_STOCK:
         undoThreeCardsFromStock(
@@ -63,6 +65,7 @@ export const setActionToUndo: SetActionToUndoType = (
           actionToUndo[2] as cardConfigType[],
           actionToUndo[3] as cardConfigType[]
         );
+        setUndoAction([]);
         break;
       case UNDO_TYPES.REVERSE_STOCK:
         undoThreeCardsFromStock(
@@ -70,6 +73,7 @@ export const setActionToUndo: SetActionToUndoType = (
           actionToUndo[2] as cardConfigType[],
           actionToUndo[3] as cardConfigType[]
         );
+        setUndoAction([]);
         break;
       case UNDO_TYPES.FROM_STOCK_TO_PILE:
         substractScorePoints(-5);
@@ -80,6 +84,7 @@ export const setActionToUndo: SetActionToUndoType = (
           actionToUndo[2] as cardConfigType[],
           actionToUndo[3] as cardConfigType[]
         );
+        setUndoAction([]);
         break;
       case UNDO_TYPES.FROM_STOCK_TO_FOUNDATION:
         substractScorePoints(-10);
@@ -89,6 +94,7 @@ export const setActionToUndo: SetActionToUndoType = (
           actionToUndo[2] as cardConfigType[],
           actionToUndo[3] as cardConfigType[]
         );
+        setUndoAction([]);
         break;
       case UNDO_TYPES.FROM_PILE_TO_FOUNDATION:
         substractScorePoints(-10);
@@ -97,6 +103,7 @@ export const setActionToUndo: SetActionToUndoType = (
           actionToUndo[1] as { [key: string]: FoundationState },
           actionToUndo[2] as { [key: string]: cardConfigType[] }
         );
+        setUndoAction([]);
         break;
       case UNDO_TYPES.FROM_FOUNDATION_TO_PILES:
         substractScorePoints(10);
@@ -104,6 +111,7 @@ export const setActionToUndo: SetActionToUndoType = (
           actionToUndo[1] as { [key: string]: FoundationState },
           actionToUndo[2] as { [key: string]: cardConfigType[] }
         );
+        setUndoAction([]);
         break;
       default:
         setUndoAction([]);
