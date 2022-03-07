@@ -241,6 +241,7 @@ const CardStockInternal: React.FC<
             }
             key={`${index}${card}`}
             canBeDragged={index === threeCardsOnTable.length - 1}
+            canBeFocused={index === threeCardsOnTable.length - 1}
           />
         </div>
       ))}
@@ -329,6 +330,7 @@ const CardStockInternal: React.FC<
                   isTurnedBack={false}
                   onDoubleClick={moveToFoundationCallback}
                   key={`${index}${card}`}
+                  canBeFocused={index === cardsFromStock.length - 1}
                 />
               </div>
             ))

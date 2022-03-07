@@ -275,6 +275,9 @@ const PileInternal: React.FC<
             positionOnPile={index}
             onDoubleClick={moveToFoundationCallback}
             onClick={turnCardOnPileCallback}
+            canBeFocused={
+              index === cardsOnPile.length - 1 || !shouldBeTurnedAfterDrag
+            }
           />
         </div>
       ) : (

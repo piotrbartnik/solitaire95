@@ -33,27 +33,25 @@ type CardPropTypes = {
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   positionOnPile?: number;
   canBeDragged?: boolean;
+  canBeFocused?: boolean;
 };
 
-export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
-  props
-) => {
-  const {
-    cardFront,
-    cardBack,
-    isTurnedBack = true,
-    onDoubleClick,
-    pileNumber,
-    foundationNumber,
-    cardColor,
-    cardSuite,
-    cardOrder,
-    onClick,
-    positionOnPile,
-    outlineDragging,
-    canBeDragged,
-  } = props;
-
+export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = ({
+  cardFront,
+  cardBack,
+  isTurnedBack = true,
+  onDoubleClick,
+  pileNumber,
+  foundationNumber,
+  cardColor,
+  cardSuite,
+  cardOrder,
+  onClick,
+  positionOnPile,
+  outlineDragging,
+  canBeDragged,
+  canBeFocused,
+}) => {
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       type: itemTypes.CARD,
@@ -94,6 +92,7 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
       data-front={!isTurnedBack}
       data-pilenumber={pileNumber}
       data-positiononpile={positionOnPile}
+      tabIndex={canBeFocused ? 1 : -1}
     >
       {!isTurnedBack ? (
         <div
