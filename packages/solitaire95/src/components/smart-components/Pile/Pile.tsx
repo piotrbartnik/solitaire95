@@ -231,9 +231,17 @@ const PileInternal: React.FC<
   const turnCardOnPileCallback = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (e: any) => {
-      const pileNumber = e.target.parentNode.dataset?.pilenumber;
-      const cardOnPileNumber = e.target.parentNode.dataset?.positiononpile;
-      const isTargetCardTurnedFront = e.target.dataset?.cardname;
+      let pileNumber, cardOnPileNumber, isTargetCardTurnedFront;
+      if (e.key) {
+        pileNumber = e.target.dataset?.pilenumber;
+        cardOnPileNumber = e.target.dataset?.positiononpile;
+        isTargetCardTurnedFront = e.target.firstChild?.dataset?.cardname;
+      } else {
+        pileNumber = e.target.parentNode.dataset?.pilenumber;
+        cardOnPileNumber = e.target.parentNode.dataset?.positiononpile;
+        isTargetCardTurnedFront = e.target.dataset?.cardname;
+      }
+      console.log(pileNumber, cardOnPileNumber, isTargetCardTurnedFront);
       if (cardOnPileNumber && pileNumber && !isTargetCardTurnedFront) {
         addPoints(5);
         turnCardOnPile(pileNumber);

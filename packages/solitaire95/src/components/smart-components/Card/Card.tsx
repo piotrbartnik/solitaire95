@@ -30,7 +30,9 @@ type CardPropTypes = {
   pileNumber?: number;
   foundationNumber?: string;
   wasCardTurnedFront?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onClick?: (
+    event: React.KeyboardEvent | React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => void;
   positionOnPile?: number;
   canBeDragged?: boolean;
   canBeFocused?: boolean;
@@ -76,6 +78,12 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = ({
   const frontImage: string = cardFrontsImages[`${cardFront}_${cardSuite}`];
   const backImage: string = cardBackImages[`${cardBack}`];
 
+  const handleButtonClick = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      onClick?.(event);
+    }
+  };
+
   return (
     <div
       className={styles.card}
@@ -93,6 +101,7 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = ({
       data-pilenumber={pileNumber}
       data-positiononpile={positionOnPile}
       tabIndex={canBeFocused ? 1 : -1}
+      onKeyPress={handleButtonClick}
     >
       {!isTurnedBack ? (
         <div
