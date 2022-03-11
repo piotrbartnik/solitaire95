@@ -7,7 +7,7 @@ describe("render checkbox", () => {
     const clickMock = jest.fn();
     render(
       <Checkbox
-        text={"Test checkbox"}
+        label={"Test checkbox"}
         id={"testId"}
         onClick={clickMock}
         checked={false}

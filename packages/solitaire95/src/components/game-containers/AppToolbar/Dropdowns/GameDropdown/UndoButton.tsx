@@ -74,11 +74,7 @@ export const UndoButtonInternal: React.FC<
     <ToolButton
       onMouseOver={() => setBottomBarText("Undo last action")}
       onMouseLeave={() => setBottomBarText("")}
-      text={
-        <>
-          <span>U</span>ndo
-        </>
-      }
+      underscoredLetter={0}
       label="Undo"
       disabled={!actionToUndo?.length}
       onClick={() => {

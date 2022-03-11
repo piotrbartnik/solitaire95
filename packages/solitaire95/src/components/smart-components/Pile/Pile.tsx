@@ -231,9 +231,17 @@ const PileInternal: React.FC<
   const turnCardOnPileCallback = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (e: any) => {
-      const pileNumber = e.target.parentNode.dataset?.pilenumber;
-      const cardOnPileNumber = e.target.parentNode.dataset?.positiononpile;
-      const isTargetCardTurnedFront = e.target.dataset?.cardname;
+      let pileNumber, cardOnPileNumber, isTargetCardTurnedFront;
+      if (e.key) {
+        pileNumber = e.target.dataset?.pilenumber;
+        cardOnPileNumber = e.target.dataset?.positiononpile;
+        isTargetCardTurnedFront = e.target.firstChild?.dataset?.cardname;
+      } else {
+        pileNumber = e.target.parentNode.dataset?.pilenumber;
+        cardOnPileNumber = e.target.parentNode.dataset?.positiononpile;
+        isTargetCardTurnedFront = e.target.dataset?.cardname;
+      }
+      console.log(pileNumber, cardOnPileNumber, isTargetCardTurnedFront);
       if (cardOnPileNumber && pileNumber && !isTargetCardTurnedFront) {
         addPoints(5);
         turnCardOnPile(pileNumber);
@@ -250,8 +258,6 @@ const PileInternal: React.FC<
       const shouldBeTurnedAfterDrag = isTurnedBackString
         ? !isTurnedBackString
         : pileIndex > index;
-      const canBeTurned =
-        !isTurnedBackString && cardsOnPileLength - 1 === index ? true : false;
       return cardsOnPileLength > 0 ? (
         <div
           className={styles[`pile__${index}`]}
@@ -273,11 +279,13 @@ const PileInternal: React.FC<
             cardOrder={card[4]}
             cardBack={cardBackImage}
             isTurnedBack={shouldBeTurnedAfterDrag}
-            canBeTurned={canBeTurned}
             pileNumber={pileIndex}
             positionOnPile={index}
             onDoubleClick={moveToFoundationCallback}
             onClick={turnCardOnPileCallback}
+            canBeFocused={
+              index === cardsOnPile.length - 1 || !shouldBeTurnedAfterDrag
+            }
           />
         </div>
       ) : (

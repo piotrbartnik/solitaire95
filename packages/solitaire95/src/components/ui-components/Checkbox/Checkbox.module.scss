@@ -66,12 +66,15 @@ input[type="checkbox"].disabled:after {
     border: 1px dotted #000;
   }
 
+  &:focus-visible {
+    border: 1px dotted #000;
+  }
+
   & span {
     text-decoration: underline;
   }
 }
 
 .disabled {
-  // background-color: #808080;
   color: #808080;
 }

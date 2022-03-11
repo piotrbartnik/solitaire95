@@ -241,6 +241,7 @@ const CardStockInternal: React.FC<
             }
             key={`${index}${card}`}
             canBeDragged={index === threeCardsOnTable.length - 1}
+            canBeFocused={index === threeCardsOnTable.length - 1}
           />
         </div>
       ))}
@@ -279,12 +280,26 @@ const CardStockInternal: React.FC<
     moveFirstFromTheTop,
   ]);
 
+  const handleButtonClick = ({ key }: { key: string }) => {
+    if (key === "Enter") {
+      if (!cardsOnStock?.length && blockVegasStock) {
+        return undefined;
+      }
+      if (drawType === "drawOne") {
+        return moveFirstFromTheTop();
+      }
+      return moveThreeFromTheTop();
+    }
+  };
+
   return (
     <div className={styles.cardStock__container}>
       <div
         className={styles.cardStock}
         onClick={stockOnClickCallback()}
         style={{ marginRight: `${distanceBtwPiles}px` }}
+        onKeyPress={handleButtonClick}
+        tabIndex={1}
       >
         <div className={styles.cardStock__cardHolder}>
           <div className={stockHolderBackground} />
@@ -329,6 +344,7 @@ const CardStockInternal: React.FC<
                   isTurnedBack={false}
                   onDoubleClick={moveToFoundationCallback}
                   key={`${index}${card}`}
+                  canBeFocused={index === cardsFromStock.length - 1}
                 />
               </div>
             ))

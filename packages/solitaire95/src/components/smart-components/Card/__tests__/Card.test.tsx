@@ -14,7 +14,6 @@ describe("renders Card", () => {
           cardFront={"ace"}
           cardOrder={"test"}
           cardSuite={"clubs"}
-          canBeTurned
         />
       )
     );
@@ -31,7 +30,6 @@ describe("renders Card", () => {
           cardFront={"ace"}
           cardOrder={"test"}
           cardSuite={"clubs"}
-          canBeTurned
         />
       )
     );
@@ -51,7 +49,6 @@ describe("renders Card", () => {
           cardFront={"ace"}
           cardOrder={"test"}
           cardSuite={"clubs"}
-          canBeTurned
         />
       )
     );

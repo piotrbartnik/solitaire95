@@ -21,7 +21,8 @@
     cursor: pointer;
     margin-left: 5px;
 
-    &--selected {
+    &--selected,
+    &:focus-within {
       background: #2a0081;
       color: #fff;
       position: relative;

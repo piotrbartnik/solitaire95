@@ -25,6 +25,18 @@ const DeckSelectInternal: React.FC<
   const { isWindowVisible, toggleCardBackWindow, cardBackImage, setCardDeck } =
     props;
   const [selectedCardBack, setSelectedCardBack] = useState<string>("");
+  const [newCardBackIndex, setNewCardBackIndex] = useState<number>();
+
+  const handleButtonClick = (
+    { key }: { key: string },
+    selectedCardBack: string,
+    cardIndex: number
+  ) => {
+    if (key === "Enter") {
+      setNewCardBackIndex(cardIndex);
+      setSelectedCardBack(selectedCardBack);
+    }
+  };
 
   const okOnClick = () => {
     selectedCardBack ? setCardDeck(selectedCardBack) : undefined;
@@ -62,10 +74,12 @@ const DeckSelectInternal: React.FC<
               className={[
                 styles.deckContainer__cardBack,
                 cardBack === cardBackImage && styles.selected,
+                index === newCardBackIndex && styles.newSelected,
               ].join(" ")}
               tabIndex={1}
               style={{ backgroundImage: `url(${cardBackImages[cardBack]})` }}
               onClick={() => setSelectedCardBack(cardBack)}
+              onKeyPress={(e) => handleButtonClick(e, cardBack, index)}
               onDoubleClick={() => {
                 setCardDeck(cardBack);
                 toggleCardBackWindow(false, "cardBackWindow");

@@ -3,19 +3,33 @@ import styles from "./Checkbox.module.scss";
 
 type CheckboxPropTypes = {
   id: string;
-  text: string | JSX.Element;
   checked: boolean;
   onClick: () => void;
   disabled?: boolean;
   label?: string;
+  underscoredLetter?: number;
 };
 
-export const Checkbox: React.FC<CheckboxPropTypes> = (props) => {
-  const { id, label = "", checked, onClick, disabled, text } = props;
-
+export const Checkbox: React.FC<CheckboxPropTypes> = ({
+  id,
+  label = "",
+  checked,
+  onClick,
+  disabled,
+  underscoredLetter,
+}) => {
   const [isChecked, setIsChecked] = useState(checked);
 
   useEffect(() => setIsChecked(checked), [checked]);
+
+  const handleButtonClick = ({ key }: { key: string }) => {
+    if (key === "Enter") {
+      if (!disabled) {
+        setIsChecked(!isChecked);
+        onClick();
+      }
+    }
+  };
 
   return (
     <div className={styles.checkbox} aria-checked={isChecked}>
@@ -42,8 +56,18 @@ export const Checkbox: React.FC<CheckboxPropTypes> = (props) => {
       <label
         htmlFor={id}
         className={[styles.label, disabled ? styles.disabled : null].join(" ")}
+        tabIndex={!disabled ? 1 : -1}
+        onKeyPress={handleButtonClick}
       >
-        {text}
+        {label
+          .split("")
+          .map((letter, index) =>
+            index === underscoredLetter ? (
+              <span key={`${index}${letter}`}>{letter}</span>
+            ) : (
+              letter
+            )
+          )}
       </label>
     </div>
   );

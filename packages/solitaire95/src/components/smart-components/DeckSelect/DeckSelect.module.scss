@@ -27,9 +27,15 @@
       filter: invert(100%);
     }
 
-    &:focus,
+    &:focus-within {
+      border: 3px solid #ff0000;
+    }
     &.selected {
       border: 3px solid #000000;
+    }
+
+    &.newSelected {
+      border: 3px solid #00ff37;
     }
   }
 }

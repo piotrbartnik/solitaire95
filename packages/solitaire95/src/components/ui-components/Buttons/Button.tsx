@@ -5,32 +5,42 @@ type ButtonPropTypes = {
   text: string;
   onClick?: () => void;
   underscoredLetter?: number;
+  disabled?: boolean;
 };
 
 export const Button: React.FC<ButtonPropTypes> = ({
   text,
   onClick,
   underscoredLetter,
+  disabled,
 }) => {
   const [buttonActive, setButtonActive] = useState(false);
+
+  const handleButtonClick = ({ key }: { key: string }) => {
+    if (key === "Enter" && !disabled) {
+      onClick?.();
+    }
+  };
 
   return (
     <div
       className={[
         styles.button,
         buttonActive ? styles["button--active"] : undefined,
+        disabled ? styles["button--disabled"] : undefined,
       ].join(" ")}
-      tabIndex={0}
+      tabIndex={!disabled ? 1 : -1}
       onMouseDown={() => {
-        setButtonActive(true);
+        !disabled && setButtonActive(true);
       }}
       onMouseUp={() => {
-        setButtonActive(false);
+        !disabled && setButtonActive(false);
       }}
       onMouseLeave={() => {
-        setButtonActive(false);
+        !disabled && setButtonActive(false);
       }}
-      onClick={() => onClick?.()}
+      onClick={() => !disabled && onClick?.()}
+      onKeyPress={handleButtonClick}
       role="button"
       aria-label={text}
     >
@@ -38,7 +48,11 @@ export const Button: React.FC<ButtonPropTypes> = ({
         {text
           .split("")
           .map((letter, index) =>
-            index === underscoredLetter ? <span>{letter}</span> : letter
+            index === underscoredLetter ? (
+              <span key={`${index}${letter}`}>{letter}</span>
+            ) : (
+              letter
+            )
           )}
       </div>
     </div>

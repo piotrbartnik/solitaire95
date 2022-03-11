@@ -18,4 +18,8 @@
     background-color: #5c00ff;
     background-size: cover;
   }
+
+  &:focus-visible {
+    border: 4px solid #ff0000;
+  }
 }

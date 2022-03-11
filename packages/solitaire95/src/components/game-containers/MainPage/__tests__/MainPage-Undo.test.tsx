@@ -84,4 +84,26 @@ describe("render MainPage with custom state for undo testing", () => {
     ).toHaveLength(0);
     expect(screen.getByText("Score: 0")).toBeVisible();
   });
+
+  it("and when ace added to cards from stock that action can be undone and the undo button is disabled", () => {
+    const { container } = reduxRtlWrapper(
+      dndWrapper(<MainPage />),
+      cardsOnStockMove
+    );
+
+    fireEvent.click(container.querySelector(".cardBack") as Element);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
+
+    clickUndo();
+
+    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
+    expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
+
+    fireEvent.click(screen.getByRole("button", { name: "Game" }));
+
+    expect(screen.getByRole("button", { name: "Undo" })).toHaveClass(
+      "disabled"
+    );
+  });
 });

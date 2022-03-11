@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./TopbarButton.module.scss";
+import { WindowsOpenedContext } from "../../game-containers";
 
 type TopbarButtonPropTypes = {
-  text: string | JSX.Element;
+  underscoredLetter?: number;
   label?: string;
   onClick: () => void;
   id: string;
@@ -10,14 +11,21 @@ type TopbarButtonPropTypes = {
   onMouseOver?: () => void;
 };
 
-export const TopbarButton: React.FC<TopbarButtonPropTypes> = (props) => {
-  const { text, onClick, id, active, onMouseOver, label = "" } = props;
-
+export const TopbarButton: React.FC<TopbarButtonPropTypes> = ({
+  underscoredLetter,
+  onClick,
+  id,
+  active,
+  onMouseOver,
+  label = "",
+}) => {
   const handleTopBarButtonKeyPress = ({ key }: { key: string }) => {
     if (key === " " || key === "Enter") {
       onClick();
     }
   };
+
+  const { isAnyWindowOpened } = useContext(WindowsOpenedContext);
 
   return (
     <div
@@ -26,11 +34,19 @@ export const TopbarButton: React.FC<TopbarButtonPropTypes> = (props) => {
       role="button"
       id={id}
       onMouseOver={onMouseOver}
-      tabIndex={1}
+      tabIndex={!isAnyWindowOpened ? 1 : -1}
       onKeyPress={handleTopBarButtonKeyPress}
       aria-label={label}
     >
-      {text}
+      {label
+        .split("")
+        .map((letter, index) =>
+          index === underscoredLetter ? (
+            <span key={`${index}${letter}`}>{letter}</span>
+          ) : (
+            letter
+          )
+        )}
     </div>
   );
 };

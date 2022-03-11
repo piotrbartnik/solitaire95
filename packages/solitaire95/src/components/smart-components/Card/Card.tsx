@@ -30,31 +30,30 @@ type CardPropTypes = {
   pileNumber?: number;
   foundationNumber?: string;
   wasCardTurnedFront?: boolean;
-  canBeTurned?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onClick?: (
+    event: React.KeyboardEvent | React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => void;
   positionOnPile?: number;
   canBeDragged?: boolean;
+  canBeFocused?: boolean;
 };
 
-export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
-  props
-) => {
-  const {
-    cardFront,
-    cardBack,
-    isTurnedBack = true,
-    onDoubleClick,
-    pileNumber,
-    foundationNumber,
-    cardColor,
-    cardSuite,
-    cardOrder,
-    onClick,
-    positionOnPile,
-    outlineDragging,
-    canBeDragged,
-  } = props;
-
+export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = ({
+  cardFront,
+  cardBack,
+  isTurnedBack = true,
+  onDoubleClick,
+  pileNumber,
+  foundationNumber,
+  cardColor,
+  cardSuite,
+  cardOrder,
+  onClick,
+  positionOnPile,
+  outlineDragging,
+  canBeDragged,
+  canBeFocused,
+}) => {
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       type: itemTypes.CARD,
@@ -79,6 +78,12 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
   const frontImage: string = cardFrontsImages[`${cardFront}_${cardSuite}`];
   const backImage: string = cardBackImages[`${cardBack}`];
 
+  const handleButtonClick = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      onClick?.(event);
+    }
+  };
+
   return (
     <div
       className={styles.card}
@@ -95,6 +100,8 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = (
       data-front={!isTurnedBack}
       data-pilenumber={pileNumber}
       data-positiononpile={positionOnPile}
+      tabIndex={canBeFocused ? 1 : -1}
+      onKeyPress={handleButtonClick}
     >
       {!isTurnedBack ? (
         <div

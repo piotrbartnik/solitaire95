@@ -17,6 +17,12 @@ export const TextButton: React.VFC<TextButtonPropTypes> = ({
   showIcon = true,
   label,
 }) => {
+  const handleButtonClick = ({ key }: { key: string }) => {
+    if (key === "Enter") {
+      onClickCallback?.();
+    }
+  };
+
   return (
     <div className={styles.clickableText__container}>
       {showIcon && (
@@ -35,6 +41,8 @@ export const TextButton: React.VFC<TextButtonPropTypes> = ({
         onClick={onClickCallback}
         role="button"
         aria-label={label}
+        tabIndex={1}
+        onKeyPress={handleButtonClick}
       >
         {label}
       </div>
