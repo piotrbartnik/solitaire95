@@ -23,7 +23,7 @@ describe("render MainPage with custom state for cards on piles ", () => {
       dndWrapper(<MainPage />),
       initialState
     );
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     expect(
       container.querySelector(".foundation")?.querySelectorAll(".card")
     ).toHaveLength(1);
@@ -34,12 +34,12 @@ describe("render MainPage with custom state for cards on piles ", () => {
       dndWrapper(<MainPage />),
       initialState
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
-    fireEvent.click(container.querySelector(".cardBack") as Element);
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(2);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
-    fireEvent.click(container.querySelector(".cardFront") as Element);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(1);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(1);
+    fireEvent.click(container.querySelector(".card__back") as Element);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(2);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(0);
+    fireEvent.click(container.querySelector(".card__front") as Element);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(0);
   });
 });

@@ -28,13 +28,13 @@ const store = {
 describe("renders CardStock", () => {
   it("with 24 cards turned back on it", () => {
     const { container } = reduxRtlWrapper(dndWrapper(<CardStock />));
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(24);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(24);
   });
 
   it("and when card clicked it is turned front and added to cards on table", () => {
     const { container } = reduxRtlWrapper(dndWrapper(<CardStock />));
     fireEvent.click(container.querySelector(".card") as Element);
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(1);
   });
 
   describe("with custom state", () => {
@@ -46,7 +46,7 @@ describe("renders CardStock", () => {
           </Provider>
         )
       );
-      expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
+      expect(container.querySelectorAll(".card__back")).toHaveLength(1);
     });
 
     it("with ace and it is moved to foundations on doubleclick", () => {
@@ -57,8 +57,8 @@ describe("renders CardStock", () => {
           </Provider>
         )
       );
-      fireEvent.dblClick(container.querySelector(".cardFront") as Element);
-      expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
+      fireEvent.dblClick(container.querySelector(".card__front") as Element);
+      expect(container.querySelectorAll(".card__front")).toHaveLength(1);
     });
   });
 });

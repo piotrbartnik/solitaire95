@@ -105,7 +105,7 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = ({
     >
       {!isTurnedBack ? (
         <div
-          className={styles.cardFront}
+          className={styles.card__front}
           style={{ backgroundImage: `url(${frontImage})` }}
           data-cardname={cardFront}
           data-suite={cardSuite}
@@ -119,7 +119,7 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = ({
         ></div>
       ) : (
         <div
-          className={styles.cardBack}
+          className={styles.card__back}
           style={{ backgroundImage: `url(${backImage})` }}
         ></div>
       )}

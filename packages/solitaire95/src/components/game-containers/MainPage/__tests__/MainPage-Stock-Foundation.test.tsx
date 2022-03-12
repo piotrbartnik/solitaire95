@@ -36,7 +36,7 @@ describe("render MainPage with custom state for cards on stock", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     expect(
       container.querySelector(".foundation")?.querySelector(".card")
     ).toBeVisible();
@@ -51,7 +51,7 @@ describe("render MainPage with custom state for cards on stock", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
 
     expect(
       container.querySelector(".foundation")?.querySelectorAll(".card")
@@ -74,7 +74,7 @@ describe("render MainPage with custom state for cards on stock", () => {
       fireEvent.click(
         container.querySelector(".cardStock__cardHolder") as Element
       );
-      fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+      fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     }
     expect(
       container.querySelector(".foundation")?.querySelectorAll(".card")
@@ -110,7 +110,7 @@ describe("render MainPage with custom state for cards on stock", () => {
       fireEvent.click(
         container.querySelector(".cardStock__cardHolder") as Element
       );
-      fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+      fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     }
 
     foundations.forEach((foundation: HTMLDivElement, index: number) => {

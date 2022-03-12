@@ -29,7 +29,7 @@ describe("render Pile", () => {
       dndWrapper(<Pile cardsOnPile={testAceCardStock} pileIndex={0} />)
     );
 
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
   });
   it("first card has 0px and second 27px from top etc if all cards are turned front", () => {
     const { container } = reduxRtlWrapper(
