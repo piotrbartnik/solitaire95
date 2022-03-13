@@ -27,7 +27,7 @@ describe("render MainPage, start game", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     act(() => {
       jest.advanceTimersByTime(5000);
     });

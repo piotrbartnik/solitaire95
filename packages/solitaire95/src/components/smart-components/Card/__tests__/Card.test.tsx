@@ -17,7 +17,7 @@ describe("renders Card", () => {
         />
       )
     );
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(1);
   });
 
   it("and check if card front is rendered", () => {
@@ -33,7 +33,7 @@ describe("renders Card", () => {
         />
       )
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(1);
   });
 
   it("and cards makes action on double click", () => {

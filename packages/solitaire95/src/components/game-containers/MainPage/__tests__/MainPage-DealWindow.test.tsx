@@ -56,7 +56,7 @@ describe("render MainPage for Deal again window testing", () => {
       dndWrapper(<MainPage />),
       initialState
     );
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     await waitFor(() => fireEvent.click(container.querySelector("canvas")));
 
     expect(screen.getByText("Deal again?")).toBeVisible();
@@ -67,7 +67,7 @@ describe("render MainPage for Deal again window testing", () => {
       initialState
     );
 
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     await waitFor(() => fireEvent.click(container.querySelector("canvas")));
     fireEvent.click(screen.getByText("No"));
 
@@ -82,7 +82,7 @@ describe("render MainPage for Deal again window testing", () => {
       initialState
     );
 
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     await waitFor(() => fireEvent.click(container.querySelector("canvas")));
     fireEvent.click(
       screen.getByRole("button", { name: "Solitaire close button" })
@@ -100,7 +100,7 @@ describe("render MainPage for Deal again window testing", () => {
       initialState
     );
 
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     await waitFor(() =>
       fireEvent.keyDown(container.querySelector("canvas"), {
         key: "Escape",
@@ -121,7 +121,7 @@ describe("render MainPage for Deal again window testing", () => {
       dndWrapper(<MainPage />),
       initialState
     );
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     expect(screen.getByText(/Score: 1410/)).toBeTruthy();
   });
 });

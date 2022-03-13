@@ -88,12 +88,12 @@ describe("render MainPage for Options window testing", () => {
     );
     openOptionsWindow();
 
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(0);
 
     fireEvent.click(screen.getByRole("checkbox", { name: "Timed game" }));
     fireEvent.click(screen.getByRole("button", { name: "OK" }));
 
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(7);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(7);
   });
 
   it("when game changed to vegas correct scoring is shown and game is rerendered", () => {
@@ -158,7 +158,7 @@ describe("render MainPage for Options window testing", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(8);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(8);
   });
 
   it("when draw three is selected only one card will be shown on stack", () => {
@@ -171,6 +171,6 @@ describe("render MainPage for Options window testing", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(10);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(10);
   });
 });

@@ -64,7 +64,7 @@ describe("render MainPage with custom state for cards on stock", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
   });
   it("and double click on ace, it is added to foundation", () => {
     const { container } = reduxRtlWrapper(
@@ -123,13 +123,13 @@ describe("render MainPage with custom state for cards on stock", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(10);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(10);
 
     clickUndo();
 
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(13);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(13);
   });
   it("three cards reverse on stock can be undone", () => {
     const { container } = reduxRtlWrapper(
@@ -152,20 +152,20 @@ describe("render MainPage with custom state for cards on stock", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(1);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(0);
 
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
 
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(13);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(13);
 
     clickUndo();
 
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(1);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(0);
   });
   it("and when ace added to foundation it can be undo back to stock and score is substracted", () => {
     const { container } = reduxRtlWrapper(
@@ -176,7 +176,7 @@ describe("render MainPage with custom state for cards on stock", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
 
     fireEvent.doubleClick(
       container.querySelector("div[data-suite='spades']") as Element
@@ -189,7 +189,7 @@ describe("render MainPage with custom state for cards on stock", () => {
     expect(
       container.querySelector(".foundation")?.querySelector(".card")
     ).toBeFalsy();
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
     expect(screen.getByText("Score: 0")).toBeVisible();
   });
   it("proper cards actions are made on subsequent stock clicks", () => {
@@ -201,48 +201,48 @@ describe("render MainPage with custom state for cards on stock", () => {
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(21);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(21);
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(18);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(18);
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(15);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(15);
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(12);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(12);
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(9);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(9);
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(6);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(6);
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(3);
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(3);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(3);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(0);
     fireEvent.click(
       container.querySelector(".cardStock__cardHolder") as Element
     );
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(24);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(24);
   });
 
   it("vegas holder is shown for draw one type when all cards clicked once", () => {

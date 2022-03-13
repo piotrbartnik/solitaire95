@@ -39,14 +39,14 @@ describe("render MainPage with custom state for undo testing", () => {
       cardsOnStockMove
     );
 
-    fireEvent.click(container.querySelector(".cardBack") as Element);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
+    fireEvent.click(container.querySelector(".card__back") as Element);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(1);
 
     clickUndo();
 
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(1);
   });
   it("and when ace added to foundation it can be undo back to stock and score is substracted", () => {
     const { container } = reduxRtlWrapper(
@@ -54,7 +54,7 @@ describe("render MainPage with custom state for undo testing", () => {
       stockToFoundationState
     );
 
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     expect(
       container.querySelector(".foundation")?.querySelector(".card")
     ).toBeVisible();
@@ -71,7 +71,7 @@ describe("render MainPage with custom state for undo testing", () => {
       fromPileToFoundation
     );
 
-    fireEvent.doubleClick(container.querySelector(".cardFront") as Element);
+    fireEvent.doubleClick(container.querySelector(".card__front") as Element);
     expect(
       container.querySelector(".foundation")?.querySelectorAll(".card")
     ).toHaveLength(1);
@@ -91,14 +91,14 @@ describe("render MainPage with custom state for undo testing", () => {
       cardsOnStockMove
     );
 
-    fireEvent.click(container.querySelector(".cardBack") as Element);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(0);
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(1);
+    fireEvent.click(container.querySelector(".card__back") as Element);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(1);
 
     clickUndo();
 
-    expect(container.querySelectorAll(".cardFront")).toHaveLength(0);
-    expect(container.querySelectorAll(".cardBack")).toHaveLength(1);
+    expect(container.querySelectorAll(".card__front")).toHaveLength(0);
+    expect(container.querySelectorAll(".card__back")).toHaveLength(1);
 
     fireEvent.click(screen.getByRole("button", { name: "Game" }));
 
