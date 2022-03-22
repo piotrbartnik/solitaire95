@@ -4,9 +4,21 @@ on:
     branches:
       - github_actions
 jobs:
-  test_and_deploy:
+  run_all_tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/run-tests
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14.17.0"
+      - run: yarn global add lerna
+      - run: yarn install
+      - run: yarn test:ci
+      - run: yarn build:packages
+      - run: yarn cy:ci
+  push_codecov_report:
+    needs: run_all_tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - uses: codecov/codecov-action@v2
