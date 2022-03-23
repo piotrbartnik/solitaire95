@@ -18,3 +18,10 @@ jobs:
       - run: yarn build:packages
       - run: yarn cy:ci
       - uses: codecov/codecov-action@v2
+      - uses: actions/checkout@v2
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOLITAIRE95_4B3B8 }}"
+          channelId: live
+          projectId: solitaire95-4b3b8
