@@ -18,7 +18,7 @@ jobs:
       - run: yarn build:packages
       - run: yarn cy:ci
       - uses: codecov/codecov-action@v2
-      - uses: actions/checkout@v2
+      - run: cd ./applications/web-app && yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
