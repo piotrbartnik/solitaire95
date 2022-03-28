@@ -1,4 +1,4 @@
-[![Deployment](https://github.com/piotrbartnik/solitaire95/actions/workflows/deploy-solitaire.yml/badge.svg)]
+[![Deployment](https://github.com/piotrbartnik/solitaire95/actions/workflows/deploy-solitaire.yml/badge.svg)](https://github.com/piotrbartnik/solitaire95/actions/workflows/deploy-solitaire.yml)
 [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://solitaire95-4b3b8.web.app/)
 [![codecov](https://codecov.io/gh/piotrbartnik/solitaire95/branch/master/graph/badge.svg?token=6I29VMDVU6)](https://codecov.io/gh/piotrbartnik/solitaire95)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
