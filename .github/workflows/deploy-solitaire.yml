@@ -2,10 +2,9 @@ name: Deploy Solitaire
 on:
   push:
     branches:
-      - github_actions
-      # - master
+      - master
 jobs:
-  run_all_tests:
+  run_all_tests_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

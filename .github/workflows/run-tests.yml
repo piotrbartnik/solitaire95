@@ -1,5 +1,9 @@
 name: Run All Tests
-on: [push, workflow_call]
+on:
+  push:
+    branches:
+      - "*"
+      - "!master"
 jobs:
   run_all_tests:
     runs-on: ubuntu-latest
