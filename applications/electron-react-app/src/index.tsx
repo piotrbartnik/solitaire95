@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Solitaire95 aboutChildren={<Bio />} />
+    <Solitaire95 aboutChildren={<Bio />} preserveStateInLocalStorage={false} />
   </React.StrictMode>,
   document.getElementById("root")
 );
