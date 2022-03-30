@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Solitaire95 } from "solitaire95";
+import { Bio } from "author-bio";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Solitaire95 />
+    <Solitaire95 aboutChildren={<Bio />} />
   </React.StrictMode>,
   document.getElementById("root")
 );
