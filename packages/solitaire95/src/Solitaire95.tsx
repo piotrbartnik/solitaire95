@@ -40,11 +40,14 @@ const Solitaire95: React.FC<PropTypes> = (props) => {
   if (preserveStateInLocalStorage) {
     if (persistedState?.gameState?.keepVegasScore === undefined) {
       store.dispatch(dealCards());
+    } else {
+      store.subscribe(() => {
+        localStorage.setItem(
+          "solitaireState",
+          JSON.stringify(store.getState())
+        );
+      });
     }
-
-    store.subscribe(() => {
-      localStorage.setItem("solitaireState", JSON.stringify(store.getState()));
-    });
   }
 
   return (
