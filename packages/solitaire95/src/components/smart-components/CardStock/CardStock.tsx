@@ -33,7 +33,7 @@ import { cardConfigType } from "../../../configs/cardTypes";
 import { moveToFoundation } from "../../../helpers/cardMoving";
 import styles from "./CardStock.module.scss";
 import { useGetThreeFromCardsOnStock } from "./CardStock.hooks";
-import { VegasContext } from "../../game-containers";
+import { VegasContext, WindowsOpenedContext } from "../../game-containers";
 
 export type CardStockStateTypes = {
   cardsOnStock: cardConfigType[];
@@ -292,6 +292,8 @@ const CardStockInternal: React.FC<
     }
   };
 
+  const { isAnyWindowOpened } = useContext(WindowsOpenedContext);
+
   return (
     <div className={styles.cardStock__container}>
       <div
@@ -299,7 +301,7 @@ const CardStockInternal: React.FC<
         onClick={stockOnClickCallback()}
         style={{ marginRight: `${distanceBtwPiles}px` }}
         onKeyPress={handleButtonClick}
-        tabIndex={1}
+        tabIndex={!isAnyWindowOpened ? 1 : -1}
       >
         <div className={styles.cardStock__cardHolder}>
           <div className={stockHolderBackground} />

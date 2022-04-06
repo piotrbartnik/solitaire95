@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { connect } from "react-redux";
 import { GameState } from "../../../store/reducers/";
 import { useDrag } from "react-dnd";
@@ -11,6 +11,7 @@ import {
 } from "../../../configs/cardTypes";
 import { cardFrontsImages } from "../../../static/cardsFronts";
 import { cardBackImages } from "../../../static/cardBacks";
+import { WindowsOpenedContext } from "../../game-containers";
 import styles from "./Card.module.scss";
 
 type CardStateTypes = {
@@ -84,6 +85,8 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = ({
     }
   };
 
+  const { isAnyWindowOpened } = useContext(WindowsOpenedContext);
+
   return (
     <div
       className={styles.card}
@@ -100,7 +103,7 @@ export const CardInternal: React.FC<CardPropTypes & CardStateTypes> = ({
       data-front={!isTurnedBack}
       data-pilenumber={pileNumber}
       data-positiononpile={positionOnPile}
-      tabIndex={canBeFocused ? 1 : -1}
+      tabIndex={canBeFocused && !isAnyWindowOpened ? 1 : -1}
       onKeyPress={handleButtonClick}
     >
       {!isTurnedBack ? (

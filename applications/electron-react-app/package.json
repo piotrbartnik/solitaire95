@@ -15,7 +15,8 @@
     "react-scripts": "4.0.1",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4",
-    "solitaire95": "0.1.2"
+    "solitaire95": "0.1.2",
+    "author-bio": "0.1.0"
   },
   "scripts": {
     "build": "react-scripts build",

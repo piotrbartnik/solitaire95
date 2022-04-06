@@ -38,9 +38,16 @@ const Solitaire95: React.FC<PropTypes> = (props) => {
   const { playSounds, aboutChildren, preserveStateInLocalStorage } = props;
 
   if (preserveStateInLocalStorage) {
-    store.subscribe(() => {
-      localStorage.setItem("solitaireState", JSON.stringify(store.getState()));
-    });
+    if (persistedState?.gameState?.keepVegasScore === undefined) {
+      store.dispatch(dealCards());
+    } else {
+      store.subscribe(() => {
+        localStorage.setItem(
+          "solitaireState",
+          JSON.stringify(store.getState())
+        );
+      });
+    }
   }
 
   return (
