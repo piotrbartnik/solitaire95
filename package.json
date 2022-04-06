@@ -45,9 +45,10 @@
     "build:packages": "lerna run webpack",
     "test": "jest",
     "test:ci": "jest --collect-coverage",
-    "cy:ci": "start-server-and-test start:web:ci 3007 cypress run",
-    "cy:run": "concurrently 'PORT=3007 REACT_APP_CY_ENV=test yarn start:web' 'yarn cypress run'",
+    "cy:ci": "start-server-and-test start:web:ci 3007 cy:run",
+    "cy:run:dev": "concurrently 'PORT=3007 REACT_APP_CY_ENV=test yarn start:web' 'yarn cypress run'",
     "cy:open": "concurrently 'PORT=3007 REACT_APP_CY_ENV=test yarn start:web' 'yarn cypress open'",
+    "cy:run": "cypress run",
     "eslint:packages": "node ./node_modules/.bin/eslint --max-warnings 0 --fix-dry-run packages/"
   },
   "husky": {
