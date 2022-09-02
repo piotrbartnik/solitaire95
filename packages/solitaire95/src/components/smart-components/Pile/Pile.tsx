@@ -241,7 +241,6 @@ const PileInternal: React.FC<
         cardOnPileNumber = e.target.parentNode.dataset?.positiononpile;
         isTargetCardTurnedFront = e.target.dataset?.cardname;
       }
-      console.log(pileNumber, cardOnPileNumber, isTargetCardTurnedFront);
       if (cardOnPileNumber && pileNumber && !isTargetCardTurnedFront) {
         addPoints(5);
         turnCardOnPile(pileNumber);
